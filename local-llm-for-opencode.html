@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local LLM Analysis for OpenCode — August 19, 2026</title>
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2129; --border: #30363d;
+    --text: #e6edf3; --text-dim: #8b949e; --accent: #58a6ff; --green: #3fb950;
+    --yellow: #d29922; --red: #f85149; --purple: #bc8cff; --orange: #f0883e;
+    --pink: #f778ba; --cyan: #39d2c0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 1440px; margin: 0 auto; padding: 2rem; }
+  h1 { font-size: 2.2rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--cyan), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--cyan); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+  h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: var(--purple); }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 2rem; }
+  .date-badge { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 0.25rem 0.75rem; font-size: 0.8rem; color: var(--yellow); margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+  th { background: var(--surface2); color: var(--cyan); text-align: left; padding: 0.55rem 0.7rem; border: 1px solid var(--border); font-weight: 600; position: sticky; top: 0; }
+  td { padding: 0.45rem 0.7rem; border: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(57,210,192,0.04); }
+  .highlight { background: rgba(63,185,80,0.08) !important; }
+  .best { color: var(--green); font-weight: 700; }
+  .good { color: var(--cyan); }
+  .warn { color: var(--yellow); }
+  .bad { color: var(--red); }
+  .muted { color: var(--text-dim); font-size: 0.8rem; }
+  .tag { display: inline-block; padding: 0.12rem 0.45rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600; margin: 0.1rem; }
+  .tag-gold { background: rgba(210,153,34,0.2); color: var(--yellow); border: 1px solid rgba(210,153,34,0.4); }
+  .tag-green { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+  .tag-blue { background: rgba(88,166,255,0.15); color: var(--accent); border: 1px solid rgba(88,166,255,0.3); }
+  .tag-purple { background: rgba(188,140,255,0.15); color: var(--purple); border: 1px solid rgba(188,140,255,0.3); }
+  .tag-red { background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
+  .tag-orange { background: rgba(240,136,62,0.15); color: var(--orange); border: 1px solid rgba(240,136,62,0.3); }
+  .tag-cyan { background: rgba(57,210,192,0.15); color: var(--cyan); border: 1px solid rgba(57,210,192,0.3); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin: 1rem 0; }
+  .card-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; }
+  .go-card { background: linear-gradient(135deg, rgba(57,210,192,0.06), rgba(63,185,80,0.06)); border: 2px solid var(--cyan); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; }
+  .go-card h3 { color: var(--cyan); margin-top: 0; }
+  .sweet-spot { background: linear-gradient(135deg, rgba(63,185,80,0.06), rgba(57,210,192,0.06)); border: 2px solid var(--green); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; }
+  .sweet-spot h3 { color: var(--green); margin-top: 0; }
+  .verdict { background: var(--surface2); border-left: 4px solid var(--green); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+  .verdict strong { color: var(--green); }
+  .metric-big { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+  .metric-label { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  .metric-card { text-align: center; }
+  .nav { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 2rem; position: sticky; top: 0; z-index: 100; display: flex; flex-wrap: wrap; gap: 0.25rem; }
+  .nav a { color: var(--cyan); text-decoration: none; margin-right: 1.25rem; font-size: 0.82rem; font-weight: 500; }
+  .nav a:hover { text-decoration: underline; }
+  .legend { display: flex; gap: 1rem; flex-wrap: wrap; margin: 0.5rem 0; font-size: 0.78rem; }
+  .sources { font-size: 0.76rem; color: var(--text-dim); margin-top: 0.5rem; }
+  .sources a { color: var(--cyan); text-decoration: none; }
+  pre { background: var(--bg); padding: 1rem; border-radius: 6px; font-size: 0.82rem; overflow-x:auto; border: 1px solid var(--border); }
+  code { background: var(--surface2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.82rem; }
+  .hw-spec { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem 0.7rem; margin: 0.2rem; font-size: 0.82rem; }
+  .hw-spec strong { color: var(--cyan); }
+  .bar-container { background: var(--surface2); border-radius: 4px; height: 20px; position: relative; overflow: hidden; margin: 0.2rem 0; }
+  .bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 0.7rem; font-weight: 600; color: #fff; min-width: fit-content; }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    table { font-size: 0.75rem; }
+    th, td { padding: 0.35rem 0.45rem; }
+    .nav { overflow-x: auto; flex-wrap: nowrap; }
+    .metric-big { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="date-badge">Updated: August 19, 2026</div>
+<h1>Local LLM Analysis for OpenCode</h1>
+<p class="subtitle">What you can run locally on your hardware and how it compares to cloud models. No API keys, no subscriptions, no data leaving your machine.</p>
+
+<div style="margin:1rem 0;">
+  <span class="hw-spec"><strong>CPU:</strong> Ryzen 9 5900XT (16C/32T)</span>
+  <span class="hw-spec"><strong>GPU:</strong> RTX 5060 Ti 16GB GDDR7</span>
+  <span class="hw-spec"><strong>RAM:</strong> 64GB DDR4</span>
+  <span class="hw-spec"><strong>PSU:</strong> 1000W+</span>
+  <span class="hw-spec"><strong>Cooling:</strong> 9 fans</span>
+</div>
+
+<nav class="nav">
+  <a href="#tldr">TL;DR</a>
+  <a href="#models">Models</a>
+  <a href="#performance">Performance</a>
+  <a href="#quantization">Quantization</a>
+  <a href="#software">Software</a>
+  <a href="#gap">Local vs Cloud</a>
+  <a href="#strategy">Strategy</a>
+  <a href="#setup">Setup</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<!-- ==================== TL;DR ==================== -->
+<section id="tldr">
+<h2>The TL;DR</h2>
+
+<div class="grid-4">
+  <div class="card metric-card">
+    <div class="metric-label">Best Local Model</div>
+    <div class="metric-big" style="color:var(--green)">Qwen 3.6 35B</div>
+    <div class="muted">MoE, ~88% of frontier, ~100 tok/s</div>
+  </div>
+  <div class="card metric-card">
+    <div class="metric-label">Best FIM/Autocomplete</div>
+    <div class="metric-big" style="color:var(--cyan)">Qwen 2.5 Coder 14B</div>
+    <div class="muted">HumanEval 89.9%, ~34 tok/s</div>
+  </div>
+  <div class="card metric-card">
+    <div class="metric-label">Fastest Model</div>
+    <div class="metric-big" style="color:var(--yellow)">DeepSeek Coder 6.7B</div>
+    <div class="muted">~100 tok/s, Q4_K_M</div>
+  </div>
+  <div class="card metric-card">
+    <div class="metric-label">Max Quality Local</div>
+    <div class="metric-big" style="color:var(--purple)">Qwen3-Coder 32B</div>
+    <div class="muted">HumanEval+ 84.1%, partial offload</div>
+  </div>
+</div>
+
+<div class="card">
+  <p><strong>The 30-second version:</strong> With your RTX 5060 Ti 16GB, you can run <strong>Qwen 3.6 35B-A3B</strong> (MoE, only 3B active) at ~100 tok/s — that's ~88% of frontier intelligence with zero API costs. For autocomplete, <strong>Qwen 2.5 Coder 14B</strong> is the undisputed king. For max quality, <strong>Qwen3-Coder 32B</strong> fits with partial CPU offload (~22 tok/s). Local models beat GPT-4o-mini on coding and are within 5-15% of frontier on easy tasks, but the gap widens to 30-50% on complex multi-file work.</p>
+</div>
+</section>
+
+<!-- ==================== MODELS ==================== -->
+<section id="models">
+<h2>Recommended Models for Your Hardware</h2>
+
+<h3>Tier 1: Best for OpenCode (Full GPU)</h3>
+<table>
+<thead>
+<tr>
+  <th>Model</th>
+  <th>Params</th>
+  <th>Quant</th>
+  <th>VRAM</th>
+  <th>Speed</th>
+  <th>Quality</th>
+  <th>Context</th>
+  <th>License</th>
+</tr>
+</thead>
+<tbody>
+<tr class="highlight">
+  <td><strong>Qwen 3.6 35B-A3B</strong></td>
+  <td>35B (3B active)</td>
+  <td>Q3_K_M</td>
+  <td>~16.6 GB</td>
+  <td class="best">~80-100 tok/s</td>
+  <td class="best">SWE-bench 73.4%</td>
+  <td>262K</td>
+  <td>Apache 2.0</td>
+</tr>
+<tr class="highlight">
+  <td><strong>Qwen 2.5 Coder 14B</strong></td>
+  <td>14B</td>
+  <td>Q4_K_M</td>
+  <td>~9 GB</td>
+  <td class="good">~34 tok/s</td>
+  <td class="best">HumanEval 89.9%</td>
+  <td>128K</td>
+  <td>Apache 2.0</td>
+</tr>
+<tr>
+  <td><strong>DeepSeek Coder V2 Lite</strong></td>
+  <td>16B (2.4B active)</td>
+  <td>Q4_K_M</td>
+  <td>~10 GB</td>
+  <td class="good">~45 tok/s</td>
+  <td class="good">HumanEval 81.1%</td>
+  <td>128K</td>
+  <td>MIT</td>
+</tr>
+<tr>
+  <td><strong>Gemma 4 12B</strong></td>
+  <td>12B</td>
+  <td>Q4_K_M</td>
+  <td>~8 GB</td>
+  <td class="good">~50+ tok/s</td>
+  <td>Generalist</td>
+  <td>32K+</td>
+  <td>Apache 2.0</td>
+</tr>
+<tr>
+  <td><strong>Codestral 22B</strong></td>
+  <td>22B</td>
+  <td>Q4_K_M</td>
+  <td>~14 GB</td>
+  <td>~22 tok/s</td>
+  <td class="good">HumanEval ~85%</td>
+  <td>128K</td>
+  <td>Apache 2.0</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Tier 2: Partial CPU Offload (Higher Quality, Slower)</h3>
+<table>
+<thead>
+<tr>
+  <th>Model</th>
+  <th>Params</th>
+  <th>Quant</th>
+  <th>VRAM+RAM</th>
+  <th>Speed</th>
+  <th>Quality</th>
+  <th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="highlight">
+  <td><strong>Qwen3-Coder 32B</strong></td>
+  <td>32B</td>
+  <td>Q4_K_M</td>
+  <td>~18.4 GB (4-5 layers on CPU)</td>
+  <td>~22 tok/s</td>
+  <td class="best">HumanEval+ 84.1%</td>
+  <td>Best local coding quality</td>
+</tr>
+<tr>
+  <td><strong>Qwen 3.6 27B</strong></td>
+  <td>27B</td>
+  <td>IQ3_XXS</td>
+  <td>~16 GB (tight)</td>
+  <td>~20-30 tok/s</td>
+  <td class="good">SWE-bench 77.2%</td>
+  <td>Dense model, higher quality</td>
+</tr>
+<tr>
+  <td><strong>Devstral Small 24B</strong></td>
+  <td>24B</td>
+  <td>Q4_K_M</td>
+  <td>~16 GB</td>
+  <td>~25-30 tok/s</td>
+  <td>Good</td>
+  <td>Mistral coding model</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Tier 3: Budget / Ultra-Fast</h3>
+<table>
+<thead>
+<tr>
+  <th>Model</th>
+  <th>Params</th>
+  <th>Quant</th>
+  <th>VRAM</th>
+  <th>Speed</th>
+  <th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Qwen 2.5 Coder 7B</strong></td>
+  <td>7B</td>
+  <td>Q5_K_M</td>
+  <td>~5.5 GB</td>
+  <td class="best">~70-80 tok/s</td>
+  <td>Quick tasks, autocomplete fallback</td>
+</tr>
+<tr>
+  <td><strong>DeepSeek-Coder 6.7B</strong></td>
+  <td>6.7B</td>
+  <td>Q4_K_M</td>
+  <td>~4.5 GB</td>
+  <td class="best">~100 tok/s</td>
+  <td>Ultra-fast coding</td>
+</tr>
+<tr>
+  <td><strong>Phi-4 14B</strong></td>
+  <td>14B</td>
+  <td>Q6_K</td>
+  <td>~11.5 GB</td>
+  <td class="good">~49 tok/s</td>
+  <td>Math/STEM tasks</td>
+</tr>
+<tr>
+  <td><strong>Llama 3.3 14B</strong></td>
+  <td>14B</td>
+  <td>Q5_K_M</td>
+  <td>~10 GB</td>
+  <td class="good">~58 tok/s</td>
+  <td>General reasoning</td>
+</tr>
+<tr>
+  <td><strong>Phi-3 3.8B</strong></td>
+  <td>3.8B</td>
+  <td>Q4_K_M</td>
+  <td>~2.3 GB</td>
+  <td class="best">~110-120 tok/s</td>
+  <td>Instant responses</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Skip These (Outclassed in 2026)</h3>
+<table>
+<thead><tr><th>Model</th><th>Why Skip</th></tr></thead>
+<tbody>
+<tr><td>CodeLlama (all sizes)</td><td>HumanEval 53.7% (34B) — massively outclassed by Qwen at every size</td></tr>
+<tr><td>StarCoder 2</td><td>Outclassed by Qwen 2.5 Coder at every size, 16K context</td></tr>
+<tr><td>Yi Coder</td><td>Superseded by Qwen 2.5 Coder</td></tr>
+<tr><td>Granite Code (IBM)</td><td>Not on any 2026 leaderboard top-10</td></tr>
+<tr><td>DeepSeek R1 distilled</td><td>Reasoning tokens balloon context/KV cache, impractical at 16GB</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== PERFORMANCE ==================== -->
+<section id="performance">
+<h2>Performance on RTX 5060 Ti 16GB</h2>
+
+<h3>Tokens Per Second by Model Size</h3>
+<table>
+<thead>
+<tr><th>Model Size</th><th>Q4_K_M (tok/s)</th><th>Q8_0 (tok/s)</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>3-4B</td><td class="best">110-120</td><td>80-90</td><td>Instant, great for autocomplete</td></tr>
+<tr><td>7B</td><td class="best">70-80</td><td>55-65</td><td>Sweet spot for speed</td></tr>
+<tr><td>14B</td><td class="good">34-41</td><td>25-30</td><td>Good balance</td></tr>
+<tr><td>20B (MXFP4)</td><td class="good">43-92</td><td>N/A</td><td>Blackwell-optimized</td></tr>
+<tr><td>27B (IQ3_XXS)</td><td>20-30</td><td>N/A</td><td>Tight fit, quality tradeoff</td></tr>
+<tr><td>35B-A3B (MoE)</td><td class="best">80-100</td><td>N/A</td><td>Only 3B active, very fast</td></tr>
+<tr><td>32B (partial offload)</td><td>18-22</td><td>N/A</td><td>4-5 layers on CPU</td></tr>
+</tbody>
+</table>
+
+<h3>Context Length Impact</h3>
+<p class="muted">Speed drops as context grows. Plan accordingly.</p>
+<table>
+<thead>
+<tr><th>Context</th><th>tok/s (Qwen3 8B Q4)</th><th>Relative</th></tr>
+</thead>
+<tbody>
+<tr><td>4K</td><td>69.2</td><td>100%</td></tr>
+<tr><td>16K</td><td>51.4</td><td>74%</td></tr>
+<tr><td>32K</td><td>38.9</td><td>56%</td></tr>
+<tr><td>64K</td><td>25.8</td><td>37%</td></tr>
+</tbody>
+</table>
+
+<h3>CPU+GPU Offload Performance Cliff</h3>
+<table>
+<thead>
+<tr><th>Setup</th><th>Bandwidth</th><th>Relative Speed</th></tr>
+</thead>
+<tbody>
+<tr><td>Full GPU (VRAM)</td><td>448 GB/s</td><td class="best">100%</td></tr>
+<tr><td>CPU RAM (DDR4-3200)</td><td>~50 GB/s</td><td class="bad">~11%</td></tr>
+<tr><td>CPU RAM (DDR5-5600)</td><td>~90 GB/s</td><td class="warn">~20%</td></tr>
+</tbody>
+</table>
+<div class="verdict">
+  <strong>Key insight:</strong> A model that fully fits in VRAM at a lower quantization (e.g., 14B Q4_K_M at 34 tok/s) will dramatically outperform a larger model that must offload to CPU (e.g., 27B Q4_K_M hybrid at ~10-15 tok/s). <strong>Fit-in-VRAM > parameter count</strong> for interactive use.
+</div>
+</section>
+
+<!-- ==================== QUANTIZATION ==================== -->
+<section id="quantization">
+<h2>What Fits in 16GB VRAM?</h2>
+
+<table>
+<thead>
+<tr><th>Quant</th><th>Bits/Weight</th><th>8B Model</th><th>14B Model</th><th>27B Model</th><th>35B MoE</th></tr>
+</thead>
+<tbody>
+<tr><td>Q2_K</td><td>~2.5 bpw</td><td>~3.3 GB</td><td>~5.7 GB</td><td>~10 GB</td><td>~14 GB</td></tr>
+<tr><td>Q3_K_M</td><td>~3.5 bpw</td><td>~4.0 GB</td><td>~6.9 GB</td><td>~12 GB</td><td class="good">~17 GB (tight)</td></tr>
+<tr class="highlight"><td><strong>Q4_K_M</strong></td><td>~4.5 bpw</td><td class="best">~5.0 GB</td><td class="best">~8.4 GB</td><td class="warn">~16 GB (tight)</td><td class="bad">~21 GB (no)</td></tr>
+<tr><td>Q5_K_M</td><td>~5.5 bpw</td><td>~5.8 GB</td><td>~10 GB</td><td class="bad">~19 GB (no)</td><td class="bad">No</td></tr>
+<tr><td>Q6_K</td><td>~6.5 bpw</td><td>~6.7 GB</td><td>~12 GB</td><td class="bad">No</td><td class="bad">No</td></tr>
+<tr><td>Q8_0</td><td>~8 bpw</td><td>~8.7 GB</td><td>~15 GB</td><td class="bad">No</td><td class="bad">No</td></tr>
+<tr><td>FP16</td><td>16 bpw</td><td class="bad">~16.4 GB (over)</td><td class="bad">No</td><td class="bad">No</td><td class="bad">No</td></tr>
+</tbody>
+</table>
+
+<div class="card">
+  <div class="card-title">Blackwell MXFP4 Advantage</div>
+  <p>Your RTX 5060 Ti supports native FP4 tensor cores. MXFP4 quantization (4.66 bpW) is ~13.6% smaller than Q4_K_M.</p>
+  <p style="margin-top:0.5rem;"><strong>Example:</strong> Gemma 4 26B-A4B at MXFP4-MOE = 13.70 GiB (fits), while Q4_K_M = 15.85 GiB (does NOT fit). Use MXFP4 when available.</p>
+</div>
+</section>
+
+<!-- ==================== SOFTWARE ==================== -->
+<section id="software">
+<h2>Inference Software</h2>
+
+<table>
+<thead>
+<tr><th>Engine</th><th>OpenAI API</th><th>Tool Calling</th><th>CUDA</th><th>CPU+GPU Offload</th><th>Ease</th><th>Best For</th></tr>
+</thead>
+<tbody>
+<tr class="highlight">
+  <td><strong>Ollama</strong></td><td class="best">Full</td><td class="best">Yes</td><td class="best">Yes</td><td class="best">Auto</td><td class="best">&#11088;&#11088;&#11088;&#11088;&#11088;</td>
+  <td><span class="tag tag-gold">RECOMMENDED</span></td>
+</tr>
+<tr>
+  <td><strong>llama.cpp</strong></td><td class="best">Full</td><td class="best">Yes</td><td class="best">Yes</td><td class="best">Best</td><td>&#11088;&#11088;&#11088;</td>
+  <td><span class="tag tag-green">Max performance</span></td>
+</tr>
+<tr>
+  <td><strong>vLLM</strong></td><td class="best">Full</td><td class="best">Yes</td><td class="best">Yes</td><td class="warn">Limited</td><td>&#11088;&#11088;&#11088;</td>
+  <td><span class="tag tag-blue">Multi-user</span></td>
+</tr>
+<tr>
+  <td><strong>LocalAI</strong></td><td class="best">Full</td><td class="best">Yes</td><td class="best">Yes</td><td class="good">Yes</td><td>&#11088;&#11088;&#11088;&#11088;</td>
+  <td><span class="tag tag-purple">Multi-modal</span></td>
+</tr>
+<tr>
+  <td><strong>LM Studio</strong></td><td class="best">Full</td><td class="good">Yes</td><td class="best">Yes</td><td class="good">Yes</td><td class="best">&#11088;&#11088;&#11088;&#11088;&#11088;</td>
+  <td><span class="tag tag-blue">GUI users</span></td>
+</tr>
+<tr>
+  <td><strong>text-gen-webui</strong></td><td class="best">Full</td><td class="good">Yes</td><td class="best">Yes</td><td class="good">Yes</td><td>&#11088;&#11088;&#11088;&#11088;</td>
+  <td><span class="tag tag-orange">Power users</span></td>
+</tr>
+</tbody>
+</table>
+
+<div class="card">
+  <div class="card-title">Why Ollama?</div>
+  <ul style="margin:0.5rem 0 0 1.5rem;">
+    <li>One command install: <code>curl -fsSL https://ollama.ai/install.sh | sh</code></li>
+    <li>Auto-detects GPU, auto-offloads layers</li>
+    <li>Built-in OpenAI-compatible API at <code>http://localhost:11434/v1</code></li>
+    <li>Huge model library: <code>ollama pull qwen3-coder:32b</code></li>
+    <li>Works with opencode out of the box</li>
+  </ul>
+</div>
+</section>
+
+<!-- ==================== LOCAL VS CLOUD ==================== -->
+<section id="gap">
+<h2>Local vs Cloud: The Honest Gap</h2>
+
+<h3>Benchmark Comparison</h3>
+<table>
+<thead>
+<tr><th>Task</th><th>Local Best (32B)</th><th>Cloud Best</th><th>Gap</th></tr>
+</thead>
+<tbody>
+<tr><td>Easy coding tasks (Aider Edit)</td><td>72.9%</td><td>88.0%</td><td class="warn">~15 points</td></tr>
+<tr><td>Hard coding tasks (Aider Polyglot)</td><td>~40%</td><td>88.0%</td><td class="bad">~48 points</td></tr>
+<tr><td>Code completion</td><td>~90%</td><td>~95%</td><td class="good">~5 points</td></tr>
+<tr><td>Multi-file editing</td><td>~40%</td><td>~85%</td><td class="bad">~45 points</td></tr>
+<tr><td>HumanEval (synthetic)</td><td>~90%</td><td>~95%</td><td class="good">~5 points</td></tr>
+</tbody>
+</table>
+
+<h3>Visual: Quality Gap</h3>
+<div class="card">
+<table>
+<thead><tr><th>Task</th><th>Local (32B)</th><th>Cloud (Opus 5)</th></tr></thead>
+<tbody>
+<tr>
+  <td>Code completion</td>
+  <td><div class="bar-container"><div class="bar" style="width:90%;background:linear-gradient(90deg,#238636,#3fb950);">90%</div></div></td>
+  <td><div class="bar-container"><div class="bar" style="width:95%;background:linear-gradient(90deg,#1f6feb,#58a6ff);">95%</div></div></td>
+</tr>
+<tr>
+  <td>Easy coding</td>
+  <td><div class="bar-container"><div class="bar" style="width:73%;background:linear-gradient(90deg,#238636,#3fb950);">73%</div></div></td>
+  <td><div class="bar-container"><div class="bar" style="width:88%;background:linear-gradient(90deg,#1f6feb,#58a6ff);">88%</div></div></td>
+</tr>
+<tr>
+  <td>Hard coding</td>
+  <td><div class="bar-container"><div class="bar" style="width:40%;background:linear-gradient(90deg,#9e6a03,#d29922);">40%</div></div></td>
+  <td><div class="bar-container"><div class="bar" style="width:88%;background:linear-gradient(90deg,#1f6feb,#58a6ff);">88%</div></div></td>
+</tr>
+<tr>
+  <td>Multi-file editing</td>
+  <td><div class="bar-container"><div class="bar" style="width:40%;background:linear-gradient(90deg,#da3633,#f85149);">40%</div></div></td>
+  <td><div class="bar-container"><div class="bar" style="width:85%;background:linear-gradient(90deg,#1f6feb,#58a6ff);">85%</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>Where Local Models Excel</h3>
+<div class="grid-2">
+<div class="card">
+  <div class="card-title" style="color:var(--green);">Local Wins</div>
+  <ul style="margin:0.5rem 0 0 1.5rem;">
+    <li>Code completion (single-line/function)</li>
+    <li>Simple function generation</li>
+    <li>Boilerplate/templates</li>
+    <li>Code explanation</li>
+    <li>Privacy-sensitive code</li>
+    <li>Offline/air-gapped use</li>
+    <li>Zero marginal cost</li>
+    <li>No rate limits</li>
+  </ul>
+</div>
+<div class="card">
+  <div class="card-title" style="color:var(--accent);">Cloud Wins</div>
+  <ul style="margin:0.5rem 0 0 1.5rem;">
+    <li>Complex multi-file refactoring</li>
+    <li>SWE-bench style real-world issues</li>
+    <li>Large codebase understanding</li>
+    <li>Production code generation</li>
+    <li>Cross-language projects</li>
+    <li>Complex debugging</li>
+    <li>Architecture decisions</li>
+    <li>Code review at scale</li>
+  </ul>
+</div>
+</div>
+</section>
+
+<!-- ==================== STRATEGY ==================== -->
+<section id="strategy">
+<h2>The Hybrid Strategy</h2>
+
+<div class="sweet-spot">
+<h3>Recommended Setup: Local + Cloud</h3>
+<pre>
+┌─────────────────────────────────────────────────────────┐
+│  LOCAL (free, private, fast)                             │
+│  ├─ Qwen 2.5 Coder 14B  → Autocomplete / FIM           │
+│  ├─ Qwen 3.6 35B-A3B    → Daily coding chat            │
+│  └─ DeepSeek Coder 7B   → Quick fixes                  │
+│                                                          │
+│  CLOUD (when local isn't enough)                         │
+│  ├─ OpenCode Go ($10/mo) → Kimi K3, Luna, Grok 4.5     │
+│  ├─ Zen credits           → Claude Sonnet 5             │
+│  └─ Direct API            → Claude Opus 5               │
+└─────────────────────────────────────────────────────────┘
+</pre>
+<p style="margin-top:0.75rem;"><strong>Use local for:</strong> 80% of daily coding — autocomplete, simple functions, quick fixes, privacy-sensitive code.<br>
+<strong>Escalate to cloud for:</strong> Complex refactoring, multi-file changes, architecture decisions, production code.</p>
+</div>
+</section>
+
+<!-- ==================== SETUP ==================== -->
+<section id="setup">
+<h2>Quick Setup Guide</h2>
+
+<h3>Option A: Ollama (Recommended)</h3>
+<pre>
+# Install Ollama
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Pull models
+ollama pull qwen3-coder:32b
+ollama pull qwen2.5-coder:14b
+
+# Increase context window (default is often too small)
+cat &gt; Modelfile &lt;&lt; 'EOF'
+FROM qwen3-coder:32b
+PARAMETER num_ctx 32768
+EOF
+ollama create qwen3-coder:32b-32k -f Modelfile
+</pre>
+
+<h3>Option B: llama.cpp (Best Performance)</h3>
+<pre>
+# Build with CUDA for RTX 5060 Ti
+git clone https://github.com/ggml-org/llama.cpp
+cd llama.cpp
+cmake -B build -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=120a-real
+cmake --build build --config Release -j$(nproc)
+
+# Serve with full GPU offload
+./build/bin/llama serve \
+  -hf unsloth/Qwen3-Coder-32B-GGUF:Q4_K_M \
+  --n-gpu-layers 99 \
+  --ctx-size 32768 \
+  --threads 12
+</pre>
+
+<h3>OpenCode Config</h3>
+<pre>
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/qwen3-coder:32b",
+  "small_model": "ollama/qwen2.5-coder:14b",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen3-coder:32b": { "name": "Qwen3-Coder 32B" },
+        "qwen2.5-coder:14b": { "name": "Qwen 2.5 Coder 14B" }
+      }
+    }
+  }
+}
+</pre>
+
+<h3>Hardware Optimization</h3>
+<table>
+<thead><tr><th>Setting</th><th>Value</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td><code>--n-gpu-layers</code></td><td>999</td><td>Offload everything possible to GPU</td></tr>
+<tr><td><code>--threads</code></td><td>12</td><td>Sweet spot for Ryzen 5900XT (not all 32)</td></tr>
+<tr><td><code>cache-type-k</code></td><td>q8_0</td><td>Saves ~30% VRAM for KV cache</td></tr>
+<tr><td>Context size</td><td>32768</td><td>Balance between capability and VRAM</td></tr>
+<tr><td>Monitor</td><td><code>nvidia-smi</code></td><td>Leave 1-2GB headroom for KV cache</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== SOURCES ==================== -->
+<section id="sources">
+<h2>Sources</h2>
+<div class="card" style="font-size:0.85rem;">
+<ul style="margin:0.5rem 0 0 1.5rem;">
+  <li><a href="https://github.com/ggml-org/llama.cpp" style="color:var(--cyan);">llama.cpp</a> — Inference engine</li>
+  <li><a href="https://ollama.ai/library" style="color:var(--cyan);">Ollama Model Library</a></li>
+  <li><a href="https://huggingface.co/Qwen/Qwen2.5-Coder" style="color:var(--cyan);">Qwen 2.5 Coder</a></li>
+  <li><a href="https://aider.chat/docs/leaderboards/" style="color:var(--cyan);">Aider Leaderboard</a> — Local vs cloud comparison</li>
+  <li><a href="https://reddit.com/r/LocalLLaMA" style="color:var(--cyan);">r/LocalLLaMA</a> — Community benchmarks</li>
+  <li><a href="https://artificialanalysis.ai/leaderboards/models" style="color:var(--cyan);">Artificial Analysis</a></li>
+</ul>
+</div>
+</section>
+
+<footer style="text-align:center; padding:2rem 0 1rem; color:var(--text-dim); font-size:0.75rem; border-top:1px solid var(--border); margin-top:2rem;">
+  Local LLM Analysis for OpenCode &middot; Generated August 19, 2026 &middot; Run <code>llama-bench</code> on your own hardware for exact numbers
+</footer>
+
+</div>
+</body>
+</html>

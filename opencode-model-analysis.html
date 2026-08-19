@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenCode Model Intelligence Analysis — August 19, 2026</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2129;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --yellow: #d29922;
+    --red: #f85149;
+    --purple: #bc8cff;
+    --orange: #f0883e;
+    --pink: #f778ba;
+    --cyan: #39d2c0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 1440px; margin: 0 auto; padding: 2rem; }
+  h1 { font-size: 2.2rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--accent), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+  h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: var(--purple); }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 2rem; }
+  .date-badge { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 0.25rem 0.75rem; font-size: 0.8rem; color: var(--yellow); margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+  th { background: var(--surface2); color: var(--accent); text-align: left; padding: 0.55rem 0.7rem; border: 1px solid var(--border); font-weight: 600; position: sticky; top: 0; }
+  td { padding: 0.45rem 0.7rem; border: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(88,166,255,0.04); }
+  .highlight { background: rgba(63,185,80,0.08) !important; }
+  .best { color: var(--green); font-weight: 700; }
+  .good { color: var(--accent); }
+  .warn { color: var(--yellow); }
+  .bad { color: var(--red); }
+  .muted { color: var(--text-dim); font-size: 0.8rem; }
+  .tag { display: inline-block; padding: 0.12rem 0.45rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600; margin: 0.1rem; }
+  .tag-gold { background: rgba(210,153,34,0.2); color: var(--yellow); border: 1px solid rgba(210,153,34,0.4); }
+  .tag-green { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+  .tag-blue { background: rgba(88,166,255,0.15); color: var(--accent); border: 1px solid rgba(88,166,255,0.3); }
+  .tag-purple { background: rgba(188,140,255,0.15); color: var(--purple); border: 1px solid rgba(188,140,255,0.3); }
+  .tag-red { background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
+  .tag-orange { background: rgba(240,136,62,0.15); color: var(--orange); border: 1px solid rgba(240,136,62,0.3); }
+  .tag-cyan { background: rgba(57,210,192,0.15); color: var(--cyan); border: 1px solid rgba(57,210,192,0.3); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin: 1rem 0; }
+  .card-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; }
+  .sweet-spot { background: linear-gradient(135deg, rgba(63,185,80,0.06), rgba(88,166,255,0.06)); border: 2px solid var(--green); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; }
+  .sweet-spot h3 { color: var(--green); margin-top: 0; }
+  .verdict { background: var(--surface2); border-left: 4px solid var(--green); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+  .verdict strong { color: var(--green); }
+  .go-card { background: linear-gradient(135deg, rgba(57,210,192,0.06), rgba(88,166,255,0.06)); border: 2px solid var(--cyan); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; }
+  .go-card h3 { color: var(--cyan); margin-top: 0; }
+  .metric-big { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+  .metric-label { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  .metric-card { text-align: center; }
+  .nav { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 2rem; position: sticky; top: 0; z-index: 100; display: flex; flex-wrap: wrap; gap: 0.25rem; }
+  .nav a { color: var(--accent); text-decoration: none; margin-right: 1.25rem; font-size: 0.82rem; font-weight: 500; }
+  .nav a:hover { text-decoration: underline; }
+  .legend { display: flex; gap: 1rem; flex-wrap: wrap; margin: 0.5rem 0; font-size: 0.78rem; }
+  .sources { font-size: 0.76rem; color: var(--text-dim); margin-top: 0.5rem; }
+  .sources a { color: var(--accent); text-decoration: none; }
+  .sources a:hover { text-decoration: underline; }
+  pre { background: var(--bg); padding: 1rem; border-radius: 6px; font-size: 0.82rem; overflow-x:auto; border: 1px solid var(--border); }
+  code { background: var(--surface2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.82rem; }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    table { font-size: 0.75rem; }
+    th, td { padding: 0.35rem 0.45rem; }
+    .nav { overflow-x: auto; flex-wrap: nowrap; }
+    .metric-big { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="date-badge">Updated: August 19, 2026</div>
+<h1>OpenCode Model Intelligence Analysis</h1>
+<p class="subtitle">Comprehensive analysis of every model in opencode — with <strong style="color:var(--cyan);">OpenCode Go ($10/mo)</strong> subscription fully integrated. Pricing, benchmarks, intelligence-per-dollar, and the sweet spot for Go subscribers.</p>
+
+<nav class="nav">
+  <a href="#tldr">TL;DR</a>
+  <a href="#go">OpenCode Go</a>
+  <a href="#sweet-spot">Sweet Spot</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#benchmarks">Benchmarks</a>
+  <a href="#value">Value</a>
+  <a href="#speed">Speed</a>
+  <a href="#features">Features</a>
+  <a href="#opencode">OpenCode Tips</a>
+  <a href="#recommendations">Recommendations</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<!-- ==================== TL;DR ==================== -->
+<section id="tldr">
+<h2>The TL;DR — What You Actually Need to Know</h2>
+
+<div class="grid-4">
+  <div class="card metric-card">
+    <div class="metric-label">Most Intelligent (Outright)</div>
+    <div class="metric-big" style="color:var(--green)">Claude Opus 5</div>
+    <div class="muted">$5/$25 &middot; SWE-bench 96%</div>
+  </div>
+  <div class="card metric-card">
+    <div class="metric-label">Best Value (BYOK)</div>
+    <div class="metric-big" style="color:var(--yellow)">GPT-5.6 Luna</div>
+    <div class="muted">$0.20/$1.20 &middot; 93% of Sol</div>
+  </div>
+  <div class="card metric-card">
+    <div class="metric-label">Best Go Model</div>
+    <div class="metric-big" style="color:var(--cyan)">DeepSeek V4 Pro</div>
+    <div class="muted">Included in Go &middot; 5,200 req/mo</div>
+  </div>
+  <div class="card metric-card">
+    <div class="metric-label">Go Sweet Spot</div>
+    <div class="metric-big" style="color:var(--accent)">GPT-5.6 Luna</div>
+    <div class="muted">Included in Go &middot; 10,250 req/mo</div>
+  </div>
+</div>
+
+<div class="card">
+  <p><strong>For Go subscribers:</strong> You have 20 models for $10/mo. The standouts are <strong>GPT-5.6 Luna</strong> (93% of frontier at effectively free), <strong>DeepSeek V4 Pro</strong> (strong reasoning, ~5,200 req/mo), <strong>Kimi K3</strong> (frontier-quality, ~490 req/mo), and <strong>Grok 4.5</strong> (~600 req/mo). For tasks that Go can't handle, top up with <strong>Zen credits</strong> and use Claude Opus 5 ($25/1M) or Sonnet 5 ($10/1M) as your escalation path.</p>
+</div>
+</section>
+
+<!-- ==================== OPENCODE GO ==================== -->
+<section id="go">
+<h2>OpenCode Go — Your $10/mo Subscription</h2>
+
+<div class="go-card">
+<h3>What is OpenCode Go?</h3>
+<p>A flat-rate subscription ($5 first month, $10/mo after) giving you access to <strong>20 curated open-source coding models</strong> tested specifically for agentic coding. It includes <strong>$60/mo equivalent usage</strong> — that's 6x the subscription cost.</p>
+<p style="margin-top:0.5rem;"><strong>Not included:</strong> Claude, Gemini, or most GPT models. Those are on <strong>Zen</strong> (pay-as-you-go). Go is for the open-model budget tier.</p>
+</div>
+
+<h3>All 20 Go Models — Ranked by Intelligence</h3>
+<table>
+<thead>
+<tr>
+  <th>Model</th>
+  <th>Best For</th>
+  <th>Intelligence</th>
+  <th>Usage Tier</th>
+  <th>Est. Req/Month</th>
+  <th>Sweet Spot?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="highlight">
+  <td><strong>GPT 5.6 Luna</strong></td>
+  <td>General coding</td>
+  <td class="best">~93% of frontier</td>
+  <td>$15/mo equiv</td>
+  <td>~10,250</td>
+  <td><span class="tag tag-gold">BEST GO MODEL</span></td>
+</tr>
+<tr class="highlight">
+  <td><strong>Kimi K3</strong></td>
+  <td>Frontier reasoning</td>
+  <td class="best">~100% of frontier</td>
+  <td>$15/mo equiv</td>
+  <td>~490</td>
+  <td><span class="tag tag-gold">FRONTIER QUALITY</span></td>
+</tr>
+<tr class="highlight">
+  <td><strong>Grok 4.5</strong></td>
+  <td>Complex reasoning</td>
+  <td class="good">~96% of frontier</td>
+  <td>$15/mo equiv</td>
+  <td>~600</td>
+  <td><span class="tag tag-green">GREAT VALUE</span></td>
+</tr>
+<tr>
+  <td><strong>DeepSeek V4 Pro</strong></td>
+  <td>Reasoning + coding</td>
+  <td class="good">~78% of frontier</td>
+  <td>$15/mo equiv</td>
+  <td>~5,200</td>
+  <td><span class="tag tag-green">GREAT VALUE</span></td>
+</tr>
+<tr>
+  <td><strong>GLM-5.3</strong></td>
+  <td>Reasoning</td>
+  <td class="good">~77% of frontier</td>
+  <td>$15/mo equiv</td>
+  <td>~1,080</td>
+  <td><span class="tag tag-blue">SOLID</span></td>
+</tr>
+<tr>
+  <td><strong>Qwen3.8 Max</strong></td>
+  <td>General reasoning</td>
+  <td class="good">~85% of frontier</td>
+  <td>$15/mo equiv</td>
+  <td>~810</td>
+  <td><span class="tag tag-blue">SOLID</span></td>
+</tr>
+<tr>
+  <td><strong>GLM-5.2</strong></td>
+  <td>Reasoning</td>
+  <td class="good">~82% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~4,300</td>
+  <td><span class="tag tag-blue">SOLID</span></td>
+</tr>
+<tr>
+  <td><strong>GLM-5.1</strong></td>
+  <td>Reasoning, math</td>
+  <td class="good">~80% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~4,300</td>
+  <td><span class="tag tag-blue">SOLID</span></td>
+</tr>
+<tr>
+  <td><strong>Qwen3.7 Max</strong></td>
+  <td>General</td>
+  <td>~80% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~1,690</td>
+  <td><span class="tag tag-blue">SOLID</span></td>
+</tr>
+<tr>
+  <td><strong>Kimi K2.7 Code</strong></td>
+  <td>Code-specific</td>
+  <td>~75% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~6,750</td>
+  <td><span class="tag tag-purple">CODE FOCUSED</span></td>
+</tr>
+<tr>
+  <td><strong>MiMo-V2.5-Pro</strong></td>
+  <td>Enhanced coding</td>
+  <td>~55% of frontier</td>
+  <td>$15/mo equiv</td>
+  <td>~16,300</td>
+  <td><span class="tag tag-orange">BUDGET</span></td>
+</tr>
+<tr>
+  <td><strong>MiniMax M3</strong></td>
+  <td>General coding</td>
+  <td>~88% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~16,000</td>
+  <td><span class="tag tag-blue">SOLID</span></td>
+</tr>
+<tr>
+  <td><strong>MiniMax M2.7</strong></td>
+  <td>General coding</td>
+  <td>~85% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~17,000</td>
+  <td><span class="tag tag-blue">SOLID</span></td>
+</tr>
+<tr>
+  <td><strong>Qwen3.7 Plus</strong></td>
+  <td>General coding</td>
+  <td>~70% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~21,600</td>
+  <td><span class="tag tag-orange">BUDGET</span></td>
+</tr>
+<tr>
+  <td><strong>Qwen3.6 Plus</strong></td>
+  <td>General coding</td>
+  <td>~68% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~21,600</td>
+  <td><span class="tag tag-orange">BUDGET</span></td>
+</tr>
+<tr>
+  <td><strong>DeepSeek V4 Flash</strong></td>
+  <td>Fast tasks</td>
+  <td>~66% of frontier</td>
+  <td>$30/mo equiv</td>
+  <td>~37,800</td>
+  <td><span class="tag tag-orange">BUDGET</span></td>
+</tr>
+<tr>
+  <td><strong>Kimi K2.6</strong></td>
+  <td>Frontend, 256K ctx</td>
+  <td>~72% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~5,750</td>
+  <td><span class="tag tag-orange">BUDGET</span></td>
+</tr>
+<tr>
+  <td><strong>Hy3</strong></td>
+  <td>New (8x promo!)</td>
+  <td>~70% of frontier</td>
+  <td>$60/mo equiv (8x)</td>
+  <td>~21,500</td>
+  <td><span class="tag tag-cyan">PROMO</span></td>
+</tr>
+<tr>
+  <td><strong>MiMo-V2.5</strong></td>
+  <td>Efficient coding</td>
+  <td>~43% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~150,400</td>
+  <td><span class="tag tag-red">BASIC</span></td>
+</tr>
+<tr>
+  <td><strong>Muse Spark 1.2 Contributor</strong></td>
+  <td>General (training opt-in)</td>
+  <td>~60% of frontier</td>
+  <td>$60/mo equiv</td>
+  <td>~226,600</td>
+  <td><span class="tag tag-red">DATA OPT-IN</span></td>
+</tr>
+</tbody>
+</table>
+
+<h3>Go Usage Limits (Three-Layer Cap)</h3>
+<div class="grid-3">
+  <div class="card metric-card">
+    <div class="metric-label">5-Hour Rolling</div>
+    <div class="metric-big" style="color:var(--cyan)">$12</div>
+    <div class="muted">Resets 5hr after each request</div>
+  </div>
+  <div class="card metric-card">
+    <div class="metric-label">Weekly</div>
+    <div class="metric-big" style="color:var(--cyan)">$30</div>
+    <div class="muted">Resets every Monday</div>
+  </div>
+  <div class="card metric-card">
+    <div class="metric-label">Monthly</div>
+    <div class="metric-big" style="color:var(--cyan)">$60</div>
+    <div class="muted">Included in your $10/mo</div>
+  </div>
+</div>
+
+<p class="muted">When you hit limits, you fall back to <strong>free models</strong> (Big Pickle, DeepSeek V4 Flash Free, etc.) or you can enable <strong>Zen balance draw</strong> for pay-as-you-go access to premium models.</p>
+
+<h3>Go Privacy & Data Retention</h3>
+<table>
+<thead><tr><th>Model</th><th>Training Data?</th><th>Retention</th></tr></thead>
+<tbody>
+<tr><td>Most open models (GLM, Kimi, MiMo, MiniMax, Qwen, DeepSeek, Hy3)</td><td class="good">Not used</td><td>0 days</td></tr>
+<tr><td>Grok 4.5</td><td class="good">Not used</td><td>30 days</td></tr>
+<tr><td>GPT 5.6 Luna</td><td class="good">Not used</td><td>30 days</td></tr>
+<tr><td>Muse Spark 1.2 Contributor</td><td class="warn">Yes (training opt-in)</td><td>Not ZDR</td></tr>
+<tr><td>Free models</td><td class="warn">May be used</td><td>Varies</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== SWEET SPOT ==================== -->
+<section id="sweet-spot">
+<h2>The Sweet Spot Analysis</h2>
+
+<div class="sweet-spot">
+<h3>For Go Subscribers — Your Best Models</h3>
+<p>Since you're paying $10/mo for $60 of usage, the "price" of each model is effectively $0. The question becomes: <strong>which Go model gives you the most intelligence per request within your caps?</strong></p>
+
+<table>
+<thead>
+<tr>
+  <th>Model</th>
+  <th>Intelligence</th>
+  <th>Req/Month</th>
+  <th>Best Use Case</th>
+  <th>Go Rating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="highlight">
+  <td><strong>Kimi K3</strong></td>
+  <td class="best">~100%</td>
+  <td class="warn">~490</td>
+  <td>Complex architecture, critical code</td>
+  <td><span class="tag tag-gold">HIGHEST IQ</span></td>
+</tr>
+<tr class="highlight">
+  <td><strong>GPT 5.6 Luna</strong></td>
+  <td class="best">~93%</td>
+  <td class="good">~10,250</td>
+  <td>Daily coding, agentic workflows</td>
+  <td><span class="tag tag-gold">BEST OVERALL</span></td>
+</tr>
+<tr class="highlight">
+  <td><strong>Grok 4.5</strong></td>
+  <td class="good">~96%</td>
+  <td class="warn">~600</td>
+  <td>Complex tasks, reasoning</td>
+  <td><span class="tag tag-green">HIGH IQ</span></td>
+</tr>
+<tr>
+  <td><strong>MiniMax M3</strong></td>
+  <td class="good">~88%</td>
+  <td class="good">~16,000</td>
+  <td>General coding, high volume</td>
+  <td><span class="tag tag-green">GREAT VALUE</span></td>
+</tr>
+<tr>
+  <td><strong>Qwen3.8 Max</strong></td>
+  <td class="good">~85%</td>
+  <td>~810</td>
+  <td>Reasoning, general tasks</td>
+  <td><span class="tag tag-blue">SOLID</span></td>
+</tr>
+<tr>
+  <td><strong>GLM-5.2</strong></td>
+  <td class="good">~82%</td>
+  <td class="good">~4,300</td>
+  <td>Most popular on Go, reliable</td>
+  <td><span class="tag tag-blue">RELIABLE</span></td>
+</tr>
+<tr>
+  <td><strong>DeepSeek V4 Pro</strong></td>
+  <td>~78%</td>
+  <td class="good">~5,200</td>
+  <td>Reasoning, budget coding</td>
+  <td><span class="tag tag-blue">RELIABLE</span></td>
+</tr>
+<tr>
+  <td><strong>DeepSeek V4 Flash</strong></td>
+  <td>~66%</td>
+  <td class="best">~37,800</td>
+  <td>Quick fixes, simple tasks</td>
+  <td><span class="tag tag-orange">VOLUME</span></td>
+</tr>
+</tbody>
+</table>
+
+<div class="verdict">
+  <strong>Go Subscriber Strategy:</strong> Use <strong>GPT-5.6 Luna</strong> as your daily driver (10K+ requests/mo, 93% intelligence). Escalate to <strong>Kimi K3</strong> or <strong>Grok 4.5</strong> for complex tasks (limited to ~500-600 req/mo). Use <strong>DeepSeek V4 Flash</strong> for quick fixes. When you need Claude/Gemini, top up Zen credits.
+</div>
+</div>
+
+<h3>For Everyone — The Absolute Sweet Spot (BYOK/Zen)</h3>
+<p>If you're using your own API keys or Zen credits, here's where the value is:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Model</th>
+  <th>Output $/1M</th>
+  <th>% of Leader</th>
+  <th>% of Leader Price</th>
+  <th>Intelligence/$</th>
+  <th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr class="highlight">
+  <td><strong>GPT-5.6 Luna</strong></td>
+  <td class="best">$1.20</td>
+  <td>~93%</td>
+  <td class="best">4%</td>
+  <td class="best">56.1</td>
+  <td><span class="tag tag-gold">BEST VALUE</span></td>
+</tr>
+<tr class="highlight">
+  <td><strong>DeepSeek V4 Pro</strong></td>
+  <td class="best">$0.87</td>
+  <td>~78%</td>
+  <td class="best">3.5%</td>
+  <td class="best">70.3</td>
+  <td><span class="tag tag-gold">CHEAPEST CAPABLE</span></td>
+</tr>
+<tr>
+  <td><strong>MiniMax M3</strong></td>
+  <td class="good">$1.20</td>
+  <td>~88%</td>
+  <td class="good">4.8%</td>
+  <td class="good">57.3</td>
+  <td><span class="tag tag-green">GREAT VALUE</span></td>
+</tr>
+<tr>
+  <td><strong>Gemini 3.7 Flash</strong></td>
+  <td class="good">$3.75</td>
+  <td>~85%</td>
+  <td class="good">15%</td>
+  <td class="good">16.4</td>
+  <td><span class="tag tag-blue">SWEET SPOT</span></td>
+</tr>
+<tr>
+  <td><strong>Grok 4.5</strong></td>
+  <td>$6.00</td>
+  <td>~96%</td>
+  <td>24%</td>
+  <td>12.6</td>
+  <td><span class="tag tag-blue">SWEET SPOT</span></td>
+</tr>
+<tr>
+  <td><strong>Claude Sonnet 5</strong></td>
+  <td>$10.00</td>
+  <td>~87%</td>
+  <td>40%</td>
+  <td>6.5</td>
+  <td><span class="tag tag-purple">DAILY DRIVER</span></td>
+</tr>
+<tr>
+  <td><strong>Claude Opus 5</strong> (leader)</td>
+  <td class="warn">$25.00</td>
+  <td>100%</td>
+  <td>100%</td>
+  <td>3.3</td>
+  <td><span class="tag tag-red">FRONTIER</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== PRICING ==================== -->
+<section id="pricing">
+<h2>Full Pricing — All Providers on OpenCode Zen</h2>
+<p>All prices per 1M tokens. These are Zen pay-as-you-go prices. Go subscribers get 20 models included at no extra cost.</p>
+
+<h3>Anthropic (Claude) — Zen Only, Not in Go</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Input</th><th>Output</th><th>Cached Read</th><th>Cache Write</th><th>Context</th><th>Batch</th></tr>
+</thead>
+<tbody>
+<tr><td>Claude Fable 5</td><td>$10.00</td><td>$50.00</td><td>$1.00</td><td>$12.50</td><td>1M</td><td>50%</td></tr>
+<tr><td>Claude Opus 5</td><td>$5.00</td><td>$25.00</td><td>$0.50</td><td>$6.25</td><td>1M</td><td>50%</td></tr>
+<tr><td>Claude Opus 4.8</td><td>$5.00</td><td>$25.00</td><td>$0.50</td><td>$6.25</td><td>200K</td><td>50%</td></tr>
+<tr><td>Claude Opus 4.7</td><td>$5.00</td><td>$25.00</td><td>$0.50</td><td>$6.25</td><td>200K</td><td>50%</td></tr>
+<tr><td>Claude Opus 4.6</td><td>$5.00</td><td>$25.00</td><td>$0.50</td><td>$6.25</td><td>200K</td><td>50%</td></tr>
+<tr><td>Claude Opus 4.5</td><td>$5.00</td><td>$25.00</td><td>$0.50</td><td>$6.25</td><td>200K</td><td>50%</td></tr>
+<tr><td>Claude Sonnet 5</td><td>$2.00</td><td>$10.00</td><td>$0.20</td><td>$2.50</td><td>1M</td><td>50%</td></tr>
+<tr><td>Claude Sonnet 4.6</td><td>$3.00</td><td>$15.00</td><td>$0.30</td><td>$3.75</td><td>200K</td><td>50%</td></tr>
+<tr><td>Claude Haiku 4.5</td><td>$1.00</td><td>$5.00</td><td>$0.10</td><td>$1.25</td><td>200K</td><td>50%</td></tr>
+</tbody>
+</table>
+
+<h3>OpenAI (GPT) — Luna in Go, Rest on Zen</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Input (&le;272K)</th><th>Output (&le;272K)</th><th>Input (&gt;272K)</th><th>Output (&gt;272K)</th><th>Cached Read</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr><td>GPT-5.6 Sol</td><td>$5.00</td><td>$30.00</td><td>$10.00</td><td>$45.00</td><td>$0.50</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr><td>GPT-5.6 Terra</td><td>$2.00</td><td>$12.00</td><td>$4.00</td><td>$18.00</td><td>$0.20</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr class="highlight"><td>GPT-5.6 Luna</td><td>$0.20</td><td>$1.20</td><td>$0.40</td><td>$1.80</td><td>$0.02</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>GPT-5.5</td><td>$5.00</td><td>$30.00</td><td>$10.00</td><td>$45.00</td><td>$0.50</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr><td>GPT-5.4</td><td>$2.50</td><td>$15.00</td><td>$5.00</td><td>$22.50</td><td>$0.25</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr><td>GPT-5.4 Mini</td><td>$0.75</td><td>$4.50</td><td>&mdash;</td><td>&mdash;</td><td>$0.075</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr><td>GPT-5.4 Nano</td><td>$0.20</td><td>$1.25</td><td>&mdash;</td><td>&mdash;</td><td>$0.02</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr><td>GPT-5.2</td><td>$1.75</td><td>$14.00</td><td>&mdash;</td><td>&mdash;</td><td>$0.175</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr><td>GPT-5.1</td><td>$1.07</td><td>$8.50</td><td>&mdash;</td><td>&mdash;</td><td>$0.107</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr><td>GPT-5 Nano</td><td>$0.05</td><td>$0.40</td><td>&mdash;</td><td>&mdash;</td><td>$0.005</td><td><span class="tag tag-red">Zen only</span></td></tr>
+</tbody>
+</table>
+
+<h3>Google Gemini — Zen Only, Not in Go</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Input</th><th>Output</th><th>Cached Read</th><th>Context</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Gemini 3.7 Flash</td><td>$1.50</td><td>$7.50</td><td>$0.15</td><td>1M</td><td>Intro pricing thru Dec 2026</td></tr>
+<tr><td>Gemini 3.6 Flash</td><td>$1.50</td><td>$7.50</td><td>$0.15</td><td>1M</td><td>Intro pricing thru Dec 2026</td></tr>
+<tr><td>Gemini 3.5 Flash</td><td>$1.50</td><td>$9.00</td><td>$0.15</td><td>1M</td><td>&mdash;</td></tr>
+<tr><td>Gemini 3.5 Flash Lite</td><td>$0.30</td><td>$2.50</td><td>$0.03</td><td>1M</td><td>&mdash;</td></tr>
+<tr><td>Gemini 3.1 Pro (&le;200K)</td><td>$2.00</td><td>$12.00</td><td>$0.20</td><td>1M</td><td>Still "preview"</td></tr>
+<tr><td>Gemini 3.1 Pro (&gt;200K)</td><td>$4.00</td><td>$18.00</td><td>$0.40</td><td>1M</td><td>Long-context surcharge</td></tr>
+<tr><td>Gemini 3 Flash</td><td>$0.50</td><td>$3.00</td><td>$0.05</td><td>1M</td><td>&mdash;</td></tr>
+</tbody>
+</table>
+
+<h3>DeepSeek — In Go + Zen</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Input (off-peak)</th><th>Output (off-peak)</th><th>Input (peak)</th><th>Output (peak)</th><th>Cached</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td>DeepSeek V4 Pro</td><td>$0.66</td><td>$1.98</td><td>$1.32</td><td>$3.96</td><td>$0.022</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr class="highlight"><td>DeepSeek V4 Flash</td><td>$0.22</td><td>$0.66</td><td>$0.44</td><td>$1.32</td><td>$0.007</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+</tbody>
+</table>
+<p class="muted">DeepSeek peak hours on Zen: 01:00-04:00 and 06:00-10:00 UTC. Go users unaffected — flat rate.</p>
+
+<h3>xAI Grok — In Go + Zen</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Input (&le;200K)</th><th>Output (&le;200K)</th><th>Input (&gt;200K)</th><th>Output (&gt;200K)</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td>Grok 4.6</td><td>$2.00</td><td>$6.00</td><td>$4.00</td><td>$12.00</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr class="highlight"><td>Grok 4.5</td><td>$2.00</td><td>$6.00</td><td>$4.00</td><td>$12.00</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>Grok Build 0.1</td><td>$1.00</td><td>$2.00</td><td>&mdash;</td><td>&mdash;</td><td><span class="tag tag-red">Zen only</span></td></tr>
+</tbody>
+</table>
+
+<h3>GLM (Zhipu) — In Go + Zen</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Input</th><th>Output</th><th>Cached</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td>GLM 5.3</td><td>$1.40</td><td>$4.40</td><td>$0.26</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr class="highlight"><td>GLM 5.2</td><td>$1.40</td><td>$4.40</td><td>$0.26</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr class="highlight"><td>GLM 5.1</td><td>$1.40</td><td>$4.40</td><td>$0.26</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>GLM 5</td><td>$1.00</td><td>$3.20</td><td>$0.20</td><td><span class="tag tag-red">Deprecated</span></td></tr>
+</tbody>
+</table>
+
+<h3>Kimi (Moonshot) — In Go + Zen</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Input</th><th>Output</th><th>Cached</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td>Kimi K3</td><td>$3.00</td><td>$15.00</td><td>$0.30</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr class="highlight"><td>Kimi K2.7 Code</td><td>$0.95</td><td>$4.00</td><td>$0.19</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr class="highlight"><td>Kimi K2.6</td><td>$0.95</td><td>$4.00</td><td>$0.16</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+</tbody>
+</table>
+
+<h3>Qwen (Alibaba) — In Go + Zen</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Input</th><th>Output</th><th>Cached</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td>Qwen3.8 Max</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>Qwen3.7 Max</td><td>$2.50</td><td>$7.50</td><td>$0.50</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>Qwen3.7 Plus</td><td>$0.40</td><td>$1.60</td><td>$0.04</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>Qwen3.6 Plus</td><td>$0.50</td><td>$3.00</td><td>$0.05</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>Qwen3.5 Plus</td><td>$0.20</td><td>$1.20</td><td>$0.02</td><td><span class="tag tag-red">Zen only</span></td></tr>
+</tbody>
+</table>
+
+<h3>MiniMax — In Go + Zen</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Input</th><th>Output</th><th>Cached</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td>MiniMax M3</td><td>$0.30</td><td>$1.20</td><td>$0.06</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>MiniMax M2.7</td><td>$0.30</td><td>$1.20</td><td>$0.06</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+</tbody>
+</table>
+
+<h3>Free Models (No Subscription Required)</h3>
+<table>
+<thead><tr><th>Model</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Big Pickle</td><td>Stealth model, likely GLM-4.6 based, 200K context</td></tr>
+<tr><td>DeepSeek V4 Flash Free</td><td>Limited time, data may be used for training</td></tr>
+<tr><td>MiMo-V2.5 Free</td><td>Limited time</td></tr>
+<tr><td>Hy3 Free</td><td>Limited time</td></tr>
+<tr><td>Laguna S 2.1 Free</td><td>Limited time</td></tr>
+<tr><td>Nemotron 3 Ultra Free</td><td>NVIDIA trial, do NOT submit personal data</td></tr>
+<tr><td>Nemotron 3.5 Lightning Free</td><td>NVIDIA trial, do NOT submit personal data</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== BENCHMARKS ==================== -->
+<section id="benchmarks">
+<h2>Benchmark Standings — August 19, 2026</h2>
+
+<h3>BenchLM Coding Leaderboard (Composite Score)</h3>
+<table>
+<thead>
+<tr><th>Rank</th><th>Model</th><th>Score</th><th>SWE-bench Verified</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Claude Mythos 5</td><td class="best">81.1</td><td>95.5%</td><td><span class="tag tag-red">No</span></td></tr>
+<tr><td>2</td><td>Claude Fable 5</td><td class="best">80.8</td><td>95.0%</td><td><span class="tag tag-red">No</span></td></tr>
+<tr><td>3</td><td>GPT-5.6 Sol</td><td class="good">78.8</td><td>64.6% (Pro)</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr class="highlight"><td>4</td><td>Claude Opus 5</td><td class="good">78.0</td><td class="best">96.0%</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr class="highlight"><td>4</td><td>Kimi K3</td><td class="good">78.0</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr class="highlight"><td>6</td><td>GPT-5.6 Luna</td><td>73.0</td><td>62.7% (Pro)</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>7</td><td>Claude Opus 4.8</td><td>71.2</td><td>88.6%</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>8</td><td>GPT-5.5</td><td>71.0</td><td>59.4% (Pro)</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>9</td><td>Claude Sonnet 5</td><td>68.5</td><td>85.2%</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>10</td><td>Qwen3.8 Max</td><td>66.6</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>11</td><td>Gemini 3.7 Flash</td><td>66.4</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>12</td><td>GPT-5.6 Terra</td><td>65.3</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>13</td><td>Gemini 3.6 Flash</td><td>65.0</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>14</td><td>Hy3</td><td>63.4</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>15</td><td>Grok 4.6</td><td>63.6</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>16</td><td>Grok 4.5</td><td>~62</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>17</td><td>Gemini 3 Pro</td><td>61.9</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>18</td><td>DeepSeek V4 Pro 0813</td><td>~61</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+</tbody>
+</table>
+
+<h3>LMSYS Arena — Text Elo (August 2026)</h3>
+<table>
+<thead>
+<tr><th>Rank</th><th>Model</th><th>Elo</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Claude Fable 5</td><td class="best">1506</td><td><span class="tag tag-red">No</span></td></tr>
+<tr><td>2</td><td>Claude Opus 4.6 (high)</td><td>1505</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>3</td><td>Claude Opus 4.7 (high)</td><td>1502</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>4</td><td>Muse Spark 1.2 (xHigh)</td><td>1498</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>7</td><td>Claude Opus 5 (high)</td><td>1493</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>8</td><td>Qwen3.8 Max</td><td>1491</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>9</td><td>Gemini 3.7 Flash (high)</td><td>1490</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>18</td><td>GPT-5.6 Sol (xHigh)</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>42</td><td>GPT-5.6 Terra (xHigh)</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>44</td><td>Claude Sonnet 5 (high)</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>50</td><td>DeepSeek V4 Pro</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>61</td><td>GPT-5.6 Luna (xHigh)</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+</tbody>
+</table>
+
+<h3>WebDev Arena (Code Generation Elo)</h3>
+<table>
+<thead>
+<tr><th>Rank</th><th>Model</th><th>Elo</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Claude Opus 5 (max)</td><td class="best">1692</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>2</td><td>Kimi K3 (max)</td><td>1674</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>3</td><td>Qwen3.8 Max</td><td>1667</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>4</td><td>Claude Opus 5 (high)</td><td>1663</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>5</td><td>Grok 4.6 (high)</td><td>1631</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>7</td><td>GPT-5.6 Sol (xHigh)</td><td>1622</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>8</td><td>Gemini 3.7 Flash (high)</td><td>1587</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>9</td><td>GLM-5.2 (max)</td><td>1585</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>10</td><td>DeepSeek V4 Pro (high)</td><td>1584</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+</tbody>
+</table>
+
+<h3>Artificial Analysis Intelligence Index</h3>
+<table>
+<thead>
+<tr><th>Rank</th><th>Model</th><th>Intelligence</th><th>Cost/Task</th><th>Speed (tok/s)</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Claude Opus 5 (max)</td><td class="best">63</td><td>$2.34</td><td>55</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>2</td><td>Claude Opus 5 (xhigh)</td><td class="best">63</td><td>$1.80</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>3</td><td>Claude Fable 5</td><td>62</td><td>$3.14</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>4</td><td>Claude Opus 5 (high)</td><td>61</td><td>$1.23</td><td>53</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>5</td><td>GPT-5.6 Sol (max)</td><td>61</td><td>$1.23</td><td>65</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>6</td><td>Grok 4.6 (high)</td><td>61</td><td>$0.84</td><td>56</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>7</td><td>Kimi K3 (max)</td><td>60</td><td>$0.84</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>8</td><td>GLM-5.3 (max)</td><td>60</td><td>$0.68</td><td>&mdash;</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>9</td><td>GPT-5.6 Sol (xhigh)</td><td>59</td><td>$0.81</td><td>&mdash;</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>10</td><td>Claude Opus 5 (medium)</td><td>59</td><td>$0.72</td><td>51</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>11</td><td>Gemini 3.7 Flash (high)</td><td>56</td><td>$0.40</td><td class="best">344</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>12</td><td>Claude Sonnet 5 (max)</td><td>55</td><td>$1.72</td><td>76</td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>13</td><td>DeepSeek V4 Pro 0813 (max)</td><td>53</td><td class="best">$0.25</td><td>75</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>14</td><td>DeepSeek V4 Flash 0731 (max)</td><td>52</td><td class="best">$0.11</td><td>103</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== VALUE ANALYSIS ==================== -->
+<section id="value">
+<h2>Value Analysis — Intelligence Per Dollar</h2>
+
+<h3>Intelligence/$ Ratio (Go Models Only)</h3>
+<p>Since Go models are included in your $10/mo subscription, the "effective price" per request approaches $0. Here's how Go models rank by raw intelligence:</p>
+
+<table>
+<thead>
+<tr><th>Model</th><th>Intelligence</th><th>Req/Month</th><th>Go Strategy</th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td>Kimi K3</td><td class="best">~100% of frontier</td><td class="warn">~490</td><td><span class="tag tag-gold">Reserve for critical tasks</span></td></tr>
+<tr class="highlight"><td>Grok 4.5</td><td class="best">~96% of frontier</td><td class="warn">~600</td><td><span class="tag tag-gold">Reserve for complex tasks</span></td></tr>
+<tr class="highlight"><td>GPT 5.6 Luna</td><td class="best">~93% of frontier</td><td class="good">~10,250</td><td><span class="tag tag-gold">Daily driver</span></td></tr>
+<tr><td>MiniMax M3</td><td class="good">~88% of frontier</td><td class="good">~16,000</td><td><span class="tag tag-green">High volume coding</span></td></tr>
+<tr><td>Qwen3.8 Max</td><td class="good">~85% of frontier</td><td>~810</td><td><span class="tag tag-green">Good all-rounder</span></td></tr>
+<tr><td>GLM-5.2</td><td class="good">~82% of frontier</td><td class="good">~4,300</td><td><span class="tag tag-blue">Most popular on Go</span></td></tr>
+<tr><td>DeepSeek V4 Pro</td><td>~78% of frontier</td><td class="good">~5,200</td><td><span class="tag tag-blue">Reasoning tasks</span></td></tr>
+<tr><td>Kimi K2.7 Code</td><td>~75% of frontier</td><td class="good">~6,750</td><td><span class="tag tag-blue">Code-focused tasks</span></td></tr>
+<tr><td>DeepSeek V4 Flash</td><td>~66% of frontier</td><td class="best">~37,800</td><td><span class="tag tag-orange">Quick fixes, volume</span></td></tr>
+<tr><td>MiMo-V2.5</td><td>~43% of frontier</td><td class="best">~150,400</td><td><span class="tag tag-red">Simple tasks only</span></td></tr>
+</tbody>
+</table>
+
+<h3>The Diminishing Returns Curve</h3>
+<table>
+<thead>
+<tr><th>Intelligence Level</th><th>Model (Zen/BYOK)</th><th>Output $/1M</th><th>Cost Multiplier</th><th>Intelligence Gain</th></tr>
+</thead>
+<tbody>
+<tr><td>~50% (basic)</td><td>GPT-5 Nano</td><td>$0.40</td><td>1x</td><td>Baseline</td></tr>
+<tr><td>~66% (decent)</td><td>DeepSeek V4 Flash</td><td>$0.66</td><td>1.7x</td><td>+16%</td></tr>
+<tr><td>~78% (good)</td><td>DeepSeek V4 Pro</td><td>$0.87</td><td>2.2x</td><td>+28%</td></tr>
+<tr><td>~85% (great)</td><td>Gemini 3.7 Flash</td><td>$3.75</td><td>9.4x</td><td>+35%</td></tr>
+<tr><td>~88% (excellent)</td><td>MiniMax M3</td><td>$1.20</td><td>3x</td><td>+38%</td></tr>
+<tr class="highlight"><td>~93% (near-frontier)</td><td>GPT-5.6 Luna</td><td>$1.20</td><td>3x</td><td>+43%</td></tr>
+<tr><td>~96% (almost there)</td><td>Grok 4.5</td><td>$6.00</td><td>15x</td><td>+46%</td></tr>
+<tr><td>~100% (frontier)</td><td>Claude Opus 5</td><td>$25.00</td><td>62.5x</td><td>+50%</td></tr>
+</tbody>
+</table>
+<p class="muted">The jump from 50% to 93% intelligence costs only 3x. The jump from 93% to 100% costs an additional 21x. <strong>For Go subscribers, this is irrelevant — you get 93% (Luna) for $0 marginal cost.</strong></p>
+</section>
+
+<!-- ==================== SPEED ==================== -->
+<section id="speed">
+<h2>Speed & Latency</h2>
+<table>
+<thead>
+<tr><th>Model</th><th>Tokens/sec</th><th>TTFT</th><th>Speed Tier</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr><td>Gemini 3.7 Flash</td><td class="best">344</td><td>0.85s</td><td><span class="tag tag-green">BLAZING</span></td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>DeepSeek V4 Flash</td><td class="good">103</td><td>1.23s</td><td><span class="tag tag-blue">FAST</span></td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>GPT-5.6 Luna</td><td class="good">144-158</td><td>11-54s</td><td><span class="tag tag-blue">FAST</span></td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>DeepSeek V4 Pro</td><td>75</td><td>1.67s</td><td><span class="tag tag-purple">MODERATE</span></td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>Claude Sonnet 5</td><td>59</td><td>1.55s</td><td><span class="tag tag-purple">MODERATE</span></td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>GPT-5.6 Sol</td><td>63</td><td>17.82s</td><td><span class="tag tag-orange">SLOW</span></td><td><span class="tag tag-red">Zen</span></td></tr>
+<tr><td>Claude Opus 5</td><td>53</td><td>20.56s</td><td><span class="tag tag-orange">SLOW</span></td><td><span class="tag tag-red">Zen</span></td></tr>
+</tbody>
+</table>
+<p class="muted">Reasoning/thinking models have higher TTFT because they think before responding. For Go users, DeepSeek V4 Flash (103 tok/s, 1.23s TTFT) is the fastest option.</p>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section id="features">
+<h2>Feature Comparison</h2>
+
+<h3>Context Windows</h3>
+<table>
+<thead>
+<tr><th>Model</th><th>Context</th><th>Approx. Lines of Code</th><th>In Go?</th></tr>
+</thead>
+<tbody>
+<tr><td>GPT-5.6 Sol/Terra/Luna</td><td class="best">1.05M</td><td>~35,000</td><td><span class="tag tag-cyan">Luna in Go</span></td></tr>
+<tr><td>Claude Opus 5 / Sonnet 5</td><td class="best">1M</td><td>~33,000</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr><td>Gemini 3.x Flash</td><td class="best">1M</td><td>~33,000</td><td><span class="tag tag-red">Zen only</span></td></tr>
+<tr><td>DeepSeek V4 Pro/Flash</td><td class="best">1M</td><td>~33,000</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>Kimi K3</td><td class="best">1.05M</td><td>~35,000</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>Qwen3.8 Max</td><td class="best">1M</td><td>~33,000</td><td><span class="tag tag-cyan">IN GO</span></td></tr>
+<tr><td>Grok 4.5/4.6</td><td>500K</td><td>~17,000</td><td><span class="tag tag-cyan">4.5 in Go</span></td></tr>
+<tr><td>Claude Haiku 4.5</td><td>200K</td><td>~6,600</td><td><span class="tag tag-red">Zen only</span></td></tr>
+</tbody>
+</table>
+
+<h3>Tool Use Reliability (Critical for OpenCode)</h3>
+<table>
+<thead><tr><th>Model</th><th>Tool Calling</th><th>Agentic</th><th>OpenCode Verified</th></tr></thead>
+<tbody>
+<tr><td>Claude Opus 5 / Sonnet 5</td><td class="best">Excellent</td><td class="best">Best-in-class</td><td class="best">Yes</td></tr>
+<tr><td>GPT-5.6 Sol/Terra</td><td class="best">Excellent</td><td class="best">Very strong</td><td class="best">Yes</td></tr>
+<tr><td>GPT-5.6 Luna</td><td class="good">Good</td><td class="good">Strong</td><td class="best">Yes</td></tr>
+<tr><td>Grok 4.5</td><td class="good">Good</td><td class="good">Strong</td><td>Available</td></tr>
+<tr><td>Kimi K3</td><td class="good">Good</td><td class="good">Good</td><td>Available</td></tr>
+<tr><td>GLM-5.2/5.3</td><td class="good">Good</td><td class="good">Good</td><td>Most popular on Go</td></tr>
+<tr><td>DeepSeek V4 Pro</td><td>OK</td><td>Good</td><td>Issues noted</td></tr>
+<tr><td>MiniMax M3</td><td>OK</td><td>OK</td><td>Available</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ==================== OPENCODE TIPS ==================== -->
+<section id="opencode">
+<h2>OpenCode-Specific Tips</h2>
+
+<h3>Recommended Config for Go Subscribers</h3>
+<pre>
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/gpt-5.6-luna",
+  "small_model": "opencode-go/deepseek-v4-flash",
+  "agent": {
+    "build": {
+      "model": "opencode-go/gpt-5.6-luna"
+    },
+    "plan": {
+      "model": "opencode-go/kimi-k3"
+    }
+  }
+}
+</pre>
+
+<div class="verdict">
+  <strong>Strategy:</strong> Luna for daily work (10K+ req/mo, 93% intelligence). DeepSeek V4 Flash for quick fixes (37K+ req/mo). Kimi K3 for planning/architecture (490 req/mo, frontier quality). When Go limits hit, fall back to free models or top up Zen for Claude Sonnet 5.
+</div>
+
+<h3>Config for Zen (Pay-As-You-Go) Users</h3>
+<pre>
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "anthropic/claude-sonnet-5",
+  "small_model": "opencode/deepseek-v4-flash",
+  "agent": {
+    "build": {
+      "model": "anthropic/claude-sonnet-5"
+    },
+    "plan": {
+      "model": "anthropic/claude-opus-5"
+    }
+  }
+}
+</pre>
+
+<h3>Known Issues</h3>
+<ul style="margin:0.5rem 0 0 1.5rem;">
+  <li><strong>DeepSeek thinking mode</strong>: API quirk with <code>reasoning_content</code> field — <a href="https://github.com/anomalyco/opencode/issues/24122" style="color:var(--accent);">GitHub issue</a></li>
+  <li><strong>Go rate limits</strong>: The 5-hour rolling cap ($12) can be restrictive for burst sessions. Heavy users report hitting 49% of monthly usage on day one.</li>
+  <li><strong>Claude tokenizer</strong>: New tokenizer (Opus 4.7+) produces ~30% more tokens for same text</li>
+  <li><strong>Anthropic API changes</strong>: <code>budget_tokens</code> rejected on Fable 5/Opus 5/Sonnet 5. <code>temperature</code>, <code>top_p</code>, <code>top_k</code> return 400 error if non-default on Claude 4.7+.</li>
+  <li><strong>OpenAI long-context</strong>: >272K input tokens = 2x input, 1.5x output surcharge</li>
+</ul>
+
+<h3>Community Findings</h3>
+<ul style="margin:0.5rem 0 0 1.5rem;">
+  <li><strong>GLM 5.1</strong> is the most popular model on OpenCode Go</li>
+  <li><strong>No quantization</strong> detected on Go models (independent testing confirmed)</li>
+  <li><strong>Gemini struggles</strong> in OpenCode: "Produces very subpar code and would often get stuck"</li>
+  <li><strong>Hybrid approach</strong>: Use Sonnet/Luna for planning, escalate to Opus/Kimi K3 for complex reasoning</li>
+  <li><strong>Best value combo</strong>: OpenCode Go + DeepSeek V4 Pro = community consensus for budget coding</li>
+</ul>
+</section>
+
+<!-- ==================== RECOMMENDATIONS ==================== -->
+<section id="recommendations">
+<h2>Recommendations by Use Case</h2>
+
+<h3>For Go Subscribers ($10/mo)</h3>
+<div class="grid-2">
+<div class="card" style="border-color:var(--cyan);">
+  <div class="card-title" style="color:var(--cyan);">Daily Coding</div>
+  <p><strong>Model:</strong> GPT-5.6 Luna</p>
+  <p><strong>Why:</strong> 93% of frontier intelligence, 10K+ req/mo, 1.05M context</p>
+</div>
+<div class="card" style="border-color:var(--cyan);">
+  <div class="card-title" style="color:var(--cyan);">Complex Architecture</div>
+  <p><strong>Model:</strong> Kimi K3 or Grok 4.5</p>
+  <p><strong>Why:</strong> Frontier quality, limited to ~500-600 req/mo</p>
+</div>
+<div class="card" style="border-color:var(--cyan);">
+  <div class="card-title" style="color:var(--cyan);">Quick Fixes</div>
+  <p><strong>Model:</strong> DeepSeek V4 Flash</p>
+  <p><strong>Why:</strong> 37K+ req/mo, 103 tok/s, fast TTFT</p>
+</div>
+<div class="card" style="border-color:var(--cyan);">
+  <div class="card-title" style="color:var(--cyan);">When Go Isn't Enough</div>
+  <p><strong>Model:</strong> Claude Sonnet 5 (Zen)</p>
+  <p><strong>Why:</strong> Best tool calling, $10/1M output, use for critical tasks</p>
+</div>
+</div>
+
+<h3>For Zen / BYOK Users</h3>
+<div class="grid-2">
+<div class="card">
+  <div class="card-title">Best Overall Value</div>
+  <p><strong>Model:</strong> GPT-5.6 Luna</p>
+  <p><strong>Why:</strong> 93% of frontier at $1.20/1M output (4% of Opus price)</p>
+</div>
+<div class="card">
+  <div class="card-title">Cheapest Capable</div>
+  <p><strong>Model:</strong> DeepSeek V4 Pro</p>
+  <p><strong>Why:</strong> 78% of frontier at $0.87/1M output (3.5% of Opus price)</p>
+</div>
+<div class="card">
+  <div class="card-title">Best Speed + Value</div>
+  <p><strong>Model:</strong> Gemini 3.7 Flash</p>
+  <p><strong>Why:</strong> 85% of frontier, 344 tok/s, $3.75/1M output</p>
+</div>
+<div class="card">
+  <div class="card-title">Maximum Quality</div>
+  <p><strong>Model:</strong> Claude Opus 5</p>
+  <p><strong>Why:</strong> 100% frontier, SWE-bench 96%, $25/1M output</p>
+</div>
+</div>
+</section>
+
+<!-- ==================== SOURCES ==================== -->
+<section id="sources">
+<h2>Sources & Methodology</h2>
+<div class="card">
+<h3>Primary Sources</h3>
+<ul style="margin:0.25rem 0 0 1.5rem; font-size:0.85rem;">
+  <li><a href="https://opencode.ai/docs/go/" style="color:var(--accent);">opencode.ai/docs/go</a> — Go subscription details</li>
+  <li><a href="https://opencode.ai/docs/zen/" style="color:var(--accent);">opencode.ai/docs/zen</a> — Zen model catalog</li>
+  <li><a href="https://opencode.ai/docs/models/" style="color:var(--accent);">opencode.ai/docs/models</a> — Model recommendations</li>
+  <li><a href="https://benchlm.ai/coding" style="color:var(--accent);">benchlm.ai/coding</a> — Coding leaderboard</li>
+  <li><a href="https://lmarena.ai/leaderboard" style="color:var(--accent);">lmarena.ai/leaderboard</a> — LMSYS Arena</li>
+  <li><a href="https://artificialanalysis.ai/leaderboards/models" style="color:var(--accent);">artificialanalysis.ai</a> — Intelligence Index</li>
+  <li><a href="https://aider.chat/docs/leaderboards/" style="color:var(--accent);">aider.chat</a> — Aider benchmarks</li>
+  <li><a href="https://swebench.com/" style="color:var(--accent);">swebench.com</a> — SWE-bench</li>
+  <li><a href="https://support.claude.com/en/articles/12138966-release-notes" style="color:var(--accent);">Anthropic release notes</a></li>
+  <li><a href="https://thomas-wiegold.com/blog/opencode-go-review/" style="color:var(--accent);">Thomas Wiegold — Go Review</a></li>
+  <li><a href="https://dev.to/mxro/whats-the-best-model-to-use-with-opencode-27i3" style="color:var(--accent);">DEV Community — Best Model for OpenCode</a></li>
+</ul>
+
+<h3>Methodology</h3>
+<ul style="margin:0.25rem 0 0 1.5rem; font-size:0.85rem;">
+  <li>Intelligence/$ ratio = Normalized coding score / Output price per 1M tokens</li>
+  <li>Coding scores weighted from BenchLM (40%), Arena Elo (30%), Artificial Analysis Index (30%)</li>
+  <li>"% of Leader" normalized against Claude Opus 5 as the frontier reference</li>
+  <li>Go request estimates based on $60/mo cap divided by per-request cost at each model's pricing</li>
+  <li>Data collected August 19, 2026</li>
+</ul>
+</div>
+</section>
+
+<footer style="text-align:center; padding:2rem 0 1rem; color:var(--text-dim); font-size:0.75rem; border-top:1px solid var(--border); margin-top:2rem;">
+  OpenCode Model Intelligence Analysis &middot; Generated August 19, 2026 &middot; Prices and benchmarks change frequently — verify with provider pages
+</footer>
+
+</div>
+</body>
+</html>
