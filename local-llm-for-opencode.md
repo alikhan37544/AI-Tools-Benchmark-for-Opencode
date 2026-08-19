@@ -6,14 +6,16 @@
 
 | Role | Model | Quant | VRAM | Speed | Quality |
 |------|-------|-------|------|-------|---------|
-| **Daily Driver** | Qwen 3.6 35B-A3B | Q3_K_M | ~16.6 GB | ~80-100 tok/s | ~88% of frontier |
-| **Autocomplete/FIM** | Qwen 2.5 Coder 14B | Q4_K_M | ~9 GB | ~34 tok/s | Best local FIM |
+| **Best New** | Qwen3.8-27B | Q4_K_M | ~17 GB | ~30-40 tok/s | SWE-bench Pro 61.7% |
+| **Best MoE** | Gemma 4 26B (MoE) | Q3_K_M | ~16 GB | ~95+ tok/s | Frontier reasoning |
+| **Daily Driver** | Qwen 3.6 35B-A3B | Q3_K_M | ~16.6 GB | ~80-100 tok/s | SWE-bench 73.4% |
+| **Autocomplete** | Qwen 2.5 Coder 14B | Q4_K_M | ~9 GB | ~34 tok/s | HumanEval 89.9% |
+| **Agentic Coding** | Devstral Small 2 24B | Q4_K_M | ~15 GB | ~25-30 tok/s | SWE-bench 65.8% |
 | **Fast Fallback** | Qwen 2.5 Coder 7B | Q5_K_M | ~5.5 GB | ~70-80 tok/s | Good for quick tasks |
-| **Max Quality** | Qwen3-Coder 32B | Q4_K_M | ~18.4 GB | ~22 tok/s (offload) | Best local coding |
 
 ---
 
-## Your Hardware at a Glance
+## Your Hardware
 
 | Component | Spec | LLM Relevance |
 |-----------|------|---------------|
@@ -23,64 +25,97 @@
 | **PSU** | 1000W+ | No power throttling |
 | **Cooling** | 9-fan case | Can sustain full throttle indefinitely |
 
-### What Fits Where
+---
 
-| Location | Max Model Size | Notes |
-|----------|---------------|-------|
-| **GPU only (16GB VRAM)** | ~20B at Q4_K_M, ~27B at IQ3_XXS | Fastest inference |
-| **GPU + CPU offload (80GB total)** | ~34B-70B at Q4 | Slower, layers split |
-| **CPU only (64GB RAM)** | ~70B at Q3_K_M (~36GB weights) | Slowest, DDR4 bottleneck |
+## Latest Models (August 2026)
+
+### NEW: Qwen3.8-27B (Released Aug 14, 2026)
+- **Params:** 28B dense
+- **Type:** Image-Text-to-Text (multimodal, vision-language)
+- **License:** Apache 2.0
+- **Context:** 262K native (1M via YaRN)
+- **GGUF:** Available via `unsloth/Qwen3.8-27B-GGUF` on HuggingFace
+- **Ollama:** Not yet in library, use GGUF directly
+- **VRAM:** ~17GB at Q4_K_M (tight but fits)
+- **Benchmarks:**
+  - SWE-bench Pro: 61.7% (beats cited Claude Opus 4.6 Max at 53.4%)
+  - Terminal-Bench 2.1: 73.0%
+  - GPQA Diamond: 89.2%
+  - Artificial Analysis Intelligence: 52
+- **Downloads:** 1M+ in 3 days on HuggingFace
+- **Key:** Massive jump from Qwen3.6-27B (Intelligence 38 → 52)
+
+### NEW: Gemma 4 (Released Aug 2026)
+- **Sizes:** E2B, E4B, 12B, 26B (MoE), 31B (Dense)
+- **Type:** Vision + Tools + Thinking + Audio
+- **Context:** 128K (small), 256K (medium)
+- **License:** Apache 2.0
+- **Ollama:** Available now
+- **Benchmarks (31B):**
+  - MMLU Pro: 85.2%
+  - LiveCodeBench v6: 80.0%
+  - Codeforces ELO: 2150
+  - AIME 2026: 89.2%
+- **MoE 26B:** 25.2B total, 3.8B active, 8 active/128 total experts
+- **VRAM:** E2B 7.2GB, E4B 9.6GB, 12B 7.6GB, 26B MoE ~18GB, 31B ~20GB
+
+### NEW: Devstral Small 2 (Mistral)
+- **Params:** 24B
+- **Type:** Vision + Tools (agentic coding)
+- **Context:** 384K
+- **License:** Apache 2.0
+- **VRAM:** ~15GB at Q4_K_M
+- **SWE-bench Verified:** 65.8%
+- **Highlights:** Multi-file editing, codebase exploration, software engineering agents
+
+### Qwen3-Coder-Next
+- **Params:** 80B total, 3B active (MoE)
+- **Context:** 256K
+- **Training:** 800K executable tasks + RL
+- **VRAM:** ~52GB at Q4_K_M (not for 16GB)
+
+### ByteDance Seed-2.0-Code (Aug 12)
+- **Type:** Code-specialized
+- **Details:** New entrant, limited info available
 
 ---
 
-## Recommended Models
+## Recommended Models for Your Hardware
 
-### Tier 1: Best for OpenCode (16GB VRAM)
+### Tier 1: Best for OpenCode (Full GPU, 16GB VRAM)
 
-#### Qwen 3.6 35B-A3B (MoE) — The New Default
-- **Params:** 35B total, 3B active per token (MoE)
-- **Quantization:** Q3_K_M (~16.6 GB VRAM)
-- **Speed:** ~80-100 tok/s
-- **SWE-bench Verified:** 73.4%
-- **Context:** 262K tokens
-- **License:** Apache 2.0
-- **Why:** MoE means only 3B params active per token, so it's fast despite being 35B total. Fits in 16GB at Q3_K_M. Strong tool calling support.
+| Model | Params | Quant | VRAM | Speed | Quality | Context | License |
+|-------|--------|-------|------|-------|---------|---------|---------|
+| **Qwen3.8-27B** | 28B | Q4_K_M | ~17 GB | ~30-40 tok/s | SWE-bench Pro 61.7% | 262K | Apache 2.0 |
+| **Gemma 4 26B (MoE)** | 25.2B (3.8B active) | Q3_K_M | ~16 GB | ~95+ tok/s | Frontier reasoning | 256K | Apache 2.0 |
+| **Gemma 4 12B** | 12B | Q4_K_M | ~7.6 GB | ~50+ tok/s | MMLU Pro 85.2% | 256K | Apache 2.0 |
+| **Qwen 3.6 35B-A3B** | 35B (3B active) | Q3_K_M | ~16.6 GB | ~80-100 tok/s | SWE-bench 73.4% | 262K | Apache 2.0 |
+| **Devstral Small 2 24B** | 24B | Q4_K_M | ~15 GB | ~25-30 tok/s | SWE-bench 65.8% | 384K | Apache 2.0 |
+| **Qwen 2.5 Coder 14B** | 14B | Q4_K_M | ~9 GB | ~34 tok/s | HumanEval 89.9% | 128K | Apache 2.0 |
+| **DeepSeek Coder V2 Lite** | 16B (2.4B active) | Q4_K_M | ~10 GB | ~45 tok/s | HumanEval 81.1% | 128K | MIT |
 
-#### Qwen 2.5 Coder 14B — The FIM King
-- **Params:** 14B
-- **Quantization:** Q4_K_M (~9 GB VRAM)
-- **Speed:** ~34 tok/s
-- **HumanEval:** 89.9%
-- **Context:** 128K tokens
-- **License:** Apache 2.0
-- **Why:** Best local model for Fill-in-the-Middle (autocomplete). Only current-gen model with full FIM support. Use for tab-complete in IDE.
+### Tier 2: Partial CPU Offload (Higher Quality, Slower)
 
-#### Qwen3-Coder 32B — Max Local Quality
-- **Params:** 32B
-- **Quantization:** Q4_K_M (~18.4 GB — needs partial CPU offload)
-- **Speed:** ~22 tok/s (4-5 layers offloaded)
-- **HumanEval+:** 84.1%
-- **Context:** 256K tokens
-- **License:** Apache 2.0
-- **Why:** Best coding quality you can get locally. Usable with partial offload but slower.
+| Model | Params | Quant | VRAM+RAM | Speed | Quality |
+|-------|--------|-------|----------|-------|---------|
+| **Qwen3-Coder 32B** | 32B | Q4_K_M | ~18.4 GB (4-5 layers on CPU) | ~22 tok/s | HumanEval+ 84.1% |
+| **Qwen 3.6 27B** | 27B | Q4_K_M | ~17 GB (tight) | ~20-30 tok/s | SWE-bench 77.2% |
 
-### Tier 2: Strong Alternatives
+### Tier 3: Budget / Ultra-Fast
 
 | Model | Params | Quant | VRAM | Speed | Best For |
 |-------|--------|-------|------|-------|----------|
-| **DeepSeek Coder V2 Lite** | 16B (2.4B active) | Q4_K_M | ~10 GB | ~45 tok/s | Fast MoE coding |
-| **Gemma 4 12B** | 12B | Q4_K_M | ~8 GB | ~50+ tok/s | Generalist + coding |
-| **Codestral 22B** | 22B | Q4_K_M | ~14 GB | ~22 tok/s | FIM alternative |
-| **Phi-4 14B** | 14B | Q6_K | ~11.5 GB | ~49 tok/s | Math/STEM tasks |
-| **Llama 3.3 14B** | 14B | Q5_K_M | ~10 GB | ~58 tok/s | General reasoning |
+| **Qwen 2.5 Coder 7B** | 7B | Q5_K_M | ~5.5 GB | ~70-80 tok/s | Quick tasks |
+| **DeepSeek-Coder 6.7B** | 6.7B | Q4_K_M | ~4.5 GB | ~100 tok/s | Ultra-fast |
+| **Gemma 4 E4B** | ~4B | Q4_K_M | ~9.6 GB | Very fast | Multimodal + audio |
+| **Phi-4 14B** | 14B | Q6_K | ~11.5 GB | ~49 tok/s | Math/STEM |
 
-### Tier 3: Budget/Fast
-
-| Model | Params | Quant | VRAM | Speed | Best For |
-|-------|--------|-------|------|-------|----------|
-| **Qwen 2.5 Coder 7B** | 7B | Q5_K_M | ~5.5 GB | ~70-80 tok/s | Quick tasks, autocomplete |
-| **DeepSeek-Coder 6.7B** | 6.7B | Q4_K_M | ~4.5 GB | ~100 tok/s | Ultra-fast coding |
-| **Phi-3 3.8B** | 3.8B | Q4_K_M | ~2.3 GB | ~110-120 tok/s | Instant responses |
+### Skip These (Outclassed in 2026)
+- CodeLlama (all sizes) — massively outclassed
+- StarCoder 2 — outclassed by Qwen 2.5 Coder
+- Yi Coder — superseded
+- Granite Code — not competitive
+- DeepSeek R1 distilled — reasoning overhead too expensive at 16GB
 
 ---
 
@@ -88,15 +123,15 @@
 
 ### Tokens Per Second by Model Size
 
-| Model Size | Q4_K_M (tok/s) | Q8_0 (tok/s) | Notes |
-|------------|----------------|--------------|-------|
-| **3-4B** | 110-120 | 80-90 | Instant, great for autocomplete |
-| **7B** | 70-80 | 55-65 | Sweet spot for speed |
-| **14B** | 34-41 | 25-30 | Good balance |
-| **20B (MXFP4)** | 43-92 | N/A | Blackwell-optimized |
-| **27B (IQ3_XXS)** | 20-30 | N/A | Tight fit, quality tradeoff |
-| **35B-A3B (MoE)** | 80-100 | N/A | Only 3B active, very fast |
-| **32B (partial offload)** | 18-22 | N/A | 4-5 layers on CPU |
+| Model Size | Q4_K_M (tok/s) | Notes |
+|------------|----------------|-------|
+| 3-4B | 110-120 | Instant |
+| 7B | 70-80 | Sweet spot for speed |
+| 14B | 34-41 | Good balance |
+| 20B (MXFP4) | 43-92 | Blackwell-optimized |
+| 27B (Q4, tight) | 20-40 | Fits with Q4 on 16GB |
+| 35B-A3B (MoE) | 80-100 | Only 3B active |
+| 32B (partial offload) | 18-22 | 4-5 layers on CPU |
 
 ### Context Length Impact (Qwen3 8B, Q4_K_M)
 
@@ -109,125 +144,97 @@
 
 ---
 
-## Inference Software
-
-### Recommended: Ollama (Easiest)
-
-```bash
-# Install
-curl -fsSL https://ollama.ai/install.sh | sh
-
-# Pull models
-ollama pull qwen3-coder:32b
-ollama pull qwen2.5-coder:14b
-
-# Auto-starts on http://localhost:11434
-```
-
-### Alternative: llama.cpp (Best Performance)
-
-```bash
-# Build with CUDA
-git clone https://github.com/ggml-org/llama.cpp
-cd llama.cpp
-cmake -B build -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=120a-real
-cmake --build build -j$(nproc)
-
-# Serve
-./build/bin/llama serve \
-  -hf unsloth/Qwen3-Coder-32B-GGUF:Q4_K_M \
-  --n-gpu-layers 99 \
-  --ctx-size 32768
-```
-
-### OpenCode Config
-
-```json
-{
-  "$schema": "https://opencode.ai/config.json",
-  "model": "ollama/qwen3-coder:32b",
-  "small_model": "ollama/qwen2.5-coder:14b",
-  "provider": {
-    "ollama": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama (local)",
-      "options": {
-        "baseURL": "http://localhost:11434/v1"
-      },
-      "models": {
-        "qwen3-coder:32b": { "name": "Qwen3-Coder 32B" },
-        "qwen2.5-coder:14b": { "name": "Qwen 2.5 Coder 14B" }
-      }
-    }
-  }
-}
-```
-
----
-
 ## Local vs Cloud: The Honest Gap
 
 | Task | Local Best (32B) | Cloud Best (Opus 5) | Gap |
 |------|------------------|---------------------|-----|
 | Easy coding tasks | 72.9% | 88.0% | ~15 points |
-| Hard coding tasks | 40.0% | 88.0% | ~48 points |
+| Hard coding tasks | ~40% | 88.0% | ~48 points |
 | Code completion | ~90% | ~95% | ~5 points |
 | Multi-file editing | ~40% | ~85% | ~45 points |
-| HumanEval (synthetic) | ~90% | ~95% | ~5 points |
+| SWE-bench Pro | 61.7% (Qwen3.8-27B) | 96% (Opus 5) | ~34 points |
 
-### Where Local Models Excel
-- Code completion (single-line/function)
-- Simple function generation
-- Boilerplate/templates
-- Code explanation
+### Where Local Wins
+- Code completion, simple functions, boilerplate
 - Privacy-sensitive code
 - Offline/air-gapped use
-- Zero marginal cost
+- Zero marginal cost, no rate limits
 
-### Where You Need Cloud Models
+### Where You Need Cloud
 - Complex multi-file refactoring
 - SWE-bench style real-world issues
-- Large codebase understanding (100K+ context with reasoning)
+- Large codebase understanding
 - Production code generation
-- Cross-language projects
-- Complex debugging across multiple files
 
 ---
 
-## The Sweet Spot Strategy
+## The Hybrid Strategy
 
 ```
-┌─────────────────────────────────────────────────┐
-│  LOCAL (free, private, fast)                     │
-│  ├─ Qwen 2.5 Coder 14B → Autocomplete/FIM      │
-│  ├─ Qwen 3.6 35B-A3B  → Daily coding chat      │
-│  └─ DeepSeek Coder 7B  → Quick fixes            │
-│                                                  │
-│  CLOUD (when local isn't enough)                 │
-│  ├─ OpenCode Go ($10/mo) → Kimi K3, Luna        │
-│  ├─ Zen credits          → Claude Sonnet 5      │
-│  └─ Direct API           → Claude Opus 5        │
-└─────────────────────────────────────────────────┘
+LOCAL (free, private, fast)
+├─ Qwen3.8-27B          → Daily coding (NEW, best local)
+├─ Gemma 4 12B/26B-MoE  → Fast reasoning + multimodal
+├─ Qwen 2.5 Coder 14B   → Autocomplete / FIM
+└─ DeepSeek Coder 7B    → Quick fixes
+
+CLOUD (when local isn't enough)
+├─ OpenCode Go ($10/mo)  → Kimi K3, Luna, Qwen3.8 Max
+├─ Zen credits           → Claude Sonnet 5
+└─ Direct API            → Claude Opus 5
 ```
 
 ---
 
-## Hardware Optimization Tips
+## Quick Setup
 
-1. **Set `-ngl 999`** in llama.cpp to offload all layers to GPU
-2. **Use `-t 12`** for threads (sweet spot for Ryzen 5900XT, not all 32)
-3. **Enable KV cache quantization** (`cache-type-k q8_0`) to save ~30% VRAM
-4. **Use MXFP4 quantization** on Blackwell for best quality/size ratio
-5. **Monitor with `nvidia-smi`** — leave 1-2GB headroom for KV cache
-6. **DDR4 impact:** Only matters for CPU-offloaded layers (~11% of GPU speed)
+### Ollama (Recommended)
+```bash
+curl -fsSL https://ollama.ai/install.sh | sh
+ollama pull qwen3.6:27b
+ollama pull gemma4:12b
+ollama pull qwen2.5-coder:14b
+```
+
+### For Qwen3.8-27B (not on Ollama yet)
+```bash
+# Download GGUF from HuggingFace
+huggingface-cli download unsloth/Qwen3.8-27B-GGUF Qwen3.8-27B-Q4_K_M.gguf
+
+# Serve with llama.cpp
+llama serve -m Qwen3.8-27B-Q4_K_M.gguf --n-gpu-layers 99 --ctx-size 32768 --threads 12
+```
+
+### OpenCode Config
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/qwen3.6:27b",
+  "small_model": "ollama/qwen2.5-coder:14b",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": { "baseURL": "http://localhost:11434/v1" }
+    }
+  }
+}
+```
+
+### Hardware Optimization
+| Setting | Value | Why |
+|---------|-------|-----|
+| `--n-gpu-layers` | 999 | Offload everything to GPU |
+| `--threads` | 12 | Sweet spot for Ryzen 5900XT |
+| `cache-type-k` | q8_0 | Saves ~30% VRAM |
+| Context size | 32768 | Balance capability/VRAM |
 
 ---
 
 ## Sources
 
-- [llama.cpp benchmarks](https://github.com/ggml-org/llama.cpp)
-- [Ollama model library](https://ollama.ai/library)
-- [Qwen 2.5 Coder](https://huggingface.co/Qwen/Qwen2.5-Coder)
-- [Aider leaderboard](https://aider.chat/docs/leaderboards/)
+- [unsloth/Qwen3.8-27B-GGUF](https://huggingface.co/unsloth/Qwen3.8-27B-GGUF)
+- [Ollama Library](https://ollama.ai/library)
+- [Gemma 4 on Ollama](https://ollama.ai/library/gemma4)
+- [Devstral Small 2](https://ollama.ai/library/devstral-small-2)
+- [llama.cpp](https://github.com/ggml-org/llama.cpp)
 - [r/LocalLLaMA](https://reddit.com/r/LocalLLaMA)
-- [Hardware Corner RTX 5060 Ti benchmarks](https://hardware-corner.net)

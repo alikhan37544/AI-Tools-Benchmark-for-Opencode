@@ -2,7 +2,7 @@
 
 > Comprehensive, data-driven analysis of AI models for [opencode](https://opencode.ai) — cloud and local.
 
-**Last updated: August 19, 2026**
+**Last updated: August 19, 2026** | Includes 19 model releases from August 2026
 
 ---
 
@@ -33,9 +33,10 @@
 - Maximum quality: **Claude Opus 5** ($25/1M output, 100% frontier)
 
 **If you want to run locally (RTX 5060 Ti 16GB):**
-- Daily driver: **Qwen 3.6 35B-A3B** (~100 tok/s, ~88% of frontier)
+- Daily driver: **Qwen3.8-27B** (NEW Aug 14, ~30-40 tok/s, SWE-bench Pro 61.7%)
+- Fast reasoning: **Gemma 4 26B MoE** (NEW, ~95+ tok/s, 3.8B active)
 - Autocomplete: **Qwen 2.5 Coder 14B** (~34 tok/s, best FIM)
-- Max quality: **Qwen3-Coder 32B** (~22 tok/s, partial offload)
+- Agentic coding: **Devstral Small 2 24B** (NEW, SWE-bench 65.8%, 384K ctx)
 
 ### "What's the sweet spot?"
 

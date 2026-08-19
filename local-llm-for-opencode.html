@@ -105,9 +105,9 @@
 
 <div class="grid-4">
   <div class="card metric-card">
-    <div class="metric-label">Best Local Model</div>
-    <div class="metric-big" style="color:var(--green)">Qwen 3.6 35B</div>
-    <div class="muted">MoE, ~88% of frontier, ~100 tok/s</div>
+    <div class="metric-label">Best Local Model (NEW)</div>
+    <div class="metric-big" style="color:var(--green)">Qwen3.8-27B</div>
+    <div class="muted">Aug 14, SWE-bench Pro 61.7%</div>
   </div>
   <div class="card metric-card">
     <div class="metric-label">Best FIM/Autocomplete</div>
@@ -127,7 +127,7 @@
 </div>
 
 <div class="card">
-  <p><strong>The 30-second version:</strong> With your RTX 5060 Ti 16GB, you can run <strong>Qwen 3.6 35B-A3B</strong> (MoE, only 3B active) at ~100 tok/s — that's ~88% of frontier intelligence with zero API costs. For autocomplete, <strong>Qwen 2.5 Coder 14B</strong> is the undisputed king. For max quality, <strong>Qwen3-Coder 32B</strong> fits with partial CPU offload (~22 tok/s). Local models beat GPT-4o-mini on coding and are within 5-15% of frontier on easy tasks, but the gap widens to 30-50% on complex multi-file work.</p>
+  <p><strong>The 30-second version:</strong> With your RTX 5060 Ti 16GB, you can run the brand-new <strong>Qwen3.8-27B</strong> (released Aug 14, Apache 2.0) at ~30-40 tok/s — it beats Claude Opus 4.6 Max on SWE-bench Pro (61.7% vs 53.4%). <strong>Gemma 4 26B MoE</strong> (3.8B active) runs at ~95+ tok/s with frontier reasoning. For autocomplete, <strong>Qwen 2.5 Coder 14B</strong> is still the king. <strong>Devstral Small 2 24B</strong> is the new agentic coding specialist with 384K context. Local models beat GPT-4o-mini on coding but the gap to frontier (Claude Opus 5 at 96% SWE-bench) is still ~34 points on hard tasks.</p>
 </div>
 </section>
 
@@ -151,6 +151,36 @@
 </thead>
 <tbody>
 <tr class="highlight">
+  <td><strong>Qwen3.8-27B</strong> <span class="tag tag-gold">NEW</span></td>
+  <td>28B dense</td>
+  <td>Q4_K_M</td>
+  <td>~17 GB</td>
+  <td class="good">~30-40 tok/s</td>
+  <td class="best">SWE-bench Pro 61.7%</td>
+  <td>262K</td>
+  <td>Apache 2.0</td>
+</tr>
+<tr class="highlight">
+  <td><strong>Gemma 4 26B (MoE)</strong> <span class="tag tag-gold">NEW</span></td>
+  <td>25.2B (3.8B active)</td>
+  <td>Q3_K_M</td>
+  <td>~16 GB</td>
+  <td class="best">~95+ tok/s</td>
+  <td class="good">MMLU Pro 85.2%</td>
+  <td>256K</td>
+  <td>Apache 2.0</td>
+</tr>
+<tr class="highlight">
+  <td><strong>Gemma 4 12B</strong> <span class="tag tag-gold">NEW</span></td>
+  <td>12B</td>
+  <td>Q4_K_M</td>
+  <td>~7.6 GB</td>
+  <td class="best">~50+ tok/s</td>
+  <td class="good">Frontier reasoning</td>
+  <td>256K</td>
+  <td>Apache 2.0</td>
+</tr>
+<tr class="highlight">
   <td><strong>Qwen 3.6 35B-A3B</strong></td>
   <td>35B (3B active)</td>
   <td>Q3_K_M</td>
@@ -158,6 +188,16 @@
   <td class="best">~80-100 tok/s</td>
   <td class="best">SWE-bench 73.4%</td>
   <td>262K</td>
+  <td>Apache 2.0</td>
+</tr>
+<tr>
+  <td><strong>Devstral Small 2 24B</strong> <span class="tag tag-gold">NEW</span></td>
+  <td>24B</td>
+  <td>Q4_K_M</td>
+  <td>~15 GB</td>
+  <td>~25-30 tok/s</td>
+  <td class="good">SWE-bench 65.8%</td>
+  <td>384K</td>
   <td>Apache 2.0</td>
 </tr>
 <tr class="highlight">
