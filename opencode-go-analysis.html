@@ -50,7 +50,7 @@ footer{border-top:1px solid var(--line);padding:22px 26px;color:var(--dim);font-
 <body>
 <header>
   <h1>OpenCode Go — Model Intelligence &amp; Value Report</h1>
-  <div class="sub">Generated 2026-10-01 17:15 UTC · 30 Go models · 18 task categories · AA Intelligence Index v4.3.2 · calibrated to real OpenCode usage</div>
+  <div class="sub">Generated 2026-10-01 17:37 UTC · 30 Go models · 18 task categories · AA Intelligence Index v4.3.2 · calibrated to real OpenCode usage</div>
   <div class="stats">
     <div class="stat"><b>30</b><span>models on Go</span></div>
     <div class="stat"><b>AA 48</b><span>best Go model (Muse Spark 1.3)</span></div>
@@ -68,6 +68,10 @@ footer{border-top:1px solid var(--line);padding:22px 26px;color:var(--dim);font-
   <button onclick="tab(this,'tasks')">Task Playbook</button>
   <button onclick="tab(this,'limits')">Limits &amp; Burn Rate</button>
   <button onclick="tab(this,'value')">Value &amp; Tiers</button>
+  <button onclick="tab(this,'omo')">Oh My OpenCode</button>
+  <button onclick="tab(this,'v1v2')">v1 vs v2</button>
+  <button onclick="tab(this,'plugins')">Plugins</button>
+  <button onclick="tab(this,'powerups')">Power-ups</button>
   <button onclick="tab(this,'privacy')">Privacy</button>
   <button onclick="tab(this,'contributor')">Contributor SKU</button>
   <button onclick="tab(this,'config')">Config</button>
@@ -606,6 +610,138 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
   <p class="note">Sources: <a href="https://dev.meta.ai/docs/pricing-rate-limits" target="_blank" rel="noopener">Meta pricing/rate limits</a> · <a href="https://dev.meta.ai/help/policies-and-privacy/contributor-tier" target="_blank" rel="noopener">Contributor tier policy</a> · <a href="https://dev.meta.ai/legal/commitments" target="_blank" rel="noopener">Legal commitments</a> · <a href="https://dev.meta.ai/legal/geographic-use-policy" target="_blank" rel="noopener">Geographic Use Policy</a> · independent analyses: TrustList, codersera, OrcaRouter, OpenClaw.</p>
 </section>
 
+<section id="omo">
+  <h2>Oh My OpenCode (oh-my-openagent / OmO)</h2>
+  <p class="sub">Multi-model agent orchestration harness: Sisyphus orchestrator, 11 agents, 52+ hooks, 26 tools, Team Mode, Ralph/ulw loops. Renamed repo: <b>code-yeongyu/oh-my-openagent</b> (npm still <b>oh-my-opencode</b>). Never <b>bunx omo</b> — unrelated package.</p>
+  <h3>Three editions</h3>
+  <div class="tblwrap"><table><thead><tr><th>Edition</th><th>Host</th><th>What you get</th><th>Install</th></tr></thead><tbody>
+    <tr><td class="name">Ultimate</td><td>OpenCode v1</td><td>Full harness: agents, hooks, Team Mode, ulw/Ralph, hashline edits, built-in MCPs</td><td><code>bunx oh-my-openagent install</code></td></tr>
+    <tr><td class="name">Light (LazyCodex)</td><td>Codex CLI</td><td>Portable rules/skills/loops, no orchestration</td><td><code>npx lazycodex-ai install</code></td></tr>
+    <tr><td class="name">Native (omo-ai)</td><td>Standalone</td><td>OMO built in; safe v2-era path</td><td><code>curl -fsSL https://get.omo.dev/install.sh | bash</code></td></tr>
+  </tbody></table></div>
+  <h3>Agents &amp; categories</h3>
+  <div class="tblwrap"><table><thead><tr><th>Agent</th><th>Role</th><th>Go pick (heavy)</th></tr></thead><tbody>
+    <tr><td class="name">Sisyphus (primary)</td><td>Orchestrator: plans, delegates, verifies</td><td class="hl">kimi-k3 max (~22 OMO-req/wk — ration it)</td></tr>
+    <tr><td class="name">Atlas / Prometheus / Metis / Momus</td><td>Execute plan / plan / gap-check / ruthless review</td><td>kimi-k3 max (consult) · glm-5.3 max (review)</td></tr>
+    <tr><td class="name">Oracle → architect</td><td>Read-only architecture/debug consult</td><td>grok-4.7 xhigh (~20 consults/wk)</td></tr>
+    <tr><td class="name">Librarian / Explore</td><td>Docs+OSS grep / fast codebase grep (no writes)</td><td>mimo-v2.6-flash low (~4.1k/wk) · deepseek-v4.1-flash max (~2.4k/wk)</td></tr>
+    <tr><td class="name">Frontend / Multimodal-Looker</td><td>UI persona / PDF+image→text</td><td>kimi-k3 max (ration) · deepseek-v4-flash-vision-exp (~600/wk)</td></tr>
+  </tbody></table></div>
+  <div class="tblwrap"><table><thead><tr><th>Category</th><th>Meaning</th><th>Best Go pick</th></tr></thead><tbody>
+    <tr><td class="name">ultrabrain / deep-high / unspecified-low</td><td>Hard reasoning / escalation / general</td><td class="hl">mimo-v2.6-pro max (AA 46, ~380 OMO-req/wk)</td></tr>
+    <tr><td class="name">unspecified-high / artistry</td><td>General fallback / creative</td><td>glm-5.3 max (~35/wk — ration)</td></tr>
+    <tr><td class="name">quick</td><td>Trivial tasks</td><td>mimo-v2.6-flash low</td></tr>
+    <tr><td class="name">deep-low (bulk research)</td><td>Evidence-settleable research</td><td>qwen3.7-plus medium / glm-5.3-flash</td></tr>
+    <tr><td class="name">writing</td><td>Docs/prose</td><td>glm-5.3-flash low (never Contributor for client docs)</td></tr>
+    <tr><td class="name">visual-engineering</td><td>Frontend/UI</td><td>kimi-k3 max (ration); bulk CSS on glm-5.3-flash</td></tr>
+  </tbody></table></div>
+  <div class="card"><h3>Volume rule</h3>
+    <p>OMO multiplies requests: <b>3–5×</b> per <code>ultrawork</code>, <b>6–12×</b> for <code>mass ulw</code> / Team Mode / Ralph. Divide every allowance by ~4 for OMO-week planning. Max-intelligence config survives ~2–4 heavy days; the sustainable config (bulk on Flash tiers, AA 46 kept on reasoning slots) survives full weeks except the Kimi primary. Cap <code>kimi-k3</code> concurrency at 2, enable <code>aggressive_truncation</code>, keep <code>team_mode</code> off unless needed.</p>
+  </div>
+  <h3>OpenCode v1 vs v2 compatibility</h3>
+  <div class="tblwrap"><table><thead><tr><th>OMO</th><th>OpenCode v1</th><th>OpenCode v2</th></tr></thead><tbody>
+    <tr><td class="name">4.x legacy</td><td>✅ Supported (≥1.0.132)</td><td>❌ Broken</td></tr>
+    <tr><td class="name">4.19.x unified</td><td>✅ Supported + coexistence</td><td>⚠️ Partial, needs 5.x</td></tr>
+    <tr><td class="name">5.x beta</td><td>✅ Supported</td><td>⚠️ Needs v2-compatible build; official note in progress</td></tr>
+    <tr><td class="name">Native 5.0+</td><td>✅ Side-by-side</td><td class="hl">✅ Independent — safe v2-era path</td></tr>
+    <tr><td class="name">opensoft fork</td><td>✅ Same as upstream</td><td>⚠️ Same as upstream</td></tr>
+  </tbody></table></div>
+  <p class="note">Full guide: analysis/08. Rule: don't upgrade a production OMO install to v2 until code-yeongyu publishes v2 support.</p>
+</section>
+
+<section id="v1v2">
+  <h2>OpenCode v1 vs v2</h2>
+  <p class="sub">v2 is a rewrite: one shared background server for TUI + Desktop + Web + Docker + SDK (v1: standalone TUI + <code>opencode serve</code>). v1 <b>1.18.34</b> still maintained; v2 <b>2.0.x</b> stable after Jul–Sep beta. Separate installs — never point v1 at v2-converted configs (same paths!).</p>
+  <div class="tblwrap"><table><thead><tr><th>Area</th><th>v1</th><th>v2</th></tr></thead><tbody>
+    <tr><td class="name">Sessions</td><td>TUI owns sessions</td><td class="hl">Shared service; multi-tab, per-tab models, child-session manager</td></tr>
+    <tr><td class="name">Plugins</td><td><code>plugin: […]</code>, Bun <code>$</code> helper</td><td><code>plugins: […]</code> + <code>Plugin.define</code> — <b>V1 plugins DO NOT run</b></td></tr>
+    <tr><td class="name">Agents</td><td><code>prompt/permission/tools</code>, <code>scout</code></td><td><code>system/permissions[]</code>, <code>model: provider/model#variant</code>, no scout</td></tr>
+    <tr><td class="name">Permissions</td><td><code>permission:&#123;bash/edit&#125;</code></td><td>Ordered <code>permissions[]</code>, last-match-wins; Console hard-deny</td></tr>
+    <tr><td class="name">MCP</td><td><code>mcp:&#123;name&#125;</code>, <code>enabled</code>, camelCase OAuth</td><td><code>mcp.servers</code>, <code>disabled</code>, snake_case OAuth, timeouts; config-only</td></tr>
+    <tr><td class="name">Config</td><td><code>opencode.json</code> + layered <code>tui.json</code></td><td><code>opencode.jsonc</code> + single global <code>cli.json</code></td></tr>
+    <tr><td class="name">Auth</td><td><code>auth.json</code> file</td><td>SQLite (imports auth.json once); <code>opencode auth …</code></td></tr>
+    <tr><td class="name">LSP / Share</td><td>Full runtime / <code>/share</code></td><td><b>LSP inert, share unimplemented</b></td></tr>
+    <tr><td class="name">History</td><td><code>session/message/part</code></td><td><code>session_v2</code>; V1 history invisible at first, migrator gaps</td></tr>
+  </tbody></table></div>
+  <div class="grid2">
+    <div class="card" style="border-left:4px solid #9ece6a"><h3 style="color:#9ece6a">Upgrade for</h3>
+      <ul><li>Synced TUI/Desktop/Web/Docker sessions</li><li>Multi-tab + background child sessions</li><li>Cleaner permissions/providers config</li><li>Better server API + generated SDK clients</li></ul>
+    </div>
+    <div class="card" style="border-left:4px solid #f7768e"><h3 style="color:#f7768e">Stay on v1 if you need</h3>
+      <ul><li>Oh-my-opencode hooks/tools (no official v2 support yet)</li><li>LSP diagnostics, <code>/share</code>, IDE flows</li><li>Programmatic MCP registration</li><li>Large history, custom gateways, stability</li></ul>
+    </div>
+  </div>
+  <p class="note">Migration bible: <a href="https://opencode.ai/v2/docs/migrate-v1/" target="_blank" rel="noopener">opencode.ai/v2/docs/migrate-v1</a>. Full comparison: analysis/09.</p>
+</section>
+
+<section id="plugins">
+  <h2>Best plugins, MCPs &amp; stacks</h2>
+  <p class="sub">Sweet spot: <b>3–6 MCP servers</b>; past ~10, tool choice degrades. OMO already ships Exa/Context7/grep_app + Playwright/LSP — don't duplicate. You are on v1 (<code>plugin</code>, <code>mcp.&#123;name&#125;</code>, <code>enabled</code>).</p>
+  <h3>Most-mentioned plugins</h3>
+  <div class="chips">
+    <span class="chip">oh-my-opencode / -slim — mega-harness</span>
+    <span class="chip">antigravity-auth — free quota (ToS risk)</span>
+    <span class="chip">dynamic-context-pruning — longer sessions</span>
+    <span class="chip">notify — Ralph-loop alerts</span>
+    <span class="chip">wakatime — where requests go</span>
+    <span class="chip">quotas — footer dashboards</span>
+    <span class="chip">vibeguard / safety-net — secret redaction</span>
+    <span class="chip">worktree / multiplexer / history-search</span>
+    <span class="chip">openspec / plannotator — spec-driven</span>
+    <span class="chip">morph-fast-apply — 10k tok/s edits</span>
+    <span class="chip">supermemory / honcho — memory</span>
+    <span class="chip">scheduler / skillful — cron + lazy skills</span>
+  </div>
+  <h3>MCPs that matter</h3>
+  <div class="tblwrap"><table><thead><tr><th>MCP</th><th>Why</th><th>Notes</th></tr></thead><tbody>
+    <tr><td class="name">Context7</td><td>Version-aware library docs; kills hallucinated APIs</td><td>2 tools, tiny. Most-recommended</td></tr>
+    <tr><td class="name">Playwright</td><td>Real browser: click/fill/screenshot/PDF/video/tracing</td><td>Scope to an rpa-healer agent; CLI+skill is cheaper for bulk</td></tr>
+    <tr><td class="name">Exa or Tavily (one!)</td><td>Semantic web search/fetch</td><td>Freemium keys; never two search MCPs</td></tr>
+    <tr><td class="name">grep.app</td><td>Code examples across GitHub</td><td>Free, low token</td></tr>
+    <tr><td class="name">GitHub (official)</td><td>Issues/PRs/search/Actions</td><td>Token hog — filter X-MCP-Toolsets</td></tr>
+    <tr><td class="name">Azure DevOps</td><td>Your CI: pipelines/repos/PRs/artifacts</td><td>Local + --authentication azcli; full recipes in Power-ups</td></tr>
+    <tr><td class="name">Postgres/SQLite/filesystem</td><td>Read-only DB inspection; scoped files</td><td>Read-only DB user + per-agent scoping</td></tr>
+    <tr><td class="name">Sentry / Linear / Slack</td><td>Triage traces; project state</td><td>OAuth/PAT, scope narrowly</td></tr>
+  </tbody></table></div>
+  <div class="card"><h3>Three stacks</h3>
+    <p><b>Backend-heavy:</b> OMO(+slim) + DCP + notify + safety-net · context7 + gh_grep + read-only postgres · <code>instructions: ["AGENTS.md"]</code></p>
+    <p><b>Browser/visual QA:</b> OMO-slim + notify · playwright (rpa-healer only) + context7 · live MCP to heal, CLI+scripts+POM for the suite</p>
+    <p><b>Docs-heavy integration:</b> skillful + handoff · context7 + exa + sentry (<code>opencode mcp auth sentry</code>)</p>
+    <p class="note">Avoid: MCP bloat, duplicate search/LSP providers, OAuth-proxy plugins (ToS/bans), abandoned v1-only plugins on v2, DCP with very weak models.</p>
+  </div>
+</section>
+
+<section id="powerups">
+  <h2>Amazing additions — your personalized playbook</h2>
+  <p class="sub">Ranked by wow-per-hour for your Azure + RPA + voicebot + OCR + PHI workload. Full recipes: analysis/11.</p>
+  <div class="tblwrap"><table><thead><tr><th>#</th><th>Addition</th><th>Value</th><th>Effort</th></tr></thead><tbody>
+    <tr><td class="num">1</td><td class="name">azure-devops SKILL + ADO MCP on --authentication azcli</td><td class="hl">★★★★★</td><td>30 min</td></tr>
+    <tr><td class="num">2</td><td class="name">Nightly autonomous build-health check (scheduler + opencode run)</td><td class="hl">★★★★★</td><td>1 h</td></tr>
+    <tr><td class="num">3</td><td class="name">browser-ops skill: CLI-first + POM + storageState</td><td class="hl">★★★★★</td><td>1–2 h</td></tr>
+    <tr><td class="num">4</td><td class="name">Pipeline-failure auto-triage (logs → diagnosis → PR)</td><td>★★★★☆</td><td>1 h</td></tr>
+    <tr><td class="num">5</td><td class="name">PHI-safe permissions + .env guard + gitleaks</td><td>★★★★☆</td><td>1 h</td></tr>
+    <tr><td class="num">6</td><td class="name">AGENTS.md in every repo + global conventions</td><td>★★★★☆</td><td>2–3 h</td></tr>
+    <tr><td class="num">7</td><td class="name">notify + wakatime/quotas</td><td>★★★☆☆</td><td>20 min</td></tr>
+    <tr><td class="num">8</td><td class="name">ARI / Kafka / Redis / Realtime triage skills</td><td>★★★★☆</td><td>2 h</td></tr>
+    <tr><td class="num">9</td><td class="name">Azure DI cost-ladder skill (classify → layout → prebuilt → LLM)</td><td>★★★★☆</td><td>2 h</td></tr>
+    <tr><td class="num">10</td><td class="name">Oh My OpenCode Ultimate (orchestration + Ralph + teams)</td><td class="hl">★★★★★</td><td>2–4 h</td></tr>
+  </tbody></table></div>
+  <div class="grid2">
+    <div class="card"><h3>Azure autonomy (your az-login trick, systematized)</h3>
+      <ul><li>Local ADO MCP reuses <code>az login</code> — no PAT in config</li><li>Read-only allowlist + write-gated triage agent</li><li>Failure triage: failed log tail only (<code>tail -c 20k</code>), correlate, branch, PR</li><li>Nightly health: launchd 02:00 → <code>opencode run --auto</code> → markdown report</li><li>Auth ladder: az login → managed identity → service principal → PAT (last resort)</li><li>Watch: TLS-proxy CA bundle, NSG/<code>az ssh</code> tunnels, PAT rotation, log truncation</li></ul>
+    </div>
+    <div class="card"><h3>Browser &amp; RPA doctrine</h3>
+      <ul><li><b>Live-drive to discover + heal; freeze to scripts + POM to repeat.</b> Never live-drive 578 checks</li><li>Locators: role &gt; label &gt; testid-contract &gt; CSS/XPath last</li><li>Heal loop: snapshot → <code>generate-locator</code> → patch POM → re-run</li><li>Captchas: own sites → automate; production portals → human-in-the-loop + evidence bundle</li><li>Visual QA: pixelmatch verdict, sharded blob reports, VLM as explainer only</li><li><code>storageState</code> per role; headed Chromium on the VM for score-based portals</li></ul>
+    </div>
+    <div class="card"><h3>Memory, safety, schedule</h3>
+      <ul><li>AGENTS.md per repo + global conventions (best free memory)</li><li>OMO Kibitzer / Supermemory scoped — <b>cloud memory OFF for PHI</b></li><li>Read-only <code>phi-readonly</code> subagent + read-only DB users + vibeguard + gitleaks</li><li>Nightly: builds + RPA + DI/Kafka/Redis checks; notify on fail</li></ul>
+    </div>
+    <div class="card"><h3>Voicebot &amp; OCR skills</h3>
+      <ul><li>ARI: channels/bridges/playback/originate recipes; Kafka lag + SR compat; Redis memory/streams; Realtime transcript-WER loop</li><li>Azure DI v4: Arabic supported; ladder classify → layout → prebuilt → LLM-vision (<0.8 conf crops only)</li><li>YOLO pattern: segment bbox → send the <b>crop, not the page</b></li><li>Eval harness per doc-type: accuracy/latency/cost on goldens</li></ul>
+    </div>
+  </div>
+</section>
+
 <section id="privacy">
   <h2>Privacy &amp; free models</h2>
   <div class="grid2">
@@ -689,7 +825,7 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
 </section>
 </main>
 <footer>
-  OpenCode Go Model Intelligence &amp; Value Report · generated 2026-10-01 17:15 UTC · data snapshot Oct 1, 2026 · scores and limits change frequently — always re-verify against the live docs before making decisions.
+  OpenCode Go Model Intelligence &amp; Value Report · generated 2026-10-01 17:37 UTC · data snapshot Oct 1, 2026 · scores and limits change frequently — always re-verify against the live docs before making decisions.
 </footer>
 <script>
 function tab(btn,id){

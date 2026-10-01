@@ -126,13 +126,26 @@ Escalate per task: `Kimi K3` (marathon/bug) · `Qwen3.8 Max` (visual QA) · `Mus
 | [analysis/05-intelligence-per-dollar.md](./analysis/05-intelligence-per-dollar.md) | Value tables, AA points/$, cognitive throughput, tier structure, jump economics, Go vs BYOK |
 | [analysis/06-free-models-and-privacy.md](./analysis/06-free-models-and-privacy.md) | Data policies (training/retention) per route, free models, local LLM options |
 | [analysis/07-recommended-config.md](./analysis/07-recommended-config.md) | Copy-paste `opencode.json` configs, role matrix, workflow patterns |
+| [analysis/08-oh-my-opencode.md](./analysis/08-oh-my-opencode.md) | Oh My OpenCode guide: agents, categories, hooks, loops + **Go model map for very heavy work** |
+| [analysis/09-opencode-v1-vs-v2.md](./analysis/09-opencode-v1-vs-v2.md) | v1 vs v2 differences, pros/cons, migration checklist, OMO compatibility |
+| [analysis/10-plugins-and-stacks.md](./analysis/10-plugins-and-stacks.md) | Best plugins, ranked MCPs, skills/rules, 3 copy-paste stacks, anti-recommendations |
+| [analysis/11-amazing-additions.md](./analysis/11-amazing-additions.md) | Personalized power-ups: Azure autonomy, browser/RPA, memory, safety, scheduler, voicebot, OCR |
 | [RESEARCH-GUIDE.md](./RESEARCH-GUIDE.md) | How this was researched and how to update it |
+
+---
+
+## New: Oh My OpenCode, v1 vs v2, plugins, power-ups (Oct 1, 2026 — second wave)
+
+- **Oh My OpenCode is now `oh-my-openagent` (OmO)**: Ultimate (OpenCode plugin), Light (Codex), Native (standalone). Sisyphus orchestrator + background agents + Ralph loops **multiply request volume 3–5×** — so the Go map is: **Kimi K3 (max) as primary** (only validated Go orchestrator), **MiMo-V2.6-Pro** on reasoning slots (AA 46), Flash tiers on explore/librarian/quick, Grok 4.7 for consults, DeepSeek Vision for `look_at`. Two full configs (max-intelligence + sustainable) in `08`.
+- **v1 vs v2**: v2 is a rewrite (shared server, multi-tab, synced clients) but **breaks all v1 plugins, kills LSP runtime, share unimplemented, history migrator gaps**. OMO has no official v2 support yet — **stay on v1.18.x for production OMO**; OmO Native is the safe v2-era path. Full comparison + migration checklist in `09`.
+- **Plugins**: sweet spot is 3–6 MCPs (Context7, Playwright scoped, one search MCP, grep.app, ADO, read-only DB). Standouts: OMO, dynamic-context-pruning, notify, wakatime, vibeguard, worktree/multiplexer, morph-fast-apply. Full catalog + stacks in `10`.
+- **Your power-ups** (ranked by wow-per-hour): ADO MCP on `azcli` + skill → nightly build-health → browser-ops skill → failure auto-triage → PHI-safe permissions → AGENTS.md sweep → ARI/Kafka/Redis/DI skills → OMO. Full recipes in `11`.
 
 ---
 
 ## Method (short)
 
-- **8 parallel web-research agents** (roster, per-vendor benchmarks, independent evaluators, task-specific, value/community) + vendor docs and leaderboards fetched directly.
+- **Two waves of parallel web-research agents** (first: roster, per-vendor benchmarks, independent evaluators, task-specific, value/community, project scan; second: Oh My OpenCode, v1-vs-v2, plugins/tooling, Azure autonomy, browser/RPA, memory/safety/telecom/OCR) + vendor docs and leaderboards fetched directly.
 - **Local calibration:** aggregate token/cost stats were computed from the local OpenCode session database (no session content, no client data). This is what makes the limit math real rather than hand-wavy.
 - **Cross-checks:** every crucial number has a source URL; vendor claims are marked vs independent runs; benchmark version/harness caveats are explicit.
 - **Privacy:** no client names, no PHI, no session content in this repo. Only aggregate usage numbers.

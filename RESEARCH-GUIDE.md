@@ -95,6 +95,17 @@ Then message-level `tokens`/`cost` fields were aggregated to compute the user's 
 - *"Fetch https://opencode.ai/docs/go/ and diff the model roster, monthly limits and estimated requests against analysis/01-go-roster-and-limits.md; update the file and list changes."*
 - *"For each model in the Go roster, fetch its Artificial Analysis model page and record Intelligence Index vX.Y.Z, output speed, TTFT and $/task; update analysis/02-benchmarks.md."*
 - *"Recompute my token profile from ~/.local/share/opencode/opencode.db (read-only) and refresh analysis/04-limits-and-burn-rate.md capacity tables."*
+- *"Check the oh-my-openagent releases + opencode.ai/v2/docs/migrate-v1 for OMO-on-v2 support status; update the compatibility matrix in analysis/08 and analysis/09."*
+- *"Re-scrape the opencode ecosystem page + awesome-opencode for new plugins/MCPs; update analysis/10."*
+
+## 6. Second-wave topics (Oct 1, 2026) and their refresh triggers
+
+| File | Refresh trigger |
+|---|---|
+| `08-oh-my-opencode.md` | OMO releases (esp. official v2 support), category renames, fallback-chain changes (`doctor --verbose` is ground truth) |
+| `09-opencode-v1-vs-v2.md` | v2 releases (LSP/share restoration, history migrator fixes, plugin API freeze), v1 EOL announcement |
+| `10-plugins-and-stacks.md` | New ecosystem entries, MCP deprecations, v2 ports of v1 plugins |
+| `11-amazing-additions.md` | Any change in your stack (new Azure services, new RPA targets, new repos) — re-run the 80/20 ranking |
 
 ---
 
