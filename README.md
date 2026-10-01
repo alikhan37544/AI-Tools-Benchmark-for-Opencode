@@ -1,6 +1,7 @@
 # AI Tools Benchmark for OpenCode — Go Plan Deep Dive
 
 > **Full refresh: October 1, 2026.** 30 Go models · 18 task categories · every major benchmark source · **calibrated to this machine's real OpenCode usage history**.
+> 🌐 **Live site (GitHub Pages): https://alikhan37544.github.io/AI-Tools-Benchmark-for-Opencode/**
 > Interactive report: **[opencode-go-analysis.html](./opencode-go-analysis.html)** — searchable, sortable, with charts.
 
 This repo answers six questions with evidence, not vibes:
