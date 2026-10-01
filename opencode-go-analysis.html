@@ -50,7 +50,7 @@ footer{border-top:1px solid var(--line);padding:22px 26px;color:var(--dim);font-
 <body>
 <header>
   <h1>OpenCode Go — Model Intelligence &amp; Value Report</h1>
-  <div class="sub">Generated 2026-10-01 13:11 UTC · 30 Go models · 18 task categories · AA Intelligence Index v4.3.2 · calibrated to real OpenCode usage</div>
+  <div class="sub">Generated 2026-10-01 17:15 UTC · 30 Go models · 18 task categories · AA Intelligence Index v4.3.2 · calibrated to real OpenCode usage</div>
   <div class="stats">
     <div class="stat"><b>30</b><span>models on Go</span></div>
     <div class="stat"><b>AA 48</b><span>best Go model (Muse Spark 1.3)</span></div>
@@ -69,6 +69,7 @@ footer{border-top:1px solid var(--line);padding:22px 26px;color:var(--dim);font-
   <button onclick="tab(this,'limits')">Limits &amp; Burn Rate</button>
   <button onclick="tab(this,'value')">Value &amp; Tiers</button>
   <button onclick="tab(this,'privacy')">Privacy</button>
+  <button onclick="tab(this,'contributor')">Contributor SKU</button>
   <button onclick="tab(this,'config')">Config</button>
   <button onclick="tab(this,'sources')">Sources</button>
 </nav>
@@ -93,7 +94,7 @@ footer{border-top:1px solid var(--line);padding:22px 26px;color:var(--dim);font-
     <li><b>Your "barely dent the 5h limit" observation is correct</b> — your peak 5h used only 50% of the cap. But your peak <b>week hit 83%</b> and your current pace projects to hit the <b>$60 monthly cap around day 22–26</b>. It's the weekly/monthly windows, not the 5h window, that will bite.</li>
     <li><b>Intelligence vs capacity is brutal:</b> going from DeepSeek V4.1 Flash (AA 39, 19.1k req) to Kimi K3 (AA 44, 179 req) costs 27× per request and 99% of your volume for +5 AA. Premium models are per-task rations.</li>
     <li><b>The winning strategy is portfolio routing:</b> volume on DeepSeek/MiMo-Flash, quality-per-call on MiMo-V2.6-Pro, rations on Kimi K3 / Grok 4.6 / Qwen3.8 Max / GLM-5.3, and Copilot/frontier only for must-not-fail work.</li>
-    <li><b>Do not use Muse Spark Contributor, Big Pickle, MiMo free or NVIDIA free for client/PHI work.</b> DeepSeek's zero-retention renewal needs re-verification.</li>
+    <li><b>Do not use Muse Spark Contributor, Big Pickle, MiMo free or NVIDIA free for client/PHI work.</b> Contributor is the same model weights as Standard, but a discounted SKU paid for with training rights on your prompts, files and tool results; Meta's terms explicitly forbid sensitive/confidential/personal data on it. See the <b>Contributor SKU</b> tab. DeepSeek's zero-retention renewal needs re-verification.</li>
     <li><b>Go Plus is 2×–8× limits for 4× price</b> — great for GLM-5.3 (8×), poor for DeepSeek V4.1 Flash/MiMo-Flash/Muse Spark (2×). Go + Zen overflow beats Plus for DeepSeek-heavy users.</li>
   </ol>
   </div>
@@ -490,12 +491,127 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
   <div class="tier t0"><div class="tier-head"><span class="tier-label">Free previews</span><span class="tier-desc">Free — unlimited for now</span></div><div class="chips"><span class="chip">Space Bunny Free</span><span class="chip">LongCat 2.5 Preview Free</span><span class="chip">Zen free models</span></div><p class="note">Unlimited until they end. Non-sensitive exploration only.</p></div><div class="tier t1"><div class="tier-head"><span class="tier-label">Workhorses (drive everything)</span><span class="tier-desc">Workhorse — drive everything</span></div><div class="chips"><span class="chip">DeepSeek V4.1 Flash</span><span class="chip">MiMo-V2.6-Flash</span><span class="chip">GLM-5.3-Flash</span><span class="chip">Muse Spark 1.3 Contrib*</span><span class="chip">MiMo-V2.5</span><span class="chip">LongCat-2.0</span><span class="chip">Hy3</span><span class="chip">Qwen3.8 Flash</span></div><p class="note">3k-46k req/mo at your profile. 90% of work lives here. *Muse trains on your data.</p></div><div class="tier t2"><div class="tier-head"><span class="tier-label">Premium rations ($15-30)</span><span class="tier-desc">Premium ration — quality per call</span></div><div class="chips"><span class="chip">MiMo-V2.6-Pro (AA 46)</span><span class="chip">GPT 6 Luna</span><span class="chip">GPT 5.6 Luna</span><span class="chip">DeepSeek V4 Pro</span><span class="chip">DS V4 Flash Vision</span><span class="chip">MiMo-V2.5-Pro</span><span class="chip">Hy4 preview</span></div><p class="note">1k-5k req/mo. Use for planning, hard debug, OCR verification.</p></div><div class="tier t3"><div class="tier-head"><span class="tier-label">Frontier rations ($15)</span><span class="tier-desc">Frontier ration — the hard 5%</span></div><div class="chips"><span class="chip">Grok 4.6/4.7</span><span class="chip">Kimi K3</span><span class="chip">GLM-5.3</span><span class="chip">Qwen3.8 Max</span></div><p class="note">~1-3 substantial tasks/week each. The hard 5%.</p></div><div class="tier t4"><div class="tier-head"><span class="tier-label">Beyond Go (frontier)</span><span class="tier-desc">Beyond Go — must-not-fail</span></div><div class="chips"><span class="chip">Claude Opus 5.5 (AA 58)</span><span class="chip">GPT-6 Astra / Fable 5.1 / Gemini 4 Argon (53)</span><span class="chip">GPT-6.1 Sol (52)</span></div><p class="note">Copilot or Zen. Must-not-fail work only.</p></div>
 </section>
 
+<section id="contributor">
+  <h2>Muse Spark Contributor — one model, two contracts</h2>
+  <p class="sub">"Muse Spark 1.3" and "Muse Spark 1.3 Contributor" are the <b>same model weights, same 1M context, same modalities, same reasoning efforts</b>. They are two separate API products (SKUs) that differ in exactly three ways: price, rate limits, and what Meta is allowed to do with your data. Contributor is not a sale — it is a purchase, paid in data rights.</p>
+
+  <h3>The two SKUs, side by side</h3>
+  <div class="tblwrap"><table><thead><tr><th>Property</th><th>muse-spark-1.3 (Standard)</th><th>muse-spark-1.3-contributor</th></tr></thead><tbody>
+    <tr><td class="name">Model weights / specs</td><td>Identical</td><td>Identical (1M ctx, video/image/doc input, tool calling, structured output, same reasoning efforts)</td></tr>
+    <tr><td class="name">Input / 1M</td><td>$1.25</td><td class="hl">$0.10 (12.5× cheaper)</td></tr>
+    <tr><td class="name">Output / 1M</td><td>$4.25</td><td class="hl">$0.20 (21× cheaper)</td></tr>
+    <tr><td class="name">Cached input / 1M</td><td>$0.15</td><td class="hl">$0.002 (75× cheaper)</td></tr>
+    <tr><td class="name">Your prompts &amp; completions</td><td>"not used to improve our products"</td><td class="hl">"used to improve our products" — Meta may train on them</td></tr>
+    <tr><td class="name">Requests / minute (per team)</td><td>3,000 RPM</td><td>100 RPM (30× fewer)</td></tr>
+    <tr><td class="name">Tokens / minute</td><td>4M TPM</td><td>3M TPM</td></tr>
+    <tr><td class="name">Geographic / end-user restrictions</td><td>None beyond general policy</td><td>Extra restrictions; some regions excluded</td></tr>
+  </tbody></table></div>
+  <p class="note">Source: <a href="https://dev.meta.ai/docs/pricing-rate-limits" target="_blank" rel="noopener">Meta Model API — Pricing &amp; rate limits</a>; OpenCode Go lists the <b>Contributor SKU</b> (hence the $0.10/$0.20 rates); the Standard SKU is on Zen at $1.25/$4.25.</p>
+
+  <h3>What "Contributor" actually means in legal terms</h3>
+  <div class="card">
+    <p>Meta's own rules for the tier are explicit:</p>
+    <blockquote>"You must not submit sensitive, confidential, or personal information to the Discounted Services. This means you — and your end users — should not send inputs that contain any personal or confidential information. If your use case involves processing personal information, please use Standard Services."<br><span class="src">— Meta AI Developer Help Center, Contributor tier policy (<a href="https://dev.meta.ai/help/policies-and-privacy/contributor-tier" target="_blank" rel="noopener">dev.meta.ai/help/policies-and-privacy/contributor-tier</a>)</span></blockquote>
+    <blockquote>"Discounted Services: Meta may use your Content, including Inputs and Outputs, to train, develop, evaluate, and improve Meta's AI models… Meta may use Content for evaluation, safety, abuse, quality, and policy review."<br><span class="src">— Meta Model API Legal — Commitments (<a href="https://dev.meta.ai/legal/commitments" target="_blank" rel="noopener">dev.meta.ai/legal/commitments</a>)</span></blockquote>
+    <p><b>"Bar" means contractually prohibited</b>, not just "unwise": using Contributor for such data breaks Meta's terms, and you carry the responsibility for what your agent sends. The discount travels with the data rights — if you can't grant them, you must use Standard.</p>
+  </div>
+
+  <h3>What counts as "Content" (this is broader than the prompt you type)</h3>
+  <div class="card">
+    <p>Meta defines Content as <i>"both the inputs you provide to the Services (such as prompts, documents, code, and other data you submit <b>or authorize the Services to access</b>) and the responses generated by the Services."</i> In an agentic coding run, that means essentially <b>the entire agent turn</b>:</p>
+    <ul>
+      <li>Your typed prompt and the agent's plan/reasoning output</li>
+      <li><b>Every file the agent reads</b> — including files you never looked at (the explore agent opened them, so they are authorized input)</li>
+      <li><b>Tool results:</b> grep output, stack traces, test logs, SQL query rows, API responses, git diffs</li>
+      <li><b>Documents and screenshots</b> the agent processes (Muse Spark is multimodal — images, video, files included)</li>
+      <li><b>Generated code and answers</b> (completions) — i.e. your new proprietary implementation is also Content</li>
+      <li>Secrets that leak into any of the above: .env values, tokens, connection strings, customer records, PHI</li>
+    </ul>
+    <p class="note">A prompt scrubber is not enough. If a tool can fetch confidential workspace content after your initial request, that content is still sent. Model policy must cover the whole turn: prompt, files, retrieval, tool results, and generated output.</p>
+  </div>
+
+  <h3>What "sensitive, confidential, personal" means — concrete examples</h3>
+  <div class="grid2">
+    <div class="card"><h3 style="color:#f7768e">Personal data</h3>
+      <ul>
+        <li>Names, emails, phone numbers, addresses, photos of people</li>
+        <li>Government IDs, passport numbers, dates of birth, bank/insurance details</li>
+        <li>Health information, prescriptions, lab reports, biometrics</li>
+        <li>Employee or customer records, support transcripts, chat logs</li>
+        <li>Location data, device identifiers, any combination that identifies a person</li>
+      </ul>
+      <p class="note">Your insurance/healthcare OCR work (claim forms, lab reports, Arabic prescriptions) is squarely in this class.</p>
+    </div>
+    <div class="card"><h3 style="color:#e0af68">Confidential / proprietary</h3>
+      <ul>
+        <li>Client code under NDA or contracts with confidentiality clauses</li>
+        <li>Proprietary algorithms, unreleased product plans, internal docs</li>
+        <li>Credentials, API tokens, PATs, connection strings, security incident material</li>
+        <li>Contracts, financials, internal communications</li>
+        <li>Regulated data: PHI/HIPAA, finance, legal, insurance claims, children's data</li>
+      </ul>
+      <p class="note">Your client repositories and Azure/PAT workflows fall here, even where no personal data is involved.</p>
+    </div>
+  </div>
+
+  <h3>Use cases: green light vs red light</h3>
+  <div class="grid2">
+    <div class="card" style="border-left:4px solid #9ece6a"><h3 style="color:#9ece6a">Reasonable on Contributor</h3>
+      <ul>
+        <li>Greenfield prototypes and personal learning projects</li>
+        <li>Open-source repos you own or that are already public</li>
+        <li>Throwaway experiments, benchmarks, evaluation harnesses</li>
+        <li>Generating synthetic data or boilerplate</li>
+        <li>Refactoring code you are comfortable publishing</li>
+        <li>High-volume exploration where the data is not the asset</li>
+      </ul>
+      <p class="note">Test: "Would I be fine if this exact content appeared in a future Meta training set?" If yes, Contributor.</p>
+    </div>
+    <div class="card" style="border-left:4px solid #f7768e"><h3 style="color:#f7768e">Never on Contributor</h3>
+      <ul>
+        <li>Any client work — code, tickets, docs, data (NDA/contractual duty)</li>
+        <li>Medical/insurance/PHI pipelines, even "just OCR" or "just formatting"</li>
+        <li>Proprietary product code where the code is the business asset</li>
+        <li>Anything with credentials, tokens, or security findings in context</li>
+        <li>Production agent traffic where you cannot enumerate what tools will read</li>
+        <li>End-user traffic without documented consent and location eligibility</li>
+      </ul>
+      <p class="note">Test: "Does anyone else own or regulate this data?" If yes, use Standard (or another provider).</p>
+    </div>
+  </div>
+
+  <h3>The agentic trap (why this matters for YOUR workflow)</h3>
+  <div class="card">
+    <p>Your typical OpenCode session on this machine reads insurance/claims repos, runs DB queries, greps logs, and processes Arabic medical documents. A Contributor model in that loop does not just see your question — <b>it receives the files, the query results, and the document images automatically</b>. That is why the earlier guidance is a hard rule, not a preference: never make a Contributor a default or fallback model in client projects.</p>
+    <div class="kpi">
+      <div class="card"><b>$1.15 / 1M</b><span>the implied price Meta pays for your input tokens (the discount gap)</span></div>
+      <div class="card"><b>100 RPM</b><span>Contributor request limit — agent loops hit this long before price matters</span></div>
+      <div class="card"><b>30×</b><span>fewer requests/min than Standard, per team (not per key)</span></div>
+      <div class="card"><b>ZDR</b><span>Meta says it accepts zero-data-retention requests on Contributor; not a substitute for the data ban</span></div>
+    </div>
+  </div>
+
+  <h3>Safeguards if you do use it</h3>
+  <div class="card">
+    <ol>
+      <li><b>Pin the model ID explicitly</b> (<code>muse-spark-1.3-contributor</code>) — it is a separate model ID, not a billing flag. Never put it in <code>small_model</code> or as a global default.</li>
+      <li><b>Isolate by project:</b> a Contributor-enabled <code>opencode.json</code> only in repos that are public/personal, with its own permissions.</li>
+      <li><b>Classify data before routing:</b> if the repo contains client names, PHI, credentials, or NDA code, Contributor is out — regardless of price.</li>
+      <li><b>Cover the whole agent turn:</b> restrict tools (read paths, MCP servers) so the agent cannot fetch confidential context mid-run.</li>
+      <li><b>Watch the rate limit:</b> 100 RPM per team will throttle agent fan-out; keep Standard/other providers for burst work.</li>
+      <li><b>Consider ZDR:</b> ask Meta for zero-data-retention on Contributor if you need it, but note the §6 data-class ban still applies.</li>
+      <li><b>Log what leaves the machine</b> for Contributor sessions so a leak can be traced.</li>
+    </ol>
+  </div>
+  <p class="note">Sources: <a href="https://dev.meta.ai/docs/pricing-rate-limits" target="_blank" rel="noopener">Meta pricing/rate limits</a> · <a href="https://dev.meta.ai/help/policies-and-privacy/contributor-tier" target="_blank" rel="noopener">Contributor tier policy</a> · <a href="https://dev.meta.ai/legal/commitments" target="_blank" rel="noopener">Legal commitments</a> · <a href="https://dev.meta.ai/legal/geographic-use-policy" target="_blank" rel="noopener">Geographic Use Policy</a> · independent analyses: TrustList, codersera, OrcaRouter, OpenClaw.</p>
+</section>
+
 <section id="privacy">
   <h2>Privacy &amp; free models</h2>
   <div class="grid2">
     <div class="card"><h3>Never for client/PHI</h3>
       <ul>
-        <li><b>Muse Spark 1.3/1.2 Contributor</b> (paid Go tier too!) — trains on prompts/completions</li>
+        <li><b>Muse Spark 1.3/1.2 Contributor</b> (paid Go tier too!) — trains on prompts/completions, and Meta's terms ban sensitive/confidential/personal data on this SKU. See the <a href="#" onclick="document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>{if(b.textContent.includes('Contributor'))b.classList.add('active')});document.getElementById('contributor').classList.add('active');window.scrollTo({top:0});return false;">Contributor SKU tab</a> for the full explainer</li>
         <li><b>Big Pickle</b> — data used to improve the model</li>
         <li><b>MiMo-V2.6-Flash Free / MiMo-V2.5 Free</b> — training may occur</li>
         <li><b>Nemotron 3 Ultra / 3.5 Lightning Free</b> — NVIDIA trial terms, do not submit personal data</li>
@@ -573,7 +689,7 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
 </section>
 </main>
 <footer>
-  OpenCode Go Model Intelligence &amp; Value Report · generated 2026-10-01 13:11 UTC · data snapshot Oct 1, 2026 · scores and limits change frequently — always re-verify against the live docs before making decisions.
+  OpenCode Go Model Intelligence &amp; Value Report · generated 2026-10-01 17:15 UTC · data snapshot Oct 1, 2026 · scores and limits change frequently — always re-verify against the live docs before making decisions.
 </footer>
 <script>
 function tab(btn,id){

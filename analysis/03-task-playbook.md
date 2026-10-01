@@ -112,7 +112,7 @@ Observed profile (last 60 days of local OpenCode history): TypeScript/Node + Pyt
 ### Hard constraints to respect
 
 1. **Client contract disallows OpenAI models** for at least one computer-vision project → keep GPT-6/5.6 Luna and GPT-6 Astra out of that pipeline; use Gemini/local YOLO/Qwen as configured there.
-2. **PHI/medical/insurance data**: avoid models whose provider trains on inputs — **Muse Spark Contributor, Big Pickle, MiMo free, NVIDIA free, Ling free**. Prefer GLM/MiMo paid/Kimi/Qwen/DeepSeek routes, and re-verify DeepSeek's zero-retention renewal (its ZDR page listed validity "through September 30, 2026").
+2. **PHI/medical/insurance data**: avoid models whose provider trains on inputs — **Muse Spark Contributor, Big Pickle, MiMo free, NVIDIA free, Ling free**. Note: Muse Spark Contributor is the *same weights* as Standard Muse Spark, but a discounted SKU whose terms forbid sensitive/confidential/personal data ([§1b](./06-free-models-and-privacy.md)). Prefer GLM/MiMo paid/Kimi/Qwen/DeepSeek routes, and re-verify DeepSeek's zero-retention renewal (its ZDR page listed validity "through September 30, 2026").
 3. **Never start servers autonomously** (per your own GEMINI.md rule) — encode this in agent permissions, not in the prompt.
 4. **Azure DevOps is your CI** (no GitHub Actions in your repos) — give the agent `az`/`az devops` CLI tools explicitly and keep PAT handling in the environment.
 5. **Arabic OCR**: benchmark the top-3 vision models on your own `curenure_ocr_ar` corpus before switching; public benchmarks under-sample Arabic.

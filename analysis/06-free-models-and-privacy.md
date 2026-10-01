@@ -26,6 +26,68 @@
 
 ---
 
+## 1b. Muse Spark Contributor: same model, two contracts
+
+**Verified Oct 1, 2026.** `muse-spark-1.3` and `muse-spark-1.3-contributor` are the **same weights/specs** (1M context, same modalities, reasoning efforts, tools). They are two separate SKUs that differ in price, rate limits, and data rights. Independent analyses agree: "same weights, different terms."
+
+| | muse-spark-1.3 (Standard) | muse-spark-1.3-contributor |
+|---|---|---|
+| Input / Output / Cached (per 1M) | $1.25 / $4.25 / $0.15 | **$0.10 / $0.20 / $0.002** |
+| Prompts & completions | "not used to improve our products" | **"used to improve our products"** — Meta may train on them |
+| Rate limits (per team) | 3,000 RPM / 4M TPM | **100 RPM** / 3M TPM |
+| Geographic/end-user rules | Standard policy | Extra restrictions, some regions excluded |
+
+On **OpenCode Go, the listed "Muse Spark 1.3/1.2 Contributor" is the Contributor SKU** (hence Go's $0.10/$0.20/$0.002 rates); the no-training Standard SKU is on Zen at $1.25/$4.25/$0.15.
+
+### What "must not submit sensitive, confidential, or personal information" means
+
+Meta's Contributor policy, verbatim:
+
+> "You must not submit sensitive, confidential, or personal information to the Discounted Services. This means you — and your end users — should not send inputs that contain any personal or confidential information. If your use case involves processing personal information, please use Standard Services."
+> — [Meta AI Developer Help Center](https://dev.meta.ai/help/policies-and-privacy/contributor-tier)
+
+> "Discounted Services: Meta may use your Content, including Inputs and Outputs, to train, develop, evaluate, and improve Meta's AI models… Meta may use Content for evaluation, safety, abuse, quality, and policy review."
+> — [Meta Model API Legal — Commitments](https://dev.meta.ai/legal/commitments)
+
+"Bar" means **contractually prohibited**, not merely unwise. Using Contributor for such data breaches Meta's terms, and you carry responsibility for what your agent sends.
+
+### What counts as "Content" — the whole agent turn
+
+Meta defines Content as inputs you provide **or authorize the Services to access** (prompts, documents, code, other data) **and** the generated responses. In an agentic OpenCode run that is:
+
+- the typed prompt and the agent's reasoning/plan output;
+- **every file the agent reads**, including ones you never opened (the explore agent authorized them);
+- **tool results**: grep matches, stack traces, test logs, SQL rows, API responses, git diffs;
+- **documents/screenshots** the model processes (Muse Spark is multimodal);
+- **generated code** — your new implementation is a completion and is also Content;
+- any secret that leaks into those paths (.env values, PATs, connection strings, customer records, PHI).
+
+A prompt scrubber is not enough: if a tool can fetch confidential workspace content after your request, it still gets sent.
+
+### Green light vs red light
+
+**Reasonable on Contributor:** greenfield prototypes, personal learning, open-source repos, throwaway experiments, benchmarks/eval harnesses, synthetic data/boilerplate, code you'd be fine publishing. Test: *"Would I be fine if this exact content appeared in a future Meta training set?"*
+
+**Never on Contributor:** any client work (NDA/contractual duty), medical/insurance/PHI pipelines (even "just OCR"), proprietary code that is the business asset, anything with credentials/tokens/security findings in context, production agent traffic where you can't enumerate tool access, end-user traffic without documented consent/eligibility. Test: *"Does anyone else own or regulate this data?"*
+
+### The agentic trap (why this is a hard rule here)
+
+Sessions on this machine read insurance/claims repos, run DB queries, grep logs, and process Arabic medical documents. A Contributor model in that loop receives the files, query results, and document images automatically — not just your question. **Never make a Contributor model a default or fallback in client projects.**
+
+### Safeguards if you do use it
+
+1. Pin the model ID explicitly; never put it in `small_model` or as a global default.
+2. Isolate it to a project config in public/personal repos only.
+3. Classify data before routing: client names, PHI, credentials, NDA code → Contributor is out.
+4. Restrict tools/read paths so the agent cannot fetch confidential context mid-run.
+5. Watch 100 RPM (per team) — agent fan-out will throttle.
+6. Meta says it accepts zero-data-retention requests on Contributor; ask if needed, but the data-class ban still applies.
+7. Log what leaves the machine for Contributor sessions.
+
+The economics: the discount (~$1.15 per 1M input tokens) is what Meta effectively pays for your data. It is a trade, not a sale — and there is no undo button on a training leak.
+
+---
+
 ## 2. Paid-model privacy posture (for your medical/insurance work)
 
 | Route | Retention/training | Safe for PHI/client code? |
@@ -38,7 +100,7 @@
 | Grok 4.6/4.7 | Zero-retention per OpenCode | ✅ |
 | GPT 6/5.6 Luna | OpenAI API, **30-day retention** per OpenAI policy | ⚠️ for non-PHI; note your CV client contract bans OpenAI models entirely |
 | Claude (Zen only, not Go) | Anthropic 30-day retention | ⚠️ same |
-| **Muse Spark Contributor (paid)** | **Trains on prompts/completions** | ❌ never for client/PHI |
+| **Muse Spark Contributor (paid)** | **Trains on prompts/completions; terms ban sensitive/confidential/personal data** (Standard SKU does neither) | ❌ never for client/PHI — see §1b |
 | Space Bunny / Big Pickle | varies | ❌ for critical/PHI |
 
 OpenCode hosts all models in the US. Enterprise/team workspace admins can disable specific models workspace-wide — useful if you ever onboard others.
