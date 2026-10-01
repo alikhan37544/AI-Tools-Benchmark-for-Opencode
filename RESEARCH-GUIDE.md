@@ -1,194 +1,110 @@
-# Research Guide for Future Coding Agents
+# Research Guide — How This Was Built & How to Update It
 
-> How this research was conducted and how to update it going forward.
-
----
-
-## How This Research Was Conducted
-
-### Architecture: 5 Parallel Subagents
-
-Each analysis was built using **5 concurrent research subagents**, each focused on a different domain:
-
-1. **Pricing Agent** — Searches all provider pricing pages, aggregates per-token costs
-2. **Benchmark Agent** — Scrapes SWE-bench, Aider, LMSYS Arena, Artificial Analysis, BenchLM
-3. **Community Agent** — Searches Reddit, DEV.to, YouTube, GitHub issues for real-world experiences
-4. **Value Agent** — Calculates intelligence/$ ratios, identifies sweet spot models
-5. **Features Agent** — Context windows, caching, speed, tool use, batch discounts
-
-### Research Process
-
-```
-1. User request arrives
-2. Identify research domains (pricing, benchmarks, features, community, value)
-3. Spin up N subagents in parallel (task tool, subagent_type: "general")
-4. Each agent:
-   a. Searches web with multiple queries
-   b. Fetches authoritative URLs directly
-   c. Cross-references multiple sources
-   d. Returns structured data with source URLs
-5. Compile agent results into unified analysis
-6. Generate HTML (interactive) + Markdown (GitHub-friendly) outputs
-7. Commit to this repo
-```
-
-### Key Search Queries That Work
-
-For **pricing**:
-- "LLM pricing 2026", "AI model pricing comparison"
-- Direct URLs: `anthropic.com/pricing`, `platform.openai.com/docs/pricing`
-- `benchlm.ai/llm-pricing` (aggregator)
-
-For **benchmarks**:
-- "SWE-bench leaderboard August 2026"
-- Direct: `swebench.com`, `aider.chat/docs/leaderboards/`, `lmarena.ai/leaderboard`
-- `artificialanalysis.ai/leaderboards/models`
-- `benchlm.ai/coding`
-
-For **community sentiment**:
-- "best model for opencode reddit"
-- "opencode go review"
-- site:dev.to opencode model
-- site:youtube.com opencode go review
-
-For **local LLMs**:
-- "RTX 5060 Ti llama.cpp benchmark"
-- "best local coding LLM 16GB VRAM 2026"
-- "ollama coding model recommendation"
-- Direct: `ollama.ai/library`
+> Methodology for the October 1, 2026 refresh. Use this to re-run the analysis in ~5 minutes of agent time (plus web access).
 
 ---
 
-## How to Update This Research
+## 1. Research architecture
 
-### When to Update
+This analysis used **8 parallel research agents** plus direct document fetches and a local data-calibration pass:
 
-| Trigger | What to Update |
-|---------|---------------|
-| New model release | Add to pricing table, run benchmarks section |
-| Price change | Update pricing tables, recalculate value ratios |
-| New benchmark scores | Update leaderboard sections |
-| OpenCode Go model change | Update Go section |
-| New quantization method | Update local LLM section |
-| Quarterly (minimum) | Full refresh of all sections |
+| Agent | Scope |
+|---|---|
+| 1. Go ground truth | Plans, roster, limit mechanics, free/stealth models, changelog Aug→Oct, opencode.ai/data |
+| 2. OpenAI GPT Luna | GPT 6 / 5.6 Luna: AA, vendor, Vals, LMArena, ARC, community, weaknesses |
+| 3. Grok / GLM / MiniMax | Per-model specs, benchmarks, community sentiment |
+| 4. DeepSeek / Qwen | V4.1/V4 Pro/V4 Flash + Qwen3.8 Max/Flash |
+| 5. Kimi / MiMo / LongCat / Hyuan / Muse / stealth | Including HuggingFace download/like metrics |
+| 6. Task-specific best models | 18 task categories with benchmark evidence |
+| 7. Value & community | AA cost-to-intelligence, OpenRouter rankings, burn-rate anecdotes, tokenomics |
+| 8. Independent evaluators | LMArena, AA, SWE-bench, Terminal-Bench, Aider, LiveCodeBench, METR, Epoch, OpenHands, ARC, Vals, HuggingFace |
 
-### Step-by-Step Update Process
+Each agent was instructed to: search multiple queries, fetch authoritative URLs directly, never invent numbers, attach a source URL to every figure, distinguish vendor vs independent measurements, and list uncertainties/gaps.
 
-#### 1. Check for New Models
+### Why multiple agents
+
+- Different search backends surface different leaderboards and regional sources.
+- Cross-agent contradictions expose unreliable numbers (e.g. DeepSeek V4 Pro ranged 36–44 on "AA" across agents; direct fetch confirmed **36** on v4.3.2).
+- Per-vendor agents can go deep on model cards and vendor benchmark tables, while the evaluator agent covers cross-vendor boards.
+
+### Local calibration (the secret sauce)
+
+For limits and value math, aggregate token/cost statistics were computed from the local OpenCode session database:
+
 ```bash
-# Search for recent releases
-Search: "AI model release [month] [year]"
-Search: "new LLM [month] [year]"
-Check: https://aireleasetracker.com/latest
+sqlite3 -readonly ~/.local/share/opencode/opencode.db \
+  "SELECT json_extract(model,'\$.id'), COUNT(*), SUM(tokens_input), SUM(tokens_output),
+          SUM(tokens_reasoning), SUM(tokens_cache_read), SUM(cost)
+   FROM session GROUP BY 1 ORDER BY COUNT(*) DESC;"
 ```
 
-#### 2. Update Pricing
-```bash
-# Fetch current pricing from each provider
-Fetch: https://www.anthropic.com/pricing
-Fetch: https://platform.openai.com/docs/pricing
-Fetch: https://opencode.ai/docs/zen/
-Fetch: https://opencode.ai/docs/go/
-```
-
-#### 3. Update Benchmarks
-```bash
-# Check each leaderboard
-Fetch: https://benchlm.ai/coding
-Fetch: https://lmarena.ai/leaderboard
-Fetch: https://artificialanalysis.ai/leaderboards/models
-Fetch: https://aider.chat/docs/leaderboards/
-Fetch: https://swebench.com/
-```
-
-#### 4. Recalculate Value Ratios
-```
-Intelligence/$ = Normalized Score / Output Price per 1M tokens
-% of Leader = Model Score / Leader Score * 100
-Sweet Spot = Models with >= 80% intelligence at <= 20% price
-```
-
-#### 5. Update Local LLM Section
-```bash
-# Check for new open-source models
-Search: "best local coding LLM [year]"
-Check: https://ollama.ai/library
-Check: https://huggingface.co/spaces/open-llm-leaderboard
-# Check for new quantization methods
-Search: "llama.cpp new quantization [year]"
-# Check GPU benchmarks
-Search: "RTX 5060 Ti llama.cpp benchmark [year]"
-```
-
-#### 6. Generate Outputs
-- Update HTML files (interactive, visual)
-- Update Markdown files (GitHub-friendly)
-- Update this guide if process changes
-- Commit with descriptive message
+Then message-level `tokens`/`cost` fields were aggregated to compute the user's true per-request profile (7.8k input / 1.1k output+reasoning / 146k cache read), peak burst rates (630 req/h), and rolling 5h/7d/30d spend. Only aggregates are used; no session content, titles, or client data.
 
 ---
 
-## File Structure
+## 2. Source hierarchy
 
-```
-AI-Tools-Benchmark-for-Opencode/
-├── README.md                          # This repo overview
-├── RESEARCH-GUIDE.md                  # This file
-├── opencode-model-analysis.md         # Cloud models (Markdown)
-├── opencode-model-analysis.html       # Cloud models (HTML)
-├── local-llm-for-opencode.md          # Local LLMs (Markdown)
-└── local-llm-for-opencode.html        # Local LLMs (HTML)
-```
+1. **Vendor docs & model cards** (opencode.ai, HF cards, provider docs) — facts about pricing, context, modalities.
+2. **Artificial Analysis v4.3.2** — the cross-vendor intelligence scale; always cite the version.
+3. **Independent harnesses** — Vals AI, LMArena, Terminal-Bench, SWE-bench mirrors, OpenHands Index, ARC Prize, METR, Epoch AI.
+4. **Vendor benchmark tables** — useful but self-selected; label 🟡/🔴.
+5. **Community** — Reddit r/opencode + r/opencodeCLI, Hacker News, X, blogs. Good for burn rates and reliability, bad for precise scores.
+6. **Aggregators** — OpenRouter rankings (revealed preference), opencode.ai/data (whole-user telemetry), theopenweights.com.
 
 ---
 
-## Data Sources Reference
+## 3. Key URLs used
 
-### Pricing Sources
-| Source | URL | Update Frequency |
-|--------|-----|-----------------|
-| Anthropic | anthropic.com/pricing | On release |
-| OpenAI | platform.openai.com/docs/pricing | On release |
-| OpenCode Zen | opencode.ai/docs/zen | On change |
-| OpenCode Go | opencode.ai/docs/go | On change |
-| BenchLM | benchlm.ai/llm-pricing | Aggregator |
-
-### Benchmark Sources
-| Source | URL | What It Measures |
-|--------|-----|-----------------|
-| SWE-bench | swebench.com | Real-world software engineering |
-| Aider | aider.chat/docs/leaderboards | Multi-language code editing |
-| LMSYS Arena | lmarena.ai/leaderboard | Human preference Elo |
-| Artificial Analysis | artificialanalysis.ai | Intelligence index + speed |
-| BenchLM | benchlm.ai/coding | Composite coding score |
-
-### Community Sources
-| Source | URL | What to Search |
-|--------|-----|---------------|
-| Reddit | reddit.com/r/opencode | Model experiences |
-| DEV.to | dev.to | Technical reviews |
-| YouTube | youtube.com | Video reviews |
-| GitHub | github.com/anomalyco/opencode | Issues, discussions |
-
-### Local LLM Sources
-| Source | URL | What It Provides |
-|--------|-----|-----------------|
-| Ollama | ollama.ai/library | Model catalog |
-| HuggingFace | huggingface.co | Model weights, benchmarks |
-| llama.cpp | github.com/ggml-org/llama.cpp | Inference engine |
-| r/LocalLLaMA | reddit.com/r/LocalLLaMA | Community benchmarks |
+| Purpose | URL |
+|---|---|
+| Go plans/limits/roster | https://opencode.ai/docs/go/ · https://opencode.ai/v2/docs/console/go |
+| Zen pricing/models | https://opencode.ai/docs/zen/ |
+| Whole-user telemetry | https://opencode.ai/data |
+| Changelog | https://opencode.ai/changelog |
+| Model list JSON | https://opencode.ai/zen/v1/models |
+| Intelligence index | https://artificialanalysis.ai/leaderboards/models |
+| Coding agents | https://artificialanalysis.ai/agents/coding-agents |
+| LMArena | https://lmarena.ai/leaderboard |
+| Terminal-Bench | https://www.tbench.ai/ · https://terminal-bench.com |
+| SWE-bench | https://www.swebench.com/ |
+| Aider (frozen) | https://aider.chat/docs/leaderboards/ |
+| OpenHands Index | https://openhands.dev/ |
+| METR | https://metr.org/time-horizons/ |
+| Epoch AI | https://epoch.ai/benchmarks |
+| ARC Prize | https://arcprize.org/ |
+| Vals AI | https://www.vals.ai/ |
+| Design/WebDev Arena | https://www.designarena.ai/ · https://lmarena.ai/leaderboard/code |
+| OpenRouter rankings | https://openrouter.ai/rankings |
+| DeepSeek pricing/updates | https://api-docs.deepseek.com/quick_start/pricing · /updates |
 
 ---
 
-## Tips for High-Quality Research
+## 4. Update procedure (quarterly, or on any roster change)
 
-1. **Always use multiple subagents in parallel** — different agents find different things
-2. **Fetch authoritative URLs directly** — don't rely solely on search snippets
-3. **Cross-reference at least 2 sources** for every data point
-4. **Include source URLs** in all outputs for verifiability
-5. **Distinguish measured vs estimated** data clearly
-6. **Note the date** on all data — LLM landscape changes weekly
-7. **Search for the negative** — "model X problems" reveals real-world issues
-8. **Check community sentiment** — benchmarks don't capture everything
-9. **Calculate derived metrics** — intelligence/$ is more useful than raw scores
-10. **Always note limitations** — what the data doesn't tell you
+1. **Fetch Go docs** and diff the roster/limits against `analysis/01`. Record additions/removals, cap changes, free-model windows.
+2. **Re-fetch AA pages** for every Go model; capture Intelligence Index **with version**, speed, TTFT, $/task. Update `analysis/02` master table.
+3. **Check independent boards** (LMArena, Vals, Terminal-Bench, OSWorld) for new Go-model entries.
+4. **Recalibrate your profile** with the SQL above (or the burn script pattern in `analysis/04`): recompute cost/request, rolling-window peaks, and capacity per model at Go prices.
+5. **Re-run the value math** (`AA ÷ $/req`; `AA × req/mo`) and update tiers and jump analysis in `analysis/05`.
+6. **Update the HTML** — the file was generated by a script; simplest path is to ask an agent to regenerate `opencode-go-analysis.html` from the updated markdown (data tables at the top of the generator).
+7. **Verify privacy policies** — especially DeepSeek ZDR renewals, Muse Spark Contributor terms, and any new stealth/free models.
+8. **Commit** with a dated message.
+
+### Fast prompts for a future agent
+
+- *"Fetch https://opencode.ai/docs/go/ and diff the model roster, monthly limits and estimated requests against analysis/01-go-roster-and-limits.md; update the file and list changes."*
+- *"For each model in the Go roster, fetch its Artificial Analysis model page and record Intelligence Index vX.Y.Z, output speed, TTFT and $/task; update analysis/02-benchmarks.md."*
+- *"Recompute my token profile from ~/.local/share/opencode/opencode.db (read-only) and refresh analysis/04-limits-and-burn-rate.md capacity tables."*
+
+---
+
+## 5. Rules of thumb learned in this cycle
+
+1. **Never quote an AA score without its index version.** v4.1.1 scores are ~15–20 points higher than v4.3.2 for the same models.
+2. **Terminal-Bench version + harness matters more than the model.** TB2.1 vendor vs Vals can differ by 20 points.
+3. **Vendor benchmarks are marketing** until an independent run exists; mark them.
+4. **The docs' estimated requests assume light traffic.** Heavy agentic users divide by 3–7×.
+5. **Cache-read pricing dominates real agent costs.** A model with 10× cheaper cache can be cheaper in practice than a model with half the output price.
+6. **Reasoning effort is the biggest cost lever** (3.6–6.5× on Kimi K3).
+7. **Free/stealth models are the highest-variance choice** — great value, unknown identity/policies; keep them off critical and sensitive work.
+8. **Roster churn is weekly.** Any analysis older than a month is stale; this repo should be re-run at least quarterly.

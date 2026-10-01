@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenCode Go — Model Intelligence & Value Report (Oct 2026)</title>
+<style>
+:root{--bg:#0b0e14;--panel:#11151f;--panel2:#161b28;--line:#232a36;--txt:#c8d3f5;--dim:#8a93a8;--blue:#7aa2f7;--green:#9ece6a;--purple:#bb9af7;--amber:#e0af68;--red:#f7768e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+header{padding:34px 26px 20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11151f,#0b0e14)}
+h1{margin:0 0 6px;font-size:27px;letter-spacing:-.4px} h2{margin:34px 0 12px;font-size:21px} h3{margin:24px 0 8px;font-size:17px;color:#dbe4ff}
+.sub{color:var(--dim);font-size:14px}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:150px}
+.stat b{display:block;font-size:20px;color:#fff} .stat span{font-size:12px;color:var(--dim)}
+nav{position:sticky;top:0;background:#0b0e14ee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 20px;z-index:5;display:flex;gap:6px;flex-wrap:wrap}
+nav button{background:transparent;border:1px solid var(--line);color:var(--txt);padding:7px 12px;border-radius:8px;cursor:pointer;font-size:13px}
+nav button.active{background:var(--blue);color:#0b0e14;border-color:var(--blue);font-weight:600}
+main{max-width:1180px;margin:0 auto;padding:0 20px 80px}
+section{display:none} section.active{display:block}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:16px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.tblwrap{overflow:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}
+th{position:sticky;top:0;background:var(--panel2);text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none;font-size:12px;color:#dbe4ff}
+td{padding:8px 10px;border-bottom:1px solid #1a2029}
+tr:hover td{background:#131826}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+td.name{font-weight:600;color:#fff} .hl{color:var(--green);font-weight:600}
+.note{color:var(--dim);font-size:12px;white-space:normal;min-width:220px}
+.search{width:100%;padding:10px 12px;background:var(--panel2);border:0;border-bottom:1px solid var(--line);color:var(--txt);font-size:14px;outline:none}
+.chart{width:100%;height:auto;display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:14px 0;padding:6px}
+.axis{fill:var(--dim);font-size:11px} .lbl{fill:var(--txt);font-size:11.5px}
+.chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:4px 11px;margin:3px;font-size:12.5px}
+.tier{border:1px solid var(--line);border-left-width:4px;border-radius:10px;padding:12px 16px;margin:12px 0;background:var(--panel)}
+.t0{border-left-color:var(--dim)} .t1{border-left-color:var(--green)} .t2{border-left-color:var(--blue)} .t3{border-left-color:var(--amber)} .t4{border-left-color:var(--red)}
+.tier-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap} .tier-label{font-weight:700;color:#fff;font-size:15px} .tier-desc{color:var(--dim);font-size:12.5px}
+blockquote{border-left:3px solid var(--blue);margin:14px 0;padding:6px 16px;color:#dbe4ff;background:#11151f;border-radius:0 8px 8px 0}
+code{background:#161b28;padding:2px 6px;border-radius:5px;font-size:13px;color:#9ece6a}
+pre{background:#0e121b;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font-size:12.5px;color:#c8d3f5}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:16px 0}
+.kpi .card{margin:0} .kpi b{font-size:22px;color:#fff;display:block} .kpi span{color:var(--dim);font-size:12.5px}
+ul.clean{list-style:none;padding-left:0} ul.clean li{padding:7px 0;border-bottom:1px solid #1a2029}
+.src{color:var(--dim);font-size:11.5px}
+footer{border-top:1px solid var(--line);padding:22px 26px;color:var(--dim);font-size:12.5px}
+</style>
+</head>
+<body>
+<header>
+  <h1>OpenCode Go — Model Intelligence &amp; Value Report</h1>
+  <div class="sub">Generated 2026-10-01 13:11 UTC · 30 Go models · 18 task categories · AA Intelligence Index v4.3.2 · calibrated to real OpenCode usage</div>
+  <div class="stats">
+    <div class="stat"><b>30</b><span>models on Go</span></div>
+    <div class="stat"><b>AA 48</b><span>best Go model (Muse Spark 1.3)</span></div>
+    <div class="stat"><b>AA 58</b><span>frontier outside Go (Opus 5.5)</span></div>
+    <div class="stat"><b>19,117</b><span>DeepSeek V4.1 Flash req/mo at your profile</span></div>
+    <div class="stat"><b>179</b><span>Kimi K3 req/mo at your profile</span></div>
+    <div class="stat"><b>50%</b><span>of 5h cap you actually use at peak</span></div>
+    <div class="stat"><b>83%</b><span>of weekly cap you hit at peak</span></div>
+  </div>
+</header>
+<nav>
+  <button class="active" onclick="tab(this,'overview')">Overview</button>
+  <button onclick="tab(this,'models')">Models &amp; Pricing</button>
+  <button onclick="tab(this,'bench')">Benchmarks</button>
+  <button onclick="tab(this,'tasks')">Task Playbook</button>
+  <button onclick="tab(this,'limits')">Limits &amp; Burn Rate</button>
+  <button onclick="tab(this,'value')">Value &amp; Tiers</button>
+  <button onclick="tab(this,'privacy')">Privacy</button>
+  <button onclick="tab(this,'config')">Config</button>
+  <button onclick="tab(this,'sources')">Sources</button>
+</nav>
+<main>
+
+<section id="overview" class="active">
+  <div class="kpi">
+    <div class="card"><b>Daily driver → DeepSeek V4.1 Flash</b><span>39 AA, 209–232 tok/s, native vision, 96% cache hit, 19.1k req/mo at your token profile. The only high-quality model whose cap nearly matches your actual pace.</span></div>
+    <div class="card"><b>Thinker → Grok 4.6 / MiMo-V2.6-Pro</b><span>Grok 4.6: GPQA 95.0, ARC-AGI-2 67.1, SWE-bench 95.6 (Vals). MiMo-V2.6-Pro: AA 46 at $0.13/AA task — best premium value.</span></div>
+    <div class="card"><b>Marathon → Kimi K3</b><span>SWE-Marathon 42.0, FrontierSWE 81.2, 1M ctx, vision, frontend #1. Ration: ~3 substantial tasks/week.</span></div>
+    <div class="card"><b>Visual → Qwen3.8 Max</b><span>#1 model in the world on OSWorld-Verified (86.1), LMArena Vision #2, SWE-bench Pro 67.7 (best Go). ~5 tasks/month.</span></div>
+    <div class="card"><b>Value sleeper → MiMo-V2.6-Flash</b><span>Unmeasured by AA but near-Pro vendor scores, 33k req/mo, $0.0018/req. Test it against your workload.</span></div>
+    <div class="card"><b>Best pure value → Muse Spark 1.3 Contributor</b><span>AA 48 (highest on Go), 46k req/mo, $0.0013/req — but your prompts train Meta models. Non-client work only.</span></div>
+  </div>
+
+  <h2>The 60-second summary</h2>
+  <div class="card">
+  <ol>
+    <li><b>The Go roster changed massively in Sep 2026.</b> 30 models now, including Grok 4.7, GPT 6 Luna, Kimi K3, DeepSeek V4.1 Flash, MiMo-V2.6, GLM-5.3, Hy4, and free stealth models. Old research in this repo was 6 weeks stale.</li>
+    <li><b>Best overall Go model:</b> <b>Muse Spark 1.3 Contributor</b> (AA 48) — but it trains on your data; for privacy-safe use, <b>Grok 4.6</b> (verified agentic) and <b>MiMo-V2.6-Pro</b> (AA 46, cheap per call) lead.</li>
+    <li><b>Best daily driver at volume:</b> <b>DeepSeek V4.1 Flash</b> — 19.1k req/mo at your heavy token profile (3–7× less than OpenCode's published estimates because your requests are 5–6× heavier than assumed).</li>
+    <li><b>Your "barely dent the 5h limit" observation is correct</b> — your peak 5h used only 50% of the cap. But your peak <b>week hit 83%</b> and your current pace projects to hit the <b>$60 monthly cap around day 22–26</b>. It's the weekly/monthly windows, not the 5h window, that will bite.</li>
+    <li><b>Intelligence vs capacity is brutal:</b> going from DeepSeek V4.1 Flash (AA 39, 19.1k req) to Kimi K3 (AA 44, 179 req) costs 27× per request and 99% of your volume for +5 AA. Premium models are per-task rations.</li>
+    <li><b>The winning strategy is portfolio routing:</b> volume on DeepSeek/MiMo-Flash, quality-per-call on MiMo-V2.6-Pro, rations on Kimi K3 / Grok 4.6 / Qwen3.8 Max / GLM-5.3, and Copilot/frontier only for must-not-fail work.</li>
+    <li><b>Do not use Muse Spark Contributor, Big Pickle, MiMo free or NVIDIA free for client/PHI work.</b> DeepSeek's zero-retention renewal needs re-verification.</li>
+    <li><b>Go Plus is 2×–8× limits for 4× price</b> — great for GLM-5.3 (8×), poor for DeepSeek V4.1 Flash/MiMo-Flash/Muse Spark (2×). Go + Zen overflow beats Plus for DeepSeek-heavy users.</li>
+  </ol>
+  </div>
+
+  <h2>Intelligence vs cost per request</h2>
+  <p class="sub">Each dot = a Go model with an independent AA v4.3.2 score. Left = cheap per request at your token profile. Top = smarter. The ideal corner is top-left; the green cluster is where volume work belongs.</p>
+  <svg viewBox="0 0 860 470" class="chart" xmlns="http://www.w3.org/2000/svg">
+<line x1="70" y1="400.0" x2="790" y2="400.0" stroke="#232a36"/>
+<text x="62" y="404.0" class="axis" text-anchor="end">20</text>
+<line x1="70" y1="348.4" x2="790" y2="348.4" stroke="#232a36"/>
+<text x="62" y="352.4" class="axis" text-anchor="end">25</text>
+<line x1="70" y1="296.9" x2="790" y2="296.9" stroke="#232a36"/>
+<text x="62" y="300.9" class="axis" text-anchor="end">30</text>
+<line x1="70" y1="245.3" x2="790" y2="245.3" stroke="#232a36"/>
+<text x="62" y="249.3" class="axis" text-anchor="end">35</text>
+<line x1="70" y1="193.8" x2="790" y2="193.8" stroke="#232a36"/>
+<text x="62" y="197.8" class="axis" text-anchor="end">40</text>
+<line x1="70" y1="142.2" x2="790" y2="142.2" stroke="#232a36"/>
+<text x="62" y="146.2" class="axis" text-anchor="end">45</text>
+<line x1="70" y1="90.6" x2="790" y2="90.6" stroke="#232a36"/>
+<text x="62" y="94.6" class="axis" text-anchor="end">50</text>
+<line x1="203.1" y1="60" x2="203.1" y2="400" stroke="#1a2029"/>
+<text x="203.1" y="420" class="axis" text-anchor="middle">$0.002</text>
+<line x1="324.2" y1="60" x2="324.2" y2="400" stroke="#1a2029"/>
+<text x="324.2" y="420" class="axis" text-anchor="middle">$0.005</text>
+<line x1="415.9" y1="60" x2="415.9" y2="400" stroke="#1a2029"/>
+<text x="415.9" y="420" class="axis" text-anchor="middle">$0.01</text>
+<line x1="507.6" y1="60" x2="507.6" y2="400" stroke="#1a2029"/>
+<text x="507.6" y="420" class="axis" text-anchor="middle">$0.02</text>
+<line x1="628.7" y1="60" x2="628.7" y2="400" stroke="#1a2029"/>
+<text x="628.7" y="420" class="axis" text-anchor="middle">$0.05</text>
+<line x1="720.4" y1="60" x2="720.4" y2="400" stroke="#1a2029"/>
+<text x="720.4" y="420" class="axis" text-anchor="middle">$0.1</text>
+<circle cx="146.1" cy="111.2" r="6" fill="#7aa2f7" opacity="0.9"><title>Muse Spark 1.3 Contributor: AA 48, $0.0013/req</title></circle>
+<text x="155.1" y="115.2" class="lbl">Muse Spark 1.3 Contributor</text>
+<circle cx="321.6" cy="131.9" r="6" fill="#7aa2f7" opacity="0.9"><title>MiMo-V2.6-Pro: AA 46, $0.0049/req</title></circle>
+<text x="330.6" y="135.9" class="lbl">MiMo-V2.6-Pro</text>
+<circle cx="713.9" cy="131.9" r="6" fill="#7aa2f7" opacity="0.9"><title>Grok 4.7: AA 46, $0.0952/req</title></circle>
+<text x="722.9" y="135.9" class="lbl">Grok 4.7</text>
+<circle cx="638.2" cy="142.2" r="6" fill="#7aa2f7" opacity="0.9"><title>GLM-5.3: AA 45, $0.0537/req</title></circle>
+<text x="647.2" y="146.2" class="lbl">GLM-5.3</text>
+<circle cx="649.9" cy="142.2" r="6" fill="#7aa2f7" opacity="0.9"><title>Qwen3.8 Max: AA 45, $0.0587/req</title></circle>
+<text x="658.9" y="146.2" class="lbl">Qwen3.8 Max</text>
+<circle cx="696.9" cy="152.5" r="6" fill="#7aa2f7" opacity="0.9"><title>Kimi K3: AA 44, $0.0837/req</title></circle>
+<text x="705.9" y="156.5" class="lbl">Kimi K3</text>
+<circle cx="713.9" cy="152.5" r="6" fill="#7aa2f7" opacity="0.9"><title>Grok 4.6: AA 44, $0.0952/req</title></circle>
+<text x="722.9" y="156.5" class="lbl">Grok 4.6</text>
+<circle cx="350.5" cy="173.1" r="6" fill="#7aa2f7" opacity="0.9"><title>GLM-5.3-Flash: AA 42, $0.0061/req</title></circle>
+<text x="359.5" y="177.1" class="lbl">GLM-5.3-Flash</text>
+<circle cx="247.6" cy="214.4" r="6" fill="#9ece6a" opacity="0.9"><title>GPT 6 Luna: AA 38, $0.0028/req</title></circle>
+<text x="256.6" y="218.4" class="lbl">GPT 6 Luna</text>
+<circle cx="261.0" cy="204.1" r="6" fill="#9ece6a" opacity="0.9"><title>DeepSeek V4.1 Flash: AA 39, $0.0031/req</title></circle>
+<text x="270.0" y="208.1" class="lbl">DeepSeek V4.1 Flash</text>
+<circle cx="343.9" cy="235.0" r="6" fill="#9ece6a" opacity="0.9"><title>GPT 5.6 Luna: AA 36, $0.0058/req</title></circle>
+<text x="352.9" y="239.0" class="lbl">GPT 5.6 Luna</text>
+<circle cx="467.7" cy="235.0" r="6" fill="#e0af68" opacity="0.9"><title>DeepSeek V4 Pro 0813: AA 36, $0.0148/req</title></circle>
+<text x="476.7" y="239.0" class="lbl">DeepSeek V4 Pro 0813</text>
+<circle cx="638.2" cy="255.6" r="6" fill="#e0af68" opacity="0.9"><title>GLM-5.2: AA 34, $0.0537/req</title></circle>
+<text x="647.2" y="259.6" class="lbl">GLM-5.2</text>
+<circle cx="265.2" cy="255.6" r="6" fill="#9ece6a" opacity="0.9"><title>DeepSeek V4 Flash: AA 34, $0.0032/req</title></circle>
+<text x="274.2" y="259.6" class="lbl">DeepSeek V4 Flash</text>
+<circle cx="364.9" cy="255.6" r="6" fill="#e0af68" opacity="0.9"><title>Hy3: AA 34, $0.0068/req</title></circle>
+<text x="373.9" y="259.6" class="lbl">Hy3</text>
+<circle cx="321.6" cy="338.1" r="6" fill="#9ece6a" opacity="0.9"><title>MiMo-V2.5-Pro: AA 26, $0.0049/req</title></circle>
+<text x="330.6" y="342.1" class="lbl">MiMo-V2.5-Pro</text>
+<circle cx="189.2" cy="348.4" r="6" fill="#9ece6a" opacity="0.9"><title>MiMo-V2.5: AA 25, $0.0018/req</title></circle>
+<text x="198.2" y="352.4" class="lbl">MiMo-V2.5</text>
+<circle cx="444.4" cy="307.2" r="6" fill="#e0af68" opacity="0.9"><title>MiniMax M3: AA 29, $0.0124/req</title></circle>
+<text x="453.4" y="311.2" class="lbl">MiniMax M3</text>
+<circle cx="444.4" cy="369.1" r="6" fill="#e0af68" opacity="0.9"><title>MiniMax M2.7: AA 23, $0.0124/req</title></circle>
+<text x="453.4" y="373.1" class="lbl">MiniMax M2.7</text>
+<circle cx="597.6" cy="338.1" r="6" fill="#e0af68" opacity="0.9"><title>Kimi K2.7 Code: AA 26, $0.0395/req</title></circle>
+<text x="606.6" y="342.1" class="lbl">Kimi K2.7 Code</text>
+<circle cx="424.9" cy="348.4" r="6" fill="#e0af68" opacity="0.9"><title>Qwen3.7 Plus: AA 25, $0.0107/req</title></circle>
+<text x="433.9" y="352.4" class="lbl">Qwen3.7 Plus</text>
+<text x="430.0" y="458" class="axis" text-anchor="middle">cost per request at your token profile (log scale) →</text>
+<text x="16" y="235.0" class="axis" transform="rotate(-90 16 235.0)" text-anchor="middle">AA Intelligence Index v4.3.2 →</text>
+</svg>
+</section>
+
+<section id="models">
+  <h2>All 30 Go models — pricing, caps &amp; your calibrated capacity</h2>
+  <p class="sub">"$/req (you)" = cost per request using your measured average (7.8k input, 1.1k output+reasoning, 146k cache read) at Go list prices, DeepSeek blended ~40% peak. "Req/mo (you)" = monthly allowance ÷ that cost. "AA pts/$" = intelligence per unit of limit spend. Click headers to sort, type to filter.</p>
+  <div class="tblwrap"><input class="search" placeholder="Filter…" oninput="filterTable('tbl-models',this.value)"><table id="tbl-models"><thead><tr><th onclick="sortTable('tbl-models',0)">Model</th><th onclick="sortTable('tbl-models',1)">Vendor</th><th onclick="sortTable('tbl-models',2)">AA v4.3.2</th><th onclick="sortTable('tbl-models',3)">$in/M</th><th onclick="sortTable('tbl-models',4)">$out/M</th><th onclick="sortTable('tbl-models',5)">$cache/M</th><th onclick="sortTable('tbl-models',6)">Go cap</th><th onclick="sortTable('tbl-models',7)">Plus cap</th><th onclick="sortTable('tbl-models',8)">$/req (you)</th><th onclick="sortTable('tbl-models',9)">Req/mo (you)</th><th onclick="sortTable('tbl-models',10)">Sess/mo</th><th onclick="sortTable('tbl-models',11)">AA pts/$</th><th onclick="sortTable('tbl-models',12)">Notes</th></tr></thead><tbody><tr data-vendor="stealth"><td class="name">Space Bunny Free</td><td>stealth</td><td class="num hl">—</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">∞</td><td class="num">∞</td><td class="num">free</td><td class="num">∞ preview</td><td class="num">—</td><td class="num">—</td><td class="note">unmeasured; ≈MiniMax-family fingerprint; 58T tok/wk (#1)</td></tr><tr data-vendor="Meituan"><td class="name">LongCat 2.5 Preview Free</td><td>Meituan</td><td class="num hl">—</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">∞</td><td class="num">∞</td><td class="num">free</td><td class="num">∞ preview</td><td class="num">—</td><td class="num">—</td><td class="note">free preview ~2 wks; zero-retention; no public benchmarks</td></tr><tr data-vendor="Meta"><td class="name">Muse Spark 1.3 Contributor</td><td>Meta</td><td class="num hl">48</td><td class="num">0.1</td><td class="num">0.2</td><td class="num">0.002</td><td class="num">60</td><td class="num">120</td><td class="num">$0.0013</td><td class="num">46,440</td><td class="num">929</td><td class="num">37,152</td><td class="note">AA 48 (aggregators); Design Arena #1; MRCR-self 98.1; TRAINS ON DATA</td></tr><tr data-vendor="Xiaomi"><td class="name">MiMo-V2.6-Pro</td><td>Xiaomi</td><td class="num hl">46</td><td class="num">0.435</td><td class="num">0.87</td><td class="num">0.003625</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0049</td><td class="num">3,074</td><td class="num">61</td><td class="num">9,428</td><td class="note">AA #1 open class, $0.13/AA task; MIT; omni-in; 41.7 t/s; tool-call bug fixed</td></tr><tr data-vendor="xAI"><td class="name">Grok 4.7</td><td>xAI</td><td class="num hl">46</td><td class="num">2.0</td><td class="num">6.0</td><td class="num">0.5</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0952</td><td class="num">158</td><td class="num">3.2</td><td class="num">483</td><td class="note">AA 46 but 44s TTFT, verbose, Design Arena 1224; Vals top model</td></tr><tr data-vendor="Z.ai"><td class="name">GLM-5.3</td><td>Z.ai</td><td class="num hl">45</td><td class="num">1.4</td><td class="num">4.4</td><td class="num">0.26</td><td class="num">15</td><td class="num">120</td><td class="num">$0.0537</td><td class="num">279</td><td class="num">5.6</td><td class="num">838</td><td class="note">AA 45; best standardized TB4.0 Go (41.9); text-only; always-reasoning</td></tr><tr data-vendor="Alibaba"><td class="name">Qwen3.8 Max</td><td>Alibaba</td><td class="num hl">45</td><td class="num">2.0</td><td class="num">6.0</td><td class="num">0.25</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0587</td><td class="num">256</td><td class="num">5.1</td><td class="num">767</td><td class="note">OSWorld #1 overall 86.1; SWE Pro 67.7 (best Go); slow 39 t/s; $5.41/AA task</td></tr><tr data-vendor="Moonshot"><td class="name">Kimi K3</td><td>Moonshot</td><td class="num hl">44</td><td class="num">3.0</td><td class="num">15.0</td><td class="num">0.3</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0837</td><td class="num">179</td><td class="num">3.6</td><td class="num">526</td><td class="note">SWE-Marathon 42 (best); TB2.1 88.3; 1M ctx; frontend #1; slow</td></tr><tr data-vendor="xAI"><td class="name">Grok 4.6</td><td>xAI</td><td class="num hl">44</td><td class="num">2.0</td><td class="num">6.0</td><td class="num">0.5</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0952</td><td class="num">158</td><td class="num">3.2</td><td class="num">462</td><td class="note">Best verified SWE-bench 95.6 (Vals); GPQA 95.0; ARC-AGI-2 67.1</td></tr><tr data-vendor="Z.ai"><td class="name">GLM-5.3-Flash</td><td>Z.ai</td><td class="num hl">42</td><td class="num">0.15</td><td class="num">0.5</td><td class="num">0.03</td><td class="num">60</td><td class="num">180</td><td class="num">$0.0061</td><td class="num">9,836</td><td class="num">197</td><td class="num">6,885</td><td class="note">MIT; AA AutomationBench 60.4 (best Go value); multimodal-in; huge allowance</td></tr><tr data-vendor="OpenAI"><td class="name">GPT 6 Luna</td><td>OpenAI</td><td class="num hl">38</td><td class="num">0.1</td><td class="num">0.5</td><td class="num">0.01</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0028</td><td class="num">5,376</td><td class="num">108</td><td class="num">13,620</td><td class="note">$0.07/AA task (cheapest lab); AA 37-38; weak agentically (TB4.0 13.6)</td></tr><tr data-vendor="DeepSeek"><td class="name">DeepSeek V4.1 Flash</td><td>DeepSeek</td><td class="num hl">39</td><td class="num">0.15</td><td class="num">0.6</td><td class="num">0.003</td><td class="num">60</td><td class="num">120</td><td class="num">$0.0031</td><td class="num">19,117</td><td class="num">382</td><td class="num">12,426</td><td class="note">daily driver: 209-232 t/s, native vision, 96% cache, DeepSWE 74.2 vendor</td></tr><tr data-vendor="OpenAI"><td class="name">GPT 5.6 Luna</td><td>OpenAI</td><td class="num hl">36</td><td class="num">0.2</td><td class="num">1.2</td><td class="num">0.02</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0058</td><td class="num">2,586</td><td class="num">52</td><td class="num">6,379</td><td class="note">SWE-bench 93 (Vals), TB2.1 84.7; weak long tasks</td></tr><tr data-vendor="DeepSeek"><td class="name">DeepSeek V4 Pro 0813</td><td>DeepSeek</td><td class="num hl">36</td><td class="num">0.66</td><td class="num">1.98</td><td class="num">0.022</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0148</td><td class="num">1,017</td><td class="num">20</td><td class="num">2,440</td><td class="note">AA 36; 1.6T/49B MIT; MRCR-1M 83.5; retired upstream Sep 14</td></tr><tr data-vendor="Z.ai"><td class="name">GLM-5.2</td><td>Z.ai</td><td class="num hl">34</td><td class="num">1.4</td><td class="num">4.4</td><td class="num">0.26</td><td class="num">60</td><td class="num">180</td><td class="num">$0.0537</td><td class="num">1,117</td><td class="num">22</td><td class="num">633</td><td class="note">older; SWE-bench Pro 62.1, TB2.1 81 (vendor); superseded</td></tr><tr data-vendor="DeepSeek"><td class="name">DeepSeek V4 Flash</td><td>DeepSeek</td><td class="num hl">34</td><td class="num">0.15</td><td class="num">0.6</td><td class="num">0.003</td><td class="num">30</td><td class="num">120</td><td class="num">$0.0032</td><td class="num">9,448</td><td class="num">189</td><td class="num">10,708</td><td class="note">legacy; LHTB #1 long-horizon; 209 t/s; retired upstream Sep 10</td></tr><tr data-vendor="Tencent"><td class="name">Hy3</td><td>Tencent</td><td class="num hl">34</td><td class="num">0.14</td><td class="num">0.58</td><td class="num">0.035</td><td class="num">60</td><td class="num">240</td><td class="num">$0.0068</td><td class="num">8,772</td><td class="num">175</td><td class="num">4,971</td><td class="note">SWE-bench V 74.4, GPQA 87.2; 256K ctx; community license</td></tr><tr data-vendor="Xiaomi"><td class="name">MiMo-V2.6-Flash</td><td>Xiaomi</td><td class="num hl">—</td><td class="num">0.14</td><td class="num">0.28</td><td class="num">0.0028</td><td class="num">60</td><td class="num">120</td><td class="num">$0.0018</td><td class="num">33,171</td><td class="num">663</td><td class="num">—</td><td class="note">SLEEPER: unmeasured; near-Pro vendor scores; 33k req/mo; $0.28/M out</td></tr><tr data-vendor="Alibaba"><td class="name">Qwen3.8 Flash</td><td>Alibaba</td><td class="num hl">—</td><td class="num">0.15</td><td class="num">0.47</td><td class="num">0.016</td><td class="num">30</td><td class="num">90</td><td class="num">$0.0040</td><td class="num">7,457</td><td class="num">149</td><td class="num">—</td><td class="note">~AA 40? vendor multimodal scores strong; 6B active; unproven</td></tr><tr data-vendor="Meituan"><td class="name">LongCat-2.0</td><td>Meituan</td><td class="num hl">—</td><td class="num">0.3</td><td class="num">1.2</td><td class="num">0.006</td><td class="num">60</td><td class="num">240</td><td class="num">$0.0045</td><td class="num">13,228</td><td class="num">265</td><td class="num">—</td><td class="note">SWE Pro 59.5, TB2.1 70.8 (vendor); MIT; 1.6T/48B</td></tr><tr data-vendor="Tencent"><td class="name">Hy4 preview</td><td>Tencent</td><td class="num hl">—</td><td class="num">0.834</td><td class="num">2.501</td><td class="num">0.042</td><td class="num">30</td><td class="num">120</td><td class="num">$0.0154</td><td class="num">1,950</td><td class="num">39</td><td class="num">—</td><td class="note">SWE Pro 65.7, Toolathlon 74.1 (vendor); Apache 2.0; no AA</td></tr><tr data-vendor="DeepSeek"><td class="name">DS V4 Flash Vision Exp</td><td>DeepSeek</td><td class="num hl">—</td><td class="num">0.15</td><td class="num">0.6</td><td class="num">0.003</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0032</td><td class="num">4,724</td><td class="num">94</td><td class="num">—</td><td class="note">vision of V4 Flash; retired upstream -&gt; aliases V4.1 family</td></tr><tr data-vendor="Xiaomi"><td class="name">MiMo-V2.5-Pro</td><td>Xiaomi</td><td class="num hl">26</td><td class="num">0.435</td><td class="num">0.87</td><td class="num">0.003625</td><td class="num">15</td><td class="num">60</td><td class="num">$0.0049</td><td class="num">3,074</td><td class="num">61</td><td class="num">5,329</td><td class="note">previous gen; far behind V2.6 (DeepSWE 19 vs 71.9)</td></tr><tr data-vendor="Xiaomi"><td class="name">MiMo-V2.5</td><td>Xiaomi</td><td class="num hl">25</td><td class="num">0.14</td><td class="num">0.28</td><td class="num">0.0028</td><td class="num">60</td><td class="num">120</td><td class="num">$0.0018</td><td class="num">33,171</td><td class="num">663</td><td class="num">13,821</td><td class="note">volume only; omni-in; 33k req/mo</td></tr><tr data-vendor="MiniMax"><td class="name">MiniMax M3</td><td>MiniMax</td><td class="num hl">29</td><td class="num">0.3</td><td class="num">1.2</td><td class="num">0.06</td><td class="num">60</td><td class="num">180</td><td class="num">$0.0124</td><td class="num">4,831</td><td class="num">97</td><td class="num">2,335</td><td class="note">OSWorld 70.06 vendor; AA 29; low-hallucination rep; community license</td></tr><tr data-vendor="MiniMax"><td class="name">MiniMax M2.7</td><td>MiniMax</td><td class="num hl">23</td><td class="num">0.3</td><td class="num">1.2</td><td class="num">0.06</td><td class="num">60</td><td class="num">240</td><td class="num">$0.0124</td><td class="num">4,831</td><td class="num">97</td><td class="num">1,852</td><td class="note">MLE-bench Lite 66.6% medal (best Go data/ML); non-commercial</td></tr><tr data-vendor="Moonshot"><td class="name">Kimi K2.7 Code</td><td>Moonshot</td><td class="num hl">26</td><td class="num">0.95</td><td class="num">4.0</td><td class="num">0.19</td><td class="num">60</td><td class="num">180</td><td class="num">$0.0395</td><td class="num">1,517</td><td class="num">30</td><td class="num">657</td><td class="note">vendor-only benchmarks; independent KernelBench regression vs K2.6</td></tr><tr data-vendor="Moonshot"><td class="name">Kimi K2.6</td><td>Moonshot</td><td class="num hl">—</td><td class="num">0.95</td><td class="num">4.0</td><td class="num">0.16</td><td class="num">60</td><td class="num">240</td><td class="num">$0.0352</td><td class="num">1,706</td><td class="num">34</td><td class="num">—</td><td class="note">HLE 54, SWE Pro 58.6; superseded by K3/K2.7</td></tr><tr data-vendor="Alibaba"><td class="name">Qwen3.7 Plus</td><td>Alibaba</td><td class="num hl">25</td><td class="num">0.4</td><td class="num">1.6</td><td class="num">0.04</td><td class="num">60</td><td class="num">180</td><td class="num">$0.0107</td><td class="num">5,597</td><td class="num">112</td><td class="num">2,332</td><td class="note">AA 25; 1M ctx; volume model</td></tr></tbody></table></div>
+  <div class="card"><b>Tier definitions:</b>
+    <div class="chips">
+      <span class="chip">Tier 0 — free previews</span>
+      <span class="chip">Tier 1 — $60 workhorses: DeepSeek V4.1 Flash, MiMo-V2.6-Flash, GLM-5.3-Flash, Muse Spark, LongCat, Hy3</span>
+      <span class="chip">Tier 2 — $15–30 premiums: MiMo-V2.6-Pro, GPT 6 Luna, DS V4 Pro</span>
+      <span class="chip">Tier 3 — $15 rations: Grok 4.6/4.7, Kimi K3, GLM-5.3, Qwen3.8 Max</span>
+      <span class="chip">Tier 4 — beyond Go: Opus 5.5, GPT-6 Astra</span>
+    </div>
+  </div>
+  <h3>Monthly request capacity at your token profile</h3>
+  <svg viewBox="0 0 860 780" class="chart" xmlns="http://www.w3.org/2000/svg">
+<text x="240" y="25" class="lbl" text-anchor="end">Muse Spark 1.3 Contrib</text>
+<rect x="250" y="10" width="530.0" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="788.0" y="25" class="axis">46,440 req/mo</text>
+<text x="240" y="55" class="lbl" text-anchor="end">MiMo-V2.6-Flash</text>
+<rect x="250" y="40" width="378.6" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="636.6" y="55" class="axis">33,171 req/mo</text>
+<text x="240" y="85" class="lbl" text-anchor="end">MiMo-V2.5</text>
+<rect x="250" y="70" width="378.6" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="636.6" y="85" class="axis">33,171 req/mo</text>
+<text x="240" y="115" class="lbl" text-anchor="end">DeepSeek V4.1 Flash</text>
+<rect x="250" y="100" width="218.2" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="476.2" y="115" class="axis">19,117 req/mo</text>
+<text x="240" y="145" class="lbl" text-anchor="end">LongCat-2.0</text>
+<rect x="250" y="130" width="151.0" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="409.0" y="145" class="axis">13,228 req/mo</text>
+<text x="240" y="175" class="lbl" text-anchor="end">GLM-5.3-Flash</text>
+<rect x="250" y="160" width="112.3" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="370.3" y="175" class="axis">9,836 req/mo</text>
+<text x="240" y="205" class="lbl" text-anchor="end">DeepSeek V4 Flash</text>
+<rect x="250" y="190" width="107.8" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="365.8" y="205" class="axis">9,448 req/mo</text>
+<text x="240" y="235" class="lbl" text-anchor="end">Hy3</text>
+<rect x="250" y="220" width="100.1" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="358.1" y="235" class="axis">8,772 req/mo</text>
+<text x="240" y="265" class="lbl" text-anchor="end">Qwen3.8 Flash</text>
+<rect x="250" y="250" width="85.1" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="343.1" y="265" class="axis">7,457 req/mo</text>
+<text x="240" y="295" class="lbl" text-anchor="end">Qwen3.7 Plus</text>
+<rect x="250" y="280" width="63.9" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="321.9" y="295" class="axis">5,597 req/mo</text>
+<text x="240" y="325" class="lbl" text-anchor="end">GPT 6 Luna</text>
+<rect x="250" y="310" width="61.4" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="319.4" y="325" class="axis">5,376 req/mo</text>
+<text x="240" y="355" class="lbl" text-anchor="end">MiniMax M3</text>
+<rect x="250" y="340" width="55.1" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="313.1" y="355" class="axis">4,831 req/mo</text>
+<text x="240" y="385" class="lbl" text-anchor="end">DS V4 Flash Vision</text>
+<rect x="250" y="370" width="53.9" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="311.9" y="385" class="axis">4,724 req/mo</text>
+<text x="240" y="415" class="lbl" text-anchor="end">MiMo-V2.6-Pro</text>
+<rect x="250" y="400" width="35.1" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="293.1" y="415" class="axis">3,074 req/mo</text>
+<text x="240" y="445" class="lbl" text-anchor="end">GPT 5.6 Luna</text>
+<rect x="250" y="430" width="29.5" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="287.5" y="445" class="axis">2,586 req/mo</text>
+<text x="240" y="475" class="lbl" text-anchor="end">Hy4 preview</text>
+<rect x="250" y="460" width="22.3" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="280.3" y="475" class="axis">1,950 req/mo</text>
+<text x="240" y="505" class="lbl" text-anchor="end">Kimi K2.6</text>
+<rect x="250" y="490" width="19.5" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="277.5" y="505" class="axis">1,706 req/mo</text>
+<text x="240" y="535" class="lbl" text-anchor="end">Kimi K2.7 Code</text>
+<rect x="250" y="520" width="17.3" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="275.3" y="535" class="axis">1,517 req/mo</text>
+<text x="240" y="565" class="lbl" text-anchor="end">GLM-5.2</text>
+<rect x="250" y="550" width="12.7" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="270.7" y="565" class="axis">1,117 req/mo</text>
+<text x="240" y="595" class="lbl" text-anchor="end">DeepSeek V4 Pro</text>
+<rect x="250" y="580" width="11.6" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="269.6" y="595" class="axis">1,017 req/mo</text>
+<text x="240" y="625" class="lbl" text-anchor="end">GLM-5.3</text>
+<rect x="250" y="610" width="3.2" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="261.2" y="625" class="axis">279 req/mo</text>
+<text x="240" y="655" class="lbl" text-anchor="end">Qwen3.8 Max</text>
+<rect x="250" y="640" width="2.9" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="260.9" y="655" class="axis">256 req/mo</text>
+<text x="240" y="685" class="lbl" text-anchor="end">Kimi K3</text>
+<rect x="250" y="670" width="2.0" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="260.0" y="685" class="axis">179 req/mo</text>
+<text x="240" y="715" class="lbl" text-anchor="end">Grok 4.7</text>
+<rect x="250" y="700" width="1.8" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="259.8" y="715" class="axis">158 req/mo</text>
+<text x="240" y="745" class="lbl" text-anchor="end">Grok 4.6</text>
+<rect x="250" y="730" width="1.8" height="22" rx="4" fill="#9ece6a" opacity="0.85"/>
+<text x="259.8" y="745" class="axis">158 req/mo</text>
+</svg>
+</section>
+
+<section id="bench">
+  <h2>Benchmark dossier</h2>
+  <p class="sub">AA = Artificial Analysis Intelligence Index v4.3.2. Highlight numbers are the most decision-relevant. Confidence: 🟢 independent multi-source · 🟡 vendor+partial · 🔴 vendor-only. Harness and version churn make cross-table comparisons approximate (±3–8 pts).</p>
+  <div class="tblwrap"><input class="search" placeholder="Filter…" oninput="filterTable('tbl-bench',this.value)"><table id="tbl-bench"><thead><tr><th onclick="sortTable('tbl-bench',0)">Model</th><th onclick="sortTable('tbl-bench',1)">AA</th><th onclick="sortTable('tbl-bench',2)">tok/s</th><th onclick="sortTable('tbl-bench',3)">TTFT</th><th onclick="sortTable('tbl-bench',4)">$/AA task</th><th onclick="sortTable('tbl-bench',5)">Highlights</th><th onclick="sortTable('tbl-bench',6)">Confidence</th></tr></thead><tbody><tr><td class="name">Grok 4.6</td><td class="num hl">44</td><td class="num">67-69</td><td class="num">42.1s</td><td class="num">$1.86</td><td class="note">SWE-bench V 95.6 (Vals), TB2.1 78.3/88.4, GPQA 95.0, ARC 67.1</td><td>🟢 independent</td></tr><tr><td class="name">Kimi K3</td><td class="num hl">44</td><td class="num">34.4</td><td class="num">4.49s</td><td class="num">$2.00</td><td class="note">TB2.1 88.3 (verified), DeepSWE 67.5, SWE-Marathon 42, OSWorld 84.8, MCP 84.2</td><td>🟢 independent+vendor</td></tr><tr><td class="name">GLM-5.3</td><td class="num hl">45</td><td class="num">67.8</td><td class="num">3.32s</td><td class="num">$2.01</td><td class="note">TB4.0 41.9 (best Go, standardized), DeepSWE 66.9, CyberGym 84.5</td><td>🟢 independent</td></tr><tr><td class="name">Qwen3.8 Max</td><td class="num hl">45</td><td class="num">39.1</td><td class="num">2.94s</td><td class="num">$5.41</td><td class="note">SWE Pro 67.7 (best Go), OSWorld 86.1 (#1 overall), MMMU-Pro 82.3</td><td>🟢 independent</td></tr><tr><td class="name">DeepSeek V4.1 Flash</td><td class="num hl">39</td><td class="num">209-232</td><td class="num">0.99s</td><td class="num">$0.27</td><td class="note">TB2.1 90.6 vendor, DeepSWE 74.2 vendor, AA TB4.0 26.8, CyberGym 88.1</td><td>🟡 vendor+AA</td></tr><tr><td class="name">MiMo-V2.6-Pro</td><td class="num hl">46</td><td class="num">41.7</td><td class="num">4.20s</td><td class="num">$0.13</td><td class="note">AA #1 open class; TB2.1 89.9, DeepSWE 71.9 (vendor); tool-call bug fixed</td><td>🟢 AA + 🟡 vendor</td></tr><tr><td class="name">Muse Spark 1.3</td><td class="num hl">48</td><td class="num">n/a</td><td class="num">n/a</td><td class="num">n/a</td><td class="note">AA 48 (aggregators), Design Arena #1, MRCR-self 98.1, JobBench 64.9</td><td>🟡 mixed</td></tr><tr><td class="name">GLM-5.3-Flash</td><td class="num hl">42</td><td class="num">45-200</td><td class="num">3.33s</td><td class="num">~$0.25</td><td class="note">AA AutomationBench 60.4 (best Go); TB2.1 84.3 vendor vs 62.9 Vals</td><td>🟢 AA / harness-sensitive</td></tr><tr><td class="name">GPT 6 Luna</td><td class="num hl">37-38</td><td class="num">125-145</td><td class="num">109s (reason)</td><td class="num">$0.07</td><td class="note">AA 37-38, AWS/DeepSWE 66.6; Vals TB4.0 13.6, ProgramBench 0.5</td><td>🟢 independent</td></tr><tr><td class="name">Grok 4.7</td><td class="num hl">46</td><td class="num">72.8</td><td class="num">44.0s</td><td class="num">$3.74</td><td class="note">AA 46 but LMArena below 4.6; CursorBench 46.3, DeepSWE 71.0</td><td>🟢 independent</td></tr><tr><td class="name">DeepSeek V4 Pro</td><td class="num hl">36</td><td class="num">96.0</td><td class="num">1.67s</td><td class="num">$0.67</td><td class="note">MRCR-1M 83.5 (best tracked); SWE-bench V 80.6 vendor</td><td>🟢 AA</td></tr><tr><td class="name">GPT 5.6 Luna</td><td class="num hl">35-37</td><td class="num">112</td><td class="num">0.77s</td><td class="num">$0.18</td><td class="note">SWE-bench 93.0 (Vals), TB2.1 84.7, DeepSWE 67.2; weak TB4.0</td><td>🟢 independent</td></tr><tr><td class="name">MiniMax M3</td><td class="num hl">29</td><td class="num">91.2</td><td class="num">1.56s</td><td class="num">$0.51</td><td class="note">OSWorld 70.06 vendor, SWE Pro 59.0; AA only 29</td><td>🟢 AA</td></tr><tr><td class="name">MiMo-V2.5-Pro</td><td class="num hl">26</td><td class="num">n/a</td><td class="num">n/a</td><td class="num">n/a</td><td class="note">DeepSWE 19.0 (vendor) - far behind V2.6</td><td>🟢 AA</td></tr><tr><td class="name">Kimi K2.7 Code</td><td class="num hl">26</td><td class="num">n/a</td><td class="num">n/a</td><td class="num">n/a</td><td class="note">vendor-only gains; independent KernelBench regression vs K2.6</td><td>🔴 vendor-only</td></tr><tr><td class="name">Hy3</td><td class="num hl">~34</td><td class="num">n/a</td><td class="num">n/a</td><td class="num">n/a</td><td class="note">SWE-bench V 74.4, GPQA 87.2, TB2.0 54.4</td><td>🟡 mixed</td></tr><tr><td class="name">LongCat-2.0</td><td class="num hl">n/a</td><td class="num">n/a</td><td class="num">n/a</td><td class="num">n/a</td><td class="note">SWE Pro 59.5, TB2.1 70.8 (vendor); absent from Western boards</td><td>🔴 vendor-only</td></tr><tr><td class="name">Hy4 preview</td><td class="num hl">n/a</td><td class="num">n/a</td><td class="num">n/a</td><td class="num">n/a</td><td class="note">SWE Pro 65.7, Toolathlon 74.1, MCP 83.7 (vendor); no AA</td><td>🔴 vendor-only</td></tr></tbody></table></div>
+  <h3>AA Intelligence Index v4.3.2 (Go models)</h3>
+  <svg viewBox="0 0 860 660" class="chart" xmlns="http://www.w3.org/2000/svg">
+<text x="240" y="25" class="lbl" text-anchor="end">Muse Spark 1.3 Contributor</text>
+<rect x="250" y="10" width="530.0" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="788.0" y="25" class="axis">AA 48</text>
+<text x="240" y="55" class="lbl" text-anchor="end">MiMo-V2.6-Pro</text>
+<rect x="250" y="40" width="507.9" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="765.9" y="55" class="axis">AA 46</text>
+<text x="240" y="85" class="lbl" text-anchor="end">Grok 4.7</text>
+<rect x="250" y="70" width="507.9" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="765.9" y="85" class="axis">AA 46</text>
+<text x="240" y="115" class="lbl" text-anchor="end">GLM-5.3</text>
+<rect x="250" y="100" width="496.9" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="754.9" y="115" class="axis">AA 45</text>
+<text x="240" y="145" class="lbl" text-anchor="end">Qwen3.8 Max</text>
+<rect x="250" y="130" width="496.9" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="754.9" y="145" class="axis">AA 45</text>
+<text x="240" y="175" class="lbl" text-anchor="end">Kimi K3</text>
+<rect x="250" y="160" width="485.8" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="743.8" y="175" class="axis">AA 44</text>
+<text x="240" y="205" class="lbl" text-anchor="end">Grok 4.6</text>
+<rect x="250" y="190" width="485.8" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="743.8" y="205" class="axis">AA 44</text>
+<text x="240" y="235" class="lbl" text-anchor="end">GLM-5.3-Flash</text>
+<rect x="250" y="220" width="463.8" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="721.8" y="235" class="axis">AA 42</text>
+<text x="240" y="265" class="lbl" text-anchor="end">DeepSeek V4.1 Flash</text>
+<rect x="250" y="250" width="430.6" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="688.6" y="265" class="axis">AA 39</text>
+<text x="240" y="295" class="lbl" text-anchor="end">GPT 6 Luna</text>
+<rect x="250" y="280" width="419.6" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="677.6" y="295" class="axis">AA 38</text>
+<text x="240" y="325" class="lbl" text-anchor="end">GPT 5.6 Luna</text>
+<rect x="250" y="310" width="397.5" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="655.5" y="325" class="axis">AA 36</text>
+<text x="240" y="355" class="lbl" text-anchor="end">DeepSeek V4 Pro 0813</text>
+<rect x="250" y="340" width="397.5" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="655.5" y="355" class="axis">AA 36</text>
+<text x="240" y="385" class="lbl" text-anchor="end">GLM-5.2</text>
+<rect x="250" y="370" width="375.4" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="633.4" y="385" class="axis">AA 34</text>
+<text x="240" y="415" class="lbl" text-anchor="end">DeepSeek V4 Flash</text>
+<rect x="250" y="400" width="375.4" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="633.4" y="415" class="axis">AA 34</text>
+<text x="240" y="445" class="lbl" text-anchor="end">Hy3</text>
+<rect x="250" y="430" width="375.4" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="633.4" y="445" class="axis">AA 34</text>
+<text x="240" y="475" class="lbl" text-anchor="end">MiniMax M3</text>
+<rect x="250" y="460" width="320.2" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="578.2" y="475" class="axis">AA 29</text>
+<text x="240" y="505" class="lbl" text-anchor="end">MiMo-V2.5-Pro</text>
+<rect x="250" y="490" width="287.1" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="545.1" y="505" class="axis">AA 26</text>
+<text x="240" y="535" class="lbl" text-anchor="end">Kimi K2.7 Code</text>
+<rect x="250" y="520" width="287.1" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="545.1" y="535" class="axis">AA 26</text>
+<text x="240" y="565" class="lbl" text-anchor="end">MiMo-V2.5</text>
+<rect x="250" y="550" width="276.0" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="534.0" y="565" class="axis">AA 25</text>
+<text x="240" y="595" class="lbl" text-anchor="end">Qwen3.7 Plus</text>
+<rect x="250" y="580" width="276.0" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="534.0" y="595" class="axis">AA 25</text>
+<text x="240" y="625" class="lbl" text-anchor="end">MiniMax M2.7</text>
+<rect x="250" y="610" width="254.0" height="22" rx="4" fill="#7aa2f7" opacity="0.85"/>
+<text x="512.0" y="625" class="axis">AA 23</text>
+</svg>
+  <div class="grid2">
+    <div class="card"><h3>Where Go excels</h3>
+      <ul>
+        <li><b>Visual QA:</b> Qwen3.8 Max #1 worldwide on OSWorld-Verified</li>
+        <li><b>SWE-bench Pro:</b> Qwen3.8 Max 67.7 best Go; Hy4 65.7; LongCat 59.5</li>
+        <li><b>Terminal-Bench 2.1:</b> DeepSeek V4.1 Flash 90.6, MiMo Pro 89.9, Kimi K3 88.3</li>
+        <li><b>Terminal-Bench 4.0 (standardized):</b> GLM-5.3 41.9 best Go</li>
+        <li><b>Frontend/design:</b> Muse Spark 1.3 #1, Kimi K3 #3 on Design Arena</li>
+        <li><b>Long context:</b> DeepSeek V4 Pro MRCR-1M 83.5 — best independently tracked</li>
+      </ul>
+    </div>
+    <div class="card"><h3>Where Go still trails</h3>
+      <ul>
+        <li>Best Go = AA 48 vs 58 for Claude Opus 5.5 — a real capability gap</li>
+        <li>No Go model has a published METR time-horizon measurement</li>
+        <li>Aider Polyglot frozen (Aug 2025), LiveCodeBench official broken — coverage gaps</li>
+        <li>Kimi K2.7 Code and LongCat/Hy4 scores are vendor-only</li>
+        <li>AA version churn: never compare v4.1.1 scores with v4.3.2</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="tasks">
+  <h2>Best model per task category</h2>
+  <p class="sub">For the 18 categories that matter for backend/frontend/db/integration/agentic/visual/planning/data/hardware work. "Best overall" may be a non-Go model; the Go alternative is always given.</p>
+  <div class="tblwrap"><input class="search" placeholder="Filter…" oninput="filterTable('tbl-tasks',this.value)"><table id="tbl-tasks"><thead><tr><th onclick="sortTable('tbl-tasks',0)">Task</th><th onclick="sortTable('tbl-tasks',1)">Best on Go</th><th onclick="sortTable('tbl-tasks',2)">Runner-up</th><th onclick="sortTable('tbl-tasks',3)">Value pick</th><th onclick="sortTable('tbl-tasks',4)">Best overall</th><th onclick="sortTable('tbl-tasks',5)">Evidence</th></tr></thead><tbody><tr><td class="name">Backend / API / refactors / migrations</td><td class="hl">Kimi K3 (marathon) / DeepSeek V4.1 Flash (daily)</td><td>GLM-5.3</td><td>DeepSeek V4.1 Flash</td><td>Claude Opus 5.5</td><td class="note">DS DeepSWE 74.2, TB2.1 90.6; K3 SWE-Marathon 42.0, FrontierSWE 81.2</td></tr><tr><td class="name">Frontend / UI (React, Tailwind, shadcn)</td><td class="hl">Muse Spark 1.3</td><td>Kimi K3</td><td>GLM-5.3-Flash</td><td>GPT-6 Astra / Fable 5.1</td><td class="note">Design Arena website: Muse 1365 #1, K3 1345 #3; GLM-5.3-Flash top-20 @ $0.15</td></tr><tr><td class="name">Database / SQL / schema / migrations</td><td class="hl">GLM-5.3 (GLM-5.2 legacy)</td><td>DeepSeek V4.1 Flash</td><td>GLM-5.3-Flash</td><td>Gemini-3-Pro + agent harness</td><td class="note">Spider 2.0-Lite #1 used GLM-5.2; no model-only board exists</td></tr><tr><td class="name">Integration (3rd-party APIs, auth, webhooks, Kafka)</td><td class="hl">Kimi K3</td><td>Hy4 preview</td><td>DeepSeek V4.1 Flash</td><td>Claude Opus 5</td><td class="note">MCP-Atlas K3 84.2, Hy4 83.7 vs Opus 85.7; Toolathlon Hy4 74.1</td></tr><tr><td class="name">Agentic terminal / DevOps / git / deploy</td><td class="hl">Grok 4.6 (verified) / DS V4.1 Flash (volume)</td><td>GLM-5.3 (best TB4.0 41.9)</td><td>GLM-5.3-Flash</td><td>GPT-6 Astra / Opus 5.5</td><td class="note">Vals: Grok SWE 95.6, TB2.1 78.3; DS TB2.1 90.6 vendor but AA TB4.0 26.8</td></tr><tr><td class="name">Long-horizon autonomy (walk-away tasks)</td><td class="hl">Kimi K3</td><td>DeepSeek V4 Flash</td><td>DeepSeek V4.1 Flash</td><td>Claude Opus 4.6+ (METR ~12h)</td><td class="note">LHTB #1 DS V4 Flash 0.602, K3 0.378; METR has no Go model measured</td></tr><tr><td class="name">Visual QA / browser + GUI (Playwright)</td><td class="hl">Qwen3.8 Max (#1 globally)</td><td>Kimi K3</td><td>Qwen3.8 Flash</td><td>GPT-6 Astra (grounding)</td><td class="note">OSWorld-Verified Qwen3.8 86.1 &gt; Fable 85, K3 84.8; ScreenSpot 84.5</td></tr><tr><td class="name">Image analysis / OCR / charts / screenshot-to-code</td><td class="hl">Qwen3.8 Max</td><td>Kimi K3 / MiMo-V2.6-Pro</td><td>Qwen3.8 Flash / DS Vision</td><td>GPT-6 Astra / Gemini 3.x</td><td class="note">LMArena Vision #2, MMMU-Pro 82.3; DS DocVQA 95.6</td></tr><tr><td class="name">Planning / architecture reasoning</td><td class="hl">Grok 4.6</td><td>Muse Spark 1.3 / MiMo-V2.6-Pro</td><td>GLM-5.3-Flash</td><td>GPT-6 Astra</td><td class="note">GPQA-D 95.0 (#5), ARC-AGI-2 67.1 (#top Go)</td></tr><tr><td class="name">Debugging / root-cause analysis</td><td class="hl">Kimi K3 (honesty) / Grok 4.7 (edge cases)</td><td>DeepSeek V4.1 Flash</td><td>GLM-5.3-Flash</td><td>Claude Opus 5.5</td><td class="note">honesty battery: K3 0/12 false-done; Grok 4.6 0/12 but 5/6 silent compliance</td></tr><tr><td class="name">Long context (huge repos / logs)</td><td class="hl">DeepSeek V4 Pro (MRCR-1M 83.5)</td><td>Kimi K3 (AA-LCR 74.7) / Muse Spark (98.1 self)</td><td>DeepSeek V4.1 Flash</td><td>GPT-6 Astra / Opus 4.6</td><td class="note">independently tracked 1M retrieval only for DeepSeek</td></tr><tr><td class="name">Fast/cheap bulk edits / boilerplate / tests</td><td class="hl">MiMo-V2.6-Flash / DeepSeek V4.1 Flash</td><td>GLM-5.3-Flash</td><td>either</td><td>GPT-6 Luna ($0.07/task)</td><td class="note">OpenCode telemetry: MiMo-Flash $0.0034/session, DS $0.078</td></tr><tr><td class="name">General intelligence / research / explanation</td><td class="hl">Muse Spark 1.3 (AA 48)</td><td>MiMo-V2.6-Pro / Grok 4.7 (46)</td><td>GLM-5.3-Flash (42)</td><td>Opus 5.5 (58) / Astra (53)</td><td class="note">AA Intelligence Index v4.3.2</td></tr><tr><td class="name">Data / analysis / ML notebooks</td><td class="hl">MiniMax M2.7 (MLE) / Kimi K3</td><td>Qwen3.8 Flash</td><td>DeepSeek V4.1 Flash</td><td>Gemini-3-Pro agents</td><td class="note">MLE-bench Lite M2.7 66.6% medal; official board Gemini-led</td></tr><tr><td class="name">Systems/hardware (overclock, ROM, drivers, homelab)</td><td class="hl">Grok 4.6 / Kimi K3</td><td>MiMo-V2.6-Pro</td><td>DeepSeek V4.1 Flash</td><td>GPT-6 Sol / Opus 5.5</td><td class="note">no bench; Grok EEBench 64; MiMo Pro 23/23 hidden checks vs Opus 5</td></tr><tr><td class="name">Voicebot / realtime / telephony debugging</td><td class="hl">DeepSeek V4.1 Flash</td><td>Kimi K3</td><td>MiMo-V2.6-Flash</td><td>—</td><td class="note">integration + debugging proxies; no dedicated benchmark</td></tr><tr><td class="name">Repo Q&amp;A / explore subagent (high volume)</td><td class="hl">MiMo-V2.6-Flash</td><td>GLM-5.3-Flash</td><td>either</td><td>—</td><td class="note">33k req/mo at your profile, $0.0018/req, 1M ctx</td></tr><tr><td class="name">Spec / plan writing</td><td class="hl">Grok 4.6</td><td>Muse Spark 1.3</td><td>GLM-5.3-Flash</td><td>Opus 5.5</td><td class="note">planning = GPQA/ARC + AA-Briefcase</td></tr></tbody></table></div>
+  <div class="card">
+    <h3>Escalation ladder (use this daily)</h3>
+    <pre>Routine edit / question       → MiMo-V2.6-Flash        (33k req/mo, $0.0018)
+Normal feature / build        → DeepSeek V4.1 Flash    (19k req/mo, native vision)
+Planning / architecture       → Grok 4.6 or MiMo-V2.6-Pro
+Frontend / design review      → Muse Spark 1.3 (non-client) or Kimi K3
+Hard bug / marathon / 1M ctx  → Kimi K3                (~179 req/mo)
+Visual QA / OCR verification  → Qwen3.8 Max            (~256 req/mo)
+Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
+  </div>
+</section>
+
+<section id="limits">
+  <h2>Limits &amp; burn rate — measured from your real usage</h2>
+  <div class="kpi">
+    <div class="card"><b>12,973</b><span>requests (Sep 15 – Oct 1) on DeepSeek V4.1 Flash @ max</span></div>
+    <div class="card"><b>1,893M</b><span>cache-read tokens (96% of input)</span></div>
+    <div class="card"><b>$0.0031</b><span>your average cost per request at Go prices</span></div>
+    <div class="card"><b>$5.99 / $12</b><span>peak rolling 5h spend vs cap (50%)</span></div>
+    <div class="card"><b>$24.77 / $30</b><span>peak rolling 7d spend vs cap (83%)</span></div>
+    <div class="card"><b>630 req/h</b><span>your observed maximum burst rate</span></div>
+  </div>
+  <div class="card">
+    <h3>Answers</h3>
+    <ul>
+      <li><b>How long continuously?</b> On DeepSeek V4.1 Flash: the 5h window never walls normal work — you used at most 50% of it. You can program continuously for <b>~3 weeks per month at your current pace</b> before the monthly cap; the weekly cap is the first real constraint (you hit 83% at peak).</li>
+      <li><b>Why the docs' request counts are 3–7× higher than reality:</b> OpenCode estimates assume ~410 input + 71k cached + 310 output per request. You average 7.8k input + 146k cached + 1.1k output+reasoning — 5–6× heavier.</li>
+      <li><b>Shift DeepSeek off-peak</b> (after ~15:30 IST and weekends are 50% off) and your effective cap roughly doubles.</li>
+      <li><b>Premium models are minutes, not days:</b> at max burst, Kimi K3's 5h cap = ~36 requests (~3–5 minutes), Grok 4.6 ~32 requests, GLM-5.3 ~56. Use them for 1–3 substantial tasks/week.</li>
+      <li><b>Go Plus:</b> 2×–8× limits; best for GLM-5.3 users (8×), worst for DeepSeek/MiMo/Muse (2×). For DeepSeek-heavy work: Go + Zen overflow &gt; Plus.</li>
+    </ul>
+  </div>
+  <div class="tblwrap"><input class="search" placeholder="Filter…" oninput="filterTable('tbl-cap',this.value)"><table id="tbl-cap"><thead><tr><th onclick="sortTable('tbl-cap',0)">Model</th><th onclick="sortTable('tbl-cap',1)">$/req</th><th onclick="sortTable('tbl-cap',2)">Req/5h</th><th onclick="sortTable('tbl-cap',3)">Req/week</th><th onclick="sortTable('tbl-cap',4)">Req/month</th><th onclick="sortTable('tbl-cap',5)">Verdict at your pace</th></tr></thead><tbody><tr><td class="name">Muse Spark 1.3 Contrib</td><td class="num">$0.0013</td><td class="num">9,288</td><td class="num">23,220</td><td class="num hl">46,440</td><td class="note">sustainable, privacy caveat</td></tr><tr><td class="name">MiMo-V2.6-Flash</td><td class="num">$0.0018</td><td class="num">6,634</td><td class="num">16,586</td><td class="num hl">33,171</td><td class="note">sustainable, unmeasured</td></tr><tr><td class="name">MiMo-V2.5</td><td class="num">$0.0018</td><td class="num">6,634</td><td class="num">16,586</td><td class="num hl">33,171</td><td class="note">sustainable, weak (AA25)</td></tr><tr><td class="name">DeepSeek V4.1 Flash</td><td class="num">$0.0031</td><td class="num">3,823</td><td class="num">9,558</td><td class="num hl">19,117</td><td class="note">monthly cap near day 24</td></tr><tr><td class="name">DeepSeek V4 Flash</td><td class="num">$0.0032</td><td class="num">1,890</td><td class="num">4,724</td><td class="num hl">9,448</td><td class="note">legacy, retired upstream</td></tr><tr><td class="name">DS V4 Flash Vision</td><td class="num">$0.0032</td><td class="num">945</td><td class="num">2,362</td><td class="num hl">4,724</td><td class="note">vision only</td></tr><tr><td class="name">GLM-5.3-Flash</td><td class="num">$0.0061</td><td class="num">1,967</td><td class="num">4,918</td><td class="num hl">9,836</td><td class="note">weekly cap in ~5 heavy days</td></tr><tr><td class="name">GPT 6 Luna</td><td class="num">$0.0028</td><td class="num">1,075</td><td class="num">2,688</td><td class="num hl">5,376</td><td class="note">agentically weak</td></tr><tr><td class="name">Qwen3.8 Flash</td><td class="num">$0.0040</td><td class="num">1,491</td><td class="num">3,729</td><td class="num hl">7,457</td><td class="note">unproven</td></tr><tr><td class="name">LongCat-2.0</td><td class="num">$0.0045</td><td class="num">2,646</td><td class="num">6,614</td><td class="num hl">13,228</td><td class="note">vendor-only numbers</td></tr><tr><td class="name">MiMo-V2.6-Pro</td><td class="num">$0.0049</td><td class="num">615</td><td class="num">1,537</td><td class="num hl">3,074</td><td class="note">best premium</td></tr><tr><td class="name">GPT 5.6 Luna</td><td class="num">$0.0058</td><td class="num">517</td><td class="num">1,293</td><td class="num hl">2,586</td><td class="note">weak long tasks</td></tr><tr><td class="name">Hy3</td><td class="num">$0.0068</td><td class="num">1,754</td><td class="num">4,386</td><td class="num hl">8,772</td><td class="note">old but cheap</td></tr><tr><td class="name">Hy4 preview</td><td class="num">$0.0154</td><td class="num">390</td><td class="num">975</td><td class="num hl">1,950</td><td class="note">promising, unmeasured</td></tr><tr><td class="name">MiniMax M3</td><td class="num">$0.0124</td><td class="num">966</td><td class="num">2,415</td><td class="num hl">4,831</td><td class="note">AA29</td></tr><tr><td class="name">Qwen3.7 Plus</td><td class="num">$0.0107</td><td class="num">1,119</td><td class="num">2,799</td><td class="num hl">5,597</td><td class="note">weak</td></tr><tr><td class="name">DeepSeek V4 Pro</td><td class="num">$0.0148</td><td class="num">203</td><td class="num">508</td><td class="num hl">1,017</td><td class="note">retired upstream</td></tr><tr><td class="name">Kimi K2.6</td><td class="num">$0.0352</td><td class="num">341</td><td class="num">853</td><td class="num hl">1,706</td><td class="note">superseded</td></tr><tr><td class="name">Kimi K2.7 Code</td><td class="num">$0.0395</td><td class="num">303</td><td class="num">759</td><td class="num hl">1,517</td><td class="note">vendor-only</td></tr><tr><td class="name">GLM-5.2</td><td class="num">$0.0537</td><td class="num">223</td><td class="num">558</td><td class="num hl">1,117</td><td class="note">superseded</td></tr><tr><td class="name">Kimi K3</td><td class="num">$0.0837</td><td class="num">36</td><td class="num">90</td><td class="num hl">179</td><td class="note">ration: ~3 tasks/wk</td></tr><tr><td class="name">Qwen3.8 Max</td><td class="num">$0.0587</td><td class="num">51</td><td class="num">128</td><td class="num hl">256</td><td class="note">ration: visual QA</td></tr><tr><td class="name">GLM-5.3</td><td class="num">$0.0537</td><td class="num">56</td><td class="num">140</td><td class="num hl">279</td><td class="note">ration: TB/security</td></tr><tr><td class="name">Grok 4.7</td><td class="num">$0.0952</td><td class="num">32</td><td class="num">79</td><td class="num hl">158</td><td class="note">ration: reasoning</td></tr><tr><td class="name">Grok 4.6</td><td class="num">$0.0952</td><td class="num">32</td><td class="num">79</td><td class="num hl">158</td><td class="note">ration: verified agent</td></tr></tbody></table></div>
+  <h3>Community burn-rate anecdotes</h3>
+  <ul class="clean">
+    <li>"Hit 73% weekly limit in 24 hours" — Kimi K3, r/opencode, Aug 30, 2026</li>
+    <li>"The 5 hr limit is $12, which is actually $3 in Kimi usage" — r/opencode, Aug 4, 2026</li>
+    <li>"It's limited usage for Kimi 3, GLM, and Qwen Max, but for the rest… a billion+ tokens" — happy light user, r/opencodeCLI</li>
+    <li>"$10 of quota ≈ 35M GLM-5 tokens or 115M MiniMax M2.7 tokens" — Patshead measured review</li>
+  </ul>
+</section>
+
+<section id="value">
+  <h2>Intelligence per dollar &amp; tier jumps</h2>
+  <p class="sub">AA pts / $ = AA score ÷ your per-request cost (higher is better). Cognitive throughput = AA × monthly requests (intelligence-weighted volume).</p>
+  <div class="tblwrap"><input class="search" placeholder="Filter…" oninput="filterTable('tbl-value',this.value)"><table id="tbl-value"><thead><tr><th onclick="sortTable('tbl-value',0)">Model</th><th onclick="sortTable('tbl-value',1)">AA</th><th onclick="sortTable('tbl-value',2)">$/req</th><th onclick="sortTable('tbl-value',3)">Req/mo</th><th onclick="sortTable('tbl-value',4)">AA pts / $</th><th onclick="sortTable('tbl-value',5)">AA × req/mo (cognitive throughput)</th></tr></thead><tbody><tr><td class="name">Muse Spark 1.3 Contributor</td><td class="num hl">48</td><td class="num">$0.0013</td><td class="num">46,440</td><td class="num hl">37,152</td><td class="num">2,229,120</td></tr><tr><td class="name">MiMo-V2.5</td><td class="num hl">25</td><td class="num">$0.0018</td><td class="num">33,171</td><td class="num hl">13,821</td><td class="num">829,275</td></tr><tr><td class="name">GPT 6 Luna</td><td class="num hl">38</td><td class="num">$0.0028</td><td class="num">5,376</td><td class="num hl">13,620</td><td class="num">204,288</td></tr><tr><td class="name">DeepSeek V4.1 Flash</td><td class="num hl">39</td><td class="num">$0.0031</td><td class="num">19,117</td><td class="num hl">12,426</td><td class="num">745,563</td></tr><tr><td class="name">DeepSeek V4 Flash</td><td class="num hl">34</td><td class="num">$0.0032</td><td class="num">9,448</td><td class="num hl">10,708</td><td class="num">321,232</td></tr><tr><td class="name">MiMo-V2.6-Pro</td><td class="num hl">46</td><td class="num">$0.0049</td><td class="num">3,074</td><td class="num hl">9,428</td><td class="num">141,404</td></tr><tr><td class="name">GLM-5.3-Flash</td><td class="num hl">42</td><td class="num">$0.0061</td><td class="num">9,836</td><td class="num hl">6,885</td><td class="num">413,112</td></tr><tr><td class="name">GPT 5.6 Luna</td><td class="num hl">36</td><td class="num">$0.0058</td><td class="num">2,586</td><td class="num hl">6,379</td><td class="num">93,096</td></tr><tr><td class="name">MiMo-V2.5-Pro</td><td class="num hl">26</td><td class="num">$0.0049</td><td class="num">3,074</td><td class="num hl">5,329</td><td class="num">79,924</td></tr><tr><td class="name">Hy3</td><td class="num hl">34</td><td class="num">$0.0068</td><td class="num">8,772</td><td class="num hl">4,971</td><td class="num">298,248</td></tr><tr><td class="name">DeepSeek V4 Pro 0813</td><td class="num hl">36</td><td class="num">$0.0148</td><td class="num">1,017</td><td class="num hl">2,440</td><td class="num">36,612</td></tr><tr><td class="name">MiniMax M3</td><td class="num hl">29</td><td class="num">$0.0124</td><td class="num">4,831</td><td class="num hl">2,335</td><td class="num">140,099</td></tr><tr><td class="name">Qwen3.7 Plus</td><td class="num hl">25</td><td class="num">$0.0107</td><td class="num">5,597</td><td class="num hl">2,332</td><td class="num">139,925</td></tr><tr><td class="name">MiniMax M2.7</td><td class="num hl">23</td><td class="num">$0.0124</td><td class="num">4,831</td><td class="num hl">1,852</td><td class="num">111,113</td></tr><tr><td class="name">GLM-5.3</td><td class="num hl">45</td><td class="num">$0.0537</td><td class="num">279</td><td class="num hl">838</td><td class="num">12,555</td></tr><tr><td class="name">Qwen3.8 Max</td><td class="num hl">45</td><td class="num">$0.0587</td><td class="num">256</td><td class="num hl">767</td><td class="num">11,520</td></tr><tr><td class="name">Kimi K2.7 Code</td><td class="num hl">26</td><td class="num">$0.0395</td><td class="num">1,517</td><td class="num hl">657</td><td class="num">39,442</td></tr><tr><td class="name">GLM-5.2</td><td class="num hl">34</td><td class="num">$0.0537</td><td class="num">1,117</td><td class="num hl">633</td><td class="num">37,978</td></tr><tr><td class="name">Kimi K3</td><td class="num hl">44</td><td class="num">$0.0837</td><td class="num">179</td><td class="num hl">526</td><td class="num">7,876</td></tr><tr><td class="name">Grok 4.7</td><td class="num hl">46</td><td class="num">$0.0952</td><td class="num">158</td><td class="num hl">483</td><td class="num">7,268</td></tr><tr><td class="name">Grok 4.6</td><td class="num hl">44</td><td class="num">$0.0952</td><td class="num">158</td><td class="num hl">462</td><td class="num">6,952</td></tr></tbody></table></div>
+  <h3>AA points per dollar of limit spend</h3>
+  <svg viewBox="0 0 860 660" class="chart" xmlns="http://www.w3.org/2000/svg">
+<text x="240" y="25" class="lbl" text-anchor="end">Muse Spark 1.3 Contributor</text>
+<rect x="250" y="10" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="25" class="axis">2,332</text>
+<text x="240" y="55" class="lbl" text-anchor="end">MiMo-V2.6-Pro</text>
+<rect x="250" y="40" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="55" class="axis">2,332</text>
+<text x="240" y="85" class="lbl" text-anchor="end">Grok 4.7</text>
+<rect x="250" y="70" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="85" class="axis">2,332</text>
+<text x="240" y="115" class="lbl" text-anchor="end">GLM-5.3</text>
+<rect x="250" y="100" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="115" class="axis">2,332</text>
+<text x="240" y="145" class="lbl" text-anchor="end">Qwen3.8 Max</text>
+<rect x="250" y="130" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="145" class="axis">2,332</text>
+<text x="240" y="175" class="lbl" text-anchor="end">Kimi K3</text>
+<rect x="250" y="160" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="175" class="axis">2,332</text>
+<text x="240" y="205" class="lbl" text-anchor="end">Grok 4.6</text>
+<rect x="250" y="190" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="205" class="axis">2,332</text>
+<text x="240" y="235" class="lbl" text-anchor="end">GLM-5.3-Flash</text>
+<rect x="250" y="220" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="235" class="axis">2,332</text>
+<text x="240" y="265" class="lbl" text-anchor="end">GPT 6 Luna</text>
+<rect x="250" y="250" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="265" class="axis">2,332</text>
+<text x="240" y="295" class="lbl" text-anchor="end">DeepSeek V4.1 Flash</text>
+<rect x="250" y="280" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="295" class="axis">2,332</text>
+<text x="240" y="325" class="lbl" text-anchor="end">GPT 5.6 Luna</text>
+<rect x="250" y="310" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="325" class="axis">2,332</text>
+<text x="240" y="355" class="lbl" text-anchor="end">DeepSeek V4 Pro 0813</text>
+<rect x="250" y="340" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="355" class="axis">2,332</text>
+<text x="240" y="385" class="lbl" text-anchor="end">GLM-5.2</text>
+<rect x="250" y="370" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="385" class="axis">2,332</text>
+<text x="240" y="415" class="lbl" text-anchor="end">DeepSeek V4 Flash</text>
+<rect x="250" y="400" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="415" class="axis">2,332</text>
+<text x="240" y="445" class="lbl" text-anchor="end">Hy3</text>
+<rect x="250" y="430" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="445" class="axis">2,332</text>
+<text x="240" y="475" class="lbl" text-anchor="end">MiMo-V2.5-Pro</text>
+<rect x="250" y="460" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="475" class="axis">2,332</text>
+<text x="240" y="505" class="lbl" text-anchor="end">MiMo-V2.5</text>
+<rect x="250" y="490" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="505" class="axis">2,332</text>
+<text x="240" y="535" class="lbl" text-anchor="end">MiniMax M3</text>
+<rect x="250" y="520" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="535" class="axis">2,332</text>
+<text x="240" y="565" class="lbl" text-anchor="end">MiniMax M2.7</text>
+<rect x="250" y="550" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="565" class="axis">2,332</text>
+<text x="240" y="595" class="lbl" text-anchor="end">Kimi K2.7 Code</text>
+<rect x="250" y="580" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="595" class="axis">2,332</text>
+<text x="240" y="625" class="lbl" text-anchor="end">Qwen3.7 Plus</text>
+<rect x="250" y="610" width="530.0" height="22" rx="4" fill="#bb9af7" opacity="0.85"/>
+<text x="788.0" y="625" class="axis">2,332</text>
+</svg>
+  <div class="card">
+    <h3>Pay a little more, get a jump — from DeepSeek V4.1 Flash (AA 39, 19.1k req/mo)</h3>
+    <ul>
+      <li><b>Muse Spark 1.3 Contributor: +9 AA, 0.42× cost, +143% capacity</b> — the best arbitrage on Go (non-client only).</li>
+      <li><b>MiMo-V2.6-Pro: +7 AA at 1.6× cost</b> (3.1k req/mo) — premium intelligence per call without ruinous cost.</li>
+      <li><b>GLM-5.3-Flash: +3 AA at 2× cost</b> (9.8k req/mo) — the quality step-up you can still run all day.</li>
+      <li><b>GLM-5.3 / Qwen3.8 Max / Kimi K3 / Grok 4.6: +5–6 AA at 17–31× cost</b> (~150–280 req/mo) — the hard 5% rations.</li>
+      <li><b>Claude Opus 5.5 (not Go): +19 AA</b> — must-not-fail work, via Copilot/Zen.</li>
+    </ul>
+    <p class="note">Retry math: if DeepSeek needs 3 tries where Opus needs 1, DeepSeek is still ~100–300× cheaper. Premium pays off only for non-convergent, expensive-to-fail, or one-shot tasks.</p>
+  </div>
+  <div class="tier t0"><div class="tier-head"><span class="tier-label">Free previews</span><span class="tier-desc">Free — unlimited for now</span></div><div class="chips"><span class="chip">Space Bunny Free</span><span class="chip">LongCat 2.5 Preview Free</span><span class="chip">Zen free models</span></div><p class="note">Unlimited until they end. Non-sensitive exploration only.</p></div><div class="tier t1"><div class="tier-head"><span class="tier-label">Workhorses (drive everything)</span><span class="tier-desc">Workhorse — drive everything</span></div><div class="chips"><span class="chip">DeepSeek V4.1 Flash</span><span class="chip">MiMo-V2.6-Flash</span><span class="chip">GLM-5.3-Flash</span><span class="chip">Muse Spark 1.3 Contrib*</span><span class="chip">MiMo-V2.5</span><span class="chip">LongCat-2.0</span><span class="chip">Hy3</span><span class="chip">Qwen3.8 Flash</span></div><p class="note">3k-46k req/mo at your profile. 90% of work lives here. *Muse trains on your data.</p></div><div class="tier t2"><div class="tier-head"><span class="tier-label">Premium rations ($15-30)</span><span class="tier-desc">Premium ration — quality per call</span></div><div class="chips"><span class="chip">MiMo-V2.6-Pro (AA 46)</span><span class="chip">GPT 6 Luna</span><span class="chip">GPT 5.6 Luna</span><span class="chip">DeepSeek V4 Pro</span><span class="chip">DS V4 Flash Vision</span><span class="chip">MiMo-V2.5-Pro</span><span class="chip">Hy4 preview</span></div><p class="note">1k-5k req/mo. Use for planning, hard debug, OCR verification.</p></div><div class="tier t3"><div class="tier-head"><span class="tier-label">Frontier rations ($15)</span><span class="tier-desc">Frontier ration — the hard 5%</span></div><div class="chips"><span class="chip">Grok 4.6/4.7</span><span class="chip">Kimi K3</span><span class="chip">GLM-5.3</span><span class="chip">Qwen3.8 Max</span></div><p class="note">~1-3 substantial tasks/week each. The hard 5%.</p></div><div class="tier t4"><div class="tier-head"><span class="tier-label">Beyond Go (frontier)</span><span class="tier-desc">Beyond Go — must-not-fail</span></div><div class="chips"><span class="chip">Claude Opus 5.5 (AA 58)</span><span class="chip">GPT-6 Astra / Fable 5.1 / Gemini 4 Argon (53)</span><span class="chip">GPT-6.1 Sol (52)</span></div><p class="note">Copilot or Zen. Must-not-fail work only.</p></div>
+</section>
+
+<section id="privacy">
+  <h2>Privacy &amp; free models</h2>
+  <div class="grid2">
+    <div class="card"><h3>Never for client/PHI</h3>
+      <ul>
+        <li><b>Muse Spark 1.3/1.2 Contributor</b> (paid Go tier too!) — trains on prompts/completions</li>
+        <li><b>Big Pickle</b> — data used to improve the model</li>
+        <li><b>MiMo-V2.6-Flash Free / MiMo-V2.5 Free</b> — training may occur</li>
+        <li><b>Nemotron 3 Ultra / 3.5 Lightning Free</b> — NVIDIA trial terms, do not submit personal data</li>
+        <li><b>Ling 3.0 Flash Fin Free</b> — training may occur</li>
+      </ul>
+    </div>
+    <div class="card"><h3>Safe-ish (zero-retention per OpenCode)</h3>
+      <ul>
+        <li>GLM-5.3 / 5.3-Flash / 5.2, MiMo paid, Kimi, Qwen, Grok</li>
+        <li>DeepSeek — ZDR listed "through Sep 30, 2026"; <b>re-verify renewal</b></li>
+        <li>Space Bunny / LongCat 2.5 free — zero-retention stated but stealth; avoid critical paths</li>
+        <li>OpenAI/Anthropic routes: 30-day retention (and one of your client contracts bans OpenAI models)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Free models worth using (non-sensitive only)</h3>
+    <p><b>Space Bunny Free</b> — #1 by tokens on all of OpenCode (58T/week), strong design/speed, 1M ctx, vision. <b>LongCat 2.5 Preview Free</b> — zero-retention, free until ~Oct 10. These keep working after Go limits run out; treat as Tier 0.</p>
+  </div>
+</section>
+
+<section id="config">
+  <h2>Recommended OpenCode config</h2>
+  <h3>Global (personal, non-client)</h3>
+  <pre>{
+  &quot;$schema&quot;: &quot;https://opencode.ai/config.json&quot;,
+  &quot;model&quot;: &quot;opencode-go/deepseek-v4.1-flash&quot;,
+  &quot;small_model&quot;: &quot;opencode-go/mimo-v2.6-flash&quot;,
+  &quot;agent&quot;: {
+    &quot;plan&quot;:    { &quot;model&quot;: &quot;opencode-go/grok-4.6&quot; },
+    &quot;explore&quot;: { &quot;model&quot;: &quot;opencode-go/mimo-v2.6-flash&quot; },
+    &quot;build&quot;:   { &quot;model&quot;: &quot;opencode-go/deepseek-v4.1-flash&quot; }
+  }
+}</pre>
+  <h3>Client / PHI-safe (per project)</h3>
+  <pre>{
+  &quot;$schema&quot;: &quot;https://opencode.ai/config.json&quot;,
+  &quot;model&quot;: &quot;opencode-go/glm-5.3-flash&quot;,
+  &quot;small_model&quot;: &quot;opencode-go/glm-5.3-flash&quot;,
+  &quot;agent&quot;: {
+    &quot;plan&quot;:  { &quot;model&quot;: &quot;opencode-go/mimo-v2.6-pro&quot; },
+    &quot;build&quot;: { &quot;model&quot;: &quot;opencode-go/glm-5.3-flash&quot; }
+  },
+  &quot;permission&quot;: {
+    &quot;edit&quot;: &quot;allow&quot;,
+    &quot;bash&quot;: {
+      &quot;*&quot;: &quot;ask&quot;,
+      &quot;git status*&quot;: &quot;allow&quot;,
+      &quot;git diff*&quot;: &quot;allow&quot;,
+      &quot;pytest*&quot;: &quot;allow&quot;,
+      &quot;npm test*&quot;: &quot;allow&quot;,
+      &quot;az account show*&quot;: &quot;allow&quot;,
+      &quot;docker ps*&quot;: &quot;allow&quot;
+    }
+  }
+}</pre>
+  <div class="card">
+    <h3>Operating rules that save limits</h3>
+    <ol>
+      <li>Plan once on a premium model; execute on DeepSeek V4.1 Flash.</li>
+      <li>Use max effort only for planning/security/hard debug (max costs 3.6–6.5×).</li>
+      <li>Push repo exploration to MiMo-V2.6-Flash subagents.</li>
+      <li>Run DeepSeek-heavy autonomous work off-peak (after ~15:30 IST, weekends).</li>
+      <li>Keep "Use balance" ON for graceful Zen overflow.</li>
+      <li>One premium review per difficult PR (Kimi K3 / Grok 4.6).</li>
+      <li>Never let agents push/deploy/mutate infra without approval — gate in permissions.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="sources">
+  <h2>Sources &amp; further reading</h2>
+  <ul class="clean"><li><a href="https://julien.cloud/opencode-go-models/" target="_blank" rel="noopener">OpenCode Go model/limit tracker</a> — <span class="note">timeline of roster changes</span> <span class="src">julien.cloud</span></li><li><a href="https://news.ycombinator.com/item?id=48935342" target="_blank" rel="noopener">Kimi K3 launch</a> — <span class="note">2,107 pts / 1,214 comments</span> <span class="src">Hacker News</span></li><li><a href="https://news.ycombinator.com/item?id=49792730" target="_blank" rel="noopener">MiMo v2.6 launch</a> — <span class="note">1,130 pts / 483 comments</span> <span class="src">Hacker News</span></li><li><a href="https://mimo.xiaomi.com/blog/mimo-v2-6-tool-call-repetition" target="_blank" rel="noopener">MiMo tool-call repetition postmortem</a> — <span class="note">documents real reliability bug (fixed)</span> <span class="src">Xiaomi</span></li><li><a href="https://artificialanalysis.ai/articles/gpt-6-sol-and-luna-push-the-cost-efficiency-frontier" target="_blank" rel="noopener">AA GPT-6 Sol/Luna cost-efficiency</a> — <span class="note">$0.07/task Luna</span> <span class="src">Artificial Analysis</span></li><li><a href="https://llmgateway.io/blog/opencode-go-pricing" target="_blank" rel="noopener">Go value analysis</a> — <span class="note">&#x27;best ratio of any flat coding plan&#x27;</span> <span class="src">LLM Gateway</span></li><li><a href="https://www.reddit.com/r/opencode/comments/1w2muhx/" target="_blank" rel="noopener">Burn-rate anecdote (73% weekly in 24h)</a> — <span class="note">Aug 30, 2026</span> <span class="src">r/opencode</span></li><li><a href="https://blog.patshead.com/2026/03/opencode-go-coding-plan-from-a-light-users-perspective.html" target="_blank" rel="noopener">Light-user measured review</a> — <span class="note">109M tokens / $19.13 in 3 weeks</span> <span class="src">Patshead</span></li><li><a href="https://arxiv.org/pdf/2604.22750" target="_blank" rel="noopener">Agent token economics</a> — <span class="note">4.17M tokens/$1.86 per SWE-bench task</span> <span class="src">arXiv 2604.22750</span></li><li><a href="https://arxiv.org/html/2608.25399" target="_blank" rel="noopener">Kimi effort scaling</a> — <span class="note">max vs low = 3.6-6.5x cost</span> <span class="src">arXiv 2608.25399</span></li></ul>
+  <p class="note">Primary data: opencode.ai docs (Go/Zen), Artificial Analysis v4.3.2, LMArena, Vals AI, Terminal-Bench, SWE-bench mirrors, OpenRouter rankings, HuggingFace model cards, Hacker News, Reddit r/opencode, and the local OpenCode session database (aggregates only).</p>
+</section>
+</main>
+<footer>
+  OpenCode Go Model Intelligence &amp; Value Report · generated 2026-10-01 13:11 UTC · data snapshot Oct 1, 2026 · scores and limits change frequently — always re-verify against the live docs before making decisions.
+</footer>
+<script>
+function tab(btn,id){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function sortTable(id,col){
+  const t=document.getElementById(id); const tb=t.tBodies[0];
+  const rows=Array.from(tb.rows);
+  const asc=!(t.dataset['s'+col]==='1'); t.dataset['s'+col]=asc?'1':'0';
+  const val=r=>{
+    let v=r.cells[col].innerText.replace(/[$,\u221e]/g,'').trim();
+    if(v===''||v==='—'||v==='n/a') return -Infinity;
+    const n=parseFloat(v); return isNaN(n)?v:n;
+  };
+  rows.sort((a,b)=>{const x=val(a),y=val(b); return (x>y?1:x<y?-1:0)*(asc?1:-1);});
+  rows.forEach(r=>tb.appendChild(r));
+}
+function filterTable(id,q){
+  q=q.toLowerCase();
+  document.querySelectorAll('#'+id+' tbody tr').forEach(r=>{
+    r.style.display=r.innerText.toLowerCase().includes(q)?'':'none';
+  });
+}
+</script>
+</body>
+</html>
