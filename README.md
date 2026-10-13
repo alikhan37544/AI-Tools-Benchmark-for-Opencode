@@ -148,6 +148,13 @@ Escalate per task: `Kimi K3` (marathon/bug) · `Qwen3.8 Max` (visual QA) · `Mus
 - **Space Bunny free→paid** ($0.15/$0.60, $30/mo): removed from the free floor everywhere; keeps zero-retention.
 - **Legacy demotion:** DeepSeek V4 Pro / V4 Flash / Vision Exp (retired upstream), GLM-5.2, MiMo-V2.5/Pro, Kimi K2.6 (superseded) moved out of all recommendation/capacity/value tables into Legacy notes. Roster/pricing/evidence tables keep them factually with legacy tags.
 
+## New: Oct 13 OmO heavy-coding refresh + v1/v2 switch check (4 parallel research agents)
+
+- **OmO 5.1.32 is current** (npm still serves stale 4.19.4 — install 5.x from GitHub releases; `doctor --verbose` to confirm). Upstream chains now put `claude-haiku-5-5` in explore/librarian/quick tails and confirm `kimi-k3 → plan-consultant`, `glm-5.3/kimi-k3 → unspecified-high`, `mimo-v2.6-pro → unspecified-low`.
+- **Three ready `omo.jsonc` configs in `08`:** **A** most intelligent · **B** best value (deep-low lane runs free Step 5 at AA 44 — start here) · **C** absolute cheapest (zero $15-tier usage). Plus a mapping that replaces hand-written "spin up N agents" DeepSeek prompts with `/ultrawork` + Sisyphus delegation.
+- **v1↔v2 switch:** v1 **1.19.0** (Oct 11, `upgrade --major` gate — staying on 1.x is now explicit) with end-of-support signaled but **no fixed EOL date**; v2 **2.0.28** latest; LSP still intentionally missing on v2, history migrator still partial, OmO-on-v2 still **not shipped**. Stay on v1 for production OmO.
+- **Beyond-Go watch:** Muse Wonder (Oct 12, Spark's successor) and Gemini 4 Argon dev API (Oct 13) posted frontier coding claims — escalation-slot candidates, not on Go yet.
+
 ## New: Oh My OpenCode, v1 vs v2, plugins, power-ups (Oct 1, 2026 — second wave)
 
 - **Oh My OpenCode is now `oh-my-openagent` (OmO)**: Ultimate (OpenCode plugin), Light (Codex), Native (standalone). Sisyphus orchestrator + background agents + Ralph loops **multiply request volume 3–5×** — so the Go map is: **Kimi K3 (max) as primary** (only validated Go orchestrator), **MiMo-V2.6-Pro** on reasoning slots (AA 46), Flash tiers on explore/librarian/quick, Grok 4.7 for consults, DeepSeek Vision for `look_at`. Two full configs (max-intelligence + sustainable) in `08`.

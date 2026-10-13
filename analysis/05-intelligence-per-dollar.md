@@ -94,6 +94,7 @@ $60–80 allowances ($30 for Qwen3.8 Flash/Space Bunny, $15 for Haiku 5.5), 3k�
 ### Tier 4 — Beyond Go (the real frontier)
 **Claude Opus 5.5 (AA 58) · GPT-6 Astra / Fable 5.1 / Gemini 4 Argon (AA 53) · GPT-6.1 Sol (AA 52).**
 Not on Go. Available via your **GitHub Copilot** subscription (you already used Opus 5.5 and GPT-6 Astra) or Zen pay-as-you-go ($4–10 in / $20–50 out). 10–19 AA points above the best Go model — the difference between "usually works" and "works on the first try" for brutal tasks.
+Watch (Oct 12–13, vendor claims 🟡): **Muse Wonder/Wonder Full** (Meta's Spark successor — claims DeepSWE 79.0 #1, SWE-Marathon 57.5; API $4/$20) and **Gemini 4 Argon dev API** (claims DeepSWE 77.9 SOTA). If either lands on Go/Zen or Copilot, the escalation slot changes — see `08`.
 
 ---
 

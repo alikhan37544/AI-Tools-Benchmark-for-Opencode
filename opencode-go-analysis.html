@@ -604,7 +604,7 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
 
 <section id="omo">
   <h2>Oh My OpenCode (oh-my-openagent / OmO)</h2>
-  <p class="sub">Multi-model agent orchestration harness: Sisyphus orchestrator, 11 agents, 52+ hooks, 26 tools, Team Mode, Ralph/ulw loops. Renamed repo: <b>code-yeongyu/oh-my-openagent</b> (npm still <b>oh-my-opencode</b>). Never <b>bunx omo</b> — unrelated package.</p>
+  <p class="sub">Multi-model agent orchestration harness: Sisyphus orchestrator, 11 agents, 54+ hooks, 26 tools, Team Mode, Ralph/ulw loops. Renamed repo: <b>code-yeongyu/oh-my-openagent</b> (npm still <b>oh-my-opencode</b>). Never <b>bunx omo</b> — unrelated package. <b>Oct 13: OmO 5.1.32 current</b> (npm still 4.19.4 — install 5.x from GitHub releases); <b>no v2 support yet</b> (stay on OpenCode v1.18.x–1.19.x).</p>
   <h3>Three editions</h3>
   <div class="tblwrap"><table><thead><tr><th>Edition</th><th>Host</th><th>What you get</th><th>Install</th></tr></thead><tbody>
     <tr><td class="name">Ultimate</td><td>OpenCode v1</td><td>Full harness: agents, hooks, Team Mode, ulw/Ralph, hashline edits, built-in MCPs</td><td><code>bunx oh-my-openagent install</code></td></tr>
@@ -614,7 +614,7 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
   <h3>Agents &amp; categories</h3>
   <div class="tblwrap"><table><thead><tr><th>Agent</th><th>Role</th><th>Go pick (heavy)</th></tr></thead><tbody>
     <tr><td class="name">Sisyphus (primary)</td><td>Orchestrator: plans, delegates, verifies</td><td class="hl">kimi-k3 max (~22 OMO-req/wk — ration it)</td></tr>
-    <tr><td class="name">Atlas / Prometheus / Metis / Momus</td><td>Execute plan / plan / gap-check / ruthless review</td><td>kimi-k3 max (consult) · glm-5.3 max (review)</td></tr>
+    <tr><td class="name">Atlas / Prometheus / plan-consultant / plan-reviewer</td><td>Execute plan / plan / gap-check / ruthless review</td><td>kimi-k3 max (consult) · glm-5.3 max (review)</td></tr>
     <tr><td class="name">Oracle → architect</td><td>Read-only architecture/debug consult</td><td>grok-4.7 xhigh (~20 consults/wk)</td></tr>
     <tr><td class="name">Librarian / Explore</td><td>Docs+OSS grep / fast codebase grep (no writes)</td><td>mimo-v2.6-flash low (~4.1k/wk) · deepseek-v4.1-flash max (~3.2k/wk) · claude-haiku-5-5 medium (NEW)</td></tr>
     <tr><td class="name">Frontend / Multimodal-Looker</td><td>UI persona / PDF+image→text</td><td>kimi-k3 max (ration) · deepseek-v4.1-flash max (native vision; retired vision-exp merged into V4.1)</td></tr>
@@ -623,18 +623,19 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
     <tr><td class="name">ultrabrain / deep-high / unspecified-low</td><td>Hard reasoning / escalation / general</td><td class="hl">mimo-v2.6-pro max (AA 46, ~380 OMO-req/wk)</td></tr>
     <tr><td class="name">unspecified-high / artistry</td><td>General fallback / creative</td><td>glm-5.3 max (~35/wk — ration)</td></tr>
     <tr><td class="name">quick</td><td>Trivial tasks</td><td>claude-haiku-5-5 low/medium (NEW; alt: mimo-v2.6-flash low)</td></tr>
-    <tr><td class="name">deep-low (bulk research)</td><td>Evidence-settleable research</td><td>qwen3.7-plus medium / glm-5.3-flash</td></tr>
+    <tr><td class="name">deep-low (bulk research)</td><td>Evidence-settleable research</td><td class="hl">step-5-preview-free high (AA 44 at $0 — value lane)</td></tr>
     <tr><td class="name">writing</td><td>Docs/prose</td><td>glm-5.3-flash low (never Contributor for client docs)</td></tr>
     <tr><td class="name">visual-engineering</td><td>Frontend/UI</td><td>kimi-k3 max (ration); bulk CSS on glm-5.3-flash</td></tr>
   </tbody></table></div>
-  <div class="card"><h3>Volume rule</h3>
-    <p>OMO multiplies requests: <b>3–5×</b> per <code>ultrawork</code>, <b>6–12×</b> for <code>mass ulw</code> / Team Mode / Ralph. Divide every allowance by ~4 for OMO-week planning. Max-intelligence config survives ~2–4 heavy days; the sustainable config (bulk on Flash tiers, AA 46 kept on reasoning slots) survives full weeks except the Kimi primary. Cap <code>kimi-k3</code> concurrency at 2, enable <code>aggressive_truncation</code>, keep <code>team_mode</code> off unless needed.</p>
+  <div class="card"><h3>Volume rule + ready configs</h3>
+    <p>OMO multiplies requests: <b>3–5×</b> per <code>ultrawork</code>, <b>6–12×</b> for <code>mass ulw</code> / Team Mode / Ralph. Divide every allowance by ~4 for OMO-week planning. Cap <code>kimi-k3</code> concurrency at 2, enable <code>aggressive_truncation</code>, keep <code>team_mode</code> off unless needed.</p>
+    <p><b>Three copy-paste <code>omo.jsonc</code> configs (analysis/08):</b> <b>A — most intelligent</b> (Kimi K3 primary, MiMo-Pro reasoning, GLM-5.3 review, ~2–4 heavy days) · <b>B — best value, start here</b> (same primary, deep-low lane on free Step 5, full workweeks) · <b>C — cheapest</b> (Step 5 primary, zero $15-tier usage, indefinite). Upstream already validates the Go rungs used: <code>plan-consultant → kimi-k3 (max)</code>, <code>unspecified-high → glm-5.3/kimi-k3</code>, <code>unspecified-low → mimo-v2.6-pro (max)</code>, <code>haiku-5-5</code> in explore/librarian/quick tails.</p>
   </div>
   <h3>OpenCode v1 vs v2 compatibility</h3>
   <div class="tblwrap"><table><thead><tr><th>OMO</th><th>OpenCode v1</th><th>OpenCode v2</th></tr></thead><tbody>
     <tr><td class="name">4.x legacy</td><td>✅ Supported (≥1.0.132)</td><td>❌ Broken</td></tr>
     <tr><td class="name">4.19.x unified</td><td>✅ Supported + coexistence</td><td>⚠️ Partial, needs 5.x</td></tr>
-    <tr><td class="name">5.x beta</td><td>✅ Supported</td><td>⚠️ Needs v2-compatible build; official note in progress</td></tr>
+    <tr><td class="name">5.x (5.1.32, Oct 13)</td><td>✅ Supported</td><td>❌ Still broken on v2 (V1 plugin shape; dual-host PR unlanded)</td></tr>
     <tr><td class="name">Native 5.0+</td><td>✅ Side-by-side</td><td class="hl">✅ Independent — safe v2-era path</td></tr>
     <tr><td class="name">opensoft fork</td><td>✅ Same as upstream</td><td>⚠️ Same as upstream</td></tr>
   </tbody></table></div>
@@ -643,7 +644,7 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
 
 <section id="v1v2">
   <h2>OpenCode v1 vs v2</h2>
-  <p class="sub">v2 is a rewrite: one shared background server for TUI + Desktop + Web + Docker + SDK (v1: standalone TUI + <code>opencode serve</code>). v1 <b>1.18.34</b> still maintained; v2 <b>2.0.x</b> stable after Jul–Sep beta. Separate installs — never point v1 at v2-converted configs (same paths!).</p>
+  <p class="sub">v2 is a rewrite: one shared background server for TUI + Desktop + Web + Docker + SDK (v1: standalone TUI + <code>opencode serve</code>). v1 <b>1.19.0</b> (Oct 11, bridge-maintained, EOL signaled, no fixed date — <code>upgrade --major</code> gate keeps you on 1.x until explicit); v2 <b>2.0.28</b> latest (Oct 13). Separate installs — never point v1 at v2-converted configs (same paths!).</p>
   <div class="tblwrap"><table><thead><tr><th>Area</th><th>v1</th><th>v2</th></tr></thead><tbody>
     <tr><td class="name">Sessions</td><td>TUI owns sessions</td><td class="hl">Shared service; multi-tab, per-tab models, child-session manager</td></tr>
     <tr><td class="name">Plugins</td><td><code>plugin: […]</code>, Bun <code>$</code> helper</td><td><code>plugins: […]</code> + <code>Plugin.define</code> — <b>V1 plugins DO NOT run</b></td></tr>
@@ -652,15 +653,15 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
     <tr><td class="name">MCP</td><td><code>mcp:&#123;name&#125;</code>, <code>enabled</code>, camelCase OAuth</td><td><code>mcp.servers</code>, <code>disabled</code>, snake_case OAuth, timeouts; config-only</td></tr>
     <tr><td class="name">Config</td><td><code>opencode.json</code> + layered <code>tui.json</code></td><td><code>opencode.jsonc</code> + single global <code>cli.json</code></td></tr>
     <tr><td class="name">Auth</td><td><code>auth.json</code> file</td><td>SQLite (imports auth.json once); <code>opencode auth …</code></td></tr>
-    <tr><td class="name">LSP / Share</td><td>Full runtime / <code>/share</code></td><td><b>LSP inert, share unimplemented</b></td></tr>
-    <tr><td class="name">History</td><td><code>session/message/part</code></td><td><code>session_v2</code>; V1 history invisible at first, migrator gaps</td></tr>
+    <tr><td class="name">LSP / Share</td><td>Full runtime / <code>/share</code></td><td><b>LSP intentionally inert, share mapped</b> (<code>autoshare → share:auto</code>)</td></tr>
+    <tr><td class="name">History</td><td><code>session/message/part</code></td><td><code>session_v2</code>; V1 migrator still partial (misses post-launch sessions, 500s on corrupt rows)</td></tr>
   </tbody></table></div>
   <div class="grid2">
     <div class="card" style="border-left:4px solid #9ece6a"><h3 style="color:#9ece6a">Upgrade for</h3>
       <ul><li>Synced TUI/Desktop/Web/Docker sessions</li><li>Multi-tab + background child sessions</li><li>Cleaner permissions/providers config</li><li>Better server API + generated SDK clients</li></ul>
     </div>
     <div class="card" style="border-left:4px solid #f7768e"><h3 style="color:#f7768e">Stay on v1 if you need</h3>
-      <ul><li>Oh-my-opencode hooks/tools (no official v2 support yet)</li><li>LSP diagnostics, <code>/share</code>, IDE flows</li><li>Programmatic MCP registration</li><li>Large history, custom gateways, stability</li></ul>
+      <ul><li>Oh-my-openagent hooks/tools (no v2 support as of 5.1.32)</li><li>LSP diagnostics, IDE flows</li><li>Programmatic MCP registration</li><li>Large history, custom gateways, stability</li></ul>
     </div>
   </div>
   <p class="note">Migration bible: <a href="https://opencode.ai/v2/docs/migrate-v1/" target="_blank" rel="noopener">opencode.ai/v2/docs/migrate-v1</a>. Full comparison: analysis/09.</p>
