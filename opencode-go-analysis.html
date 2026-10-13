@@ -612,20 +612,20 @@ Must-not-fail / frontier      → Copilot Opus 5.5 / Zen (AA 58)</pre>
     <tr><td class="name">Native (omo-ai)</td><td>Standalone</td><td>OMO built in; safe v2-era path</td><td><code>curl -fsSL https://get.omo.dev/install.sh | bash</code></td></tr>
   </tbody></table></div>
   <h3>Agents &amp; categories</h3>
-  <div class="tblwrap"><table><thead><tr><th>Agent</th><th>Role</th><th>Go pick (heavy)</th></tr></thead><tbody>
-    <tr><td class="name">Sisyphus (primary)</td><td>Orchestrator: plans, delegates, verifies</td><td class="hl">kimi-k3 max (~22 OMO-req/wk — ration it)</td></tr>
-    <tr><td class="name">Atlas / Prometheus / plan-consultant / plan-reviewer</td><td>Execute plan / plan / gap-check / ruthless review</td><td>kimi-k3 max (consult) · glm-5.3 max (review)</td></tr>
-    <tr><td class="name">Oracle → architect</td><td>Read-only architecture/debug consult</td><td>grok-4.7 xhigh (~20 consults/wk)</td></tr>
-    <tr><td class="name">Librarian / Explore</td><td>Docs+OSS grep / fast codebase grep (no writes)</td><td>mimo-v2.6-flash low (~4.1k/wk) · deepseek-v4.1-flash max (~3.2k/wk) · claude-haiku-5-5 medium (NEW)</td></tr>
-    <tr><td class="name">Frontend / Multimodal-Looker</td><td>UI persona / PDF+image→text</td><td>kimi-k3 max (ration) · deepseek-v4.1-flash max (native vision; retired vision-exp merged into V4.1)</td></tr>
+  <div class="tblwrap"><table><thead><tr><th>Agent</th><th>Role</th><th>HEAVY-MAX</th><th>VALUE-8H</th><th>ECO-24</th></tr></thead><tbody>
+    <tr><td class="name">Sisyphus (primary)</td><td>Orchestrator: plans, delegates, verifies</td><td class="hl">kimi-k3 max (~22 OMO-req/wk — ration it)</td><td class="hl">kimi-k3 max (~6/day, planning only)</td><td class="hl">step-5-preview-free high ($0, unvalidated)</td></tr>
+    <tr><td class="name">Atlas / Prometheus / plan-consultant / plan-reviewer</td><td>Execute plan / plan / gap-check / ruthless review</td><td>kimi-k3 max (consult) · glm-5.3 max (review)</td><td>kimi-k3 max (consult) · glm-5.3-flash high (review)</td><td>step-5 high (consult) · glm-5.3-flash high (review)</td></tr>
+    <tr><td class="name">Oracle → architect</td><td>Read-only architecture/debug consult</td><td>grok-4.7 xhigh (~20 consults/wk)</td><td>mimo-v2.6-pro max (shared ~100/day)</td><td>glm-5.3-flash max (24/7-capable)</td></tr>
+    <tr><td class="name">Librarian / Explore</td><td>Docs+OSS grep / fast codebase grep (no writes)</td><td>mimo-v2.6-flash low · deepseek-v4.1-flash max</td><td>mimo-v2.6-flash low · deepseek-v4.1-flash max</td><td>mimo-v2.6-flash low</td></tr>
+    <tr><td class="name">Frontend / Multimodal-Looker</td><td>UI persona / PDF+image→text</td><td>kimi-k3 max (ration) · deepseek-v4.1-flash max (vision)</td><td>kimi-k3 max (ration) · deepseek-v4.1-flash max (vision)</td><td>glm-5.3-flash max · deepseek-v4.1-flash medium</td></tr>
   </tbody></table></div>
-  <div class="tblwrap"><table><thead><tr><th>Category</th><th>Meaning</th><th>Best Go pick</th></tr></thead><tbody>
-    <tr><td class="name">ultrabrain / deep-high / unspecified-low</td><td>Hard reasoning / escalation / general</td><td class="hl">mimo-v2.6-pro max (AA 46, ~380 OMO-req/wk)</td></tr>
-    <tr><td class="name">unspecified-high / artistry</td><td>General fallback / creative</td><td>glm-5.3 max (~35/wk — ration)</td></tr>
-    <tr><td class="name">quick</td><td>Trivial tasks</td><td>claude-haiku-5-5 low/medium (NEW; alt: mimo-v2.6-flash low)</td></tr>
-    <tr><td class="name">deep-low (bulk research)</td><td>Evidence-settleable research</td><td class="hl">step-5-preview-free high (AA 44 at $0 — value lane)</td></tr>
-    <tr><td class="name">writing</td><td>Docs/prose</td><td>glm-5.3-flash low (never Contributor for client docs)</td></tr>
-    <tr><td class="name">visual-engineering</td><td>Frontend/UI</td><td>kimi-k3 max (ration); bulk CSS on glm-5.3-flash</td></tr>
+  <div class="tblwrap"><table><thead><tr><th>Category</th><th>Meaning</th><th>HEAVY-MAX</th><th>VALUE-8H</th><th>ECO-24</th></tr></thead><tbody>
+    <tr><td class="name">ultrabrain / deep-high / unspecified-low</td><td>Hard reasoning / escalation / general</td><td class="hl">mimo-v2.6-pro max (AA 46)</td><td class="hl">mimo-v2.6-pro max (~100/day shared)</td><td class="hl">glm-5.3-flash max (AA 42, ~13/h sustained)</td></tr>
+    <tr><td class="name">unspecified-high / artistry</td><td>General fallback / creative</td><td>glm-5.3 max (~35/wk — ration)</td><td>mimo-v2.6-pro max / glm-5.3-flash max</td><td>glm-5.3-flash max</td></tr>
+    <tr><td class="name">quick</td><td>Trivial tasks</td><td>claude-haiku-5-5 max (AA 43)</td><td>claude-haiku-5-5 medium (AA 34)</td><td>mimo-v2.6-flash low</td></tr>
+    <tr><td class="name">deep-low (bulk research)</td><td>Evidence-settleable research</td><td>mimo-v2.6-pro max</td><td class="hl">step-5-preview-free high (AA 44 at $0)</td><td class="hl">step-5-preview-free high ($0, ∞)</td></tr>
+    <tr><td class="name">writing</td><td>Docs/prose</td><td>glm-5.3 max</td><td>glm-5.3-flash low (never Contributor for client docs)</td><td>glm-5.3-flash low</td></tr>
+    <tr><td class="name">visual-engineering</td><td>Frontend/UI</td><td>kimi-k3 max (ration); final verify qwen3.8-max</td><td>kimi-k3 max (ration); bulk CSS on glm-5.3-flash</td><td>glm-5.3-flash max</td></tr>
   </tbody></table></div>
   <div class="card"><h3>Volume rule + ready configs (Oct 13: HEAVY-MAX / VALUE-8H / ECO-24)</h3>
     <p>OMO multiplies requests: <b>3–5×</b> per <code>ultrawork</code>, <b>6–12×</b> for <code>mass ulw</code> / Team Mode / Ralph. Divide every allowance by ~4 for OMO-week planning. Cap <code>kimi-k3</code> concurrency at 2, enable <code>aggressive_truncation</code>, keep <code>team_mode</code> off unless needed.</p>
