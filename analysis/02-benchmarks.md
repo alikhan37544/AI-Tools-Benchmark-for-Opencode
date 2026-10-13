@@ -1,7 +1,9 @@
 # 02 — Model Benchmark Dossier (Go Roster)
 
-> **Snapshot: October 1, 2026.** This is the evidence base for every recommendation elsewhere in this repo.
-> **Confidence legend:** 🟢 independent multi-source · 🟡 vendor + partial independent · 🔴 vendor-only / unverified.
+> **Snapshot: October 1, 2026, refreshed October 13.** New-model sections (§3.13 Claude Haiku 5.5, §3.14 Step 5 Preview) added Oct 13; legacy tags added to retired/superseded rows. All other figures remain Oct 1 vintage.
+> **Confidence legend:** 🟢 independent multi-source · 🟡 vendor + partial independent · 🔴 vendor-only / unverified. **Legacy** = retired upstream or superseded — still listed/billed on Go, but avoid for new work.
+>
+> 🆕 **Oct 13 — the new stuff:** **§3.12 Step 5 Preview** (AA 44, best free coder) and **§3.13 Claude Haiku 5.5** (subagent star) with full benchmark tables; consensus rankings (§5) updated.
 
 **The single most important caveat:** benchmark scores are only comparable **within the same version and harness**. Artificial Analysis re-baselined its Intelligence Index to **v4.3.2** in late September 2026; scores quoted from the older v4.1.1 (e.g. Grok 4.6 "61", GLM-5.3-Flash "57") are **not comparable** to today's numbers. Likewise Terminal-Bench 2.1 ≠ 3.0 ≠ 4.0, and every TB4.0 score swings by 10+ points depending on scaffold (vendor agent vs Terminus 2 vs AA harness).
 
@@ -23,19 +25,21 @@ Only models with an independent AA run are listed; extras from vendor/other sour
 | **GLM-5.3-Flash** | **42** 🟢 | ~45–200 (provider-dependent) | 3.33s | ~$0.25 | — | 1M | ✅ (in) |
 | **DeepSeek V4.1 Flash** (max) | **39** 🟢 | **209–232** | 0.99s | $0.27 | 250M (verbose) | 1M | ✅ |
 | **GPT 6 Luna** (max) | **37–38** 🟢 | 125–145 | 109–118s¹ | **$0.07** | 140M | 1.05M | ✅ |
-| **DeepSeek V4 Pro 0813** (max) | **36** 🟢 | 96.0 | 1.67s | $0.67 | 160M | 1M | ❌ |
+| **DeepSeek V4 Pro 0813** (max, legacy) | **36** 🟢 | 96.0 | 1.67s | $0.67 | 160M | 1M | ❌ |
 | **GPT 5.6 Luna** | **~35–37** 🟢 | 112 | 0.77s¹ | $0.18 | — | 1.05M | ✅ |
-| **GLM-5.2** | **34** 🟢 | 81.5 | 3.13s | $1.47 | — | 1M | ❌ |
+| **GLM-5.2** (legacy) | **34** 🟢 | 81.5 | 3.13s | $1.47 | — | 1M | ❌ |
 | **Hy3** | **~34** 🟡 | — | — | — | — | 256K | ❌ |
-| **DeepSeek V4 Flash 0731** | **34–41**² 🟢 | **209** | — | $0.22 | — | 1M | ❌ |
+| **DeepSeek V4 Flash 0731** (legacy) | **34–41**² 🟢 | **209** | — | $0.22 | — | 1M | ❌ |
 | **MiniMax M3** | **29** 🟢 | 91.2 | 1.56s | $0.51 | — | 1M | ✅ |
-| **MiMo-V2.5-Pro** | **26** 🟢 | — | — | — | — | 1M | ✅ omni |
+| **MiMo-V2.5-Pro** (legacy) | **26** 🟢 | — | — | — | — | 1M | ✅ omni |
 | **Kimi K2.7 Code** | **26** 🟢 | — | — | — | — | 256K | ✅ |
-| **MiMo-V2.5** | **25** 🟢 | — | — | — | — | 1M | ✅ omni |
+| **MiMo-V2.5** (legacy) | **25** 🟢 | — | — | — | — | 1M | ✅ omni |
 | **Qwen3.7 Plus** | **25** 🟢 | 56.1 | — | $0.22 | — | 1M | ✅ |
 | **MiniMax M2.7** | **23** 🟢 | 46.9 | 1.62s | — | — | 205K | ❌ |
+| **Step 5 Preview** (free) | **44** 🟡 | ~100 | — | ~$0.34³ | — | 1M | ✅ |
+| **Claude Haiku 5.5** | **—** (too new) | fastest Claude | — | **~$0.08**³ | — | 1M | ✅ |
 
-¹ Non-reasoning mode TTFT; reasoning TTFT is 109–178s at max effort. ² AA model page says 41; an AA comparison snapshot says 34; a July article said 50. Version drift — treat as ~34–41.
+¹ Non-reasoning mode TTFT; reasoning TTFT is 109–178s at max effort. ² AA model page says 41; an AA comparison snapshot says 34; a July article said 50. Version drift — treat as ~34–41. ³ Step 5 / Haiku 5.5 agent-loop cost estimates from vendor list prices at typical agentic cache mix (not AA-measured yet).
 Context scores: Claude Opus 5.5 = 58, Claude Fable 5.1 / GPT-6 Astra / Gemini 4 Argon = 53.
 
 **What this means:** the **best Go model is ~10–12 AA points behind the best model money can buy** (48 vs 58), and the **best cheap Go model is ~9 points behind the best Go model** (39 vs 48). The entire Go premium tier (44–46) sits within noise of each other.
@@ -56,12 +60,14 @@ Triangulated across Vals AI, AA, LMArena, Terminal-Bench/vendor harnesses, SWE-b
 | 6 | **MiMo-V2.6-Pro** | Table stakes all vendor: TB2.1 89.9, DeepSWE 71.9, AutomationBench 53.1 | AA AutomationBench high; tool-call repetition bug (fixed Sep 25) |
 | 7 | **GLM-5.3-Flash** | AA AutomationBench 60.4% (highest Go), AA index 42 | TB2.1 84.3 vendor vs 62.9 Vals — harsh harness gap |
 | 8 | **Qwen3.8 Max** | SWE-bench Pro **67.7** (best Go, verified), OSWorld 86.1 (#1 overall) | Terminal-Bench 2.1 86.6 |
-| 9 | **LongCat-2.0** | Vendor SWE-bench Pro 59.5, SWE Multilingual 77.3 | completely absent from Western independent boards |
+| 9 | **Step 5 Preview** (free) | Vendor DeepSWE 67.7 (= Kimi K3), TB2.1 85.0; TB4.0 33.3 (2.6× Kimi K3) | StepCodeBench 49.0, ProgramBench 80.5 — best free coder on Go |
+| 10 | **Claude Haiku 5.5** | TB4.0 39.2% max effort, OSWorld 2.1 72.4%, Vibe Code Bench 90.4% (independent Vals runs) | Matched Sonnet 5 on many coding tasks (Copilot testing); subagent star |
+| 11 | **LongCat-2.0** | Vendor SWE-bench Pro 59.5, SWE Multilingual 77.3 | completely absent from Western independent boards |
 | 10 | **Hy4 preview** | Vendor SWE-bench Pro **65.7**, Toolathlon 74.1 | no AA score yet |
 | — | **GPT 6 Luna** | AA TB4.0 13.6, Vals TB4.0 13.6, ProgramBench 0.5 — agentically weak | Vals Index 51.2, cheap |
 | — | **Kimi K2.7 Code** | **All six headline benchmarks are first-party**; independent KernelBench showed regression vs K2.6 | treat with suspicion until third-party runs appear |
 
-**The one-line summary:** for *verified* agentic coding, **Grok 4.6, Kimi K3 and GLM-5.3** are the Go frontier; **DeepSeek V4.1 Flash** is the best price/performance agent by a wide margin; **MiMo-V2.6-Pro** is the best "intelligence per dollar at low volume."
+**The one-line summary:** for *verified* agentic coding, **Grok 4.6, Kimi K3 and GLM-5.3** are the Go frontier; **DeepSeek V4.1 Flash** is the best price/performance agent by a wide margin; **MiMo-V2.6-Pro** is the best "intelligence per dollar at low volume." **New since Oct 1:** **Step 5 Preview** is the best *free* coder on Go (Kimi-class vendor numbers, TB4.0 33.3), and **Claude Haiku 5.5** is the subagent/quick-task star (TB4.0 39.2% max, OSWorld 2.1 72.4%).
 
 ---
 
@@ -82,11 +88,11 @@ Triangulated across Vals AI, AA, LMArena, Terminal-Bench/vendor harnesses, SWE-b
 | Vision | MMMU-Pro 56.5, DocVQA 95.6, Chartography 78.9 | Native multimodal |
 | AA Index | **39** | #7 in class; 209–232 tok/s (#3 overall) |
 
-**V4 Pro 0813** (Aug 13) — 1.6T/49B MoE, 1M ctx, MIT, no vision. AA **36**, 96 tok/s, $0.67/task. Vendor: SWE-bench Verified 80.6, SWE Pro 55.4, TB2.0 67.9 / TB2.1 87.9, HLE 42.7/60.0 tools, MRCR-1M 83.5, MMLU-Pro 87.5, LiveCodeBench 93.5, BrowseComp 83.4. **DeepSeek retired V4 Pro from its own API on Sep 14 and routed traffic to V4.1 Flash**; Go still lists it separately, but verify what is actually served.
+**V4 Pro 0813** (Aug 13, **legacy — retired upstream Sep 14**) — 1.6T/49B MoE, 1M ctx, MIT, no vision. AA **36**, 96 tok/s, $0.67/task. Vendor: SWE-bench Verified 80.6, SWE Pro 55.4, TB2.0 67.9 / TB2.1 87.9, HLE 42.7/60.0 tools, MRCR-1M 83.5, MMLU-Pro 87.5, LiveCodeBench 93.5, BrowseComp 83.4. **DeepSeek retired V4 Pro from its own API on Sep 14 and routed traffic to V4.1 Flash**; Go still lists it separately, but verify what is actually served. Prefer V4.1 Flash or Kimi K3 for new work.
 
-**V4 Flash 0731** (Jul 31) — 284B/13B, text-only, upstream-retired Sep 10. AA 34–41, 209 tok/s. Vendor TB2.1 82.7, DeepSWE 54.4.
+**V4 Flash 0731** (Jul 31, **legacy — retired upstream Sep 10**) — 284B/13B, text-only. AA 34–41, 209 tok/s. Vendor TB2.1 82.7, DeepSWE 54.4.
 
-**V4 Flash Vision Exp** (Aug 21) — experimental vision variant, also retired upstream Sep 10, but still on Go at a $15 allowance. Vendor TB2.1 83.9, NL2Repo 57.7, DeepSWE 59.3.
+**V4 Flash Vision Exp** (Aug 21, **legacy — retired upstream Sep 10**) — experimental vision variant, still on Go at a $15 allowance. Vendor TB2.1 83.9, NL2Repo 57.7, DeepSWE 59.3. For new vision work use V4.1 Flash (native vision) or Qwen3.8 Flash.
 
 **Community:** launch thread very positive ("better than V4 Pro"), but users note the reasoning-token burn; pricing rose sharply vs the old V4 Flash. Enclave.ai's security team adopted it. OpenCode telemetry shows it as the #2 model by tokens across the entire user base — it is the crowd's workhorse.
 
@@ -102,7 +108,7 @@ Vendor table (with Opus 5 / GPT-5.6 Sol in the same table): DeepSWE 71.9, **TB2.
 
 **MiMo-V2.6-Flash** — smaller RL sibling; 67.9 DeepSWE, 87.6 TB2.1 (vendor), narrowly beat its Pro sibling on an 8-task hands-on KingBench (7.25 vs 6.94). **No AA score yet — the biggest unmeasured value on the roster** ($60 cap, $0.28/M output).
 
-**MiMo-V2.5 / Pro** — previous generation; V2.5-Pro is far behind (DeepSWE 19.0 vs 71.9), AA 25/26. Only useful as volume filler.
+**MiMo-V2.5 / Pro** (**legacy — previous generation**) — V2.5-Pro is far behind (DeepSWE 19.0 vs 71.9), AA 25/26. Only useful as volume filler; prefer V2.6-Flash for new bulk work.
 
 ---
 
@@ -126,7 +132,7 @@ Vendor table (with Opus 5 / GPT-5.6 Sol in the same table): DeepSWE 71.9, **TB2.
 
 **GLM-5.3-Flash** (Aug 26) — 320B/18B MoE, **MIT**, native multimodal (text/image/video/file in), sparse+linear attention, ~4.4× smaller KV cache. AA **42** at ~$0.25/task, **AA AutomationBench 60.4%** (highest of any Go model), vendor TB2.1 84.3 but Vals only 62.9 — provider quantization/harness variance is the caveat. Fast (up to 200 tok/s on FlashX). This is the **best cheap generalist on the roster**.
 
-**GLM-5.2** (Jun 16) — 753B/40B, MIT, 1M ctx; AA 34. Superseded; only interesting for its documented Terminal-Bench/SWE-bench Pro numbers.
+**GLM-5.2** (Jun 16, **legacy — superseded by 5.3**) — 753B/40B, MIT, 1M ctx; AA 34. Superseded; only interesting for its documented Terminal-Bench/SWE-bench Pro numbers.
 
 ---
 
@@ -150,7 +156,7 @@ Author-declared weaknesses: **sensitivity to thinking history** (harness must re
 
 **Kimi K2.7 Code** (Jun 12) — 1T/32B, 256K ctx, thinking-only, ~30% fewer thinking tokens than K2.6. Vendor deltas: Kimi Code Bench v2 62.0 (vs 50.9), Program Bench 53.6 (48.3), MCP Atlas 76.0 (69.4). **But:** no independent runs, and an independent KernelBench-Hard test showed *regression* vs K2.6 (0.157 vs 0.222) — "more honest but not more capable."
 
-**Kimi K2.6** (Apr 20) — 1T-class/32B, 256K. HLE 54.0 no-tools, GPQA 88.4, AIME 2026 93.3, SWE-bench Pro 58.6, TB2.0 66.7. Solid but superseded.
+**Kimi K2.6** (Apr 20, **legacy — superseded by K3/K2.7**) — 1T-class/32B, 256K. HLE 54.0 no-tools, GPQA 88.4, AIME 2026 93.3, SWE-bench Pro 58.6, TB2.0 66.7. Solid but superseded.
 
 ---
 
@@ -208,9 +214,42 @@ Author-declared weaknesses: **sensitivity to thinking history** (harness must re
 
 ---
 
-### 3.12 Stealth models
+### 3.12 NEW — StepFun Step 5 Preview (free on Go since Oct 8)
 
-**Space Bunny (Free)** — #1 model by tokens on all of OpenCode (58T/week), +596% growth. 1M ctx, multimodal, mandatory reasoning. Fingerprint analysis (3 independent tests) points to **MiniMax family, possibly M3.1-Flash-Preview**; community also speculates Gemini 3.8 Flash (a Google logo appeared in Go's provider list). OpenCode route: zero-retention/no-training; OpenRouter route differs. Users report strong web design, speed, reliability — and a tool-param wrapping bug. [OrcaRouter write-up](https://www.orcarouter.ai/blog/space-bunny), [OpenRouter listing](https://openrouter.ai/stealth/space-bunny-alpha).
+**Step 5 Preview** (API Sep 20, 2026; Go free listing Oct 8) — StepFun skipped the entire 4.x line, going straight from 3.7-Flash to Step 5: 600B total / **27B active** sparse MoE (92-layer narrow-deep Transformer), 1M ctx, native vision, built for long-horizon reasoning, tool use and autonomous execution. Open weights due Oct 15. [StepFun announcement](https://www.stepfun.com/step-5-preview) · [Vals page](https://www.vals.ai/models/stepfun_step-5-preview)
+
+| Benchmark | Step 5 Preview (High) | Kimi K3 (Max) | GLM-5.3 (Max) |
+|---|---|---|---|
+| AA Intelligence Index v4.3.2 | **44** (tied Kimi K3) | 44 | 45 |
+| DeepSWE v1.1 | **67.7** | 67.5 | 66.9 |
+| Terminal-Bench 2.1 | 85.0 | 85.0 | 83.9 |
+| Terminal-Bench 4.0 | **33.3** | 12.6 | 41.9 |
+| StepCodeBench | **49.0** | 43.9 | 40.2 |
+| ProgramBench | **80.5** | 77.8 | 72.0 |
+| GPQA Diamond | 93.5 | 93.5 | 91.7 |
+| HLE | 46.5 | 46.9 | 42.3 |
+| AA-LCR v1.1 (long-context reasoning) | **88.3** | 88.7 | 79.7 |
+| FrontierFinance | **66.4** | 62.6 | 64.1 |
+
+**Verdict:** the best *free* coder on Go — Kimi-class across the board, 2.6× Kimi K3 on TB4.0, finance-strong. 🟡 vendor + early independent (Vals #30/45 overall). Free window is limited-time; use it for bulk agentic work while it lasts.
+
+### 3.13 NEW — Anthropic Claude Haiku 5.5 (on Go since Oct 7)
+
+**Claude Haiku 5.5** (Oct 7, 2026) — Anthropic's fastest, cheapest, most capable small model: 1M ctx, 128K out, **adjustable effort (low→max, medium default)** — a first for the Haiku line. ~75% cheaper than Haiku 4.5 ($0.10/$0.50 ≤100K on Go, $15/mo allowance). Designed for high-volume work (summaries, compactions, DB queries, classification) and as a subagent paired with Opus/Sonnet 5.5. Also live in GitHub Copilot. [Anthropic announcement](https://www.anthropic.com/claude-haiku-5-5) · [Vals page](https://www.vals.ai/models/anthropic_claude-haiku-5-5)
+
+| Benchmark | Haiku 5.5 | Haiku 4.5 | GPT-6 Luna (Go peer) |
+|---|---|---|---|
+| OSWorld 2.1 (offline) | **72.4%** | 15.7% | — |
+| Terminal-Bench 4.0 (max effort) | **39.2%** | 0.0% | 16.4% |
+| Vibe Code Bench (Vals) | **90.44%** (from 11.39%) | 11.39% | — |
+| Code Migration (Vals) | **44.57%** (from 7.55%) | 7.55% | — |
+| HLE with tools | 67.7% | — | — |
+
+**Verdict:** the subagent/quick-task star — matched Sonnet 5 on many coding tasks in Copilot testing at a fraction of the tokens/steps. No AA score yet (too new). Privacy: 30-day retention like other frontier APIs — ⚠️ non-PHI, and note the CV client contract bans OpenAI models (not Anthropic). 🟢 independent Vals runs + 🟡 vendor.
+
+### 3.14 Stealth models
+
+**Space Bunny** (**now paid** — converted from free preview to $0.15/$0.60/$0.03, $30/mo Go, in early Oct) — was the #1 model by tokens on all of OpenCode (58T/week) while free. 1M ctx, multimodal, mandatory reasoning. Fingerprint analysis (3 independent tests) points to **MiniMax family, possibly M3.1-Flash-Preview**; community also speculates Gemini 3.8 Flash. OpenCode route: zero-retention/no-training; OpenRouter route differs. Users report strong web design, speed, reliability — and a tool-param wrapping bug. [OrcaRouter write-up](https://www.orcarouter.ai/blog/space-bunny), [OpenRouter listing](https://openrouter.ai/stealth/space-bunny-alpha).
 
 **Big Pickle** (Zen only) — stealth, **data used for training during free period**. arXiv audit (Aug 31) suggests a GLM-5/5.1 pool with 200K context; other evidence points at DeepSeek routing. Unknown; do not trust with sensitive code.
 
@@ -239,10 +278,10 @@ Author-declared weaknesses: **sensitivity to thinking history** (harness must re
 ## 5. Final consensus rankings
 
 **Overall intelligence (Go only):**
-1. Muse Spark 1.3 (48) 🟡 · 2. MiMo-V2.6-Pro / Grok 4.7 (46) · 4. GLM-5.3 / Qwen3.8 Max (45) · 6. Kimi K3 / Grok 4.6 (44) · 8. GLM-5.3-Flash (42) · 9. DeepSeek V4.1 Flash (39) · 10. GPT 6 Luna (37–38) · 11. GPT 5.6 Luna (35–37) · 12. DeepSeek V4 Pro (36) · then GLM-5.2/Hy3/DeepSeek V4 Flash (~34), MiniMax M3 (29), MiMo-V2.5 (25–26), Kimi K2.7 (26), Qwen3.7 Plus (25), MiniMax M2.7 (23).
+1. Muse Spark 1.3 (48) 🟡 · 2. MiMo-V2.6-Pro / Grok 4.7 (46) · 4. GLM-5.3 / Qwen3.8 Max (45) · 6. Kimi K3 / Grok 4.6 / **Step 5 Preview (44, free)** · 9. GLM-5.3-Flash (42) · 10. DeepSeek V4.1 Flash (39) · 11. GPT 6 Luna (37–38) · 12. GPT 5.6 Luna (35–37) · then Hy3 (~34), MiniMax M3 (29), Kimi K2.7 (26), Qwen3.7 Plus (25), MiniMax M2.7 (23), **Claude Haiku 5.5 (unmeasured — too new)**. Legacy (retired/superseded, still billed): DeepSeek V4 Pro (36), GLM-5.2 / DeepSeek V4 Flash (~34), MiMo-V2.5 (25–26).
 
 **Agentic coding (Go only, independent-evidence weighted):**
-1. Grok 4.6 · 2. Kimi K3 · 3. GLM-5.3 · 4. DeepSeek V4.1 Flash (value king) · 5. GPT 5.6 Luna · 6. Qwen3.8 Max · 7. MiMo-V2.6-Pro · 8. GLM-5.3-Flash.
+1. Grok 4.6 · 2. Kimi K3 · 3. GLM-5.3 · 4. DeepSeek V4.1 Flash (value king) · 5. GPT 5.6 Luna · 6. Qwen3.8 Max · 7. MiMo-V2.6-Pro · 8. GLM-5.3-Flash · 9. **Step 5 Preview (best free)** · 10. **Claude Haiku 5.5 (best subagent)**.
 
 **Design/frontend:** Muse Spark 1.3 > Kimi K3 > GLM-5.3 > MiMo-V2.6-Pro > Qwen3.8 Max. **Value:** GLM-5.3-Flash.
 

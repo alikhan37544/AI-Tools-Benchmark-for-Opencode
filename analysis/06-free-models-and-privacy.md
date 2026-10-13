@@ -1,6 +1,6 @@
 # 06 — Free Models, Privacy & Local Options
 
-> **Snapshot: October 1, 2026.** Data policies change without notice — re-verify before sending client/PHI data.
+> **Snapshot: October 1, 2026, refreshed October 13.** Data policies change without notice — re-verify before sending client/PHI data. Oct 13 changes: Space Bunny now paid (keeps zero-retention), +Step 5 Preview Free, +Claude Haiku 5.5 privacy row, DeepSeek ZDR renewed through Oct 31 ✅.
 
 ---
 
@@ -8,8 +8,9 @@
 
 | Model | Provider | Zero-retention? | Trained on? | Notes |
 |---|---|---|---|---|
-| **Space Bunny Free** | stealth (MiniMax-family fingerprint?) | ✅ on OpenCode route | ❌ (OpenCode says no) | #1 model by tokens (58T/wk); 1M ctx, vision; fast; tool-param wrapping bug; identity unconfirmed |
-| **LongCat 2.5 Preview Free** | Meituan | ✅ | ❌ | Free ~2 weeks (to ~Oct 10); no public benchmarks/card; LongCat-2.0 numbers (SWE Pro 59.5) are the only proxy |
+| **Step 5 Preview Free** | StepFun | ✅ | ❌ | **NEW Oct 8.** 600B/27B MoE, AA 44, open weights due Oct 15. Best free coder on Go. |
+| **LongCat 2.5 Preview Free** | Meituan | ✅ | ❌ | Free window extended past initial ~Oct 10 estimate; still listed free Oct 13. No public benchmarks/card. |
+| **Space Bunny** (now paid, $30/mo) | stealth (MiniMax-family fingerprint?) | ✅ on OpenCode route | ❌ (OpenCode says no) | Converted from free preview to paid early Oct. 1M ctx, vision; fast; tool-param wrapping bug; identity unconfirmed. |
 | **MiMo-V2.6-Flash Free** | Xiaomi | ? | ✅ may train | Same weights family as paid MiMo; use only for open-source work |
 | **MiMo-V2.5 Free** | Xiaomi | ? | ✅ may train | Weaker (AA 25) |
 | **Ling 3.0 Flash Fin Free** | InclusionAI | ? | ✅ may train | Finance-oriented |
@@ -21,7 +22,7 @@
 
 **Rules of thumb:**
 - Free + "feedbacks/improve the model" = **do not use for client work, PHI, credentials, or proprietary code**.
-- Space Bunny / LongCat 2.5 free previews are the only free options with a stated **zero-retention** policy (still stealth, so treat with caution).
+- Step 5 Preview / LongCat 2.5 free previews are the only free options with a stated **zero-retention** policy (still limited-time/stealth, so treat with caution).
 - Free models keep working **after your Go limits run out** — they are your floor, not your daily driver.
 
 ---
@@ -96,12 +97,15 @@ The economics: the discount (~$1.15 per 1M input tokens) is what Meta effectivel
 | MiMo-V2.6-Pro/Flash paid | OpenCode zero-retention | ✅ |
 | Kimi K3/K2.7/K2.6 | Zero-retention per OpenCode; open weights | ✅ |
 | Qwen3.8 Max/Flash, Qwen3.7 Plus | Zero-retention per OpenCode | ✅ |
-| DeepSeek V4.1 Flash/V4 Pro | Zero-retention listed, but the ZDR agreement showed validity **through Sep 30, 2026** — renewal unconfirmed as of Oct 1 | ⚠️ re-verify |
+| DeepSeek V4.1 Flash/V4 Pro | Zero-retention listed; ZDR agreement **renewed through October 31, 2026** ✅ | ✅ (re-verify after Oct 31) |
 | Grok 4.6/4.7 | Zero-retention per OpenCode | ✅ |
 | GPT 6/5.6 Luna | OpenAI API, **30-day retention** per OpenAI policy | ⚠️ for non-PHI; note your CV client contract bans OpenAI models entirely |
+| Claude Haiku 5.5 | Anthropic API, **30-day retention** per Anthropic policy | ⚠️ for non-PHI (Anthropic, not OpenAI — CV contract's OpenAI ban doesn't cover it; verify anyway) |
 | Claude (Zen only, not Go) | Anthropic 30-day retention | ⚠️ same |
 | **Muse Spark Contributor (paid)** | **Trains on prompts/completions; terms ban sensitive/confidential/personal data** (Standard SKU does neither) | ❌ never for client/PHI — see §1b |
-| Space Bunny / Big Pickle | varies | ❌ for critical/PHI |
+| Step 5 Preview / LongCat 2.5 Free | zero-retention per OpenCode | ✅ for non-critical (limited-time previews; still confirm) |
+| Space Bunny (paid) | zero-retention per OpenCode | ✅ (stealth identity unconfirmed — non-critical only) |
+| Big Pickle | varies | ❌ for critical/PHI |
 
 OpenCode hosts all models in the US. Enterprise/team workspace admins can disable specific models workspace-wide — useful if you ever onboard others.
 

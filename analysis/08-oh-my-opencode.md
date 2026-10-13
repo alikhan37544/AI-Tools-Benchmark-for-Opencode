@@ -1,6 +1,7 @@
 # 08 — Oh My OpenCode (now oh-my-openagent / OmO): The Complete Guide + Go Model Map for Heavy Work
 
-> **Snapshot: October 1, 2026.** Primary sources: [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) (69.7k★), [omo.dev/docs](https://omo.dev/docs), [opensoft/oh-my-opencode](https://github.com/opensoft/oh-my-opencode) fork, [opencode.ai/docs](https://opencode.ai/docs/) + [opencode.ai/v2/docs](https://opencode.ai/v2/docs/).
+> **Snapshot: October 1, 2026, refreshed October 13.**
+> **Oct 13 delta:** `claude-haiku-5-5` (NEW on Go) is the natural `quick`/explore/librarian pick — fastest Claude, Sonnet-class coding, $15 tier; `step-5-preview-free` (NEW) is the free bulk-coding slot (AA 44 Kimi-class). DeepSeek V4.1 Flash cap is now $80 ($16/5h, $40/wk) — explore math below updated. Primary sources: [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) (69.7k★), [omo.dev/docs](https://omo.dev/docs), [opensoft/oh-my-opencode](https://github.com/opensoft/oh-my-opencode) fork, [opencode.ai/docs](https://opencode.ai/docs/) + [opencode.ai/v2/docs](https://opencode.ai/v2/docs/).
 > **Naming (important):** the project renamed to **oh-my-openagent (OmO)**. The npm package is still `oh-my-opencode` (dual-published); install with `bunx oh-my-openagent install`. Do NOT `bunx omo` — unrelated package by a different author. Config files accept both `oh-my-openagent.json[c]` and legacy `oh-my-opencode.json[c]`.
 
 ---
@@ -81,10 +82,11 @@ OMO multiplies volume: one `ultrawork` fans out to main + researchers + workers 
 | **plan-reviewer** | **glm-5.3, max** (bulk alt: glm-5.3-flash high) | Review needs teeth; flash variant for volume | same as above / 4,918/wk (you) for flash |
 | **plan-consultant (Metis)** | **kimi-k3, max** | Upstream 3rd rung; gap analysis needs Claude-like | shares primary's 90/wk budget — keep consults tight |
 | **librarian** | **mimo-v2.6-flash, low** (fallback deepseek-v4.1-flash max) | Docs/OSS grep needs AA ~38, not 46 | 16,586/wk, 33,171/mo (you) → **~4,100 OMO-req/wk** |
-| **explore** | **deepseek-v4.1-flash, max** (fallback mimo-v2.6-flash low) | Upstream has deepseek-flash rung; AA 39 | 9,558/wk, 19,117/mo (you) → **~2,400 OMO-req/wk** |
+| **explore** | **deepseek-v4.1-flash, max** (alt: claude-haiku-5-5 medium) | Upstream has deepseek-flash rung; AA 39 | 12,742/wk, 25,484/mo (you) → **~3,200 OMO-req/wk** |
+| **free bulk coding** | **step-5-preview-free, high** | AA 44 Kimi-class at $0; ration nothing | unlimited (preview) → **unlimited OMO-req/wk** |
 | **visual-engineering** | **kimi-k3, max** (bulk CSS: glm-5.3-flash) | Upstream visual chain ends at kimi-k3 | ration; flash does 4,918/wk (you) |
-| **multimodal-looker** | **deepseek-v4-flash-vision-exp** | Only Go vision-billed route | 2,362/wk, 4,724/mo (you) → **~600 OMO-req/wk** |
-| **quick** | **mimo-v2.6-flash, low** | Upstream quick tail; cheapest correct | ~4,100 OMO-req/wk |
+| **multimodal-looker** | **deepseek-v4.1-flash, max** | Native vision on the daily driver; retired vision-exp route merged into V4.1 | shares explore budget |
+| **quick** | **claude-haiku-5-5, low/medium** (alt: mimo-v2.6-flash low) | Fastest Claude; Sonnet-class coding in Copilot tests; upstream quick tail is Haiku-class | ~2,688/wk (you) → **~650 OMO-req/wk** |
 | **writing** | **glm-5.3-flash, low** | AA 42 prose at volume (avoid Contributor for client docs — trains on data) | 4,918/wk (you) |
 | **deep-low bulk research** | **qwen3.7-plus, medium** (alt: glm-5.3-flash) | $60 tier volume for evidence-settleable research | 2,799/wk (you) |
 
@@ -114,7 +116,7 @@ OMO multiplies volume: one `ultrawork` fans out to main + researchers + workers 
     }
   }
 }
-// Main session model: opencode-go/kimi-k3. Look_at vision: opencode-go/deepseek-v4-flash-vision-exp.
+// Main session model: opencode-go/kimi-k3. Look_at vision: opencode-go/deepseek-v4.1-flash (native vision; retired vision-exp merged into V4.1).
 ```
 
 ### Config B — sustainable heavy daily driver (survives full workweeks except primary)

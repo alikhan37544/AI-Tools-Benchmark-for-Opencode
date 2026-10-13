@@ -1,8 +1,10 @@
 # AI Tools Benchmark for OpenCode — Go Plan Deep Dive
 
-> **Full refresh: October 1, 2026.** 30 Go models · 18 task categories · every major benchmark source · **calibrated to this machine's real OpenCode usage history**.
+> **Full refresh: October 1, 2026 · roster refresh: October 13, 2026.** 32 Go models · 18 task categories · every major benchmark source · **calibrated to this machine's real OpenCode usage history**.
 > 🌐 **Live site (GitHub Pages): https://alikhan37544.github.io/AI-Tools-Benchmark-for-Opencode/**
 > Interactive report: **[opencode-go-analysis.html](./opencode-go-analysis.html)** — searchable, sortable, with charts.
+>
+> **🆕 Oct 13:** +**Claude Haiku 5.5** (fastest Claude, subagent star) and +**Step 5 Preview Free** (AA 44 Kimi-class, best free coder) on Go · **DeepSeek V4.1 Flash cap $60→$80** · **Space Bunny free→paid** · retired/superseded models (DS V4 Pro/Flash, GLM-5.2, MiMo-V2.5, Kimi K2.6) demoted to Legacy sections.
 
 This repo answers six questions with evidence, not vibes:
 
@@ -17,8 +19,8 @@ This repo answers six questions with evidence, not vibes:
 
 ## TL;DR — the six answers
 
-### 1. The roster (30 models, Oct 1, 2026)
-Grok 4.7/4.6 · GLM-5.3/5.3-Flash/5.2 · GPT 6 Luna, GPT 5.6 Luna · Kimi K3/K2.7 Code/K2.6 · DeepSeek V4.1 Flash/V4 Pro/V4 Flash/V4 Flash Vision Exp · MiMo-V2.6-Pro/Flash, MiMo-V2.5/Pro · MiniMax M3/M2.7 · Qwen3.8 Max/Flash, Qwen3.7 Plus · LongCat-2.0 · Hy4 preview, Hy3 · Muse Spark 1.3/1.2 Contributor · **free:** Space Bunny, LongCat 2.5 Preview.
+### 1. The roster (32 models, Oct 13, 2026)
+Grok 4.7/4.6 · GLM-5.3/5.3-Flash/5.2 · GPT 6 Luna, GPT 5.6 Luna · **Claude Haiku 5.5 (NEW)** · Kimi K3/K2.7 Code/K2.6 · DeepSeek V4.1 Flash/V4 Pro/V4 Flash/V4 Flash Vision Exp · MiMo-V2.6-Pro/Flash, MiMo-V2.5/Pro · MiniMax M3/M2.7 · Qwen3.8 Max/Flash, Qwen3.7 Plus · LongCat-2.0 · Hy4 preview, Hy3 · Muse Spark 1.3/1.2 Contributor · Space Bunny (now paid) · **free:** Step 5 Preview Free (NEW), LongCat 2.5 Preview.
 Plans: **Go $10/mo**, **Go Plus $40/mo**. Per-model dollar caps; 5h = 20% of monthly, weekly = 50%, monthly = 100%. → [Full details](./analysis/01-go-roster-and-limits.md)
 
 ### 2. Best models overall
@@ -29,7 +31,9 @@ Plans: **Go $10/mo**, **Go Plus $40/mo**. Per-model dollar caps; 5h = 20% of mon
 | **Best premium value** | **MiMo-V2.6-Pro** (AA 46) | #1 open-weight class, $0.13/AA task (15× cheaper than Kimi K3 per task) |
 | **Best marathon/1M-context** | **Kimi K3** (AA 44) | SWE-Marathon 42.0, FrontierSWE 81.2, frontend #1, OSWorld 84.8 |
 | **Best visual/OS agent** | **Qwen3.8 Max** (AA 45) | **#1 model in the world on OSWorld 86.1**, LMArena Vision #2, SWE-bench Pro 67.7 (best Go) |
-| **Best daily driver at volume** | **DeepSeek V4.1 Flash** (AA 39) | 209–232 tok/s, native vision, 19.1k req/mo at your real token profile |
+| **Best daily driver at volume** | **DeepSeek V4.1 Flash** (AA 39) | 209–232 tok/s, native vision, 25.5k req/mo at your real token profile ($80 cap) |
+| **Best free coder** | **Step 5 Preview Free** (AA 44) | Kimi-class (DeepSWE 67.7, TB4.0 33.3), unlimited while preview lasts |
+| **Best subagent / quick-task** | **Claude Haiku 5.5** | Fastest Claude, TB4.0 39.2% max, matched Sonnet 5 in Copilot tests |
 | **Best budget workhorse** | **GLM-5.3-Flash** (AA 42) | AA AutomationBench 60.4% (best Go), MIT, 9.8k req/mo at your profile |
 | **Biggest sleeper** | **MiMo-V2.6-Flash** | No AA score yet, near-Pro vendor numbers, 33k req/mo, $0.0018/req |
 
@@ -45,11 +49,11 @@ Plans: **Go $10/mo**, **Go Plus $40/mo**. Per-model dollar caps; 5h = 20% of mon
 | Agentic terminal / DevOps / git / deploy | Grok 4.6 (verified) / GLM-5.3 (TB4.0 41.9) | GLM-5.3-Flash |
 | Long-horizon autonomy | Kimi K3 | DeepSeek V4 Flash (LHTB #1) |
 | Visual QA / Playwright | **Qwen3.8 Max (OSWorld #1 worldwide)** | Qwen3.8 Flash |
-| Image / OCR / Arabic docs | Qwen3.8 Max | Qwen3.8 Flash / DeepSeek Vision |
+| Image / OCR / Arabic docs | Qwen3.8 Max | Qwen3.8 Flash / DeepSeek V4.1 Flash |
 | Planning / architecture | **Grok 4.6** | MiMo-V2.6-Pro |
-| Debugging / RCA | Kimi K3 (honesty) / Grok 4.7 (edge cases) | DeepSeek V4.1 Flash |
-| Long context (huge repos/logs) | DeepSeek V4 Pro (MRCR-1M 83.5) | DeepSeek V4.1 Flash |
-| Bulk edits / tests / explore | MiMo-V2.6-Flash | MiMo-V2.6-Flash |
+| Debugging / RCA | Kimi K3 (honesty) / Grok 4.7 (edge cases) | DeepSeek V4.1 Flash / Step 5 Preview (free 2nd opinion) |
+| Long context (huge repos/logs) | Kimi K3 (AA-LCR 74.7) / DeepSeek V4.1 Flash (cheapest cache) | Step 5 Preview (AA-LCR 88.3, free) |
+| Bulk edits / tests / explore | MiMo-V2.6-Flash / Claude Haiku 5.5 | Step 5 Preview Free |
 | General intelligence / research | Muse Spark 1.3 (48) | GLM-5.3-Flash |
 | Data / ML notebooks | MiniMax M2.7 (MLE), Kimi K3 | DeepSeek V4.1 Flash |
 | **Systems: overclock / ROM / drivers / homelab** | Grok 4.6 / Kimi K3 (no dedicated bench; reasoning + tool use) | DeepSeek V4.1 Flash + frontier for brick-risk steps |
@@ -62,19 +66,20 @@ Measured from **your actual history** (12,973 requests on DeepSeek V4.1 Flash @ 
 
 | Window | Your peak | Cap | Used |
 |---|---|---|---|
-| 5-hour rolling | $5.99 | $12 | **50%** ← why it "feels unlimited" |
-| 7-day rolling | $24.77 | $30 | **83%** ⚠️ |
-| Monthly pace | ~$45–73/mo | $60 | **on track to hit the cap day 22–26** |
+| 5-hour rolling | $5.99 | $16 | **37%** ← why it "feels unlimited" |
+| 7-day rolling | $24.77 | $40 | **62%** |
+| Monthly pace | ~$45–73/mo | $80 | **under cap except crunch months** |
 
-At your token profile (7.8k input + 146k cache + 1.1k output per request), DeepSeek V4.1 Flash gives **~19,100 requests/month**, not the 130,000 the docs estimate (your requests are 5–6× heavier than their assumed profile). Premium models are **minutes per 5h and 1–3 tasks/week**: Kimi K3 ~179 req/mo, Grok 4.6 ~158, Qwen3.8 Max ~256, GLM-5.3 ~279.
-**Cheat code:** DeepSeek is 50% off off-peak (after ~15:30 IST + weekends) → doubles your effective cap.
+At your token profile (7.8k input + 146k cache + 1.1k output per request), DeepSeek V4.1 Flash gives **~25,500 requests/month** (up from 19.1k after the Oct 8 cap raise to $80), not the 173,000 the docs estimate (your requests are ~7× heavier than their assumed profile). Premium models are **minutes per 5h and 1–3 tasks/week**: Kimi K3 ~179 req/mo, Grok 4.6 ~158, Qwen3.8 Max ~256, GLM-5.3 ~279.
+**Cheat code:** DeepSeek is 50% off off-peak (after ~15:30 IST + weekends) → doubles your effective cap. **Free cheat code:** Step 5 Preview runs Kimi-class coding at $0 while the preview lasts.
 → [Full limits & burn-rate analysis](./analysis/04-limits-and-burn-rate.md)
 
 ### 5. Intelligence per dollar
 | Metric | Winner |
 |---|---|
 | AA points per limit-$ | **Muse Spark 1.3 Contributor — 37,152** (privacy caveat) |
-| Best sustainable | **DeepSeek V4.1 Flash — 12,426 pts/$** and 19.1k req/mo |
+| Best free | **Step 5 Preview Free — AA 44 at $0/req** (until the preview ends) |
+| Best sustainable | **DeepSeek V4.1 Flash — 12,426 pts/$** and 25.5k req/mo |
 | Best premium | **MiMo-V2.6-Pro — 9,428 pts/$**, AA 46 |
 | Best quality/capacity balance | **GLM-5.3-Flash** (AA 42, 9.8k req/mo) |
 | Worst value on Go | Grok 4.7 (483 pts/$), Grok 4.6 (462), Kimi K3 (526) — capacities of 158–179 req/mo |
@@ -85,8 +90,8 @@ The jump from 39 (DeepSeek) to 44–46 (Kimi K3/Grok/MiMo Pro) costs **17–31×
 ### 6. Tier structure ("pay more for a jump")
 | Tier | Models | Verdict |
 |---|---|---|
-| **T0 Free** | Space Bunny, LongCat 2.5 Preview | Unlimited until they end; non-sensitive only |
-| **T1 Workhorses** | DeepSeek V4.1 Flash, MiMo-V2.6-Flash, GLM-5.3-Flash, Muse Spark*, MiMo-V2.5, LongCat-2.0, Hy3, Qwen3.8 Flash | Drive 90% of work here. *Muse trains on data |
+| **T0 Free** | Step 5 Preview Free, LongCat 2.5 Preview | Unlimited until they end; non-sensitive only (Space Bunny is now paid) |
+| **T1 Workhorses** | DeepSeek V4.1 Flash, MiMo-V2.6-Flash, GLM-5.3-Flash, Muse Spark*, LongCat-2.0, Hy3, Qwen3.8 Flash, Claude Haiku 5.5, Space Bunny ($30) | Drive 90% of work here. *Muse trains on data |
 | **T2 Premium $15–30** | MiMo-V2.6-Pro, GPT 6 Luna, DS V4 Pro, Vision Exp | Best quality/call: planning, hard debug, OCR verify |
 | **T3 Rations $15** | Grok 4.6/4.7, Kimi K3, GLM-5.3, Qwen3.8 Max | 1–3 big tasks/week each; the hard 5% |
 | **T4 Beyond Go** | Opus 5.5 (58), GPT-6 Astra/Fable 5.1 (53) | Copilot/Zen; must-not-fail only |
@@ -135,6 +140,14 @@ Escalate per task: `Kimi K3` (marathon/bug) · `Qwen3.8 Max` (visual QA) · `Mus
 
 ---
 
+## New: Oct 13 roster refresh (Haiku 5.5, Step 5, cap changes, legacy cleanup)
+
+- **Claude Haiku 5.5 (Oct 7, on Go at $15/mo):** Anthropic's fastest model ever, 1M ctx, adjustable effort, TB4.0 39.2% at max, OSWorld 2.1 72.4%, matched Sonnet 5 on coding tasks in Copilot tests. The new default for explore/subagent/quick slots. 30-day retention (Anthropic, not OpenAI).
+- **Step 5 Preview Free (Oct 8, on Go free):** StepFun 600B/27B-active MoE, AA 44 (tied Kimi K3), DeepSWE 67.7, TB4.0 33.3, open weights Oct 15. The best free coder on Go — route bulk agentic work here while the preview lasts.
+- **DeepSeek V4.1 Flash $60→$80/mo:** ~25.5k req/mo at your profile (was 19.1k); weekly binding eased 83%→62%; monthly cap now binds only in crunch months. ZDR renewed through Oct 31 ✅.
+- **Space Bunny free→paid** ($0.15/$0.60, $30/mo): removed from the free floor everywhere; keeps zero-retention.
+- **Legacy demotion:** DeepSeek V4 Pro / V4 Flash / Vision Exp (retired upstream), GLM-5.2, MiMo-V2.5/Pro, Kimi K2.6 (superseded) moved out of all recommendation/capacity/value tables into Legacy notes. Roster/pricing/evidence tables keep them factually with legacy tags.
+
 ## New: Oh My OpenCode, v1 vs v2, plugins, power-ups (Oct 1, 2026 — second wave)
 
 - **Oh My OpenCode is now `oh-my-openagent` (OmO)**: Ultimate (OpenCode plugin), Light (Codex), Native (standalone). Sisyphus orchestrator + background agents + Ralph loops **multiply request volume 3–5×** — so the Go map is: **Kimi K3 (max) as primary** (only validated Go orchestrator), **MiMo-V2.6-Pro** on reasoning slots (AA 46), Flash tiers on explore/librarian/quick, Grok 4.7 for consults, DeepSeek Vision for `look_at`. Two full configs (max-intelligence + sustainable) in `08`.
@@ -153,7 +166,7 @@ Escalate per task: `Kimi K3` (marathon/bug) · `Qwen3.8 Max` (visual QA) · `Mus
 
 ## Caveats
 
-- Everything is a **snapshot** (Oct 1, 2026). Model rosters, prices and limits changed ~weekly in Sep 2026.
+- Everything is a **snapshot** (Oct 1, 2026; roster/caps refreshed Oct 13). Model rosters, prices and limits changed ~weekly in Sep–Oct 2026.
 - AA Intelligence Index re-baselined to v4.3.2 in late Sep; older quoted scores are not comparable.
 - Vendor benchmarks are self-reported; independent coverage gaps remain (METR/Epoch have almost no Go-model data).
 - Limits math uses **your** token profile; a lighter user gets several× more requests per cap.

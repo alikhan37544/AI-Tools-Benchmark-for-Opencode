@@ -1,7 +1,7 @@
 # 09 — OpenCode v1 vs v2: Differences, Advantages, Disadvantages (+ OMO on Each)
 
-> **Snapshot: October 1, 2026.** Sources: [opencode.ai/docs](https://opencode.ai/docs/) (v1), [opencode.ai/v2/docs](https://opencode.ai/v2/docs/) (v2), [opencode.ai/v2/docs/migrate-v1](https://opencode.ai/v2/docs/migrate-v1/) (migration bible), [changelog](https://opencode.ai/changelog), GitHub issues, Reddit r/opencode/r/opencodeCLI.
-> Versions seen: v1 `1.18.34` (Sep 30, 2026, still maintained); v2 `2.0.x` stable (`2.0.16` era) after a July–Sep beta.
+> **Snapshot: October 1, 2026, refreshed October 13.** Sources: [opencode.ai/docs](https://opencode.ai/docs/) (v1), [opencode.ai/v2/docs](https://opencode.ai/v2/docs/) (v2), [opencode.ai/v2/docs/migrate-v1](https://opencode.ai/v2/docs/migrate-v1/) (migration bible), [changelog](https://opencode.ai/changelog), GitHub issues, Reddit r/opencode/r/opencodeCLI.
+> Versions seen: v1 `1.18.34` (Sep 30, 2026, still maintained); v2 `2.0.x` stable (`2.0.16` era) after a July–Sep beta. **Oct 13: latest v2 is `2.0.28`** (per-project auto-accept, release highlights, native Windows ARM64, WinGet packages, official Figma plugin); v2 `2.0.26` added **Step 5 Preview Free** to free models and retired Fledge Alpha Free.
 
 ---
 

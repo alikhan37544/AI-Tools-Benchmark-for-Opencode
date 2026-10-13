@@ -1,6 +1,6 @@
 # 07 — Recommended OpenCode Configuration & Workflow
 
-> **Snapshot: October 1, 2026.** Verify config keys against [opencode.ai/docs/config](https://opencode.ai/docs/config/) and [docs/permissions](https://opencode.ai/docs/permissions/) — OpenCode v2 shipped recently and keys can change. Model IDs below are the Go provider IDs confirmed by OpenCode docs and your own session DB (`providerID: opencode-go`).
+> **Snapshot: October 1, 2026, refreshed October 13.** Verify config keys against [opencode.ai/docs/config](https://opencode.ai/docs/config/) and [docs/permissions](https://opencode.ai/docs/permissions/) — OpenCode v2 shipped recently and keys can change. Model IDs below are the Go provider IDs confirmed by OpenCode docs and your own session DB (`providerID: opencode-go`). Oct 13: added `claude-haiku-5-5` (subagent) and `step-5-preview-free` (free coding) to the matrix; retired `deepseek-v4-flash-vision-exp` replaced by `deepseek-v4.1-flash`.
 
 ---
 
@@ -76,13 +76,14 @@ Put this in the client repo's `opencode.json` (project config overrides global).
 | Role | Model | Effort/variant | Rationale |
 |---|---|---|---|
 | Daily build | `deepseek-v4.1-flash` | medium/high for routine, **max** for hard | best capacity + 209 tok/s + vision |
-| Explore subagent | `mimo-v2.6-flash` | default | 33k req/mo, $0.0018/req |
+| Free coding loop | `step-5-preview-free` | high | AA 44 Kimi-class, unlimited while preview lasts |
+| Explore subagent | `claude-haiku-5-5` (alt: `mimo-v2.6-flash`) | medium/default | fastest Claude, Sonnet-class coding, 1M ctx |
 | Bulk edits/tests | `glm-5.3-flash` | default | AA AutomationBench 60.4, 9.8k req/mo |
 | Plan/architecture | `grok-4.6` **or** `mimo-v2.6-pro` | high | GPQA 95 / AA 46 |
 | Hard debug | `kimi-k3` | max | honesty battery 0/12, SWE-Marathon 42 |
 | Frontend review | `muse-spark-1.3-contributor` (non-client) or `kimi-k3` | default | Design Arena #1 / #3 |
 | Visual QA verification | `qwen3.8-max` | default | OSWorld 86.1 (#1 overall) |
-| OCR/docs | `deepseek-v4-flash-vision-exp` / `qwen3.8-flash` | default | cheap native vision |
+| OCR/docs | `deepseek-v4.1-flash` / `qwen3.8-flash` | default | cheap native vision |
 | Data/ML scripts | `deepseek-v4.1-flash` or `kimi-k3` | max | Python + tests |
 | Security review | `glm-5.3` | max | CyberGym 84.5 |
 | Marathon refactor | `kimi-k3` → Copilot `claude-opus-5.5` | max | only when it must succeed |
@@ -109,7 +110,7 @@ Put this in the client repo's `opencode.json` (project config overrides global).
 
 | Budget | Plan |
 |---|---|
-| $10/mo | Go + project routing above + off-peak shift. Expect: ~380 DeepSeek sessions + ~200 GLM-Flash/MiMo sessions + ~4 Kimi K3 tasks + ~5 Qwen3.8 Max verification runs. |
+| $10/mo | Go + project routing above + off-peak shift. Expect: ~500 DeepSeek sessions + free Step 5 coding + ~200 GLM-Flash/MiMo sessions + ~4 Kimi K3 tasks + ~5 Qwen3.8 Max verification runs. |
 | $40/mo | Go Plus **only if** you concentrate on GLM-5.3 (8×) or the $15 rations; otherwise Go + $30 Zen overflow is more flexible. |
 | Flex | Add Zen balance (auto-reload $20) for overflow; use Copilot for Opus 5.5/Astra on the rare must-not-fail task. |
 
