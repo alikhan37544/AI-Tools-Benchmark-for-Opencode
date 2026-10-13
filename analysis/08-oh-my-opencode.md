@@ -136,9 +136,9 @@ OMO multiplies volume: one `ultrawork` fans out to main + researchers + workers 
 | **writing** | **glm-5.3-flash, low** | AA 42 prose at volume (avoid Contributor for client docs — trains on data) | 4,918/wk (you) |
 | **deep-low bulk research** | **step-5-preview-free, high** (alt: glm-5.3-flash) | AA 44 Kimi-class at $0 — the value bulk lane | unlimited (preview) |
 
-### Config A — most intelligent (survives ~2–4 heavy OMO days)
+### Config A — HEAVY-MAX: maximum intelligence, everything maxed (burst-oriented, ~2–4 heavy days)
 
-Every slot gets the smartest validated Go pick. Session model (Sisyphus primary): `opencode-go/kimi-k3`. Paste into `~/.omo/omo.jsonc` (5.x):
+No compromises: the smartest validated Go pick per slot, every reasoning dial at maximum, verbosity guards on (see effort table below). Session model (Sisyphus primary): `opencode-go/kimi-k3`. Paste into `~/.omo/omo.jsonc` (5.x):
 
 ```jsonc
 {
@@ -157,27 +157,29 @@ Every slot gets the smartest validated Go pick. Session model (Sisyphus primary)
       "deep-low": { "model": "opencode-go/mimo-v2.6-pro", "reasoning": "max" },
       "deep-high": { "model": "opencode-go/mimo-v2.6-pro", "reasoning": "max" },
       "artistry": { "model": "opencode-go/glm-5.3", "reasoning": "max" },
-      "quick": { "model": "opencode-go/claude-haiku-5-5", "reasoning": "medium" },
+      "quick": { "model": "opencode-go/claude-haiku-5-5", "reasoning": "max" },
       "unspecified-low": { "model": "opencode-go/mimo-v2.6-pro", "reasoning": "max" },
       "unspecified-high": { "model": "opencode-go/glm-5.3", "reasoning": "max" },
-      "writing": { "model": "opencode-go/glm-5.3-flash", "reasoning": "low" },
+      "writing": { "model": "opencode-go/glm-5.3", "reasoning": "max" },
       "architect": { "model": "opencode-go/grok-4.7", "reasoning": "xhigh" }
     },
     "background_task": { "defaultConcurrency": 5,
       "providerConcurrency": { "opencode-go": 10 },
-      "modelConcurrency": { "opencode-go/kimi-k3": 2, "opencode-go/glm-5.3": 2, "opencode-go/grok-4.7": 2 } },
+      "modelConcurrency": { "opencode-go/kimi-k3": 2, "opencode-go/glm-5.3": 2, "opencode-go/grok-4.7": 2, "opencode-go/qwen3.8-max": 2 } },
     "experimental": { "aggressive_truncation": true },
     "telemetry": { "enabled": false }
   }
 }
-// Look_at vision: opencode-go/deepseek-v4.1-flash (native vision).
+// Look_at vision: opencode-go/deepseek-v4.1-flash (native vision). Final visual verify: opencode-go/qwen3.8-max (OSWorld #1, rationed ~9/day).
 ```
 
-OMO-week budget (your profile, ÷4): primary K3 ~22 · mimo-pro slots ~380 shared across ultrabrain/deep/unspecified-low · glm-5.3 slots ~35 shared · grok consults ~20 · DS explore ~3,200 · mimo-flash ~4,100 · haiku ~670 · glm-flash ~1,230. Expect the $15 rations to need the weekend to recover — that is what Config B fixes.
+Maxed-out notes: Kimi `max` = AA 44 (vs 30 on low) at ~1.74× cost — always `max`, temp 1.0, never switch models/effort mid-session (kills cache + quality). Grok `xhigh` needs `textVerbosity:low` (xhigh burns ~81K output tokens/task otherwise). Haiku `max` = AA 43 (vs 34 med, 29 low) — worth it here, not for volume. MiMo-Pro: any effort level behaves identically, keep max. Qwen Max `xhigh`, DS effort 100, Step `high`, GLM-5.3 `max` (default, can't disable thinking).
 
-### Config B — best value: highest intelligence, lowest cost (the daily driver — start here)
+OMO-week budget (your profile, ÷4): primary K3 ~22 · mimo-pro slots ~380 shared across ultrabrain/deep/unspecified-low · glm-5.3 slots ~35 shared · grok consults ~20 · Qwen Max verify ~9 shared with nothing (dedicated) · DS explore ~3,200 · mimo-flash ~4,100 · haiku-max (burns faster than the 670 med estimate — watch it) · glm-flash writing (draws from the 1,230 pool). **5h burst ceilings:** K3 36, mimo-pro 615, GLM-5.3 56, Grok 32 per 5h — a maxed Ralph afternoon can dent K3/GLM-5.3's 5h window; that is what Config B fixes.
 
-Same primary (`kimi-k3`, the one slot where intelligence decides everything). The value masterstroke: **`deep-low` runs on `step-5-preview-free` (AA 44 Kimi-class at $0)** — your old manual-DeepSeek bulk lane, now free and smarter. Only two paid premiums besides the primary: `mimo-v2.6-pro` (AA 46 at $0.0049/req) for reasoning, `glm-5.3-flash` for review/artistry volume:
+### Config B — VALUE-8H: maximum intelligence, minimum cost (best bang for buck — start here)
+
+Intelligence first, priced for **8 hours of intermittent heavy programming per day**. Same K3 primary (the one slot where intelligence decides everything — rationed to **~6 hard plans/consults per day**, planning only, never bulk). The value masterstroke: **`deep-low` runs on `step-5-preview-free` (AA 44 independently confirmed, $0)** — your old manual-DeepSeek bulk lane, now free and smarter. Only one paid premium besides the primary: `mimo-v2.6-pro` (AA 46 at $0.0049/req) for reasoning; review/artistry/volume drop to `glm-5.3-flash`; consults move from Grok to mimo-pro (saves the $15 Grok allowance entirely):
 
 ```jsonc
 {
@@ -212,11 +214,13 @@ Same primary (`kimi-k3`, the one slot where intelligence decides everything). Th
 }
 ```
 
-Why this wins: orchestrator stays AA 44 (validated), reasoning stays AA 46 (cheapest frontier-class per call), and ~70% of OMO volume (deep-low, explore, librarian, quick, writing) runs at $0–$0.003/req. The mimo-pro allowance (~380 OMO-req/wk) is shared across ultrabrain/deep-high/unspecified/architect — fine, because consults are low-volume by design.
+Why this wins: orchestrator stays AA 44 (validated), reasoning stays AA 46 (cheapest frontier-class per call), and ~70% of OMO volume (deep-low, explore, librarian, quick, writing) runs at $0–$0.003/req. The mimo-pro allowance (~100/day shared across ultrabrain/deep-high/unspecified/architect) covers an 8h heavy day because consults are low-volume by design.
 
-### Config C — absolute cheapest (zero $15-tier usage)
+**8h daily budgets (monthly ÷ 30, your profile):** K3 ~6/day — when spent, the primary drops to Step 5 for the rest of the day (still AA 44); mimo-pro ~100/day shared; GLM-Flash ~330/day; DS ~850/day; haiku-medium ~180/day (AA 34 at medium — flip to max/AA 43 only for hard quick tasks); mimo-flash ~1,100/day; Step 5 ∞. A heavy 8h day burns roughly: 6 K3 + 60–100 mimo-pro + 200–400 Flash-tier + unlimited Step 5 — inside every cap with margin.
 
-No Kimi, no MiMo-Pro, no Grok, no other ration model. Primary runs on **`step-5-preview-free` (AA 44, free)** — the only free model with frontier-adjacent coding scores; everything else is $80/$60/$30-tier. Expect a lower orchestration ceiling than A/B and keep tasks small:
+### Config C — ECO-24: super-duper min cost with best intelligence, runs 24/7 and never runs out
+
+No Kimi, no MiMo-Pro, no Grok, no other ration model. Primary runs on **`step-5-preview-free` (AA 44 independently confirmed, $0)** — the only free model with frontier-adjacent coding scores; everything else is $80/$60/$30-tier volume. **Design rule: every paid slot's sustained rate (monthly ÷ 730h) stays above its lane's continuous demand** — combined lanes give ~130 req/h of sustained capacity plus ∞ Step 5, so a 24/7 Ralph loop at 20–50 req/h spread across lanes never binds any cap. Expect a lower orchestration ceiling than A/B and keep tasks small:
 
 ```jsonc
 {
@@ -251,22 +255,64 @@ No Kimi, no MiMo-Pro, no Grok, no other ration model. Primary runs on **`step-5-
 // Main session model: opencode-go/step-5-preview-free.
 ```
 
-Honest limits of C: Step 5 is **not validated as a Sisyphus primary** (Kimi K3 is the only documented Go rung) — if you see delegation loops, ignored plan mechanics, or read-only agents attempting writes, that is the weak-orchestrator failure mode: switch the session model to `kimi-k3` (= Config B) for that task. And the free window ends — when Step 5 goes paid, C's primary becomes `glm-5.3-flash` and B becomes the new floor.
+Honest limits of C: Step 5 is **not validated as a Sisyphus primary** (Kimi K3 is the only documented Go rung) — if you see delegation loops, ignored plan mechanics, or read-only agents attempting writes, that is the weak-orchestrator failure mode: switch the session model to `kimi-k3` (= Config B) for that task. And the free window may end ~Oct 15 (promo billing; no end date in Go docs as of Oct 13) — fallback is baked in: primary becomes `glm-5.3-flash` (AA 42, $60 tier, still 24/7-capable at ~13/h sustained) and B becomes the new floor.
+
+**24/7 rotation (independent allowances per model — spend one, the rest keep working):**
+- **Night shift (unattended):** Step 5 primary + MiMo-Flash explore/librarian only. Smallest blast radius, $0 + deepest $60-tier allowance.
+- **Day shift:** add DS V4.1 Flash explore/looker (~35/h sustained), GLM-Flash review/writing (~13/h), Haiku-medium quick (~7/h), LongCat/Qwen-Flash overflow lanes.
+- **Rollover rule:** when any model's rolling-5h spend passes ~15% of its monthly allowance, move that lane to the next model in the shift. Never chase a 429 with retries — fail that lane over, not through (429-retried-3× is how overnight quotas die).
+- **Unattended safety (nobody home to click `ask` — and `ask` ≈ `deny` when nobody is home):** hard-`deny` destructive bash (`rm -rf *`, pushes, deploys, infra mutations, `*PAT*`/`*--password*`); keep `doom_loop` guards on; iteration caps on every Ralph loop (`-n`, default 10) with `<promise>COMPLETE|BLOCKED|DECIDE</promise>` exit codes; fresh context per iteration + state on disk (`tasks.json`/`progress.txt` + git commit per task) so compaction loss can't erase the night's work; `aggressive_truncation` on; one watchdog cron that checks agent health/output recency and pages you (Discord/Slack webhook) instead of letting a wedged loop spin till morning.
 
 ### The three configs at a glance
 
-| | A — max intelligence | B — best value | C — cheapest |
+| | A — HEAVY-MAX | B — VALUE-8H | C — ECO-24 |
 |---|---|---|---|
 | Primary (session model) | kimi-k3 max ($15) | kimi-k3 max ($15) | step-5-preview-free ($0) |
-| Reasoning slots | mimo-v2.6-pro (AA 46) | mimo-v2.6-pro (AA 46) | glm-5.3-flash (AA 42) |
-| Bulk/executor lane | mimo-v2.6-pro | **step-5-preview-free ($0)** | step-5-preview-free ($0) |
+| Reasoning slots | mimo-v2.6-pro max (AA 46) | mimo-v2.6-pro max (AA 46) | glm-5.3-flash max (AA 42) |
+| Bulk/executor lane | mimo-v2.6-pro max | **step-5-preview-free ($0)** | step-5-preview-free ($0) |
 | Review | glm-5.3 max | glm-5.3-flash high | glm-5.3-flash high |
 | Consult | grok-4.7 xhigh | mimo-v2.6-pro max | glm-5.3-flash max |
-| Explore/quick/writing | DS max / haiku med / glm-flash low | DS max / haiku low / glm-flash low | mimo-flash low / DS med |
-| Weekly Go spend ceiling* | ~$15 K3 + ~$15 mimo-pro + incidentals | ~$15 K3 + ~$15 mimo-pro (shared, rarely filled) | ~$0 (all free/$60–80-tier volume) |
-| Survives | ~2–4 heavy OMO days | full workweeks | indefinitely (until free window ends) |
+| Explore/quick/writing | DS max / haiku-max / glm-5.3 max | DS max / haiku-med / glm-flash low | mimo-flash low / DS med |
+| Designed for | burst quality, 8h heavy days in ~2–4 day sprints | **8h intermittent heavy, every day** | **24/7 continuous, never binds** |
+| $15-tier burn | K3 + mimo-pro + GLM-5.3 + Grok all rationed | K3 (~6/day) + mimo-pro (~100/day) | $0 |
+| Survives | ~2–4 heavy OMO days, then rations recover | every workday (rations reset daily) | indefinitely (free window permitting) |
 
-\* Spend = allowance consumed, not extra cash — all inside the $10 Go plan. "Survives" assumes heavy `ultrawork`/Ralph use; normal mixed use lasts longer.
+\* Spend = allowance consumed, not extra cash — all inside the $10 Go plan.
+
+### Effort ladder for max quality (verified Oct 13 — use per slot as configured above)
+
+| Model | Max-quality setting | Cost vs default | Critical flags |
+|---|---|---|---|
+| Kimi K3 | `max` (low/high/max only, always reasons) | AA 44 max vs 30 low; ~1.74× cost | temp 1.0, return full `reasoning_content` every turn, never switch model/effort mid-session |
+| MiMo-V2.6-Pro | any level on (none=off; all others identical) | no max gain — keep max | temp/top_p forced 1.0; keep reasoning across tool turns |
+| GLM-5.3 | `max` (default; thinking can't be disabled) | baseline | — |
+| Grok 4.7/4.6 | `xhigh` | ~81K output tokens/task at xhigh | **mandatory `textVerbosity:low`**; never set presence/frequency penalty or stop (400s); >200K prompt doubles rates |
+| Qwen3.8 Max | `xhigh` (default; high/max are aliases) | thinking billed as output, 262K budget | temp 1.0 / top_p 0.95 in thinking |
+| DeepSeek V4.1 Flash | effort 100 (1–100; default high=75) | scales linearly-ish | evals use temp 1.0 / top_p 0.95 |
+| Claude Haiku 5.5 | `max` → AA 43 (xhigh 41, high 38, **med 34 default**, low 29) | 440M-token verbosity at max | **omit temp/top_p/top_k entirely** (≠1/≠0.99 = 400); max only where AA 43 matters |
+| Step 5 Preview | `high` (= max; low/med/high) | $0 on Go free | medium is default; high for code |
+
+### Slot budget math: sustained 24/7 rate vs 8h daily budget (your profile)
+
+Rule: **monthly ÷ 730h is the binding sustained rate** for every paid model (tighter than the 5h and weekly windows for continuous use). Daily budget = monthly ÷ 30.
+
+| Model | $/req | 5h / wk / mo | Sustained/h (24/7) | 8h-day budget | Role in configs |
+|---|---|---|---|---|---|
+| Step 5 Preview Free | $0 | ∞ | ∞ | ∞ | C primary, B deep-low (⚠️ free may end ~Oct 15) |
+| Muse Spark 1.3* | $0.0013 | 9,288 / 23,220 / 46,440 | 64 | 1,548 | not assigned (trains on data) |
+| MiMo-V2.6-Flash | $0.0018 | 6,634 / 16,586 / 33,171 | 45 | 1,106 | explore/librarian/quick volume |
+| DeepSeek V4.1 Flash | $0.0031 | 5,097 / 12,742 / 25,484 | 35 | 849 | explore/looker, B/C day shift |
+| LongCat-2.0 | $0.0045 | 2,646 / 6,614 / 13,228 | 18 | 441 | C overflow lane |
+| GLM-5.3-Flash | $0.0061 | 1,967 / 4,918 / 9,836 | 13.5 | 328 | review/writing/C-reasoning |
+| Qwen3.8 Flash | $0.0040 | 1,491 / 3,729 / 7,457 | 10 | 249 | C overflow lane |
+| Claude Haiku 5.5 | $0.0028 | 1,075 / 2,688 / 5,375 | 7.4 | 179 | quick (med AA 34; max AA 43) |
+| MiMo-V2.6-Pro | $0.0049 | 615 / 1,537 / 3,074 | 4.2 | 102 | A/B reasoning (shared) |
+| Kimi K3 | $0.0837 | 36 / 90 / 179 | 0.25 | 6 | A/B primary, planning only |
+| GLM-5.3 | $0.0537 | 56 / 140 / 279 | 0.4 | 9 | A review/artistry |
+| Qwen3.8 Max | $0.0587 | 51 / 128 / 256 | 0.35 | 9 | A visual verify |
+| Grok 4.7 | $0.0952 | 32 / 79 / 158 | 0.2 | 5 | A consults |
+
+ECO-24 lane total: ∞ + 45 + 35 + 18 + 13.5 + 10 + 7.4 ≈ **129 req/h sustained** across independent allowances — a 24/7 loop at 20–50 req/h spread across lanes mathematically cannot bind any cap. VALUE-8H heavy day (≈6 K3 + 60–100 mimo-pro + 200–400 Flash-tier + ∞ Step 5) fits inside every daily budget with margin.
 
 ### Avoid as OMO orchestrator/worker
 

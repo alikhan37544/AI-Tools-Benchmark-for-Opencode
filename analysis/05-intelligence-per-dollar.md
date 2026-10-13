@@ -27,15 +27,15 @@ A model can win on one and lose badly on another (Grok 4.7 has high AA but 158 r
 | **Muse Spark 1.3 Contrib** | 48 | $0.0013 | 46,440 | **37,152** | **2.23M** | A+ (privacy caveat) |
 | **Step 5 Preview Free** | 44 | $0 (free) | ∞ | **∞** | **∞** | **A+ free (until it ends)** |
 | **DeepSeek V4.1 Flash** | 39 | $0.0031 | 25,484 | 12,426 | 994k | **A+ sustainable** |
-| MiMo-V2.6-Flash | ~37–42? | $0.0018 | 33,171 | ~21,000? | ~1.3M? | A (unmeasured) |
+| MiMo-V2.6-Flash | 38 | $0.0018 | 33,171 | 21,111 | 1.26M | **A (cheapest smart volume)** |
 | GPT 6 Luna | 38 | $0.0028 | 5,376 | 13,620 | 204k | A− (weak agentically) |
-| Claude Haiku 5.5 | — (too new) | $0.0028 | 5,375 | — | — | B+ (subagent star, unmeasured) |
+| Claude Haiku 5.5 | 43 (Max) | $0.0028 | 5,375 | 15,357 | 231k | **A- (Max; Med 34)** |
 | **MiMo-V2.6-Pro** | 46 | $0.0049 | 3,074 | 9,428 | 141k | **A (best premium)** |
 | GLM-5.3-Flash | 42 | $0.0061 | 9,836 | 6,885 | 413k | A (best quality/value) |
 | GPT 5.6 Luna | 35–37 | $0.0058 | 2,586 | 6,379 | 96k | B |
 | Hy3 | 34 | $0.0068 | 8,772 | 4,971 | 298k | B (old but cheap) |
 | LongCat-2.0 | n/a (SWE Pro 59.5 🟡) | $0.0045 | 13,228 | — | — | B |
-| Qwen3.8 Flash | n/a (~40?) | $0.0040 | 7,457 | — | — | B+ (unproven) |
+| Qwen3.8 Flash | 40 | $0.0040 | 7,457 | 10,000 | 298k | B+ (AA 40, thin cover) |
 | Space Bunny (paid) | — | $0.0062 | 4,831 | — | — | B (fast stealth) |
 | MiniMax M3 | 29 | $0.0124 | 4,831 | 2,335 | 140k | C |
 | Qwen3.7 Plus | 25 | $0.0107 | 5,597 | 2,332 | 140k | C |
@@ -49,7 +49,7 @@ A model can win on one and lose badly on another (Grok 4.7 has high AA but 158 r
 
 **Legacy — retired upstream or superseded (still billed; avoid for new work):** DeepSeek V4 Flash (AA ~34, 9,448 req/mo) · DeepSeek V4 Pro (AA 36, 1,017) · GLM-5.2 (AA 34, 1,117) · MiMo-V2.5 (AA 25, 33,171) · MiMo-V2.5-Pro (AA 26, 3,074) · Kimi K2.6 (—, 1,706). Full per-model numbers in the legacy table in `04-limits-and-burn-rate.md`.
 
-*(Other unmeasured: LongCat 2.5, Hy4, Claude Haiku 5.5 (no AA yet) — see tier table.)*
+*(Other unmeasured: LongCat 2.5, Hy4 — see tier table. Haiku score is Max-effort; default medium is AA 34.)*
 
 ### The four winners
 

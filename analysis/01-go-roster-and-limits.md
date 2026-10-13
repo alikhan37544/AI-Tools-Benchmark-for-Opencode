@@ -128,7 +128,7 @@ Zen/Go free models as of Oct 13, 2026 ([Zen docs](https://opencode.ai/docs/zen/)
 
 | Model | Notes |
 |---|---|
-| **Step 5 Preview Free** | **NEW Oct 8.** StepFun 600B/27B-active MoE flagship, 1M ctx, vision, AA 44. OpenCode route: zero-retention, no training. Open weights due Oct 15. Currently the best free coder on Go. |
+| **Step 5 Preview Free** | **NEW Oct 8.** StepFun 600B/27B-active MoE flagship, 1M ctx, vision, **AA 44 independently confirmed**. OpenCode route: zero-retention, no training. Open weights due Oct 15 (not out Oct 13). Free window has no Go end date but was promo-billed ~1 week from Oct 8 — have a fallback ready. Currently the best free coder on Go. |
 | **LongCat 2.5 Preview Free** | Free window extended past the initial ~Oct 10 estimate; still listed free Oct 13. Provider claims zero-retention. No public benchmarks or model card. |
 | **Space Bunny** (now paid) | Stealth model converted from free preview to paid ($0.15/$0.60/$0.03, $30/mo Go) in early Oct. OpenCode route: zero-retention, no training. Fingerprint analysis suggests a MiniMax-family model (unconfirmed). Community reports strong web design and speed, but a tool-param wrapping bug (`{item: value}`). |
 | **Big Pickle** | Zen stealth; **data may be used to improve the model** — do not use for client/PHI work. |
