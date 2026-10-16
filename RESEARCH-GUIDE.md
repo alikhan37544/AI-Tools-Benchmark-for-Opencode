@@ -50,7 +50,7 @@ sqlite3 -readonly ~/.local/share/opencode/opencode.db \
    FROM session_message WHERE type='assistant' GROUP BY 1 ORDER BY 2 DESC;"
 ```
 
-Then message-level `tokens`/`cost` fields are aggregated to compute the user's true per-request profile (7.8k input / 1.1k output+reasoning / 146k cache read), peak burst rates (630 req/h), and rolling 5h/7d/30d spend. Only aggregates are used; no session content, titles, or client data. **Note (Oct 16):** the old 39 GB v1 database is gone after the migration to v2 — the Sep 15–Oct 1 calibration is frozen as history; new v2 DB stats are used for sanity checks only.
+Then message-level `tokens`/`cost` fields are aggregated to compute the user's true per-request profile (7.8k input / 1.1k output+reasoning / 146k cache read), peak burst rates (630 req/h), and rolling 5h/7d/30d spend. Only aggregates are used; no session content, titles, or client data. **Note (Oct 16):** the Sep 15–Oct 1 calibration comes from the primary machine's v1 database (this repo's second machine has only a fresh v2 DB) — the calibration is frozen as history; new v2 DB stats are used for sanity checks only.
 
 ---
 

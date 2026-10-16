@@ -194,7 +194,7 @@ Escalate per task: `Kimi K3` (marathon/bug) · `Qwen3.8 Max` (visual QA) · `Mus
 ## Caveats
 
 - Everything is a **snapshot** (Oct 1, 2026; roster/caps/value refreshed **Oct 16**). Model rosters, prices and limits changed ~weekly in Sep–Oct 2026.
-- The **local calibration data is still the Sep 15 – Oct 1 history** (the old 39 GB v1 DB is gone; the fresh v2 DB from Oct 16 is consistent with the same per-request profile, and is used only as a sanity check).
+- The **local calibration data is still the Sep 15 – Oct 1 history** (from the primary machine's v1 DB; this box's fresh v2 DB from Oct 16 is consistent with the same per-request profile, and is used only as a sanity check).
 - AA Intelligence Index re-baselined to v4.3.2 in late Sep; older quoted scores are not comparable.
 - Vendor benchmarks are self-reported; independent coverage gaps remain (METR/Epoch have almost no Go-model data).
 - Limits math uses **your** token profile; a lighter user gets several× more requests per cap.

@@ -1,6 +1,6 @@
 # 04 — Limits, Requests & Realistic Continuous Programming
 
-> **Snapshot: October 1, 2026, refreshed October 13 and October 16.** Usage history remains Sep 15–Oct 1 (the old 39 GB v1 DB is gone after the v2 migration; the fresh v2 DB from Oct 16 shows the same direction — ~11k in / 2.8k out / 59k cache per request on the free DeepSeek lane, and the paid lane still ~5–8k in / <1k out). Caps re-verified live Oct 16: **Step 5 Preview now paid ($60 4× promo)**, **Gemini 4 Argon Contributor ($60 2× promo)**, free twins on Zen. No session content or client data is used — only aggregate token counts.
+> **Snapshot: October 1, 2026, refreshed October 13 and October 16.** Usage history remains Sep 15–Oct 1 (from the primary machine's v1 DB; this second machine's fresh v2 DB from Oct 16 shows the same direction — ~11k in / 2.8k out / 59k cache per request on the free DeepSeek lane, and the paid lane still ~5–8k in / <1k out). Caps re-verified live Oct 16: **Step 5 Preview now paid ($60 4× promo)**, **Gemini 4 Argon Contributor ($60 2× promo)**, free twins on Zen. No session content or client data is used — only aggregate token counts.
 >
 > 🆕 **Oct 16 — the new stuff:** Argon row (~728 req/mo — highest of any AA 44+ paid model on Go); Step 5 now paid (~2.4k req/mo); free rows for the Zen twins; Grok 4.6 removed from Go (still Zen at $2/$6).
 
@@ -23,7 +23,7 @@
 | Sessions | 232 (≈ 56 requests/session) |
 | Days active | 16 (avg 811 req/day) |
 
-**Oct 16 sanity check (fresh v2 DB):** today's sessions (106 assistant messages) split between the paid lane (`deepseek-v4.1-flash`, 38 msgs, ~5.4k in / 0.5k out / 88k cache each) and the **new free lane** (`deepseek-v4.1-flash-free`, 68 msgs, ~11k in / 2.8k out / 59k cache each). The heavy agentic pattern persists — and the free twin is already absorbing 2/3 of today's volume. The old 39 GB v1 database is gone after the migration, so the historical calibration stays as-is rather than being recomputed from 5 new sessions.
+**Oct 16 sanity check (fresh v2 DB):** today's sessions (106 assistant messages) split between the paid lane (`deepseek-v4.1-flash`, 38 msgs, ~5.4k in / 0.5k out / 88k cache each) and the **new free lane** (`deepseek-v4.1-flash-free`, 68 msgs, ~11k in / 2.8k out / 59k cache each). The heavy agentic pattern persists — and the free twin is already absorbing 2/3 of today's volume. This is a second machine (the 39 GB v1 database lives on the primary box), so the historical calibration stays as-is rather than being recomputed from 5 new sessions.
 
 ### Your peak intensity (measured, not estimated)
 
