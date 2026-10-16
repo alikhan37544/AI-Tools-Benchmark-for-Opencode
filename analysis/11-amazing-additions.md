@@ -1,6 +1,7 @@
 # 11 — Amazing Additions: Personalized Power-Up Playbook
 
-> **Snapshot: October 1, 2026.** Built for YOUR stack: Azure DevOps everywhere (Pipelines/Repos, no GitHub Actions), `az login` agent access, Playwright/Puppeteer/Selenium RPA + captcha work, a 578-check visual QA suite, voicebot/telephony (Asterisk ARI, Kafka, Redis, Realtime), OCR/document AI incl. Arabic, PHI/medical data, 40+ repos.
+> **Snapshot: October 1, 2026, refreshed October 16.** Built for YOUR stack: Azure DevOps everywhere (Pipelines/Repos, no GitHub Actions), `az login` agent access, Playwright/Puppeteer/Selenium RPA + captcha work, a 578-check visual QA suite, voicebot/telephony (Asterisk ARI, Kafka, Redis, Realtime), OCR/document AI incl. Arabic, PHI/medical data, 40+ repos.
+> **Oct 16 context:** this machine now runs OpenCode **v2.0.31** (config snippets below are v1-shaped with v2 deltas noted in `10`/`09`); **free model lanes changed** — use `opencode/glm-5.3-flash-free` / `opencode/deepseek-v4.1-flash-free` anywhere this file previously suggested the free Step 5 lane; nightly jobs and RPA loops should pin those as cheap defaults.
 > Each item is rated **Value** (how much it changes your day) × **Effort** (to install). Start at the top.
 
 ---

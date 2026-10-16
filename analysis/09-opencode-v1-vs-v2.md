@@ -1,8 +1,8 @@
 # 09 — OpenCode v1 vs v2: Differences, Advantages, Disadvantages (+ OMO on Each)
 
-> **Snapshot: October 1, 2026, refreshed October 13.** Sources: [opencode.ai/docs](https://opencode.ai/docs/) (v1), [opencode.ai/v2/docs](https://opencode.ai/v2/docs/) (v2), [opencode.ai/v2/docs/migrate-v1](https://opencode.ai/v2/docs/migrate-v1/) (migration bible), [changelog](https://opencode.ai/changelog), GitHub issues, Reddit r/opencode/r/opencodeCLI.
-> Versions seen: v1 **`1.19.0`** (Oct 11, 2026 — adds `opencode upgrade --major`, stays on 1.x until you explicitly upgrade); v2 **`2.0.28`** (Oct 13, 2026, latest — per-project auto-accept, release highlights, native Windows ARM64, WinGet, Figma plugin).
-> **Switch status Oct 13:** v1 is bridge-only maintained with an **end-of-support signal but no fixed EOL date** ("1.x support ends, move to 2.0"). **Stay on v1.18.x–1.19.x for production OMO** — advice unchanged.
+> **Snapshot: October 1, 2026, refreshed October 13 and October 16.** Sources: [opencode.ai/docs](https://opencode.ai/docs/) (v1), [opencode.ai/v2/docs](https://opencode.ai/v2/docs/) (v2), [opencode.ai/v2/docs/migrate-v1](https://opencode.ai/v2/docs/migrate-v1/) (migration bible), [changelog](https://opencode.ai/changelog), GitHub releases, Reddit r/opencode/r/opencodeCLI.
+> Versions seen: v1 **`1.19.3`** (Oct 16 — reasoning-variant config; **1.19.2** pins 1.x updates explicitly; **1.19.1 discontinued session sharing**); v2 **`2.0.31`** (this machine, Oct 16; changelog shows 2.0.30 Oct 15 — changed-files-by-turn, docked diffs, tab navigation — and 2.0.29 Oct 14 — remote device pairing, provider account management, auto response continuation).
+> **Switch status Oct 16:** **this machine has migrated to v2.0.31.** v1 is bridge-maintained with an end-of-support signal but **no fixed EOL date**; 1.19.2+ keeps 1.x installs on the 1.x line unless you explicitly `upgrade --major`. OmO Ultimate still has **no shipped v2 support** (dual-host in review), so the repo's old "stay on v1" advice now applies specifically to OmO Ultimate users — everyone else is fine on v2.
 
 ---
 
@@ -74,14 +74,18 @@ Full field-by-field reference: [migrate-v1](https://opencode.ai/v2/docs/migrate-
 - **Three intentional breaks**: new plugin API, new server API/clients, `tui.json`→`cli.json`. Every v1-style plugin fails (`SchemaError…`); some fail silently with exit 0.
 - **LSP intentionally missing, history migrator still partial**, background service always-on surprise, early missing `/model`, custom providers not picked up in early builds.
 - **History gaps**: v1 sessions invisible at first; migrator 500s on corrupt rows / huge (>9k-message) sessions.
+- **Session sharing is gone platform-wide** (v1.19.1 Oct 15, v2.0.30 removed the retired backend): no share links, no `/share`. If your workflow relied on it, neither line offers it now.
 - IDE/ACP/GitHub/GitLab/Data pages partially missing.
 - Early-adopter bug surface: deferred transform throws bricking catalogs, `{id,server}` silently dropped.
 
+**Fixed/improved since Oct 13 (why v2 is now the sensible default for non-OmO work):** provider account management (switch/rename/remove accounts — v2.0.29), automatic response continuation past output limits (2.0.29), remote device pairing via OpenTunnel QR (2.0.29), built-in worktree tools in Code Mode (2.0.27), changed-files-by-turn + docked `/diff` (2.0.30), keyboard tab navigation (2.0.30), config schema that accepts both V1 and V2 shapes during migration (2.0.30), Windows ARM64 + WinGet packaging (2.0.28).
+
 ## 6. Who should stay on v1 (for now)
 
-- Anyone depending on **oh-my-openagent hooks/tools** (no official v2 support shipped as of OmO 5.1.32, Oct 13 — see §7), programmatic MCP registration, LSP diagnostics, IDE flows, `opencode serve` integrations, large history, or custom gateways.
-- v1 is **bridge-maintained** (1.18.35 Oct 6 → 1.19.0 Oct 11: stats formats, xAI images, `upgrade --major` gate, PTY/OpenAI-ultrafast fixes). End-of-support signaled, **no fixed EOL date published** — and 1.19.0 makes staying deliberate (`upgrade` no longer auto-majors).
-- Practical rule: pin v1 (`1.19.x`), run v2 isolated (`--standalone`, separate DB backup); switch when your plugin stack is green.
+- Anyone depending on **oh-my-openagent Ultimate hooks/tools** (dual-host v2 support is in review but not shipped as of OmO 5.1.34, Oct 16 — see §7), programmatic MCP registration, or `opencode serve` integrations.
+- **This machine is on v2.0.31** and that is fine — the migration went through with the shared config shape; the main practical losses so far are LSP runtime (intentional) and sharing (discontinued everywhere).
+- v1 is **bridge-maintained** (1.18.35 Oct 6 → 1.19.0 Oct 11 → 1.19.1 Oct 15 → **1.19.3 Oct 16**). End-of-support signaled, **no fixed EOL date published** — and 1.19.2 makes staying deliberate (`upgrade` never offers 2.x as a regular update; Homebrew Core now tracks v2).
+- Practical rule: if you need OmO Ultimate, keep a v1.19.x install pinned; otherwise run v2 and use **OmO Native** until the dual-host plugin ships.
 
 ## 7. OMO on v1 vs v2
 
@@ -89,11 +93,11 @@ Full field-by-field reference: [migrate-v1](https://opencode.ai/v2/docs/migrate-
 |---|---|---|
 | 4.x legacy | ✅ Supported (≥1.0.132; installer ≥1.4.0) | ❌ Broken |
 | 4.19.x unified migration | ✅ Supported + coexistence | ⚠️ Partial (no native v2 plugin mapping; needs 5.x) |
-| 5.x (5.1.32, Oct 13) | ✅ Supported | ❌ Still broken (`Missing key ["default"]["effect"/"setup"]` — still exports the V1 plugin shape; dual-host PR unlanded) |
+| 5.x (5.1.34, Oct 16) | ✅ Supported | ❌ Not shipped — dual-host scaffold (PR #9391) + tools/hooks slice (PR #9415) in review; 25-row parity matrix CI |
 | **OmO Native 5.0+** | ✅ Side-by-side (never touches OpenCode files) | ✅ Independent — **the safe v2-era path** |
 | opensoft fork `dev` | ✅ Same as upstream | ⚠️ Same as upstream; check fork releases |
 
-Notes: OMO is fragile to v1 minor breaks too (agent-registration and silent-hook regressions have happened). A community **slim fork** (`alvinunreal/oh-my-opencode-slim`) ships a dual v1+v2 package and documents the v2 port deltas — useful reference if you experiment on v2. Do not upgrade a production OMO install to v2 until `code-yeongyu` publishes v2 support; if you must try v2, use OmO Native or the slim dual build in isolation. **Version-channel trap (Oct 13):** npm `oh-my-openagent` still serves **4.19.4** (Ultimate plugin channel); **5.x ships via GitHub releases / `omo-ai` / unpkg** — check `doctor --verbose` for the effective version after install.
+Notes: OMO is fragile to v1 minor breaks too (agent-registration and silent-hook regressions have happened). A community **slim fork** (`alvinunreal/oh-my-opencode-slim`) ships a dual v1+v2 package and documents the v2 port deltas — useful reference if you experiment on v2. The owner's Oct 1 plan: one additive dual-host plugin (V1 untouched, V2 in a separate entry), landing as small slices with a runtime parity matrix, **timed to the desktop's next release**; 17 V2 API gaps are documented (chat params/headers hooks, tool.definition hook, agent temperature knobs, etc.). Until it ships: OmO Native or a pinned v1. **Version-channel trap:** npm `oh-my-openagent` still serves **4.19.4** (Ultimate plugin channel); **5.x ships via GitHub releases / `omo-ai` / unpkg** — check `doctor --verbose` for the effective version after install.
 
 ---
 

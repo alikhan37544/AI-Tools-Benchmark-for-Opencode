@@ -1,6 +1,6 @@
 # Research Guide — How This Was Built & How to Update It
 
-> Methodology for the October 1, 2026 refresh. Use this to re-run the analysis in ~5 minutes of agent time (plus web access).
+> Methodology for the October 1, 2026 refresh; used again for the **Oct 13 and Oct 16 refreshes** (each refresh: fetch docs → diff roster/caps → re-check AA/independents → re-run value math → update HTML → commit). Use this to re-run the analysis in ~5 minutes of agent time (plus web access).
 
 ---
 
@@ -29,7 +29,9 @@ Each agent was instructed to: search multiple queries, fetch authoritative URLs 
 
 ### Local calibration (the secret sauce)
 
-For limits and value math, aggregate token/cost statistics were computed from the local OpenCode session database:
+For limits and value math, aggregate token/cost statistics were computed from the local OpenCode session database.
+
+**V1 database (Sep–Oct, schema with `session`):**
 
 ```bash
 sqlite3 -readonly ~/.local/share/opencode/opencode.db \
@@ -38,7 +40,17 @@ sqlite3 -readonly ~/.local/share/opencode/opencode.db \
    FROM session GROUP BY 1 ORDER BY COUNT(*) DESC;"
 ```
 
-Then message-level `tokens`/`cost` fields were aggregated to compute the user's true per-request profile (7.8k input / 1.1k output+reasoning / 146k cache read), peak burst rates (630 req/h), and rolling 5h/7d/30d spend. Only aggregates are used; no session content, titles, or client data.
+**V2 database (Oct 16+, schema with `session_v2` / `session_message`)** — per-model aggregates per assistant message:
+
+```bash
+sqlite3 -readonly ~/.local/share/opencode/opencode.db \
+  "SELECT json_extract(data,'\$.model.id'), COUNT(*), SUM(json_extract(data,'\$.tokens.input')),
+          SUM(json_extract(data,'\$.tokens.output')+json_extract(data,'\$.tokens.reasoning')),
+          SUM(json_extract(data,'\$.tokens.cache.read')), ROUND(SUM(json_extract(data,'\$.cost')),4)
+   FROM session_message WHERE type='assistant' GROUP BY 1 ORDER BY 2 DESC;"
+```
+
+Then message-level `tokens`/`cost` fields are aggregated to compute the user's true per-request profile (7.8k input / 1.1k output+reasoning / 146k cache read), peak burst rates (630 req/h), and rolling 5h/7d/30d spend. Only aggregates are used; no session content, titles, or client data. **Note (Oct 16):** the old 39 GB v1 database is gone after the migration to v2 — the Sep 15–Oct 1 calibration is frozen as history; new v2 DB stats are used for sanity checks only.
 
 ---
 
@@ -58,11 +70,12 @@ Then message-level `tokens`/`cost` fields were aggregated to compute the user's 
 | Purpose | URL |
 |---|---|
 | Go plans/limits/roster | https://opencode.ai/docs/go/ · https://opencode.ai/v2/docs/console/go |
-| Zen pricing/models | https://opencode.ai/docs/zen/ |
+| Zen pricing/models + free models | https://opencode.ai/docs/zen/ · https://opencode.ai/v2/docs/console/models/ |
 | Whole-user telemetry | https://opencode.ai/data |
-| Changelog | https://opencode.ai/changelog |
-| Model list JSON | https://opencode.ai/zen/v1/models |
-| Intelligence index | https://artificialanalysis.ai/leaderboards/models |
+| Changelog (v2) + releases (v1) | https://opencode.ai/changelog · https://github.com/anomalyco/opencode/releases |
+| Model list JSON | https://opencode.ai/inference/go/v1/models · https://opencode.ai/inference/v1/models |
+| Roster change tracker | https://julien.cloud/opencode-go-models/ |
+| Intelligence index | https://artificialanalysis.ai/leaderboards/models · https://artificialanalysis.ai/changelog |
 | Coding agents | https://artificialanalysis.ai/agents/coding-agents |
 | LMArena | https://lmarena.ai/leaderboard |
 | Terminal-Bench | https://www.tbench.ai/ · https://terminal-bench.com |
@@ -76,6 +89,10 @@ Then message-level `tokens`/`cost` fields were aggregated to compute the user's 
 | Design/WebDev Arena | https://www.designarena.ai/ · https://lmarena.ai/leaderboard/code |
 | OpenRouter rankings | https://openrouter.ai/rankings |
 | DeepSeek pricing/updates | https://api-docs.deepseek.com/quick_start/pricing · /updates |
+| **Gemini 4 Argon (new on Go)** | https://artificialanalysis.ai/models/gemini-4-argon · https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/ |
+| **Reflection Beam (Beam Free)** | https://artificialanalysis.ai/models/reflection-beam · https://reflection.ai/blog/introducing-beam |
+| **Step 5 open weights** | https://huggingface.co/stepfun-ai/Step-5-Preview |
+| **OmO releases / v2 port status** | https://github.com/code-yeongyu/oh-my-openagent/releases · issues #6169/#9389 · PRs #9391/#9415 |
 
 ---
 
@@ -87,35 +104,50 @@ Then message-level `tokens`/`cost` fields were aggregated to compute the user's 
 4. **Recalibrate your profile** with the SQL above (or the burn script pattern in `analysis/04`): recompute cost/request, rolling-window peaks, and capacity per model at Go prices.
 5. **Re-run the value math** (`AA ÷ $/req`; `AA × req/mo`) and update tiers and jump analysis in `analysis/05`.
 6. **Update the HTML** — the file was generated by a script; simplest path is to ask an agent to regenerate `opencode-go-analysis.html` from the updated markdown (data tables at the top of the generator).
-7. **Verify privacy policies** — especially DeepSeek ZDR renewals, Muse Spark Contributor terms, and any new stealth/free models.
+7. **Verify privacy policies** — especially DeepSeek ZDR renewals, Contributor-SKU terms (Muse Spark, Gemini 4 Argon), free-model zero-retention claims, and any new stealth/free models.
 8. **Commit** with a dated message.
 
-### Fast prompts for a future agent
+*(Fast prompts for a future agent: see §8.)*
 
-- *"Fetch https://opencode.ai/docs/go/ and diff the model roster, monthly limits and estimated requests against analysis/01-go-roster-and-limits.md; update the file and list changes."*
-- *"For each model in the Go roster, fetch its Artificial Analysis model page and record Intelligence Index vX.Y.Z, output speed, TTFT and $/task; update analysis/02-benchmarks.md."*
-- *"Recompute my token profile from ~/.local/share/opencode/opencode.db (read-only) and refresh analysis/04-limits-and-burn-rate.md capacity tables."*
-- *"Check the oh-my-openagent releases + opencode.ai/v2/docs/migrate-v1 for OMO-on-v2 support status; update the compatibility matrix in analysis/08 and analysis/09."*
-- *"Re-scrape the opencode ecosystem page + awesome-opencode for new plugins/MCPs; update analysis/10."*
-
-## 6. Second-wave topics (Oct 1, 2026) and their refresh triggers
+## 5. Second-wave topics (Oct 1, 2026) and their refresh triggers
 
 | File | Refresh trigger |
 |---|---|
 | `08-oh-my-opencode.md` | OMO releases (esp. official v2 support), category renames, fallback-chain changes (`doctor --verbose` is ground truth) |
-| `09-opencode-v1-vs-v2.md` | v2 releases (LSP/share restoration, history migrator fixes, plugin API freeze), v1 EOL announcement |
+| `09-opencode-v1-vs-v2.md` | v2 releases (LSP status, history migrator fixes, plugin API freeze), v1 EOL announcement, sharing changes |
 | `10-plugins-and-stacks.md` | New ecosystem entries, MCP deprecations, v2 ports of v1 plugins |
 | `11-amazing-additions.md` | Any change in your stack (new Azure services, new RPA targets, new repos) — re-run the 80/20 ranking |
 
 ---
 
-## 5. Rules of thumb learned in this cycle
+## 6. Rules of thumb learned in this cycle
 
-1. **Never quote an AA score without its index version.** v4.1.1 scores are ~15–20 points higher than v4.3.2 for the same models.
+1. **Never quote an AA score without its index version.** v4.1.1 scores are ~15–20 points higher than v4.3.2 for the same models (v4.3.2, with the Sep 19 methodology patch, is still current as of Oct 16).
 2. **Terminal-Bench version + harness matters more than the model.** TB2.1 vendor vs Vals can differ by 20 points.
 3. **Vendor benchmarks are marketing** until an independent run exists; mark them.
 4. **The docs' estimated requests assume light traffic.** Heavy agentic users divide by 3–7×.
 5. **Cache-read pricing dominates real agent costs.** A model with 10× cheaper cache can be cheaper in practice than a model with half the output price.
 6. **Reasoning effort is the biggest cost lever** (3.6–6.5× on Kimi K3).
-7. **Free/stealth models are the highest-variance choice** — great value, unknown identity/policies; keep them off critical and sensitive work.
-8. **Roster churn is weekly.** Any analysis older than a month is stale; this repo should be re-run at least quarterly.
+7. **Free/stealth models are the highest-variance choice** — great value, unknown identity/policies; keep them off critical and sensitive work. **But check the terms per model now:** the Oct 16 free twins (DeepSeek/GLM) are zero-retention, unlike most stealths.
+8. **Roster churn is weekly — now literally.** Oct 12–16 alone added Beam Free, Argon Contributor, four Zen free models, paid-ified Step 5, and removed three models. Any analysis older than a week is stale; re-run the diff procedure above.
+9. **Contributor SKUs are a new pricing category.** Gemini 4 Argon and Muse Spark Contributors trade data rights for 5–30× discounts and are now the highest-intelligence options on Go. Treat data policy as part of the model spec.
+
+---
+
+## 7. Refresh log
+
+| Date | What changed | Files touched |
+|---|---|---|
+| Oct 1, 2026 | Full research wave (8 agents) — initial dossier | all |
+| Oct 13, 2026 | Roster refresh: Haiku 5.5, Step 5 Free, DS cap $80, Space Bunny paid; OmO 5.1.32; v1.19.0/v2.0.28 | all |
+| Oct 16, 2026 | Argon on Go; Step 5 paid + open weights; Beam Free; Zen free twins (zero-retention); Grok 4.6/K2.6/M2.7 removed; v2.0.31 on this machine; OmO 5.1.34 (Argon chains, dual-host still in review); telemetry refresh | all + HTML + README |
+
+## 8. Fast prompts for a future agent (refreshed)
+
+- *"Fetch https://opencode.ai/docs/go/ and diff the model roster, monthly limits and estimated requests against analysis/01-go-roster-and-limits.md; update the file and list changes."*
+- *"Fetch https://opencode.ai/docs/zen/ and list every free model with its retention/training terms; diff against analysis/06-free-models-and-privacy.md."*
+- *"For each model in the Go roster, fetch its Artificial Analysis model page and record Intelligence Index vX.Y.Z, output speed, TTFT and $/task; update analysis/02-benchmarks.md."*
+- *"Recompute my token profile from the local v2 DB (`session_message`, type='assistant') read-only and refresh analysis/04-limits-and-burn-rate.md capacity tables."*
+- *"Check https://github.com/code-yeongyu/oh-my-openagent/pulls (esp. #9391/#9415) for the v2 dual-host rollout status; update analysis/08 and analysis/09."*
+- *"Re-scrape the opencode ecosystem page + awesome-opencode for new plugins/MCPs; update analysis/10."*
+- *"Check anomalyco/opencode releases (v1 and v2) and reconstruct the version deltas since the last refresh; update analysis/09."*

@@ -1,7 +1,7 @@
 # 10 — Best Plugins, MCPs, Skills & Daily-Life Tooling
 
-> **Snapshot: October 1, 2026.** Sources: [opencode.ai/docs/ecosystem](https://opencode.ai/docs/ecosystem/) (official, PR-welcome), [awesome-opencode](https://github.com/awesome-opencode/awesome-opencode) (10.4k★), [opencode.im](https://opencode.im/) (community hub, JS-rendered), Reddit r/opencodeCLI setup threads, plugin repos.
-> You are on **v1** (`@opencode-ai/plugin` 1.18.1). V1 snippets below; v2 deltas noted (`plugin`→`plugins`, `mcp.{name}`→`mcp.servers.{name}`, `enabled:false`→`disabled:true`, snake_case OAuth, `opencode mcp add/list/auth`).
+> **Snapshot: October 1, 2026, refreshed October 16.** Sources: [opencode.ai/docs/ecosystem](https://opencode.ai/docs/ecosystem/) (official, PR-welcome), [awesome-opencode](https://github.com/awesome-opencode/awesome-opencode), [opencode.im](https://opencode.im/) (community hub), Reddit r/opencodeCLI setup threads, plugin repos.
+> **This machine now runs OpenCode v2.0.31.** V1 snippets below still work on v1; v2 deltas: `plugin`→`plugins`, `mcp.{name}`→`mcp.servers.{name}`, `enabled:false`→`disabled:true`, snake_case OAuth, `opencode mcp add/list/auth`, and **v1-style plugins do not run on v2** (see `09`). Note **session sharing was retired platform-wide (Oct 15–16)** — share-based workflows need a replacement.
 
 ---
 

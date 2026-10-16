@@ -1,6 +1,6 @@
 # 06 — Free Models, Privacy & Local Options
 
-> **Snapshot: October 1, 2026, refreshed October 13.** Data policies change without notice — re-verify before sending client/PHI data. Oct 13 changes: Space Bunny now paid (keeps zero-retention), +Step 5 Preview Free, +Claude Haiku 5.5 privacy row, DeepSeek ZDR renewed through Oct 31 ✅.
+> **Snapshot: October 1, 2026, refreshed October 13 and October 16.** Data policies change without notice — re-verify before sending client/PHI data. Oct 16 changes: **free DeepSeek V4.1 Flash + free GLM-5.3-Flash added (both zero-retention)**; **Space Bunny Free** back as stealth; **LL Alpha Free** (30-day retention + may train); **Beam Free** (30-day, no training); **Step 5 Preview no longer free**; **Grok 4.7 now documented at 30-day retention** on the Go privacy table; **Gemini 4 Argon Contributor trains on your data**. DeepSeek ZDR renewed through Oct 31 ✅. Step 5 open weights released Oct 15 (self-hostable).
 
 ---
 
@@ -8,28 +8,29 @@
 
 | Model | Provider | Zero-retention? | Trained on? | Notes |
 |---|---|---|---|---|
-| **Step 5 Preview Free** | StepFun | ✅ | ❌ | **NEW Oct 8.** 600B/27B MoE, AA 44, open weights due Oct 15. Best free coder on Go. |
-| **LongCat 2.5 Preview Free** | Meituan | ✅ | ❌ | Free window extended past initial ~Oct 10 estimate; still listed free Oct 13. No public benchmarks/card. |
-| **Space Bunny** (now paid, $30/mo) | stealth (MiniMax-family fingerprint?) | ✅ on OpenCode route | ❌ (OpenCode says no) | Converted from free preview to paid early Oct. 1M ctx, vision; fast; tool-param wrapping bug; identity unconfirmed. |
-| **MiMo-V2.6-Flash Free** | Xiaomi | ? | ✅ may train | Same weights family as paid MiMo; use only for open-source work |
-| **MiMo-V2.5 Free** | Xiaomi | ? | ✅ may train | Weaker (AA 25) |
-| **Ling 3.0 Flash Fin Free** | InclusionAI | ? | ✅ may train | Finance-oriented |
-| **Nemotron 3 Ultra Free** | NVIDIA | ❌ logged | ✅ trial terms | **Do not submit personal/confidential data** |
-| **Nemotron 3.5 Lightning Free** | NVIDIA | ❌ logged | ✅ trial terms | Same warning |
-| **Big Pickle** | stealth | ❌ | ✅ data used to improve model | Identity unknown (GLM-family audit); 95%+ of one user's stream errors |
-| **Muse Spark 1.3 Contributor Free** | Meta | ❌ | ✅ explicitly | Free/discounted in exchange for training rights |
-| **Jev 1.13 Free** | TypeSafe AI | prompts not used for training | ❌ | Not a chat model — structured decision API |
+| **DeepSeek V4.1 Flash Free** ⭐ | DeepSeek | ✅ | ❌ | **NEW Oct 14–15.** Free twin of the daily driver (AA 39, 1M ctx, vision). The best zero-retention free workhorse ever on OpenCode. Limited time. |
+| **GLM-5.3-Flash Free** ⭐ | Zhipu | ✅ | ❌ | **NEW Oct 14–15.** AA 42, multimodal, MIT lineage. The single best free model on the platform right now. Limited time. |
+| **Beam Free** | Reflection AI | ❌ (30-day) | ❌ | **NEW Oct 12.** 501B/23B MoE, AA 30, Apache-2.0 weights. Limited time + **limited regions**. 30-day retention for safety. |
+| **Space Bunny Free** | stealth (MiniMax-family?) | ✅ | ❌ | **Back as stealth free** while the paid Go SKU ($30/mo) continues. Same model behavior as the paid listing. |
+| **LL Alpha Free** | stealth (unknown) | ❌ (30-day) | ✅ may train | **NEW Oct 14.** 256K ctx; data may improve the model — non-sensitive exploration only. |
+| **LongCat 2.5 Preview Free** | Meituan | ✅ | ❌ | Still free mid-Oct, well past its initial ~Oct 10 estimate. No public benchmarks/card. |
+| **Nemotron 3.5 Super VL Free** | NVIDIA | ❌ logged | ✅ trial terms | **NEW.** Vision model; **do not submit personal/confidential data**. |
+| **MiMo-V2.6-Flash Free / MiMo-V2.5 Free** | Xiaomi | ? | ✅ may train | Free-period training may occur — open-source work only. |
+| **Nemotron 3 Ultra / 3.5 Lightning Free** | NVIDIA | ❌ logged | ✅ trial terms | Same warning. |
+| **Big Pickle** | stealth | ❌ | ✅ data used to improve model | Identity unknown (GLM-family audit); high-variance reliability. |
+| **Muse Spark 1.3 Contributor Free** | Meta | ❌ | ✅ explicitly | Free/discounted in exchange for training rights. |
+| **Jev 1.13 Free / Exo Free** | TypeSafe AI / stealth | — | — | Structured-decision model / Zen stealth collecting feedback (may train; docs-listed, not visible in this machine's `/models`). |
 
 **Rules of thumb:**
 - Free + "feedbacks/improve the model" = **do not use for client work, PHI, credentials, or proprietary code**.
-- Step 5 Preview / LongCat 2.5 free previews are the only free options with a stated **zero-retention** policy (still limited-time/stealth, so treat with caution).
-- Free models keep working **after your Go limits run out** — they are your floor, not your daily driver.
+- **The two ⭐ twins (DeepSeek + GLM) state zero-retention and no training** — the first free models strong enough (AA 39–42) and clean enough to carry real non-critical work. Still limited-time windows: keep a fallback lane configured.
+- Free models keep working **after your Go limits run out** — they are your floor and now a genuinely capable one.
 
 ---
 
-## 1b. Muse Spark Contributor: same model, two contracts
+## 1b. Muse Spark Contributor: same model, two contracts (+ Gemini 4 Argon Contributor)
 
-**Verified Oct 1, 2026.** `muse-spark-1.3` and `muse-spark-1.3-contributor` are the **same weights/specs** (1M context, same modalities, reasoning efforts, tools). They are two separate SKUs that differ in price, rate limits, and data rights. Independent analyses agree: "same weights, different terms."
+**Verified Oct 1, 2026; extended Oct 16.** `muse-spark-1.3` and `muse-spark-1.3-contributor` are the **same weights/specs**. They are two separate SKUs that differ in price, rate limits, and data rights. **Gemini 4 Argon Contributor (added to Go Oct 13) is the same pattern for Google's frontier model**: the Contributor SKU trades data rights for a steep discount ($4/$20 vs Zen Standard's list terms), and its terms say prompts/completions **may be used to train future Google models**.
 
 | | muse-spark-1.3 (Standard) | muse-spark-1.3-contributor |
 |---|---|---|
@@ -95,17 +96,22 @@ The economics: the discount (~$1.15 per 1M input tokens) is what Meta effectivel
 |---|---|---|
 | GLM-5.3 / 5.3-Flash / 5.2 (Z.ai) | OpenCode states zero-retention, no training | ✅ (MIT weights for Flash/5.2; verify) |
 | MiMo-V2.6-Pro/Flash paid | OpenCode zero-retention | ✅ |
-| Kimi K3/K2.7/K2.6 | Zero-retention per OpenCode; open weights | ✅ |
+| Kimi K3/K2.7 | Zero-retention per OpenCode; open weights | ✅ |
 | Qwen3.8 Max/Flash, Qwen3.7 Plus | Zero-retention per OpenCode | ✅ |
 | DeepSeek V4.1 Flash/V4 Pro | Zero-retention listed; ZDR agreement **renewed through October 31, 2026** ✅ | ✅ (re-verify after Oct 31) |
-| Grok 4.6/4.7 | Zero-retention per OpenCode | ✅ |
+| **DeepSeek V4.1 Flash Free / GLM-5.3-Flash Free** | **Zero-retention, no training per OpenCode docs** | ✅ for non-critical free work — the safest free options |
+| Grok 4.7 | Go docs now list **30-day retention, not used for training** (ZDR status changed/confirmed Oct 16 — treat as non-PHI) | ⚠️ non-PHI/client-sensitive only until re-verified |
 | GPT 6/5.6 Luna | OpenAI API, **30-day retention** per OpenAI policy | ⚠️ for non-PHI; note your CV client contract bans OpenAI models entirely |
 | Claude Haiku 5.5 | Anthropic API, **30-day retention** per Anthropic policy | ⚠️ for non-PHI (Anthropic, not OpenAI — CV contract's OpenAI ban doesn't cover it; verify anyway) |
 | Claude (Zen only, not Go) | Anthropic 30-day retention | ⚠️ same |
+| **Gemini 4 Argon Contributor** | **Trains on prompts/completions (Google); not ZDR; Contributor terms ban sensitive/confidential/personal data** | ❌ never for client/PHI — Zen Standard SKU (50% off thru Nov 30) does not train |
 | **Muse Spark Contributor (paid)** | **Trains on prompts/completions; terms ban sensitive/confidential/personal data** (Standard SKU does neither) | ❌ never for client/PHI — see §1b |
-| Step 5 Preview / LongCat 2.5 Free | zero-retention per OpenCode | ✅ for non-critical (limited-time previews; still confirm) |
-| Space Bunny (paid) | zero-retention per OpenCode | ✅ (stealth identity unconfirmed — non-critical only) |
+| **Beam Free** | 30-day retention (safety), **no training** | ⚠️ non-critical only |
+| LongCat 2.5 Free | zero-retention per OpenCode | ✅ for non-critical (limited-time window) |
+| Space Bunny (paid or free stealth) | zero-retention per OpenCode | ✅ (stealth identity unconfirmed — non-critical only) |
+| LL Alpha Free | 30-day retention; **data may be used to improve the model** | ❌ not for sensitive/private work |
 | Big Pickle | varies | ❌ for critical/PHI |
+| Step 5 Preview (now paid) | zero-retention per OpenCode; **open weights (self-host option)** | ✅ (still confirm) |
 
 OpenCode hosts all models in the US. Enterprise/team workspace admins can disable specific models workspace-wide — useful if you ever onboard others.
 
@@ -122,7 +128,7 @@ Go is now so cheap for near-frontier models that local inference is **not** a co
 | Fast autocomplete (FIM) | Qwen2.5-Coder 14B or Devstral Small 2 (384K ctx) |
 | Experimentation | LM Studio (you already run it on :1234) or Ollama |
 
-Given the price and quality of DeepSeek V4.1 Flash / GLM-5.3-Flash on Go, the local box is best kept for: (a) zero-network sensitive transforms, (b) autocomplete, (c) learning. Don't expect a 16GB GPU to replace the Go roster for agentic coding in 2026.
+Given the price and quality of DeepSeek V4.1 Flash / GLM-5.3-Flash on Go, the local box is best kept for: (a) zero-network sensitive transforms, (b) autocomplete, (c) learning. Don't expect a 16GB GPU to replace the Go roster for agentic coding in 2026. **New option (Oct 15):** Step 5 Preview's open weights (600B/27B-active, BF16/FP8) are now on HuggingFace — too big for the 5060 Ti at full precision, but FP8 + CPU offload or a quantized build is the first *frontier-adjacent* model you can actually self-host for zero-retention-sensitive work.
 
 Source context: prior local research in this repo's history; current model recommendations should be re-checked against [ollama.com/library](https://ollama.com/library) and [HuggingFace trending](https://huggingface.co/models?pipeline_tag=text-generation&sort=trending) at update time.
 
