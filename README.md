@@ -167,6 +167,8 @@ Escalate per task: `Kimi K3.1 Pro` (hardest 5%) · `Qwen3.8 Max` (visual QA) · 
 | **[analysis/12-opencode-vs-direct.md](./analysis/12-opencode-vs-direct.md)** | **NEW — per-model Go vs direct break-even, multipliers, privacy/features** |
 | **[analysis/13-best-value-coding-plans.md](./analysis/13-best-value-coding-plans.md)** | **NEW — best-value coding plans ranked, plan math, decision table** |
 | **[analysis/14-india-availability.md](./analysis/14-india-availability.md)** | **NEW — India matrix: signup, phone, payment, model access + pre-payment checklist** |
+| **[analysis/15-all-token-plans.md](./analysis/15-all-token-plans.md)** | **NEW — every token plan compared (Copilot, Claude, ChatGPT, Gemini, Cursor, Windsurf, Kiro, Chinese + aggregators), best deals ranked** |
+| **[analysis/16-cursor-windsurf-ide-plans.md](./analysis/16-cursor-windsurf-ide-plans.md)** | **NEW — Cursor/Windsurf/Kiro/IDE tools deep-dive: pricing, India availability, OpenCode compatibility** |
 | [RESEARCH-GUIDE.md](./RESEARCH-GUIDE.md) | How this was researched and how to update it |
 
 ---
@@ -184,7 +186,7 @@ Escalate per task: `Kimi K3.1 Pro` (hardest 5%) · `Qwen3.8 Max` (visual QA) · 
 - **This machine runs OpenCode v2.1.4** (v1 **1.19.4**): 2.1.0 Windows PTYs/todo/5-min hang fix, 2.1.2 `OPENCODE_DISABLE_FREE_MODELS=1`, 2.1.3 Bun 1.4.4 security + voice models, 2.1.4 MCP input forms, `experimental.background_compaction`, `opencode debug heap-dump`, TUI tools.
 - **OmO 5.1.48 (Oct 25):** `senpi 2026.10.25-2`; **748-skill startup 83s → 1.4s**; nested task session trees. **OpenCode v2 dual-host is still not shipped** — PR #9391 is open with `mergeable_state: dirty`, last updated Oct 15.
 - **Telemetry (week to Oct 25):** DeepSeek V4.1 Flash **119T** (#1, +39%), MiniMax M3.1 Flash **37T** (#2, +92%), GLM-5.3-Flash 8.9T (+69%), Muse Spark 7.6T (−76%), MiMo-Flash 7.2T (−35%), Beam 5.3T (+86%), DeepSeek 1017 1.3T new, iceman 661B new.
-- **New analyses:** **[12 — Go vs direct](./analysis/12-opencode-vs-direct.md)**, **[13 — best-value plans](./analysis/13-best-value-coding-plans.md)**, **[14 — India availability](./analysis/14-india-availability.md)**. Alibaba Token Plan and Meta Muse Code are **excluded from the rankings** because they are not practically available in India.
+- **New analyses:** **[12 — Go vs direct](./analysis/12-opencode-vs-direct.md)**, **[13 — best-value plans](./analysis/13-best-value-coding-plans.md)**, **[14 — India availability](./analysis/14-india-availability.md)**, **[15 — all token plans](./analysis/15-all-token-plans.md)**. Alibaba Token Plan and Meta Muse Code are **excluded from the rankings** because they are not practically available in India. Analysis 15 extends the comparison to every subscription, credit bundle and PAYG option found across Copilot, Claude, ChatGPT, Gemini, Cursor, Windsurf, Kiro, StepFun, Z.ai, Xiaomi, Kimi, MiniMax, plus DeepSeek, Alibaba, Tencent, Zhipu, Mistral, DeepInfra, Together, Fireworks, Groq, Cerebras, AWS, Azure and Vertex.
 
 ## New: Oct 16 refresh — Argon on Go, Step 5 paid + open weights, free-model explosion, v2 migration
 

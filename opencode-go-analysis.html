@@ -81,7 +81,7 @@ svg.chart circle{cursor:pointer;transition:opacity .12s}svg.chart rect{transitio
   <button onclick="tab(this,'tasks')">Tasks</button>
   <button onclick="tab(this,'limits')">Limits</button>
   <button onclick="tab(this,'value')">Value</button>
-  <button onclick="tab(this,'plans')">Best-value Plans</button>
+  <button onclick="tab(this,'plans')">Best-value Plans</button>\n<button onclick="tab(this,'allplans')">All Token Plans</button>
   <button onclick="tab(this,'india')">India</button>
   <button onclick="tab(this,'direct')">Go vs Direct</button>
   <button onclick="tab(this,'omo')">OmO</button>
@@ -565,6 +565,77 @@ svg.chart circle{cursor:pointer;transition:opacity .12s}svg.chart rect{transitio
     </tbody>
   </table></div>
   <p class="small">Prices verified from vendor pages on Oct 25, 2026. Annual discounts are noted where published. Credit conversions are the vendor's own; the StepFun and MiniMax quotas need a first-month console test before you rely on them.</p>
+</section>
+
+<section id="allplans">
+  <h2>All token plans compared — every subscription, credit bundle and PAYG option</h2>
+  <p class="small">Extends the Best-value Plans tab with <b>every</b> token plan found across GitHub Copilot, Anthropic Claude, OpenAI ChatGPT, Google Gemini, Cursor, Windsurf, Kiro, StepFun, Z.ai, Xiaomi, Kimi, MiniMax, Alibaba, Meta Muse, plus pure PAYG providers (DeepSeek, Alibaba, Tencent, Zhipu, MiniMax, Mistral, DeepInfra, Together, Fireworks, Groq, Cerebras, AWS, Azure, Vertex). Normalised to <b>$ per heavy request</b> (7.8k in / 1.1k out / 146k cache) and filtered for <b>India availability</b>. Full dossier: <code>analysis/15-all-token-plans.md</code>.</p>
+
+  <div class="newbanner"><div class="big">The absolute best deal for India: OpenCode Go ($10, UPI) + DeepSeek Flash direct API for overflow.</div>
+    <p style="margin:8px 0 0">Nothing else combines a 55-AA model, 29-model breadth, UPI, a free floor and OpenCode-native integration at $10. For pure per-token value, Alibaba Qwen3.7-Flash ($0.03/$0.13) and DeepSeek Flash off-peak ($0.075/$0.30) are the cheapest APIs anywhere. The best subscription for frontier-model access is GitHub Copilot Pro ($10, card/PayPal) with 25+ models including Opus 5.5 and GPT-6 Astra.</p>
+  </div>
+
+  <h3>Top 10 token plans for India (ranked)</h3>
+  <div class="tblwrap"><table id="tbl-allplans">
+    <thead><tr><th>#</th><th>Plan</th><th>Price</th><th>Best model (AA)</th><th>Heavy req/mo</th><th>$/req (best)</th><th>India</th><th>OpenCode?</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr class="newrow"><td><span class="rank">1</span></td><td class="name">OpenCode Go</td><td>$10/mo</td><td>K3.1 Pro (55.1)</td><td>269 (K3.1) · 4,975 (M3.1) · 25,484 (DS)</td><td>$0.0372 · $0.0020 · $0.0004</td><td>🟢 UPI</td><td>🟢 native</td><td><b>Best overall.</b> 29 models, free floor, highest ceiling.</td></tr>
+      <tr><td><span class="rank">2</span></td><td class="name">DeepSeek Flash API</td><td>PAYG $0.15/$0.60 (off-peak $0.075/$0.30)</td><td>DS V4.1 (39)</td><td>Unlimited (PAYG)</td><td>$0.0031 (peak) · $0.0016 (off-peak)</td><td>🟢 global</td><td>🟢 native</td><td><b>Cheapest frontier-class API.</b> ZDR through Oct 31.</td></tr>
+      <tr><td><span class="rank">3</span></td><td class="name">Alibaba Qwen3.7-Flash</td><td>PAYG $0.03/$0.13</td><td>Qwen3.8 Flash (40)</td><td>Unlimited (PAYG)</td><td>$0.0011</td><td>🟢 global</td><td>🟢 compatible</td><td><b>Cheapest per token anywhere.</b> Singapore endpoint.</td></tr>
+      <tr><td><span class="rank">4</span></td><td class="name">Tencent Hy3 (TokenHub)</td><td>PAYG $0.132/$0.528</td><td>Hy3 (25)</td><td>Unlimited (PAYG)</td><td>$0.0042</td><td>🟢 global</td><td>🟢 compatible</td><td><b>Cheapest open-weights.</b> 262K ctx. Free GLM models on Z.ai.</td></tr>
+      <tr><td><span class="rank">5</span></td><td class="name">Mistral Small 4</td><td>PAYG $0.15/$0.60</td><td>Small 4 (~?)</td><td>Unlimited (PAYG)</td><td>$0.0048 (90% cache disc.)</td><td>🟢 global</td><td>🟢 compatible</td><td><b>90% cache discount.</b> Codestral $0.30/$0.90 dedicated code model.</td></tr>
+      <tr><td><span class="rank">6</span></td><td class="name">Google AI Pro</td><td>₹1,950/mo (~$20.5)</td><td>Gemini 4 Argon (53)</td><td>Rate-limited (1,500 req/day CLI)</td><td>N/A (API separate)</td><td>🟢 UPI</td><td>🟡 manual key</td><td><b>Best Google bundle.</b> Antigravity IDE + 5 TB + YouTube Premium Lite.</td></tr>
+      <tr><td><span class="rank">7</span></td><td class="name">GitHub Copilot Pro</td><td>$10/mo</td><td>Opus 5.5 (58) · GPT-6 Astra (53)</td><td>~182 Opus · ~364 Sonnet · ~2,586 GPT-5.6 Luna</td><td>$0.0549 (Opus) · $0.0274 (Sonnet)</td><td>🟡 card/PayPal</td><td>🟢 native</td><td><b>Best frontier-model subscription.</b> 25+ models, GitHub integration.</td></tr>
+      <tr><td><span class="rank">8</span></td><td class="name">Cursor Start (India legacy)</td><td>₹649/mo (~$6.8)</td><td>Grok/Composer (locked)</td><td>Rate-limited</td><td>N/A</td><td>🟢 UPI</td><td>❌ IDE-only</td><td><b>Cheapest India-native agent.</b> Locked to specific models.</td></tr>
+      <tr><td><span class="rank">9</span></td><td class="name">StepFun Step Plan Pro</td><td>$29/mo</td><td>Step 5 (44)</td><td>~45,000 (unverified)</td><td>$0.00064 (if credits hold)</td><td>🟢 Stripe</td><td>🟢 compatible</td><td><b>Value outlier.</b> Test $6.99 Mini first.</td></tr>
+      <tr><td><span class="rank">10</span></td><td class="name">Claude Pro</td><td>$20/mo</td><td>Opus 5.5 (58)</td><td>~243 Opus (API-equiv)</td><td>$0.0824 (Opus)</td><td>🟡 card only</td><td>❌ sub creds blocked</td><td><b>Best Claude-only.</b> Claude Code included. Use API key in OpenCode.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>India payment matrix — all plans</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Payment method</th><th>Plans that support it</th></tr></thead>
+    <tbody>
+      <tr><td class="name">🟢 UPI</td><td>OpenCode Go/Plus, Google AI Plus/Pro/Ultra, Cursor Start (legacy)</td></tr>
+      <tr><td class="name">🟡 Card/PayPal</td><td>GitHub Copilot, Z.ai, StepFun, Xiaomi MiMo, Kimi, MiniMax, Mistral, DeepSeek, Alibaba, Tencent, OpenRouter</td></tr>
+      <tr><td class="name">🟡 INR pricing</td><td>Google AI (₹399–₹19,500), Cursor Start (₹649)</td></tr>
+      <tr><td class="name">🔴 Blocked in India</td><td>Alibaba Token Plan (Singapore-only), Meta Muse Code (US-first)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Free tier landscape</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Free option</th><th>Quality (AA)</th><th>Limits</th><th>Trains?</th><th>India?</th></tr></thead>
+    <tbody>
+      <tr><td class="name">DeepSeek V4.1 Flash Free</td><td>39</td><td>Unlimited-ish</td><td>No (ZDR)</td><td>🟢</td></tr>
+      <tr><td class="name">GLM-5.3-Flash Free</td><td>42</td><td>Unlimited-ish</td><td>No (ZDR)</td><td>🟢</td></tr>
+      <tr><td class="name">Z.ai GLM-4.7-Flash</td><td>~?</td><td>Free</td><td>Not verified</td><td>🟢</td></tr>
+      <tr><td class="name">Z.ai GLM-4.5-Flash</td><td>~?</td><td>Free</td><td>Not verified</td><td>🟢</td></tr>
+      <tr><td class="name">Z.ai GLM-4.6V-Flash</td><td>~?</td><td>Free</td><td>Not verified</td><td>🟢</td></tr>
+      <tr><td class="name">Groq free tier</td><td>gpt-oss-20b/120b</td><td>1,000 req/day</td><td>Standard</td><td>🟢</td></tr>
+      <tr><td class="name">Beam Free</td><td>30</td><td>Limited time/regions</td><td>No (30-day)</td><td>🟢 (not excluded)</td></tr>
+      <tr><td class="name">Google AI Studio free</td><td>Gemini 3.x Flash</td><td>Rate-limited</td><td>Yes (improves products)</td><td>🟢</td></tr>
+      <tr><td class="name">GitHub Copilot Free</td><td>Auto model only</td><td>2,000 completions/mo</td><td>Standard</td><td>🟢</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>OpenCode compatibility</h3>
+  <div class="grid2">
+    <div class="card"><h3 style="margin-top:0">Native providers</h3><p>OpenCode Go/Zen, GitHub Copilot (device flow), OpenAI (OAuth/API key), Anthropic (API key), Google (manual API key). These work out of the box with <code>/connect</code>.</p></div>
+    <div class="card"><h3 style="margin-top:0">OpenAI-compatible</h3><p>OpenRouter, Mistral, Cohere, DeepInfra, Together, Fireworks, Groq, Cerebras, Replicate, and most Chinese providers (DeepSeek, Alibaba, Tencent, Zhipu, MiniMax). Configure via <code>baseURL</code> in <code>opencode.json</code>.</p></div>
+    <div class="card"><h3 style="margin-top:0">IDE-only (not OpenCode-compatible)</h3><p>Cursor, Windsurf, Kiro, Google Antigravity — separate IDEs. Cannot be used as OpenCode providers. Use alongside OpenCode for IDE features.</p></div>
+    <div class="card"><h3 style="margin-top:0">Blocked in OpenCode</h3><p>Claude subscription credentials (Anthropic policy since Jan 2026). Use an API key instead. Claude Pro/Max subscriptions still include Claude Code (Anthropic's own CLI).</p></div>
+  </div>
+
+  <h3>Stack recommendations</h3>
+  <div class="grid2">
+    <div class="card"><h3 style="margin-top:0">Stack A — India-first, maximum value (recommended)</h3><p><b>OpenCode Go $10/mo (UPI)</b> primary + <b>DeepSeek Flash direct API</b> overflow ($0.15/$0.60, off-peak $0.075/$0.30) + <b>Alibaba Qwen3.7-Flash</b> cheapest bulk ($0.03/$0.13) + <b>Z.ai free GLM-4.7-Flash</b> ($0). Total: $10/mo + PAYG overflow. Covers 95% of coding needs.</p></div>
+    <div class="card"><h3 style="margin-top:0">Stack B — Multi-model power user</h3><p><b>OpenCode Go $10/mo (UPI)</b> + <b>GitHub Copilot Pro $10/mo (card)</b> for frontier models (Opus 5.5, GPT-6 Astra, Gemini 4 Argon) + <b>Google AI Pro ₹1,950/mo (UPI)</b> for Gemini ecosystem. Total: ~$30/mo + ₹1,950. Maximum model breadth.</p></div>
+    <div class="card"><h3 style="margin-top:0">Stack C — Ultra-budget</h3><p><b>Cursor Start ₹649/mo (UPI)</b> + <b>Groq free tier</b> (1,000 req/day) + <b>Z.ai free GLM-4.7-Flash</b> ($0) + <b>DeepSeek Flash off-peak</b> ($0.075/$0.30). Total: ₹649/mo (~$6.8). Minimal spend, solid capability.</p></div>
+    <div class="card"><h3 style="margin-top:0">Stack D — Enterprise/compliance (India data residency)</h3><p><b>AWS Bedrock (Mumbai/Hyderabad)</b> GLM 4.7 Flash $0.08/$0.48 + <b>Google Vertex AI (Mumbai/Delhi)</b> Gemini 3.1 Flash-Lite $0.275/$1.65 + <b>Azure OpenAI (South India)</b> GPT-4.1 Nano $0.10/$0.40 (+25% premium). Data stays in India, enterprise SLAs.</p></div>
+  </div>
+
+  <div class="card"><p style="margin:0"><b>The one-line answer:</b> For India, the best value is <b>OpenCode Go ($10, UPI)</b> as the primary subscription — it's the only plan combining a 55-AA model, 29-model breadth, UPI and a free floor. Layer <b>DeepSeek Flash direct API</b> ($0.15/$0.60, off-peak $0.075/$0.30) for bulk overflow, <b>Alibaba Qwen3.7-Flash</b> ($0.03/$0.13) for the cheapest per-token work, and <b>GitHub Copilot Pro</b> ($10, card) if you need frontier models (Opus 5.5, GPT-6 Astra) with GitHub integration. Everything else is a specialist add-on or blocked in India.</p></div>
 </section>
 
 <section id="india">
