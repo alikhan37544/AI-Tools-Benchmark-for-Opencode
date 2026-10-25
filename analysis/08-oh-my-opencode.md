@@ -1,7 +1,7 @@
 # 08 — Oh My OpenCode (now oh-my-openagent / OmO): The Complete Guide + Go Model Map for Heavy Work
 
-> **Snapshot: October 1, 2026, refreshed October 13 and October 16.**
-> **Oct 16 delta:** OmO **5.1.34** is current (5.1.33 landed Oct 13, 5.1.32 Oct 13); **Gemini 4 Argon (high) was inserted into the `oracle`, `momus` and `plan-reviewer` fallback chains** (blind-tested: beat the previous pro rung in all 16 judgments, loses to GPT heads; 57s median vs 15s); `omo login/logout/whoami` are switched off until OmO accounts open; senpi defaults are now Opus 5.5 / MiMo V2.6 Pro. **OpenCode v2 dual-host support is still NOT shipped** (slice 1 PR #9391 and slice 2 PR #9415 open; owner plans to land it with the desktop's next release) — and this machine has meanwhile migrated to **OpenCode v2.0.31**, so the OmO Ultimate path stays v1-only until that lands. **Step 5 Preview is no longer free** — the configs below now use the free **DeepSeek V4.1 Flash Free / GLM-5.3-Flash Free** twins as the $0 lanes. Primary sources: [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent), [omo.dev/docs](https://omo.dev/docs), [OpenCode V2 migration issue #6169](https://github.com/code-yeongyu/oh-my-openagent/issues/6169), [opencode.ai/docs](https://opencode.ai/docs/) + [opencode.ai/v2/docs](https://opencode.ai/v2/docs/).
+> **Snapshot: October 1, 2026, refreshed October 13, 16 and 25.**
+> **Oct 25 delta:** OmO **5.1.48** is current (Oct 25). **5.1.47 added Kimi K3.1 Pro-specific Sisyphus/Atlas prompts** — upstream now handles the AA 55.1 model that replaced K3 at the top of the Go roster. **5.1.48** ships the `senpi 2026.10.25-2` engine, cuts the 748-skill startup from **83s to 1.4s**, and adds **nested task session trees** (child work is grouped under its parent instead of flooding the session list). **OpenCode v2 dual-host support is still NOT shipped:** PR [#9391](https://github.com/code-yeongyu/oh-my-openagent/pull/9391) is still open, `mergeable_state: dirty`, last updated Oct 15; the tools/hooks slice [#9415](https://github.com/code-yeongyu/oh-my-openagent/pull/9415) is also open. This machine runs **OpenCode v2.1.4**, so OmO Ultimate stays v1-only (v1 **1.19.4**) or OmO Native. **Gemini 4 Argon is now `gemini-4-argon` at $2/$10/$0.10 with a $30 cap and is documented ZDR/not trained** — the old Contributor caveat is withdrawn; **Step 5 is paid at a $15 cap** (4× promo ended); **LongCat 2.5 Preview Free is gone**. Primary sources: [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent), [omo.dev/docs](https://omo.dev/docs), [OpenCode V2 migration issue #6169](https://github.com/code-yeongyu/oh-my-openagent/issues/6169), [opencode.ai/docs](https://opencode.ai/docs/) + [opencode.ai/v2/docs](https://opencode.ai/v2/docs/).
 > **Naming (important):** the project renamed to **oh-my-openagent (OmO)**. The npm package is still `oh-my-opencode` (dual-published); install with `bunx oh-my-openagent install`. Do NOT `bunx omo` — unrelated package by a different author. Config files accept both `oh-my-openagent.json[c]` and legacy `oh-my-opencode.json[c]`.
 
 ---
@@ -16,7 +16,7 @@
 
 Non-interactive install: `bunx oh-my-openagent install --no-tui --platform=opencode …`. Requires OpenCode ≥1.4.0 (use **v1.18.x–1.19.x**, never v2 for Ultimate). Verify with `bunx oh-my-openagent doctor --verbose` — it prints the effective version, resolved models per slot, and capability fallbacks.
 
-⚠️ **Version-channel trap (updated Oct 16):** latest is **5.1.34** (Oct 16); npm `oh-my-openagent` still serves the stale **4.19.4** Ultimate channel. 5.x ships via **GitHub releases / `omo-ai` / unpkg**. If `doctor` reports 4.x, you installed the stale channel — reinstall from GitHub. `omo login/logout/whoami` now refuse on purpose ("accounts aren't available yet") — that is expected, not an error.
+⚠️ **Version-channel trap (updated Oct 25):** latest is **5.1.48** (Oct 25); npm `oh-my-openagent` still serves the stale **4.19.4** Ultimate channel. 5.x ships via **GitHub releases / `omo-ai` / unpkg**. If `doctor` reports 4.x, you installed the stale channel — reinstall from GitHub. `omo login/logout/whoami` now refuse on purpose ("accounts aren't available yet") — that is expected, not an error. `senpi 2026.10.25-2` is the matching native engine build.
 
 Config locations (4.x legacy): project `.opencode/oh-my-opencode.json` > user `~/.config/opencode/oh-my-opencode.json`. New unified (5.x): `~/.omo/omo.jsonc` + `.omo/omo.jsonc`, with `[opencode]` / `[native]` / `[codex]` blocks and `profiles.<name>` layers. A migration engine imports legacy configs once (`oh-my-openagent config migrate --dry-run`).
 
@@ -60,9 +60,9 @@ Sisyphus doesn't pick models — it picks a **category**, and the category maps 
 
 Go-relevant fallback rungs already in upstream chains: `plan-consultant` → **kimi-k3 (max)**; `plan-reviewer` → … → **glm-5.2**; `unspecified-low` → **mimo-v2.6-pro (max)** → grok-4.7 (xhigh); `unspecified-high` → **glm-5.3 (max)** → kimi-k3 (max); `quick` tail → **mimo-v2.6-flash (low)**; explore/librarian tail → deepseek-flash / qwen3.7-plus / minimax-m2.7; visual chain → **kimi-k3 (max)**.
 
-### 3b. Upstream default chains, verbatim (5.1.x, Oct 16 — override only what you must)
+### 3b. Upstream default chains, verbatim (5.1.x, Oct 25 — override only what you must)
 
-These are the exact fallback chains from upstream `configuration.md` / `omo-json.md`. Profiles: `daily-normal` = `claude-opus-5-5 (medium) → kimi-k3 (max) → glm-5.3 (max)`; `daily-heavy` = `claude-fable-5-1 (xhigh)`. **New in 5.1.34:** `gemini-4-argon (high)` sits directly ahead of the previous pro rung in the oracle/momus/plan-reviewer chains (GPT heads keep first place).
+These are the exact fallback chains from upstream `configuration.md` / `omo-json.md`. Profiles: `daily-normal` = `claude-opus-5-5 (medium) → kimi-k3 (max) → glm-5.3 (max)`; `daily-heavy` = `claude-fable-5-1 (xhigh)`. **New in 5.1.34:** `gemini-4-argon (high)` sits directly ahead of the previous pro rung in the oracle/momus/plan-reviewer chains (GPT heads keep first place). **New in 5.1.47: K3.1 Pro-specific Sisyphus/Atlas prompts** — upstream's Kimi rungs now have a prompt path tuned for `kimi-k3.1-pro`. On Go, K3.1 Pro **strictly dominates K3** (AA 55.1 vs 44, 269 vs 179 heavy req/mo, same $15 cap), so the configs below pin K3.1 Pro with K3 as the fallback.
 
 | Slot | Upstream chain (first = default) |
 |---|---|
@@ -79,7 +79,7 @@ These are the exact fallback chains from upstream `configuration.md` / `omo-json
 | visual / artistry | `fable-5.1 (max) → kimi-k3 / opus-5-5 (max)` |
 | `writing` | `opus-5-5 (low) → opus-4-6 (max)` (Claude-only upstream) |
 
-**What this means for your Go configs below:** upstream already validates **kimi-k3 (max)** as the Go-reachable rung for orchestrator-adjacent slots, **mimo-v2.6-pro (max)** for general reasoning, **glm-5.3 (max)** for review/artistry fallback, **gemini-4-argon (high)** for consults/review (vs the GPT heads), and **haiku-5-5** in the cheap tails. Configs A/B/C pin those rungs directly so you never pay for the Claude/GPT rungs above them. `writing` has no Go rung upstream — Configs use `glm-5.3-flash (low)`.
+**What this means for your Go configs below:** upstream already validates **kimi-k3 (max)** as the Go-reachable rung for orchestrator-adjacent slots (5.1.47 adds K3.1 Pro-specific prompts), **mimo-v2.6-pro (max)** for general reasoning, **glm-5.3 (max)** for review/artistry fallback, **gemini-4-argon (high)** for consults/review (vs the GPT heads), and **haiku-5-5** in the cheap tails. Configs A/B/C pin those rungs directly — substituting **kimi-k3.1-pro** for K3, since it dominates on Go — so you never pay for the Claude/GPT rungs above them. `writing` has no Go rung upstream — Configs use `glm-5.3-flash (low)`.
 
 ---
 
@@ -116,18 +116,18 @@ Today you run `deepseek-v4.1-flash` and hand-write prompts like *"spin up 3 agen
 
 OMO multiplies volume: one `ultrawork` fans out to main + researchers + workers + verifier + retries — **plan for 3–5× requests vs single-agent, 6–12× for `mass ulw` / Team Mode / Ralph loops**. Divide every allowance below by ~4 for OMO-week planning. Numbers use your calibrated profile (7.8k in / 1.1k out / 146k cache per request); docs estimates are ~3–7× lighter (see `04`).
 
-**Rule 0:** the orchestrator (Sisyphus primary) is the ONE slot where intelligence matters most. Upstream validates **Kimi K3 (max)** as the Go main-agent rung — nothing else on Go is documented as a supported primary. Everything else is negotiable. Community reports agree: Kimi K2.6/K3 "behaves very similarly to Claude"; weak primaries (Haiku/Flash/free) cause delegation loops and half-finished work.
+**Rule 0:** the orchestrator (Sisyphus primary) is the ONE slot where intelligence matters most. Upstream's Kimi rung is the documented Go main-agent path — and since **5.1.47** it has **K3.1 Pro-specific Sisyphus/Atlas prompts**. Use **`kimi-k3.1-pro` (max)**: AA 55.1, 1M context, 1.5× K3's heavy-request allowance at the same $15 cap. Everything else is negotiable. Community reports agree: Kimi K2.6/K3/K3.1 "behaves very similarly to Claude"; weak primaries (Haiku/Flash/free) cause delegation loops and half-finished work.
 
 **Shared-budget warning:** several slots below share one model's allowance (e.g. Config B runs ultrabrain + deep + architect all on `mimo-v2.6-pro`). OMO-week math per slot assumes the full allowance — divide further when slots share. Free slots (`glm-5.3-flash-free`, `deepseek-v4.1-flash-free`, `beam-free`) share nothing and cost $0 while their windows last.
 
 | OMO slot | Best Go pick | Reasoning | Allowance math |
 |---|---|---|---|
-| **sisyphus primary** | **kimi-k3, max** | Only Go main-agent rung (Claude-like); AA 44 | $15 tier: 90/wk, 179/mo (you) → **~22 OMO-req/wk**. Ration it: primary does planning/delegation, not bulk reads |
+| **sisyphus primary** | **kimi-k3.1-pro, max** | K3.1 Pro-specific prompts in 5.1.47; AA 55.1, 1M ctx | $15 tier: 134/wk, 269/mo (you) → **~33 OMO-req/wk**. Ration it: primary does planning/delegation, not bulk reads. Fallback: kimi-k3 |
 | **ultrabrain / deep-high / unspecified-low** | **mimo-v2.6-pro, max** | AA 46 (top verified Go); matches upstream 2nd rung | $15 tier: 1,537/wk, 3,074/mo (you) → **~380 OMO-req/wk** |
 | **unspecified-high / artistry / deep executor** | **glm-5.3, max** | AA 45, Claude-like; upstream 2nd/3rd rung | $15 tier: 140/wk, 279/mo (you) → **~35 OMO-req/wk**. Use sparingly |
 | **oracle / architect consults** | **grok-4.7, xhigh** (fallback mimo-v2.6-pro) | AA 46; upstream rung; consults are low-volume | 79/wk, 158/mo (you) → **~20 OMO consults/wk** |
 | **plan-reviewer** | **glm-5.3, max** (bulk alt: glm-5.3-flash high) | Review needs teeth; flash variant for volume | same as above / 4,918/wk (you) for flash |
-| **plan-consultant (Metis)** | **kimi-k3, max** | Upstream 3rd rung; gap analysis needs Claude-like | shares primary's 90/wk budget — keep consults tight |
+| **plan-consultant (Metis)** | **kimi-k3.1-pro, max** | Upstream Kimi rung + 5.1.47 K3.1 Pro prompts; gap analysis needs Claude-like | shares primary's 134/wk budget — keep consults tight |
 | **librarian** | **mimo-v2.6-flash, low** (fallback deepseek-v4.1-flash max) | Docs/OSS grep needs AA ~38, not 46 | 16,586/wk, 33,171/mo (you) → **~4,100 OMO-req/wk** |
 | **explore** | **deepseek-v4.1-flash, max** (alt: claude-haiku-5-5 medium) | Upstream has deepseek-flash rung; AA 39 | 12,742/wk, 25,484/mo (you) → **~3,200 OMO-req/wk** |
 | **free bulk coding** | **glm-5.3-flash-free, high** (alt: deepseek-v4.1-flash-free) | AA 42 zero-retention at $0 (DS free = AA 39); Step 5's free window ended | unlimited (free window) → **unlimited OMO-req/wk** |
@@ -139,7 +139,7 @@ OMO multiplies volume: one `ultrawork` fans out to main + researchers + workers 
 
 ### Config A — HEAVY-MAX: maximum intelligence, everything maxed (burst-oriented, ~2–4 heavy days)
 
-No compromises: the smartest validated Go pick per slot, every reasoning dial at maximum, verbosity guards on (see effort table below). Session model (Sisyphus primary): `opencode-go/kimi-k3`. Paste into `~/.omo/omo.jsonc` (5.x):
+No compromises: the smartest validated Go pick per slot, every reasoning dial at maximum, verbosity guards on (see effort table below). Session model (Sisyphus primary): `opencode-go/kimi-k3.1-pro`. Paste into `~/.omo/omo.jsonc` (5.x):
 
 ```jsonc
 {
@@ -149,7 +149,7 @@ No compromises: the smartest validated Go pick per slot, every reasoning dial at
       "explore": { "model": "opencode-go/deepseek-v4.1-flash", "reasoning": "max" },
       "librarian": { "model": "opencode-go/mimo-v2.6-flash", "reasoning": "low" },
       "multimodal-looker": { "model": "opencode-go/deepseek-v4.1-flash", "reasoning": "max" },
-      "plan-consultant": { "model": "opencode-go/kimi-k3", "reasoning": "max" },
+      "plan-consultant": { "model": "opencode-go/kimi-k3.1-pro", "reasoning": "max" },
       "plan-reviewer": { "model": "opencode-go/glm-5.3", "reasoning": "max" }
     },
     "categories": {
@@ -166,22 +166,22 @@ No compromises: the smartest validated Go pick per slot, every reasoning dial at
     },
     "background_task": { "defaultConcurrency": 5,
       "providerConcurrency": { "opencode-go": 10 },
-      "modelConcurrency": { "opencode-go/kimi-k3": 2, "opencode-go/glm-5.3": 2, "opencode-go/grok-4.7": 2, "opencode-go/qwen3.8-max": 2 } },
+      "modelConcurrency": { "opencode-go/kimi-k3.1-pro": 2, "opencode-go/kimi-k3": 2, "opencode-go/glm-5.3": 2, "opencode-go/grok-4.7": 2, "opencode-go/qwen3.8-max": 2 } },
     "experimental": { "aggressive_truncation": true },
     "telemetry": { "enabled": false }
   }
 }
 // Look_at vision: opencode-go/deepseek-v4.1-flash (native vision). Final visual verify: opencode-go/qwen3.8-max (OSWorld #1, rationed ~9/day).
-// Optional add (non-client only): set "architect" to opencode-go/gemini-4-argon-contributor (high) — upstream rung since 5.1.34.
+// Optional add (non-client only): set "architect" to opencode-go/gemini-4-argon (high) — upstream rung since 5.1.34, now ZDR/no-training.
 ```
 
-Maxed-out notes: Kimi `max` = AA 44 (vs 30 on low) at ~1.74× cost — always `max`, temp 1.0, never switch models/effort mid-session (kills cache + quality). Grok `xhigh` needs `textVerbosity:low` (xhigh burns ~81K output tokens/task otherwise). Haiku `max` = AA 43 (vs 34 med, 29 low) — worth it here, not for volume. MiMo-Pro: any effort level behaves identically, keep max. Qwen Max `xhigh`, DS effort 100, Step `high`, GLM-5.3 `max` (default, can't disable thinking).
+Maxed-out notes: Kimi `max` on K3 = AA 44 (vs 30 on low) at ~1.74× cost — always `max`, temp 1.0, never switch models/effort mid-session (kills cache + quality). K3.1 Pro is the AA 55.1 ceiling; keep it on max for orchestration. Grok `xhigh` needs `textVerbosity:low` (xhigh burns ~81K output tokens/task otherwise). Haiku `max` = AA 43 (vs 34 med, 29 low) — worth it here, not for volume. MiMo-Pro: any effort level behaves identically, keep max. Qwen Max `xhigh`, DS effort 100, Step `high`, GLM-5.3 `max` (default, can't disable thinking).
 
-OMO-week budget (your profile, ÷4): primary K3 ~22 · mimo-pro slots ~380 shared across ultrabrain/deep/unspecified-low · glm-5.3 slots ~35 shared · grok consults ~20 · Qwen Max verify ~9 shared with nothing (dedicated) · DS explore ~3,200 · mimo-flash ~4,100 · haiku-max (burns faster than the 670 med estimate — watch it) · glm-flash writing (draws from the 1,230 pool). **5h burst ceilings:** K3 36, mimo-pro 615, GLM-5.3 56, Grok 32 per 5h — a maxed Ralph afternoon can dent K3/GLM-5.3's 5h window; that is what Config B fixes.
+OMO-week budget (your profile, ÷4): primary K3.1 Pro ~33 · mimo-pro slots ~380 shared across ultrabrain/deep/unspecified-low · glm-5.3 slots ~35 shared · grok consults ~20 · Qwen Max verify ~9 shared with nothing (dedicated) · DS explore ~3,200 · mimo-flash ~4,100 · haiku-max (burns faster than the 670 med estimate — watch it) · glm-flash writing (draws from the 1,230 pool). **5h burst ceilings:** K3.1 Pro 54, K3 36, mimo-pro 615, GLM-5.3 56, Grok 32 per 5h — a maxed Ralph afternoon can dent K3.1 Pro/GLM-5.3's 5h window; that is what Config B fixes.
 
 ### Config B — VALUE-8H: maximum intelligence, minimum cost (best bang for buck — start here)
 
-Intelligence first, priced for **8 hours of intermittent heavy programming per day**. Same K3 primary (the one slot where intelligence decides everything — rationed to **~6 hard plans/consults per day**, planning only, never bulk). The value masterstroke: **`deep-low` runs on `glm-5.3-flash-free` (AA 42, zero-retention, $0)** — your old manual-DeepSeek bulk lane, now free and smarter (the free DeepSeek twin is the alternate). Only one paid premium besides the primary: `mimo-v2.6-pro` (AA 46 at $0.0049/req) for reasoning; review/artistry/volume drop to `glm-5.3-flash`; consults move from Grok to mimo-pro (saves the $15 Grok allowance entirely):
+Intelligence first, priced for **8 hours of intermittent heavy programming per day**. Same K3.1 Pro primary (the one slot where intelligence decides everything — rationed to **~8 hard plans/consults per day**, planning only, never bulk). The value masterstroke: **`deep-low` runs on `glm-5.3-flash-free` (AA 42, zero-retention, $0)** — your old manual-DeepSeek bulk lane, now free and smarter (the free DeepSeek twin is the alternate). Only one paid premium besides the primary: `mimo-v2.6-pro` (AA 46 at $0.0049/req) for reasoning; review/artistry/volume drop to `glm-5.3-flash`; consults move from Grok to mimo-pro (saves the $15 Grok allowance entirely):
 
 ```jsonc
 {
@@ -191,7 +191,7 @@ Intelligence first, priced for **8 hours of intermittent heavy programming per d
       "explore": { "model": "opencode-go/deepseek-v4.1-flash", "reasoning": "max" },
       "librarian": { "model": "opencode-go/mimo-v2.6-flash", "reasoning": "low" },
       "multimodal-looker": { "model": "opencode-go/deepseek-v4.1-flash", "reasoning": "max" },
-      "plan-consultant": { "model": "opencode-go/kimi-k3", "reasoning": "max" },
+      "plan-consultant": { "model": "opencode-go/kimi-k3.1-pro", "reasoning": "max" },
       "plan-reviewer": { "model": "opencode-go/glm-5.3-flash", "reasoning": "high" }
     },
     "categories": {
@@ -208,7 +208,7 @@ Intelligence first, priced for **8 hours of intermittent heavy programming per d
     },
     "background_task": { "defaultConcurrency": 5,
       "providerConcurrency": { "opencode-go": 10 },
-      "modelConcurrency": { "opencode-go/kimi-k3": 2, "opencode-go/mimo-v2.6-pro": 4 } },
+      "modelConcurrency": { "opencode-go/kimi-k3.1-pro": 2, "opencode-go/mimo-v2.6-pro": 4 } },
     "experimental": { "aggressive_truncation": true },
     "disabled_hooks": ["comment-checker"],
     "telemetry": { "enabled": false }
@@ -216,9 +216,9 @@ Intelligence first, priced for **8 hours of intermittent heavy programming per d
 }
 ```
 
-Why this wins: orchestrator stays AA 44 (validated), reasoning stays AA 46 (cheapest frontier-class per call), and ~70% of OMO volume (deep-low, explore, librarian, quick, writing) runs at $0–$0.003/req. The mimo-pro allowance (~100/day shared across ultrabrain/deep-high/unspecified/architect) covers an 8h heavy day because consults are low-volume by design.
+Why this wins: orchestrator is the AA 55.1 ceiling (with 5.1.47 K3.1 Pro prompts), reasoning stays AA 46 (cheapest frontier-class per call), and ~70% of OMO volume (deep-low, explore, librarian, quick, writing) runs at $0–$0.003/req. The mimo-pro allowance (~100/day shared across ultrabrain/deep-high/unspecified/architect) covers an 8h heavy day because consults are low-volume by design.
 
-**8h daily budgets (monthly ÷ 30, your profile):** K3 ~6/day — when spent, the primary drops to the free GLM-5.3-Flash lane (AA 42, zero-retention) for the rest of the day; mimo-pro ~100/day shared; GLM-Flash ~330/day; DS ~850/day; haiku-medium ~180/day (AA 34 at medium — flip to max/AA 43 only for hard quick tasks); mimo-flash ~1,100/day; free twins ∞. A heavy 8h day burns roughly: 6 K3 + 60–100 mimo-pro + 200–400 Flash-tier + unlimited free twins — inside every cap with margin.
+**8h daily budgets (monthly ÷ 30, your profile):** K3.1 Pro ~9/day — when spent, the primary drops to the free GLM-5.3-Flash lane (AA 42, zero-retention) for the rest of the day; mimo-pro ~100/day shared; GLM-Flash ~330/day; DS ~850/day; haiku-medium ~180/day (AA 34 at medium — flip to max/AA 43 only for hard quick tasks); mimo-flash ~1,100/day; free twins ∞. A heavy 8h day burns roughly: 9 K3.1 Pro + 60–100 mimo-pro + 200–400 Flash-tier + unlimited free twins — inside every cap with margin.
 
 ### Config C — ECO-24: super-duper min cost with best intelligence, runs 24/7 and never runs out
 
@@ -257,7 +257,7 @@ No Kimi, no MiMo-Pro, no Grok, no other ration model. Primary runs on **`glm-5.3
 // Main session model: opencode/glm-5.3-flash-free (fallback: opencode-go/glm-5.3-flash).
 ```
 
-Honest limits of C: the free GLM lane is **not validated as a Sisyphus primary** (Kimi K3 is the only documented Go rung) — if you see delegation loops, ignored plan mechanics, or read-only agents attempting writes, that is the weak-orchestrator failure mode: switch the session model to `kimi-k3` (= Config B) for that task. The free windows are limited (as Step 5's ending showed — it went paid Oct 15) — fallbacks are baked in: primary becomes `glm-5.3-flash` (AA 42, $60 tier, still 24/7-capable at ~13/h sustained) and B becomes the new floor.
+Honest limits of C: the free GLM lane is **not validated as a Sisyphus primary** (the Kimi rung — now K3.1 Pro — is the documented Go path) — if you see delegation loops, ignored plan mechanics, or read-only agents attempting writes, that is the weak-orchestrator failure mode: switch the session model to `kimi-k3.1-pro` (= Config B) for that task. The free windows are limited (as Step 5's ending showed — it went paid Oct 15) — fallbacks are baked in: primary becomes `glm-5.3-flash` (AA 42, $60 tier, still 24/7-capable at ~13/h sustained) and B becomes the new floor.
 
 **24/7 rotation (independent allowances per model — spend one, the rest keep working):**
 - **Night shift (unattended):** free GLM/DeepSeek primary + MiMo-Flash explore/librarian only. Smallest blast radius, $0 + deepest $60-tier allowance.
@@ -269,31 +269,32 @@ Honest limits of C: the free GLM lane is **not validated as a Sisyphus primary**
 
 | | A — HEAVY-MAX | B — VALUE-8H | C — ECO-24 |
 |---|---|---|---|
-| Primary (session model) | kimi-k3 max ($15) | kimi-k3 max ($15) | **glm-5.3-flash-free ($0)** |
+| Primary (session model) | kimi-k3.1-pro max ($15) | kimi-k3.1-pro max ($15) | **glm-5.3-flash-free ($0)** |
 | Reasoning slots | mimo-v2.6-pro max (AA 46) | mimo-v2.6-pro max (AA 46) | glm-5.3-flash max (AA 42) |
 | Bulk/executor lane | mimo-v2.6-pro max | **free GLM/DS twins ($0)** | **free GLM/DS twins ($0)** |
 | Review | glm-5.3 max | glm-5.3-flash high | glm-5.3-flash high |
 | Consult | grok-4.7 xhigh (opt. Argon non-client) | mimo-v2.6-pro max | glm-5.3-flash max |
 | Explore/quick/writing | DS max / haiku-max / glm-5.3 max | DS max / haiku-med / glm-flash low | mimo-flash low / DS med |
 | Designed for | burst quality, 8h heavy days in ~2–4 day sprints | **8h intermittent heavy, every day** | **24/7 continuous, never binds** |
-| $15-tier burn | K3 + mimo-pro + GLM-5.3 + Grok all rationed | K3 (~6/day) + mimo-pro (~100/day) | $0 |
+| $15-tier burn | K3.1 Pro + mimo-pro + GLM-5.3 + Grok all rationed | K3.1 Pro (~9/day) + mimo-pro (~100/day) | $0 |
 | Survives | ~2–4 heavy OMO days, then rations recover | every workday (rations reset daily) | indefinitely (free windows permitting) |
 
 \* Spend = allowance consumed, not extra cash — all inside the $10 Go plan.
 
-### Effort ladder for max quality (verified Oct 16 — use per slot as configured above)
+### Effort ladder for max quality (verified Oct 25 — use per slot as configured above)
 
 | Model | Max-quality setting | Cost vs default | Critical flags |
 |---|---|---|---|
-| Kimi K3 | `max` (low/high/max only, always reasons) | AA 44 max vs 30 low; ~1.74× cost | temp 1.0, return full `reasoning_content` every turn, never switch model/effort mid-session |
+| Kimi K3.1 Pro | `max` (low/high/max; always reasons) | AA 55.1 ceiling; 269 req/mo | 1M ctx, vision; 5.1.47 Sisyphus/Atlas prompts; temp 1.0; keep full reasoning history |
+| Kimi K3 (fallback) | `max` (low/high/max only, always reasons) | AA 44 max vs 30 low; ~1.74× cost | temp 1.0, return full `reasoning_content` every turn, never switch model/effort mid-session |
 | MiMo-V2.6-Pro | any level on (none=off; all others identical) | no max gain — keep max | temp/top_p forced 1.0; keep reasoning across tool turns |
 | GLM-5.3 | `max` (default; thinking can't be disabled) | baseline | — |
-| **Gemini 4 Argon** | `high` (upstream rung) | **trains on data on the Contributor SKU** | non-client only; slow (~57s median consult) |
+| **Gemini 4 Argon** | `high` (upstream rung) | **ZDR / not trained** (corrected Oct 25) | safe for client work after your own verification; slow (~57s median consult) |
 | Grok 4.7 | `xhigh` | ~81K output tokens/task at xhigh | **mandatory `textVerbosity:low`**; never set presence/frequency penalty or stop (400s); >200K prompt doubles rates |
 | Qwen3.8 Max | `xhigh` (default; high/max are aliases) | thinking billed as output, 262K budget | temp 1.0 / top_p 0.95 in thinking |
 | DeepSeek V4.1 Flash | effort 100 (1–100; default high=75) | scales linearly-ish | evals use temp 1.0 / top_p 0.95 |
 | Claude Haiku 5.5 | `max` → AA 43 (xhigh 41, high 38, **med 34 default**, low 29) | 440M-token verbosity at max | **omit temp/top_p/top_k entirely** (≠1/≠0.99 = 400); max only where AA 43 matters |
-| Step 5 Preview (paid) | `high` (= max; low/med/high) | $60/mo 4× promo | medium is default; high for code; open weights available |
+| Step 5 (paid) | `high` (= max; low/med/high) | $15/mo cap (4× promo ended) | medium is default; high for code; open weights available |
 
 ### Slot budget math: sustained 24/7 rate vs 8h daily budget (your profile)
 
@@ -302,7 +303,7 @@ Rule: **monthly ÷ 730h is the binding sustained rate** for every paid model (ti
 | Model | $/req | 5h / wk / mo | Sustained/h (24/7) | 8h-day budget | Role in configs |
 |---|---|---|---|---|---|
 | GLM-5.3-Flash Free / DS V4.1 Flash Free | $0 | ∞ | ∞ | ∞ | **B/C free lanes (zero-retention)** |
-| Beam Free / LongCat 2.5 | $0 | ∞ | ∞ | ∞ | free overflow |
+| Beam Free | $0 | ∞ | ∞ | ∞ | free overflow (no training, 30-day) |
 | Muse Spark 1.3* | $0.0013 | 9,288 / 23,220 / 46,440 | 64 | 1,548 | not assigned (trains on data) |
 | MiMo-V2.6-Flash | $0.0018 | 6,634 / 16,586 / 33,171 | 45 | 1,106 | explore/librarian/quick volume |
 | DeepSeek V4.1 Flash | $0.0031 | 5,097 / 12,742 / 25,484 | 35 | 849 | explore/looker, B/C day shift |
@@ -311,9 +312,10 @@ Rule: **monthly ÷ 730h is the binding sustained rate** for every paid model (ti
 | Qwen3.8 Flash | $0.0040 | 1,491 / 3,729 / 7,457 | 10 | 249 | C overflow lane |
 | Claude Haiku 5.5 | $0.0028 | 1,075 / 2,688 / 5,375 | 7.4 | 179 | quick (med AA 34; max AA 43) |
 | MiMo-V2.6-Pro | $0.0049 | 615 / 1,537 / 3,074 | 4.2 | 102 | A/B reasoning (shared) |
-| Step 5 Preview (paid) | $0.0254 | 394 / 984 / ~2,360 | 3.2 | 79 | B/C paid quality step-up |
-| Gemini 4 Argon Contrib | $0.0824 | 121 / 304 / ~730 | 1.0 | 24 | hard consults (non-client) |
-| Kimi K3 | $0.0837 | 36 / 90 / 179 | 0.25 | 6 | A/B primary, planning only |
+| Step 5 (paid) | $0.0254 | 118 / 296 / 591 | 0.8 | 20 | B/C paid quality step-up |
+| Gemini 4 Argon | $0.0412 | 146 / 364 / 728 | 1.0 | 24 | hard consults (now ZDR) |
+| Kimi K3.1 Pro | $0.0558 | 54 / 134 / 269 | 0.37 | 9 | A/B primary, planning only |
+| Kimi K3 (fallback) | $0.0837 | 36 / 90 / 179 | 0.25 | 6 | primary fallback |
 | GLM-5.3 | $0.0537 | 56 / 140 / 279 | 0.4 | 9 | A review/artistry |
 | Qwen3.8 Max | $0.0587 | 51 / 128 / 256 | 0.35 | 9 | A visual verify |
 | Grok 4.7 | $0.0952 | 32 / 79 / 158 | 0.2 | 5 | A consults |
@@ -322,9 +324,9 @@ ECO-24 lane total: ∞ + 45 + 35 + 18 + 13.5 + 10 + 7.4 ≈ **129 req/h sustaine
 
 ### Avoid as OMO orchestrator/worker
 
-- **Muse Spark Contributor / Gemini 4 Argon Contributor / any training-on-data or free-weak route as primary or for client work** — trains-on-data terms (Contributor policy bans sensitive/confidential/personal data), time-limited free windows, regional limits. Exception that proves the rule: the **free GLM-5.3-Flash / DeepSeek V4.1 Flash twins** (zero-retention, AA 42/39) are the free models worth trying as primary — Config C, with the caveats above.
+- **Muse Spark Contributor / any training-on-data or free-weak route as primary or for client work** — trains-on-data terms (Contributor policy bans sensitive/confidential/personal data), time-limited free windows, regional limits. (**Gemini 4 Argon is no longer in this bucket** — Go documents it ZDR/not trained as of Oct 25.) Exception that proves the rule: the **free GLM-5.3-Flash / DeepSeek V4.1 Flash twins** (zero-retention, AA 42/39) are the free models worth trying as primary — Config C, with the caveats above.
 - **MiniMax M3/M2.7, Qwen3.7 Plus, Hy3, Kimi K2.7, MiMo-V2.5 as orchestrator** — AA 23–29, no main-agent validation; fine only for `quick`/`explore`/`librarian` at low/off.
-- **Grok 4.7, Qwen3.8 Max, Kimi K3, GLM-5.3 as bulk workers** — 5h caps (32–279 vanilla req) die in one Ralph afternoon; cap their concurrency (`modelConcurrency`) and keep them on consult/review slots.
+- **Grok 4.7, Qwen3.8 Max, Kimi K3.1 Pro/K3, GLM-5.3 as bulk workers** — 5h caps (32–279 vanilla req) die in one Ralph afternoon; cap their concurrency (`modelConcurrency`) and keep them on consult/review slots.
 - **Weak-model orchestration generally** — long mechanics-driven prompts get ignored → bad delegation specs, nested-delegation loops, write-attempts by read-only agents → retry burn.
 
 ### Frontier escalation (one slot matters)
@@ -333,19 +335,19 @@ When Go fails (lost delegation, plan-reviewer never reaches APPROVE, architectur
 
 ### Cost-control knobs that actually work
 
-`experimental.aggressive_truncation: true` + tool-output truncators (biggest saver) · `background_task` concurrency caps (`opencode-go: 10`, `kimi-k3: 2`) · `maxDepth: 1` against nested delegation · `reasoning: low/off` for quick/explore/librarian/writing, `max` only for ultrabrain · `goal.enabled: false` unless Ralphing · `team_mode` OFF unless `mass` needed · disable `comment-checker` for bulk runs (never disable `team-tool-gating`, write/bash guards, `tool-pair-validator`) · watch the [console](https://opencode.ai/auth) weekly meter.
+`experimental.aggressive_truncation: true` + tool-output truncators (biggest saver) · `background_task` concurrency caps (`opencode-go: 10`, `kimi-k3.1-pro: 2`) · `maxDepth: 1` against nested delegation · `reasoning: low/off` for quick/explore/librarian/writing, `max` only for ultrabrain · `goal.enabled: false` unless Ralphing · `team_mode` OFF unless `mass` needed · disable `comment-checker` for bulk runs (never disable `team-tool-gating`, write/bash guards, `tool-pair-validator`) · watch the [console](https://opencode.ai/auth) weekly meter.
 
 ---
 
 ## 6. OpenCode v1 vs v2 compatibility matrix
 
-**Oct 16 status:** OpenCode v2 dual-host support is **still in review, not shipped** — the additive dual-host scaffold PR [#9391](https://github.com/code-yeongyu/oh-my-openagent/pull/9391) (V1 untouched, `./v2` entry, 25-row parity matrix as CI test) and slice 2 (tools+hooks, [#9415](https://github.com/code-yeongyu/oh-my-openagent/pull/9415)) are open; the owner plans an 8-slice rollout timed to the desktop's next release. **This machine is already on OpenCode v2.0.31**, so the practical options today are: (a) OmO Native (safe on v2), or (b) keep a v1.19.x install for OmO Ultimate.
+**Oct 25 status:** OpenCode v2 dual-host support is **still not shipped**. PR [#9391](https://github.com/code-yeongyu/oh-my-openagent/pull/9391) (additive scaffold: V1 untouched, `./v2` entry, 25-row parity matrix as CI test) is open with `mergeable_state: dirty` and last updated **Oct 15**; the tools/hooks slice [#9415](https://github.com/code-yeongyu/oh-my-openagent/pull/9415) is also open. No new slice has landed since Oct 16. **This machine is on OpenCode v2.1.4**, so the practical options today are: (a) OmO Native 5.1.48 (safe on v2), or (b) keep a v1 **1.19.4** install for OmO Ultimate.
 
 | OMO | OpenCode v1 (`opencode.json` + `plugin`) | OpenCode v2 (`opencode.jsonc` + `plugins`) |
 |---|---|---|
 | 4.x legacy (`oh-my-opencode.json`, Sisyphus/Oracle/Librarian/Explore) | ✅ Supported (needs ≥1.0.132; installer wants ≥1.4.0) | ❌ Broken (`plugin` key, `prompt/permission/tools`, `scout`, TUI keys rejected) |
 | 4.19.x (unified migration to `~/.omo/omo.jsonc`) | ✅ Supported, coexistence path | ⚠️ Partial — migration moves files; no native v2 plugin mapping shipped; needs 5.x build |
-| 5.x (5.1.34, Oct 16) | ✅ Supported | ❌ Not shipped — dual-host scaffold in review (PR #9391 + #9415; 25-row parity matrix; ~17 documented API gaps) |
+| 5.x (5.1.48, Oct 25) | ✅ Supported | ❌ Not shipped — dual-host scaffold in review (PR #9391 `dirty`, PR #9415; 25-row parity matrix; ~17 documented API gaps) |
 | **OmO Native 5.0+** (`omo-ai`, own engine) | ✅ Side-by-side (never touches OpenCode files; `omo setup` imports) | ✅ Independent — **the safe v2-era path** before Ultimate-v2 stabilizes |
 | opensoft fork `dev` | ✅ Same as upstream | ⚠️ Same as upstream (no extra v2 layer); check fork releases |
 

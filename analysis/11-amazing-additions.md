@@ -1,7 +1,7 @@
 # 11 — Amazing Additions: Personalized Power-Up Playbook
 
-> **Snapshot: October 1, 2026, refreshed October 16.** Built for YOUR stack: Azure DevOps everywhere (Pipelines/Repos, no GitHub Actions), `az login` agent access, Playwright/Puppeteer/Selenium RPA + captcha work, a 578-check visual QA suite, voicebot/telephony (Asterisk ARI, Kafka, Redis, Realtime), OCR/document AI incl. Arabic, PHI/medical data, 40+ repos.
-> **Oct 16 context:** this machine now runs OpenCode **v2.0.31** (config snippets below are v1-shaped with v2 deltas noted in `10`/`09`); **free model lanes changed** — use `opencode/glm-5.3-flash-free` / `opencode/deepseek-v4.1-flash-free` anywhere this file previously suggested the free Step 5 lane; nightly jobs and RPA loops should pin those as cheap defaults.
+> **Snapshot: October 1, 2026, refreshed October 16 and 25.** Built for YOUR stack: Azure DevOps everywhere (Pipelines/Repos, no GitHub Actions), `az login` agent access, Playwright/Puppeteer/Selenium RPA + captcha work, a 578-check visual QA suite, voicebot/telephony (Asterisk ARI, Kafka, Redis, Realtime), OCR/document AI incl. Arabic, PHI/medical data, 40+ repos.
+> **Oct 25 context:** this machine runs OpenCode **v2.1.4** (config snippets below are v1-shaped with v2 deltas noted in `10`/`09`); **free model lanes changed** — use `opencode/glm-5.3-flash-free` / `opencode/deepseek-v4.1-flash-free` anywhere this file previously suggested the free Step 5 lane; nightly jobs and RPA loops should pin those as cheap defaults. The paid quality lane is now `minimax-m3.1-flash` (AA 43, 4,975 req/mo) and the premium escalation is `kimi-k3.1-pro` (AA 55.1).
 > Each item is rated **Value** (how much it changes your day) × **Effort** (to install). Start at the top.
 
 ---

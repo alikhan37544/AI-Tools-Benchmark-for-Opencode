@@ -1,6 +1,6 @@
 # Research Guide — How This Was Built & How to Update It
 
-> Methodology for the October 1, 2026 refresh; used again for the **Oct 13 and Oct 16 refreshes** (each refresh: fetch docs → diff roster/caps → re-check AA/independents → re-run value math → update HTML → commit). Use this to re-run the analysis in ~5 minutes of agent time (plus web access).
+> Methodology for the October 1, 2026 refresh; used again for the **Oct 13, 16 and 25 refreshes** (each refresh: fetch docs → diff roster/caps → re-check AA/independents → re-run value math → update HTML → commit). Use this to re-run the analysis in ~5 minutes of agent time (plus web access). The Oct 25 cycle added three questions: **Is Go cheaper than direct? Which coding plan is best value? Does it actually work from India?**
 
 ---
 
@@ -20,6 +20,8 @@ This analysis used **8 parallel research agents** plus direct document fetches a
 | 8. Independent evaluators | LMArena, AA, SWE-bench, Terminal-Bench, Aider, LiveCodeBench, METR, Epoch, OpenHands, ARC, Vals, HuggingFace |
 
 Each agent was instructed to: search multiple queries, fetch authoritative URLs directly, never invent numbers, attach a source URL to every figure, distinguish vendor vs independent measurements, and list uncertainties/gaps.
+
+**Oct 25 add-on wave (3 parallel agents + direct verification):** (9) India availability — signup country lists, phone rules, payment methods, regional inference blocks; (10) Go vs direct — per-model list-price break-even at the frozen token profile; (11) coding-plan value — Go, Z.ai, Xiaomi, StepFun, Kimi, MiniMax, Alibaba, Meta, normalized to $/heavy-request. Vendor billing/FAQ pages were then fetched directly to confirm the payment and region claims (OpenCode UPI, Z.ai PayPal, Xiaomi Waffo, StepFun Stripe, Alibaba Singapore-only, Meta US-first).
 
 ### Why multiple agents
 
@@ -50,7 +52,7 @@ sqlite3 -readonly ~/.local/share/opencode/opencode.db \
    FROM session_message WHERE type='assistant' GROUP BY 1 ORDER BY 2 DESC;"
 ```
 
-Then message-level `tokens`/`cost` fields are aggregated to compute the user's true per-request profile (7.8k input / 1.1k output+reasoning / 146k cache read), peak burst rates (630 req/h), and rolling 5h/7d/30d spend. Only aggregates are used; no session content, titles, or client data. **Note (Oct 16):** the Sep 15–Oct 1 calibration comes from the primary machine's v1 database (this repo's second machine has only a fresh v2 DB) — the calibration is frozen as history; new v2 DB stats are used for sanity checks only.
+Then message-level `tokens`/`cost` fields are aggregated to compute the user's true per-request profile (7.8k input / 1.1k output+reasoning / 146k cache read), peak burst rates (630 req/h), and rolling 5h/7d/30d spend. Only aggregates are used; no session content, titles, or client data. **Note (Oct 25):** the Sep 15–Oct 1 calibration comes from the primary machine's v1 database (this repo's second machine has only a v2 DB). The v2 DB now has 1,419 DeepSeek messages at 8.2k in / 1.25k out / 153k cache — within ~5% of the frozen profile — but it is used only as a sanity check, not a new baseline.
 
 ---
 
@@ -93,19 +95,31 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 | **Reflection Beam (Beam Free)** | https://artificialanalysis.ai/models/reflection-beam · https://reflection.ai/blog/introducing-beam |
 | **Step 5 open weights** | https://huggingface.co/stepfun-ai/Step-5-Preview |
 | **OmO releases / v2 port status** | https://github.com/code-yeongyu/oh-my-openagent/releases · issues #6169/#9389 · PRs #9391/#9415 |
+| **Oct 25 roster additions** | https://artificialanalysis.ai/models/kimi-k3-1-pro · https://artificialanalysis.ai/models/minimax-m3-1-flash |
+| **Go billing / payment methods (UPI)** | https://opencode.ai/v2/docs/console/billing |
+| **Z.ai GLM Coding Plan** | https://docs.z.ai/devpack/overview · https://docs.z.ai/devpack/usage-policy |
+| **Xiaomi MiMo Token Plan** | https://mimo.mi.com/docs/en-US/price/token-plan · FAQ https://mimo.mi.com/docs/en-US/quick-start/faq/account · /faq/payment |
+| **Kimi Code** | https://www.kimi.com/code/docs/en/kimi-code/models.html · https://www.kimi.ai/membership/pricing |
+| **MiniMax M Plan** | https://www.minimax.io/m-plan · https://platform.minimax.io/docs/m-plan/intro |
+| **StepFun Step Plan** | https://platform.stepfun.ai/docs/en/step-plan/overview · https://platform.stepfun.ai/docs/en/guides/pricing/details |
+| **Alibaba Token Plan (Singapore-only)** | https://www.alibabacloud.com/help/en/model-studio/token-plan-personal-overview |
+| **Meta Muse Code** | https://dev.meta.ai/products/muse-code · https://dev.meta.ai/docs/muse-code/subscriptions |
+| **Regional availability** | https://ai.google.dev/gemini-api/docs/available-regions · https://docs.x.ai/docs/advanced-api-usage/regions |
 
 ---
 
 ## 4. Update procedure (quarterly, or on any roster change)
 
-1. **Fetch Go docs** and diff the roster/limits against `analysis/01`. Record additions/removals, cap changes, free-model windows.
-2. **Re-fetch AA pages** for every Go model; capture Intelligence Index **with version**, speed, TTFT, $/task. Update `analysis/02` master table.
-3. **Check independent boards** (LMArena, Vals, Terminal-Bench, OSWorld) for new Go-model entries.
+1. **Fetch Go docs** and diff the roster/limits against `analysis/01`. Record additions/removals, cap changes, free-model windows, privacy-table changes and restricted-model settings.
+2. **Re-fetch AA pages** for every Go model; capture Intelligence Index **with version**, speed, TTFT, $/task, verbosity. Update `analysis/02` master table.
+3. **Check independent boards** (LMArena, Vals, Terminal-Bench, OSWorld) for new Go-model entries — and correct any stale rankings you carried forward.
 4. **Recalibrate your profile** with the SQL above (or the burn script pattern in `analysis/04`): recompute cost/request, rolling-window peaks, and capacity per model at Go prices.
 5. **Re-run the value math** (`AA ÷ $/req`; `AA × req/mo`) and update tiers and jump analysis in `analysis/05`.
-6. **Update the HTML** — the file was generated by a script; simplest path is to ask an agent to regenerate `opencode-go-analysis.html` from the updated markdown (data tables at the top of the generator).
-7. **Verify privacy policies** — especially DeepSeek ZDR renewals, Contributor-SKU terms (Muse Spark, Gemini 4 Argon), free-model zero-retention claims, and any new stealth/free models.
-8. **Commit** with a dated message.
+6. **Re-run the Go-vs-direct break-even** (`analysis/12`) and the plan ranking (`analysis/13`): refresh list prices, caps, credit conversions, and quoted quotas. Normalize every plan to **$/heavy-request at the frozen profile** — do not compare token prices, credits and “× usage” directly.
+7. **Re-check India availability** (`analysis/14`): country/region selectable, phone rule, payment instrument, inference region. Fetch the vendor billing/FAQ page, not just the marketing page. Update the verdict (🟢/🟡/🔴) and the pre-payment checklist.
+8. **Verify privacy policies** — DeepSeek ZDR expiry, any Contributor-SKU terms (now only Muse Spark), free-model zero-retention claims, and any new stealth/free models.
+9. **Update the HTML** — the file was generated by a script; simplest path is to ask an agent to regenerate `opencode-go-analysis.html` from the updated markdown (data tables at the top of the generator).
+10. **Commit** with a dated message.
 
 *(Fast prompts for a future agent: see §8.)*
 
@@ -117,6 +131,9 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 | `09-opencode-v1-vs-v2.md` | v2 releases (LSP status, history migrator fixes, plugin API freeze), v1 EOL announcement, sharing changes |
 | `10-plugins-and-stacks.md` | New ecosystem entries, MCP deprecations, v2 ports of v1 plugins |
 | `11-amazing-additions.md` | Any change in your stack (new Azure services, new RPA targets, new repos) — re-run the 80/20 ranking |
+| `12-opencode-vs-direct.md` | Any Go or direct list-price change; any new specialist plan that undercuts a single model |
+| `13-best-value-coding-plans.md` | Any plan price/credit/quota change; new coding plans; annual-discount changes |
+| `14-india-availability.md` | Country/region lists, phone-verification rules, payment methods, inference-region blocks |
 
 ---
 
@@ -129,8 +146,10 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 5. **Cache-read pricing dominates real agent costs.** A model with 10× cheaper cache can be cheaper in practice than a model with half the output price.
 6. **Reasoning effort is the biggest cost lever** (3.6–6.5× on Kimi K3).
 7. **Free/stealth models are the highest-variance choice** — great value, unknown identity/policies; keep them off critical and sensitive work. **But check the terms per model now:** the Oct 16 free twins (DeepSeek/GLM) are zero-retention, unlike most stealths.
-8. **Roster churn is weekly — now literally.** Oct 12–16 alone added Beam Free, Argon Contributor, four Zen free models, paid-ified Step 5, and removed three models. Any analysis older than a week is stale; re-run the diff procedure above.
-9. **Contributor SKUs are a new pricing category.** Gemini 4 Argon and Muse Spark Contributors trade data rights for 5–30× discounts and are now the highest-intelligence options on Go. Treat data policy as part of the model spec.
+8. **Roster churn is weekly — now literally.** Oct 12–25 added Beam Free, Argon, four Zen free models, paid-ified Step 5, then added K3.1 Pro + M3.1 Flash and removed Space Bunny + LongCat 2.5 Free. Any analysis older than a week is stale; re-run the diff procedure above.
+9. **Contributor SKUs are a pricing category — and they can exit it.** Gemini 4 Argon was documented as a training Contributor SKU on Oct 16 and as **ZDR/not trained** on Oct 25. Only Muse Spark 1.3/1.2 Contributor still trains. Re-read the privacy table every cycle; do not carry a data-policy claim forward.
+10. **A plan's advertised unit is not comparable.** Dollars, credits, requests and “× usage” are different currencies. Rank on **$/heavy-request at your own token profile**, then adjust for AA quality, quota transparency, OpenCode compatibility, privacy and **India access**. A plan that cannot be bought from India has no rank at all.
+11. **Availability is a gate, not a footnote.** Check country selectability and the phone-country rule before doing value math. Alibaba Token Plan (Singapore-only, phone must match) and Meta Muse Code (US-first) are excluded no matter how cheap they look.
 
 ---
 
@@ -141,6 +160,7 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 | Oct 1, 2026 | Full research wave (8 agents) — initial dossier | all |
 | Oct 13, 2026 | Roster refresh: Haiku 5.5, Step 5 Free, DS cap $80, Space Bunny paid; OmO 5.1.32; v1.19.0/v2.0.28 | all |
 | Oct 16, 2026 | Argon on Go; Step 5 paid + open weights; Beam Free; Zen free twins (zero-retention); Grok 4.6/K2.6/M2.7 removed; v2.0.31 on this machine; OmO 5.1.34 (Argon chains, dual-host still in review); telemetry refresh | all + HTML + README |
+| Oct 25, 2026 | K3.1 Pro + M3.1 Flash on Go; Space Bunny + LongCat 2.5 Free removed; Argon corrected to ZDR/50%-off $30; Step 5 back to $15; 1017 checkpoint AA 45; Vals v2.2 / LMArena Vision corrections; v2.1.4 + v1.19.4; OmO 5.1.48; new India, Go-vs-direct and best-value-plan analyses; UPI as the India-first payment path | all + README + RESEARCH-GUIDE + HTML |
 
 ## 8. Fast prompts for a future agent (refreshed)
 
@@ -151,3 +171,6 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 - *"Check https://github.com/code-yeongyu/oh-my-openagent/pulls (esp. #9391/#9415) for the v2 dual-host rollout status; update analysis/08 and analysis/09."*
 - *"Re-scrape the opencode ecosystem page + awesome-opencode for new plugins/MCPs; update analysis/10."*
 - *"Check anomalyco/opencode releases (v1 and v2) and reconstruct the version deltas since the last refresh; update analysis/09."*
+- *"Audit India availability for every plan in analysis/13: can you select India at signup, is a +91 number accepted, which payment instruments are documented, and is inference region-blocked? Update analysis/14 and the India columns in 12/13/README."*
+- *"Recompute the Go-vs-direct break-even for every Go model at the frozen profile (7.8k in / 1.1k out / 146k cache) using current list prices; update analysis/12."*
+- *"Rank every coding plan on $/heavy-request at the frozen profile, then adjust for AA quality, quota transparency, OpenCode support, privacy and India access; update analysis/13."*
