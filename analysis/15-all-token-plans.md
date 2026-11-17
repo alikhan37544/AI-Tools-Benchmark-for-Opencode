@@ -6,7 +6,7 @@
 
 | Rank | Plan | Price | Why it wins | India? |
 |---|---|---|---|---|
-| **#1** | **OpenCode Go** | **$10/mo** | 29 models, UPI, free floor, highest ceiling (K3.1 Pro AA 55.1), best $/req for mid-tier | 🟢 UPI |
+| **#1** | **OpenCode Go** | **$10/mo** | 34 models, UPI, free floor, highest ceiling (K3.1 Pro AA 55.1), best $/req for mid-tier | 🟢 UPI |
 | **#2** | **DeepSeek Flash direct API** | **$0.15/$0.60 per 1M** (off-peak $0.075/$0.30) | Cheapest frontier-class API; no subscription; 1M ctx; vision; ZDR through Oct 31 | 🟢 global |
 | **#3** | **Alibaba Qwen3.7-Flash** | **$0.03/$0.13 per 1M** (Singapore) | Cheapest per-token anywhere; 32K–1M ctx | 🟢 global |
 | **#4** | **Tencent Hy3** | **$0.132/$0.528 per 1M** | Cheapest open-weights coding model; 262K ctx; free GLM models on Z.ai | 🟢 global |
@@ -17,7 +17,7 @@
 | **#9** | **StepFun Step Plan Pro** | **$29/mo** | Potentially 45k req/mo (unverified credit math) | 🟢 Stripe |
 | **#10** | **Claude Pro** | **$20/mo** | Best Claude-only, but no UPI, no OpenCode subscription use | 🟡 card |
 
-**The single best deal for pure coding value in India: OpenCode Go ($10, UPI) + DeepSeek Flash direct API for overflow.** Nothing else combines a 55-AA model, 29-model breadth, UPI and a free floor at $10.
+**The single best deal for pure coding value in India: OpenCode Go ($10, UPI) + DeepSeek Flash direct API for overflow.** Nothing else combines a 55-AA model, 34-model breadth, UPI and a free floor at $10.
 
 ---
 
@@ -27,7 +27,7 @@
 
 | Plan | Price | Models / access | Heavy req/mo (profile) | $/req (best model) | India payment | OpenCode? |
 |---|---|---|---|---|---|---|
-| **OpenCode Go** | $10/mo (Plus $40) | 29 Go models + Zen + free | 269 K3.1 Pro · 728 Argon · 4,975 M3.1 Flash · 25,484 DS | $0.0372 (K3.1) · $0.0004 (DS) | 🟢 UPI | 🟢 native |
+| **OpenCode Go** | $10/mo (Plus $40) | 34 Go models + Zen + free | 269 K3.1 Pro · 728 Argon · 4,975 M3.1 Flash · 31,855 DS | $0.0372 (K3.1) · $0.0003 (DS) | 🟢 UPI | 🟢 native |
 | **OpenCode Go Plus** | $40/mo | Same, 4× caps | 4× above | Same | 🟢 UPI | 🟢 native |
 | **GitHub Copilot Pro** | $10/mo | 25+ models (Opus 5.5, GPT-6 Astra, Gemini 4 Argon, Claude Sonnet, Kimi K3, Grok) | ~364 Sonnet 5.5 · ~2,586 GPT-5.6 Luna · ~182 Opus 5.5 | $0.0274 (Sonnet) · $0.0549 (Opus) | 🟡 card/PayPal | 🟢 native (device flow) |
 | **GitHub Copilot Pro+** | $39/mo | Same + premium models (Fable 5, GPT-6 Astra/Sol, Opus 5.5) | ~1,699 Sonnet · ~850 Opus · ~251 Fable/Astra | $0.0229 (Sonnet) · $0.0459 (Opus) | 🟡 card/PayPal | 🟢 native |
@@ -128,10 +128,10 @@
 
 ### Rank 1: OpenCode Go ($10/mo) — BEST OVERALL
 - **India:** 🟢 UPI, no phone gate, no country restriction
-- **Models:** 29 Go models + Zen + free floor (DS Flash Free, GLM-5.3-Flash Free)
-- **Best $/req:** DeepSeek V4.1 Flash at $0.0004/req (25,484 req/mo); M3.1 Flash at $0.0020 (4,975 req/mo)
+- **Models:** 34 Go models + Zen + free floor (DS Flash Free, GLM-5.3-Flash Free)
+- **Best $/req:** DeepSeek V4.1 Flash at $0.0003/req (31,855 req/mo); M3.1 Flash at $0.0020 (4,975 req/mo)
 - **Ceiling:** K3.1 Pro AA 55.1 at $0.0372/req (269 req/mo); Argon AA 53 at $0.0137 (728 req/mo, ZDR)
-- **Why #1:** Only plan combining a 55-AA model, 29-model breadth, UPI, free floor, and OpenCode-native integration at $10
+- **Why #1:** Only plan combining a 55-AA model, 34-model breadth, UPI, free floor, and OpenCode-native integration at $10
 - **Weakness:** Siloed caps per model; premium allowances are small; weekly roster churn
 
 ### Rank 2: DeepSeek Flash direct API (PAYG) — BEST RAW API VALUE
@@ -199,7 +199,7 @@
 ## 3. The "stack" recommendations
 
 ### Stack A: India-first, maximum value (recommended)
-1. **OpenCode Go $10/mo (UPI)** — primary subscription; 29 models + free floor
+1. **OpenCode Go $10/mo (UPI)** — primary subscription; 34 models + free floor
 2. **DeepSeek Flash direct API** — overflow for bulk work at $0.15/$0.60 (off-peak $0.075/$0.30)
 3. **Alibaba Qwen3.7-Flash** — cheapest bulk at $0.03/$0.13
 4. **Z.ai free GLM-4.7-Flash** — $0 for non-critical work

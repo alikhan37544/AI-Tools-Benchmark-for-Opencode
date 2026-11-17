@@ -42,7 +42,7 @@ If you would use **more than the break-even** of that one model, Go is cheaper. 
 | **GLM-5.3** | $0.0537 | $15 | **279** | $0.0537 | 186 | 1.5× | **Z.ai Lite $18** (~1,319 req/mo peak, 2,639 off-peak) | 🟢 | **Z.ai wins for GLM-only** — 4.7× Go’s capacity for 1.8× price |
 | Qwen3.8 Max | $0.0587 | $15 | 256 | ~$0.0587 | 170 | 1.5× | Alibaba direct is **blocked in India**; OpenRouter | 🟢 (Go) | Go is the practical India route |
 | Grok 4.7 | $0.0952 | $15 | 158 | $0.0952 | 105 | 1.5× | xAI direct (global, card) | 🟢 | Go wins up to 158; direct for >158 or provider features |
-| **DeepSeek V4.1 Flash** | $0.0031 | $80 | **25,484** | $0.0031 (off-peak) | 3,226 | **8.0×** | DeepSeek direct (card; same off-peak price) | 🟢 | **Go is the best DeepSeek deal on the planet** |
+| **DeepSeek V4.1 Flash** | $0.0031 | $100 | **31,855** | $0.0031 (off-peak) | 3,226 | **10.0×** | DeepSeek direct (card; same off-peak price) | 🟢 | **Go is the best DeepSeek deal on the planet** |
 | MiMo-V2.6-Pro | $0.0049 | $15 | 3,074 | ~$0.0049 | 2,041 | 1.5× | Xiaomi Token Plan Lite $6 (~1,218 req/mo) | 🟢 (overseas path) | Go wins above ~1.2k req/mo; Xiaomi Lite below |
 | **MiMo-V2.6-Flash** | $0.0018 | $60 | **33,171** | ~$0.0018 | 5,556 | **6.0×** | Xiaomi Token Plan Lite $6 (~3,173 req/mo) | 🟢 | Go wins above ~3.2k req/mo; Xiaomi Lite below |
 | **MiniMax M3.1 Flash** | $0.0040 | $20 | **4,975** | $0.0040 | 2,500 | **2.0×** | MiniMax M Plan Go $22 (opaque quota) | 🟡 | Go is the transparent value; MiniMax plan only if it gives >2× capacity |
@@ -63,7 +63,7 @@ If you would use **more than the break-even** of that one model, Go is cheaper. 
 - **1.5×** (most $15-cap models) — Go is a **modest 50% discount**. Fine for convenience, but not a reason to consolidate everything.
 - **2×–3×** (M3.1 Flash, Argon, Qwen Flash, Hy4) — a real discount; worth using Go even if you mostly want that model.
 - **6×–8×** (DeepSeek, MiMo-Flash, GLM-Flash, Hy3, LongCat, M3, K2.7, Muse) — **Go is the deal**. These are the models that make the $10 plan feel absurdly cheap.
-- **The multiplier is not transferable.** A $15 K3.1 Pro allowance cannot be spent on DeepSeek. This is why “29 models” matters: you are buying 29 separate small allowances, not one $300 pot.
+- **The multiplier is not transferable.** A $15 K3.1 Pro allowance cannot be spent on DeepSeek. This is why “34 models” matters: you are buying 34 separate small allowances, not one $300 pot.
 
 ---
 

@@ -161,6 +161,7 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 | Oct 13, 2026 | Roster refresh: Haiku 5.5, Step 5 Free, DS cap $80, Space Bunny paid; OmO 5.1.32; v1.19.0/v2.0.28 | all |
 | Oct 16, 2026 | Argon on Go; Step 5 paid + open weights; Beam Free; Zen free twins (zero-retention); Grok 4.6/K2.6/M2.7 removed; v2.0.31 on this machine; OmO 5.1.34 (Argon chains, dual-host still in review); telemetry refresh | all + HTML + README |
 | Oct 25, 2026 | K3.1 Pro + M3.1 Flash on Go; Space Bunny + LongCat 2.5 Free removed; Argon corrected to ZDR/50%-off $30; Step 5 back to $15; 1017 checkpoint AA 45; Vals v2.2 / LMArena Vision corrections; v2.1.4 + v1.19.4; OmO 5.1.48; new India, Go-vs-direct and best-value-plan analyses; UPI as the India-first payment path | all + README + RESEARCH-GUIDE + HTML |
+| Nov 17, 2026 | Tooling + roster refresh: OpenCode v2.3.0 (background subagents, `/goal`, image gen, `run -w`, Claude Code provider; v1 1.19.5); OmO 5.1.75 (accounts + remote sessions live; dual-host PR #9391 still open); Go roster 29→34 (+Qwen4 Max AA 43 new board, Hy4 GA, Iceman Contributor Free *trains*, LongCat 2.5 Free back, Hy4 flash Free; Step 5 → Step 5 Preview); DeepSeek Go cap $80→$100 (31,855 heavy req/mo, 10× multiplier); Zen + MiniMax M3.1 Flash Free (3rd zero-retention twin); Argon 50% ends Nov 30; DeepSeek ZDR through Nov 30; AA re-baselined to v5.0.1 (repo stays on v4.3.2 figures) | HTML + README + RESEARCH-GUIDE + analysis 01/03/04/05/07/08/09/10/11 deltas |
 
 ## 8. Fast prompts for a future agent (refreshed)
 

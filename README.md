@@ -1,10 +1,11 @@
 # AI Tools Benchmark for OpenCode — Go Plan Deep Dive
 
-> **Full refresh: October 1, 2026 · roster refreshes: October 13, 16 and 25, 2026.** 29 Go models · 18 task categories · every major benchmark source · **calibrated to this machine's real OpenCode usage history**.
+> **Full refresh: October 1, 2026 · roster refreshes: October 13, 16, 25 and November 17, 2026.** 34 Go models · 18 task categories · every major benchmark source · **calibrated to this machine's real OpenCode usage history**.
 > 🌐 **Live site (GitHub Pages): https://alikhan37544.github.io/AI-Tools-Benchmark-for-Opencode/**
 > Interactive report: **[opencode-go-analysis.html](./opencode-go-analysis.html)** — searchable, sortable, with charts.
 >
-> **🆕 Oct 25 (latest):** +**Kimi K3.1 Pro** (AA 55.1 — the highest intelligence ever on Go) · +**MiniMax M3.1 Flash** (AA 43 at $0.22/AA task — the new paid value anchor) · **Gemini 4 Argon is now ZDR/not trained** (the old Contributor warning is withdrawn) · **Step 5 back to a $15 cap** (4× promo ended) · **Space Bunny / LongCat 2.5 Preview Free removed** · **this machine runs OpenCode v2.1.4** (v1 = 1.19.4; OmO 5.1.48). **New analyses: [India availability](./analysis/14-india-availability.md) · [Go vs direct](./analysis/12-opencode-vs-direct.md) · [best-value plans](./analysis/13-best-value-coding-plans.md).**
+> **🆕 Nov 17 (latest):** **OpenCode v2.3.0** (background subagents, `/goal`, image gen, worktree runs, Claude Code provider; v1 = 1.19.5) · **OmO 5.1.75** (accounts + remote sessions live) · roster **29 → 34 models**: +**Qwen4 Max** (AA 43, new board), +**Hy4** GA, +**Iceman Contributor Free** (trains), +**LongCat 2.5 Free** (back), +**Hy4 flash Free** · **DeepSeek V4.1 Flash cap $80 → $100** (31,855 heavy req/mo, 10× multiplier) · third zero-retention free twin on Zen: **MiniMax M3.1 Flash Free** · Argon 50% discount **ends Nov 30** · AA re-baselined to v5.0.1 (our figures stay v4.3.2).
+> **Oct 25:** +**Kimi K3.1 Pro** (AA 55.1 — the highest intelligence ever on Go) · +**MiniMax M3.1 Flash** (AA 43 at $0.22/AA task — the new paid value anchor) · **Gemini 4 Argon is now ZDR/not trained** (the old Contributor warning is withdrawn) · **Step 5 back to a $15 cap** (4× promo ended) · **Space Bunny / LongCat 2.5 Preview Free removed** · OpenCode v2.1.4 / OmO 5.1.48. **Analyses: [India availability](./analysis/14-india-availability.md) · [Go vs direct](./analysis/12-opencode-vs-direct.md) · [best-value plans](./analysis/13-best-value-coding-plans.md).**
 > **Oct 16:** +Gemini 4 Argon (AA 53) · Step 5 free→paid · +Beam Free · Zen free twins (DeepSeek/GLM) · Grok 4.6 / Kimi K2.6 / MiniMax M2.7 removed · v2.0.31 migration.
 > **Oct 13:** +Claude Haiku 5.5 · +Step 5 Preview Free · DeepSeek cap $60→$80 · Space Bunny free→paid.
 
@@ -23,9 +24,9 @@ This repo answers eight questions with evidence, not vibes:
 
 ## TL;DR — the answers
 
-### 1. The roster (29 models, Oct 25, 2026)
-**Kimi K3.1 Pro (NEW)** · Gemini 4 Argon · Grok 4.7 · GLM-5.3/5.3-Flash/5.2 · GPT 6 Luna, GPT 5.6 Luna · Claude Haiku 5.5 · Kimi K3/K2.7 Code · DeepSeek V4.1 Flash/V4 Pro · MiMo-V2.6-Pro/Flash, MiMo-V2.5/Pro · **MiniMax M3.1 Flash (NEW)**, MiniMax M3 · Qwen3.8 Max/Flash, Qwen3.7 Plus · LongCat-2.0 · Hy4 preview, Hy3 · Muse Spark 1.3/1.2 Contributor · Step 5 (paid) · **free:** Beam Free. **Removed:** Space Bunny, LongCat 2.5 Preview Free, Grok 4.6, Kimi K2.6, MiniMax M2.7, DS V4 Flash.
-Plans: **Go $10/mo**, **Go Plus $40/mo**. Per-model dollar caps; 5h = 20% of monthly, weekly = 50%, monthly = 100%. → [Full details](./analysis/01-go-roster-and-limits.md)
+### 1. The roster (34 models, Nov 17, 2026)
+**Qwen4 Max (NEW)** · Kimi K3.1 Pro · Gemini 4 Argon · Grok 4.7 · GLM-5.3/5.3-Flash/5.2 · GPT 6 Luna, GPT 5.6 Luna · Claude Haiku 5.5 · Kimi K3/K2.7 Code · DeepSeek V4.1 Flash/V4 Pro · MiMo-V2.6-Pro/Flash, MiMo-V2.5/Pro · MiniMax M3.1 Flash, MiniMax M3 · Qwen3.8 Max/Flash, Qwen3.7 Plus · LongCat-2.0 · **Hy4 (NEW)**, Hy4 preview, Hy3 · Muse Spark 1.3/1.2 Contributor · Step 5 Preview (paid) · **free:** Beam Free, **LongCat 2.5 Free (back)**, **Hy4 flash Free (NEW)**, **Iceman Contributor Free (NEW — trains)**. **Removed since Oct 1:** Space Bunny, Grok 4.6, Kimi K2.6, MiniMax M2.7, DS V4 Flash.
+Plans: **Go $10/mo**, **Go Plus $40/mo**, **Go Teams $20/member/mo** (+$5 per model cap). Per-model dollar caps; 5h = 20% of monthly, weekly = 50%, monthly = 100%. → [Full details](./analysis/01-go-roster-and-limits.md)
 
 ### 2. Best models overall
 | | Winner | Why |
@@ -35,7 +36,7 @@ Plans: **Go $10/mo**, **Go Plus $40/mo**. Per-model dollar caps; 5h = 20% of mon
 | **Best privacy-safe intelligence** | **Gemini 4 Argon** / **MiMo-V2.6-Pro** (AA 46) / **Grok 4.7** (AA 46) | Argon is the highest-AA ZDR model on Go; MiMo-Pro is the cheapest AA 46 |
 | **Best marathon / 1M-context** | **Kimi K3.1 Pro** | K3 lineage: SWE-Marathon 42.0, FrontierSWE 81.2, OSWorld 84.8; 3.1 adds 1M ctx + vision |
 | **Best visual/OS agent** | **Qwen3.8 Max** (AA 45) | **#1 model in the world on OSWorld 86.1**; LMArena Vision **#9** (corrected Oct 25) |
-| **Best daily driver at volume** | **DeepSeek V4.1 Flash** (AA 39) | 209–232 tok/s, native vision, 25.5k req/mo ($80 cap), **1017 checkpoint scores AA 45** — free twin on Zen |
+| **Best daily driver at volume** | **DeepSeek V4.1 Flash** (AA 39) | 209–232 tok/s, native vision, 31.9k req/mo ($100 cap, raised Oct 30), **1017 checkpoint scores AA 45** — free twin on Zen |
 | **Best paid value workhorse** | **MiniMax M3.1 Flash** (AA 43) | 4,975 req/mo at $0.0020/req plan-effective; 112.8 tok/s, 1.35s TTFT, **10,697 pts/$** |
 | **Best free coder** | **GLM-5.3-Flash Free** (AA 42, zero-retention) | AA 42 at $0/req; DeepSeek V4.1 Flash Free (AA 39) is the high-capacity runner-up |
 | **Best free agentic bulk** | **Beam Free** (AA 30) | Reflection AI 501B/23B MoE, Apache-2.0 weights; 30-day retention, no training |
@@ -70,20 +71,20 @@ Measured from **your actual history** (12,973 requests on DeepSeek V4.1 Flash @ 
 
 | Window | Your peak | Cap | Used |
 |---|---|---|---|
-| 5-hour rolling | $5.99 | $16 | **37%** ← why it "feels unlimited" |
-| 7-day rolling | $24.77 | $40 | **62%** |
-| Monthly pace | ~$45–73/mo | $80 | **under cap except crunch months** |
+| 5-hour rolling | $5.99 | $20 | **30%** ← why it "feels unlimited" |
+| 7-day rolling | $24.77 | $50 | **50%** |
+| Monthly pace | ~$45–73/mo | $100 | **under cap except crunch months** |
 
-At your token profile (7.8k input + 146k cache + 1.1k output per request), DeepSeek V4.1 Flash gives **~25,500 requests/month**, not the 173,000 the docs estimate (your requests are ~6.8× heavier). Premium models are **minutes per 5h and tasks/week**: **Kimi K3.1 Pro ~269/mo**, Kimi K3 ~179, Grok 4.7 ~158, Qwen3.8 Max ~256, GLM-5.3 ~279, **Gemini 4 Argon ~728**, **MiniMax M3.1 Flash ~4,975** (the only premium-tier model with real daily capacity).
-**Cheat code:** DeepSeek is 50% off off-peak (after ~15:30 IST + weekends) → doubles your effective cap. **Free cheat code 2.0:** **DeepSeek V4.1 Flash Free** and **GLM-5.3-Flash Free** are zero-retention and cost nothing — an unlimited floor after caps bind.
+At your token profile (7.8k input + 146k cache + 1.1k output per request), DeepSeek V4.1 Flash gives **~31,900 requests/month** (cap raised $80 → $100 on Oct 30), not the 216,700 the docs estimate (your requests are ~6.8× heavier). Premium models are **minutes per 5h and tasks/week**: **Kimi K3.1 Pro ~269/mo**, Kimi K3 ~179, Grok 4.7 ~158, Qwen3.8 Max ~256, GLM-5.3 ~279, **Gemini 4 Argon ~728**, **MiniMax M3.1 Flash ~4,975** (the only premium-tier model with real daily capacity).
+**Cheat code:** DeepSeek is 50% off off-peak (after ~15:30 IST + weekends) → doubles your effective cap. **Free cheat code 2.0:** **DeepSeek V4.1 Flash Free**, **GLM-5.3-Flash Free** and — new since Nov — **MiniMax M3.1 Flash Free** are zero-retention and cost nothing — an unlimited floor after caps bind.
 → [Full limits & burn-rate analysis](./analysis/04-limits-and-burn-rate.md)
 
 ### 5. Intelligence per dollar
 | Metric | Winner |
 |---|---|
 | AA points per limit-$ | **Muse Spark 1.3 Contributor — 37,152** (privacy caveat: trains) |
-| Best free (zero-retention) | **GLM-5.3-Flash Free — AA 42 at $0/req**, then DeepSeek V4.1 Flash Free (AA 39) |
-| Best sustainable paid | **DeepSeek V4.1 Flash — 12,426 pts/$**, 25.5k req/mo (1017 checkpoint: 14,516) |
+| Best free (zero-retention) | **GLM-5.3-Flash Free — AA 42 at $0/req**, then DeepSeek V4.1 Flash Free (AA 39) and MiniMax M3.1 Flash Free (AA 43) |
+| Best sustainable paid | **DeepSeek V4.1 Flash — 12,426 pts/$**, 31.9k req/mo (1017 checkpoint: 14,516) |
 | Best paid quality/value | **MiniMax M3.1 Flash — 10,697 pts/$**, AA 43, 4,975 req/mo |
 | Best premium capacity | **Gemini 4 Argon — 1,286 pts/$**, AA 53, 728 req/mo, **ZDR** |
 | Highest intelligence on Go | **Kimi K3.1 Pro — AA 55.1 at 988 pts/$**, 269 req/mo |
@@ -101,17 +102,17 @@ The jump from 39 (DeepSeek) to 43–46 (M3.1 Flash / K3 / Grok / MiMo-Pro) costs
 | **T3 Rations $15** | **Kimi K3.1 Pro (55.1)**, Kimi K3, GLM-5.3, Qwen3.8 Max, Grok 4.7 | 1–5 big tasks/week each; the hard 5% |
 | **T4 Beyond Go** | Opus 5.5 (58), GPT-6 Astra/Fable 5.1 (53), Muse Wonder (52–56) | Copilot/Zen; must-not-fail only |
 
-**Go Plus ($40):** 2×–8× limits. Great for GLM-5.3 (8×), the $15 rations (4×), Argon ($30→$120), M3.1 Flash ($20→$80); poor for DeepSeek V4.1 Flash/MiMo-Flash/Muse Spark (2×). For a DeepSeek-heavy workflow, **Go + $30 Zen overflow beats Go Plus**.
+**Go Plus ($40):** 2×–8× limits. Great for GLM-5.3 (8×), the $15 rations (4×), Argon ($30→$120), M3.1 Flash ($20→$80); decent for DeepSeek V4.1 Flash (2.5×, $100→$200); poor for MiMo-Flash/Muse Spark (2×). **Go Teams ($20/member)** just adds $5 per model cap per member. For a DeepSeek-heavy workflow, **Go + $30 Zen overflow beats Go Plus**.
 
 ### 7. Go vs going direct
-Go's per-token prices are essentially the **same as direct** for almost every model. What $10 buys is a bundle of **prepaid allowances worth $15–$80 per model** — a 1.5×–8× multiplier, siloed per model. **Go wins** if you use several models or a high-multiplier one (DeepSeek 8×, MiMo-Flash/GLM-Flash 6×); **direct or a specialist plan wins** below the single-model break-even or when you need provider features. Break-even at your profile: **K3.1 Pro 179 req/mo · Argon 243 · GLM-5.3 186 · Step 5 394 · Grok 105 · M3.1 Flash 2,500 · DeepSeek 3,226**. → [Full per-model break-even](./analysis/12-opencode-vs-direct.md)
+Go's per-token prices are essentially the **same as direct** for almost every model. What $10 buys is a bundle of **prepaid allowances worth $15–$100 per model** — a 1.5×–10× multiplier, siloed per model. **Go wins** if you use several models or a high-multiplier one (DeepSeek 10×, MiMo-Flash/GLM-Flash 6×); **direct or a specialist plan wins** below the single-model break-even or when you need provider features. Break-even at your profile: **K3.1 Pro 179 req/mo · Argon 243 · GLM-5.3 186 · Step 5 394 · Grok 105 · M3.1 Flash 2,500 · DeepSeek 3,226**. → [Full per-model break-even](./analysis/12-opencode-vs-direct.md)
 
 ### 8. India availability — and the best-value plans
-**OpenCode Go is the only plan with documented UPI**, no phone gate, and 29 models behind one key — the clear India-first buy. **StepFun Step Plan** is the raw-value wildcard (verify credits), **Z.ai Lite** the GLM specialist, **Xiaomi Lite** the cheap MiMo entry, **Kimi Code** the K3.1 Pro subscription, **MiniMax M Plan** the opaque one. **Alibaba Token Plan (Singapore-only) and Meta Muse Code (US-first) are blocked from India.** → [India matrix](./analysis/14-india-availability.md) · [Best-value plan ranking](./analysis/13-best-value-coding-plans.md)
+**OpenCode Go is the only plan with documented UPI**, no phone gate, and 34 models behind one key — the clear India-first buy. **StepFun Step Plan** is the raw-value wildcard (verify credits), **Z.ai Lite** the GLM specialist, **Xiaomi Lite** the cheap MiMo entry, **Kimi Code** the K3.1 Pro subscription, **MiniMax M Plan** the opaque one. **Alibaba Token Plan (Singapore-only) and Meta Muse Code (US-first) are blocked from India.** → [India matrix](./analysis/14-india-availability.md) · [Best-value plan ranking](./analysis/13-best-value-coding-plans.md)
 
 | # | Plan | Price | Heavy req/mo (verified model) | India |
 |---|---|---|---|---|
-| 1 | **OpenCode Go** | **$10** | 269 K3.1 Pro · 728 Argon · 4,975 M3.1 Flash · 25,484 DeepSeek | 🟢 **UPI** |
+| 1 | **OpenCode Go** | **$10** | 269 K3.1 Pro · 728 Argon · 4,975 M3.1 Flash · 31,855 DeepSeek | 🟢 **UPI** |
 | 2 | StepFun Step Plan Pro | $29 | ~45,000 Step 5 *if credit math holds* | 🟢 Stripe |
 | 3 | Z.ai GLM Coding Plan Lite | $18 | 1,319 GLM-5.3 peak / 2,639 off-peak | 🟢 Card/PayPal |
 | 4 | Xiaomi MiMo Token Plan Lite | $6 | 3,173 Flash / 1,218 Pro | 🟢 Overseas email + Waffo |
@@ -125,7 +126,7 @@ Go's per-token prices are essentially the **same as direct** for almost every mo
 ## The recommended setup
 
 ```jsonc
-// OpenCode v2.1.4 (what this machine runs). The same model IDs work on v1.19.4.
+// OpenCode v2.3.0 (what this machine runs). The same model IDs work on v1.19.5.
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "opencode-go/deepseek-v4.1-flash",
@@ -141,7 +142,7 @@ Go's per-token prices are essentially the **same as direct** for almost every mo
 
 **India settings:** pay Go/Plus with **UPI** (card/Link/Alipay/WeChat also listed; top-ups add 4.6% + $0.31). In Go's model settings set **DeepSeek → Regions = Global** (the default allowed regions are Europe & US). Enable **"Allow paid endpoints that train on request data"** only for Muse Spark on non-client work — leave it off everywhere else.
 
-Free-tier routing note: `opencode/deepseek-v4.1-flash-free` and `opencode/glm-5.3-flash-free` are zero-retention free models that keep working after Go limits — use them as the bulk/free floor.
+Free-tier routing note: `opencode/deepseek-v4.1-flash-free`, `opencode/glm-5.3-flash-free` and `opencode/minimax-m3.1-flash-free` are zero-retention free models that keep working after Go limits — use them as the bulk/free floor.
 
 Escalate per task: `Kimi K3.1 Pro` (hardest 5%) · `Qwen3.8 Max` (visual QA) · `Gemini 4 Argon` (planning/agentic, ZDR) · `Muse Spark 1.3` (design/general, non-client) · `MiMo-V2.6-Pro` (hard reasoning, cheap) · Copilot `Opus 5.5` (must-not-fail).
 → [Full configs + workflow](./analysis/07-recommended-config.md)
@@ -173,13 +174,24 @@ Escalate per task: `Kimi K3.1 Pro` (hardest 5%) · `Qwen3.8 Max` (visual QA) · 
 
 ---
 
+## New: Nov 17 refresh — OpenCode 2.3.0, roster 34, DeepSeek cap $100, OmO 5.1.75
+
+- **This machine runs OpenCode v2.3.0** (v1 is **1.19.5**): the 2.2.x line landed ten releases in three weeks — **2.2.0** desktop plugins + per-provider cache TTLs, **2.2.1–2.2.2** `/goal` objective loops, `experimental.image_generate`, scheduled prompts, **2.2.3 Claude Code as a provider**, **2.2.4** persistent terminals + `experimental.artifacts` + **Go DeepSeek limits raised (#60625)**, **2.2.5** percentage compaction buffer (`"compaction": {"buffer": "20%"}`), **2.2.6** shared MCP connections + `opencode run -w` worktrees + `--archived`, **2.2.7** GitHub Copilot Auto + `read` negative offset, **2.3.0 background subagents by default** + quieter transcripts + MCP events + `session.fork` hook.
+- **Go roster 29 → 34:** +**Qwen4 Max** ($1.50/$4.50/$0.075, $15 cap, ~543 heavy req/mo; **AA 43 on the new v5-era board** — not comparable with our v4.3.2 column), +**Hy4** GA (same price as preview, $60 cap → ~3,900 req/mo), +**Iceman Contributor Free** (**trains on prompts/completions — never on real work**), +**LongCat 2.5 Free** (returned; ZDR/no training, China-hosted, needs Regions=Global), +**Hy4 flash Free** (ZDR/no training). **Step 5 is now listed as “Step 5 Preview”** (same $15 cap).
+- **DeepSeek V4.1 Flash cap $80 → $100** (Go Plus $200): **~31,855 heavy req/mo** (was 25,484), 5h $16→$20, weekly $40→$50 — now a **10× face-value multiplier**, the biggest on Go. Off-peak doubling implies ~50k+ req/mo.
+- **Zen free floor upgraded:** +**MiniMax M3.1 Flash Free** — the third **zero-retention, no-training** free twin (AA 43 paid sibling), alongside DeepSeek V4.1 Flash Free (AA 39) and GLM-5.3-Flash Free (AA 42). LongCat 2.5 Free and Hy4 flash Free are ZDR too. New training/retention exceptions: Iceman Free, Inkling 2 Small Free. Crouton/Pulse Alpha Free deprecated.
+- **Gemini 4 Argon 50% discount ends Nov 30** (then $4/$20/$0.20 at a $60 cap — same ~728 req/mo, 6× multiplier instead of 3×).
+- **DeepSeek ZDR renewed through Nov 30, 2026** (renewed monthly — re-verify).
+- **AA re-baselined to v5.0.1** (Claude Fable 5.2 leads at 65). All AA figures in this repo remain **v4.3.2-generation** and are internally comparable; cross-generation scores (Qwen4 Max 43) are flagged and excluded from pts/$.
+- **OmO 5.1.75 (Nov 16):** accounts are open — `omo login` signs in and enables **remote sessions/devices** (thread gateway can wake a session on another device), memory sync across devices, computer-use v3 scaffolding (not user-visible yet). **OpenCode v2 dual-host is still not shipped**: PR #9391 remains open (tools/hooks + agents slices now on the branch, parity 13 live / 13 todo); OmO Ultimate stays on v1.19.5, OmO Native 5.1.75 is the v2 path.
+
 ## New: Oct 25 refresh — K3.1 Pro + M3.1 Flash, Argon ZDR, India + plan rankings
 
 - **Kimi K3.1 Pro joined Go (AA 55.1):** the highest intelligence ever listed on Go — 1M context, vision, Vals v2.2 **62.52%**, **$2.11 per AA task**, **$2/$10/$0.20** (cache write $2) and a **$15 cap** → **~269 heavy req/mo** (5h 54, week 134). It is a scalpel, not a driver. Upstream OmO 5.1.47 added K3.1 Pro-specific Sisyphus/Atlas prompts.
 - **MiniMax M3.1 Flash joined Go (AA 43):** 112.8 tok/s, 1.35s TTFT, **$0.22/AA task**, 180M verbosity, **$0.15/$0.60/$0.015** with a **$20 cap** → **~4,975 req/mo** and **10,697 pts/$**. It dominates GLM-5.3-Flash on both price and quality at the paid tier.
 - **Gemini 4 Argon correction:** the SKU is now plain **`gemini-4-argon`** (not Contributor) at **$2/$10/$0.10**, **$30 cap (50% off through Nov 30)**, ~728 req/mo. Go's privacy table documents **Not used / 0 days** — the Oct 16 "trains on your data" warning is **withdrawn**. Vals v2.2: **69.24%, #3 overall and #1 among Go models** (Sonnet 5.5 70.85 and Opus 5.5 70.18 lead).
 - **Step 5 promo ended:** back to a **$15 cap** (~591 req/mo), still AA 44 and open-weight.
-- **Roster removals:** **Space Bunny** and **LongCat 2.5 Preview Free** left Go. Go is still **29 models**.
+- **Roster removals:** **Space Bunny** and **LongCat 2.5 Preview Free** left Go. Go stayed at **29 models** that cycle (it became 34 on Nov 17).
 - **DeepSeek 1017 checkpoint:** AA now measures **45** (169.1 tok/s, TTFT 1.18s, $0.26/task, 210M verbosity) versus 39 for the original — same Go ID and price. Keep **39 as the conservative baseline**, treat 45 as upside until routing is consistent.
 - **Privacy refresh:** only **Muse Spark 1.3/1.2 Contributor** still trains. Grok/GPT/Haiku/Beam are 30-day retention, no training. DeepSeek ZDR is valid **through Oct 31, 2026**. Free-list churn: Space Bunny, LongCat 2.5, LL Alpha, Muse free and Exo are gone; **Flint 40B Free** is new (30-day + may train).
 - **Benchmark corrections:** **Vals v2.2** puts Argon 69.24% (#3 overall), K3.1 Pro 62.52%, DeepSeek 1017 61.26%, GLM-5.3 59.73%, M3.1 Flash 53.78%. **LMArena Vision: Qwen3.8 is #9, not #2.**
@@ -218,17 +230,17 @@ Escalate per task: `Kimi K3.1 Pro` (hardest 5%) · `Qwen3.8 Max` (visual QA) · 
 
 ## Method (short)
 
-- **Three waves of parallel web-research agents** (roster/benchmarks/value; OmO/v1-v2/plugins/power-ups; then India availability, Go-vs-direct, and plan value) plus vendor docs, billing pages and leaderboards fetched directly. Live docs were re-checked on **Oct 25** for roster, caps, prices, privacy and restricted-model settings.
+- **Three waves of parallel web-research agents** (roster/benchmarks/value; OmO/v1-v2/plugins/power-ups; then India availability, Go-vs-direct, and plan value) plus vendor docs, billing pages and leaderboards fetched directly. Benchmark data is the **Oct 25** pass; live docs (roster, caps, prices, privacy, restricted-model settings, tooling versions) were re-verified **Nov 17**.
 - **Local calibration:** aggregate token/cost stats were computed from the local OpenCode session database (no session content, no client data). This is what makes the limit math real rather than hand-wavy.
 - **Cross-checks:** every crucial number has a source URL; vendor claims are marked vs independent runs; benchmark version/harness caveats are explicit. 🟢 official · 🟡 proxy/partial · 🔴 vendor-only.
 - **Privacy:** no client names, no PHI, no session content in this repo. Only aggregate usage numbers.
 
 ## Caveats
 
-- Everything is a **snapshot** (Oct 1, 2026; roster/caps/value refreshed **Oct 25**). Model rosters, prices and limits changed ~weekly in Sep–Oct 2026.
+- Everything is a **snapshot** (Oct 1, 2026; roster/caps/tooling refreshed **Nov 17**, benchmark values **Oct 25**). Model rosters, prices and limits changed ~weekly in Sep–Nov 2026.
 - The **local calibration data is still the Sep 15 – Oct 1 history** (primary machine's v1 DB); the Oct 25 v2 DB is a consistency check (8.2k / 1.25k / 153k per request), not a new baseline.
-- AA Intelligence Index is **v4.3.2**; Vals is **v2.2**. Older quoted scores are not comparable.
+- AA Intelligence Index is **v4.3.2** in this repo; AA has since re-baselined to **v5.0.1**. Vals is **v2.2**. Scores from different generations are not comparable.
 - Vendor benchmarks are self-reported; independent coverage gaps remain (METR/Epoch have almost no Go-model data; K3.1 Pro has no Design Arena/OSWorld entry yet).
 - Limits math uses **your** token profile; a lighter user gets several× more requests per cap.
-- Data policies change; re-verify before sending client/PHI data. **Oct 25:** Argon is ZDR; Muse Spark Contributor still trains; Grok 4.7 is 30-day retention; DeepSeek ZDR expires **Oct 31, 2026**.
+- Data policies change; re-verify before sending client/PHI data. **Nov 17:** Argon is ZDR; Muse Spark Contributor **and Iceman Contributor Free** train; Grok 4.7 is 30-day retention; DeepSeek ZDR is renewed monthly (**through Nov 30, 2026**).
 - India verdicts mix official docs (🟢) and community/third-party evidence (🟡). Payment methods and regional availability can change at checkout — use the 2-minute checklist in `14` before paying.

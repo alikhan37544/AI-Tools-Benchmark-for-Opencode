@@ -1,6 +1,6 @@
 # 07 — Recommended OpenCode Configuration & Workflow
 
-> **Snapshot: October 1, 2026; refreshed October 13, 16 and 25, 2026.** **This machine now runs OpenCode v2.1.4** (v1 latest is **1.19.4**, Oct 22). The configs below use the portable fields (`model`, `small_model`, `agent`) that both v1 and v2 accept; on a fresh v2 install put them in `~/.config/opencode/opencode.jsonc`. Verify keys against [opencode.ai/docs/config](https://opencode.ai/docs/config/) and [docs/permissions](https://opencode.ai/docs/permissions/). Model IDs are the provider IDs confirmed by OpenCode docs and this machine’s `/models` (`opencode-go/*`, free models on `opencode/*`).
+> **Snapshot: October 1, 2026; refreshed October 13, 16, 25 and November 17, 2026.** **This machine now runs OpenCode v2.3.0** (v1 latest is **1.19.5**, Oct 28). The configs below use the portable fields (`model`, `small_model`, `agent`) that both v1 and v2 accept; on a fresh v2 install put them in `~/.config/opencode/opencode.jsonc`. Verify keys against [opencode.ai/docs/config](https://opencode.ai/docs/config/) and [docs/permissions](https://opencode.ai/docs/permissions/). Model IDs are the provider IDs confirmed by OpenCode docs and this machine’s `/models` (`opencode-go/*`, free models on `opencode/*`).
 >
 > 🆕 **Oct 25:** `gemini-4-argon-contributor` → **`gemini-4-argon`** (Go now documents it **ZDR/not trained**, $30 50%-off cap). Add **`kimi-k3.1-pro`** (AA 55.1, 269 req/mo) and **`minimax-m3.1-flash`** (AA 43, 4,975 req/mo). `grok-4.6` is gone; `grok-4.7` is the Grok. Step 5 is paid ($15). **India:** pay Go with **UPI**; set **DeepSeek → Regions = Global**; enable Muse’s training opt-in only on non-client work.
 
@@ -14,7 +14,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Daily driver: proven at your volume (~25.5k req/mo), native vision, 96% cache hit
+  // Daily driver: proven at your volume (~31.9k req/mo, $100 cap), native vision, 96% cache hit
   "model": "opencode-go/deepseek-v4.1-flash",
 
   // Cheap utility model for titles/summaries and tiny tasks

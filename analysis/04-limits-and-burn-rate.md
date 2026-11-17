@@ -1,7 +1,8 @@
 # 04 — Limits, Requests & Realistic Continuous Programming
 
-> **Snapshot: October 1, 2026; refreshed October 13, 16 and 25, 2026.** Usage history remains **Sep 15–Oct 1** (from the primary machine’s v1 DB). Caps and prices re-verified live **Oct 25**: **Kimi K3.1 Pro added ($15 cap)**, **MiniMax M3.1 Flash added ($20 cap)**, **Step 5 Preview back to $15** (4× promo ended), **Gemini 4 Argon renamed/50%-off at $30** (not a Contributor SKU; ZDR), **Space Bunny and LongCat 2.5 Preview Free removed**. No session content or client data is used — only aggregate token counts.
+> **Snapshot: October 1, 2026; refreshed October 13, 16, 25 and November 17, 2026.** Usage history remains **Sep 15–Oct 1** (from the primary machine’s v1 DB). Caps and prices re-verified live **Nov 17**. No session content or client data is used — only aggregate token counts.
 >
+> 🆕 **Nov 17 — the new stuff:** **DeepSeek V4.1 Flash's Go cap rose $80 → $100** (5h $16 → $20, weekly $40 → $50; raised in OpenCode v2.2.4). At the frozen profile that is **~31,855 heavy req/mo** (5h 6,371, week 15,928 — the old 25,484/5,097/12,742 rows in this file read 25% higher now), continuous burst ~10.1h at 630 req/h, and a **10× face-value multiplier**. **Qwen4 Max** ($15 cap) gives ~543/mo; **Hy4** ($60 cap) ~3,900/mo. DeepSeek ZDR is renewed monthly (**through Nov 30, 2026**). Go Teams ($20/member) adds +$5 per model cap; **Extra Usage** falls back to PAYG credits at a cap.
 > 🆕 **Oct 25 — the new stuff:** **K3.1 Pro gives ~269 heavy requests/month** (5h: 54, week: 134) — the smallest premium ration on Go, but at AA 55.1. **M3.1 Flash gives ~4,975/month** (5h: 995, week: 2,488) at AA 43 — the new value workhorse. **Argon gives ~728/month** at the 50%-off $30 cap. **Step 5 is back to ~591/month** at $15. The fresh v2 DB (Oct 25) confirms the frozen profile within ~5%.
 
 ---
@@ -64,7 +65,7 @@ OpenCode’s estimates assume a light request: ~410 input, ~71k cached, ~310 out
 
 | Model | Docs est. req/month | **Your calibrated req/month** | Ratio |
 |---|---|---|---|
-| DeepSeek V4.1 Flash | 173,330 | **25,484** | 6.8× |
+| DeepSeek V4.1 Flash | 216,670 | **31,855** | 6.8× |
 | GLM-5.3-Flash | 31,580 | **9,836** | 3.2× |
 | MiMo-V2.6-Flash | 150,400 | **33,171** | 4.5× |
 | MiMo-V2.6-Pro | 16,300 | **3,074** | 5.3× |
@@ -95,7 +96,7 @@ Cost per request uses your averages (7.8k in / 1.1k out+reasoning / 146k cache r
 | Beam Free | $0 | ∞ | ∞ | **∞** | ∞ | ∞ | ✅ (no training, 30-day) |
 | **Muse Spark 1.3 Contrib** | $0.0013 | 9,288 | 23,220 | **46,440** | 929 | ∞ (>24h) | ✅ (trains on data) |
 | MiMo-V2.6-Flash | $0.0018 | 6,634 | 16,586 | **33,171** | 663 | ∞ (>24h) | ✅ |
-| **DeepSeek V4.1 Flash** | $0.0031 | 5,097 | 12,742 | **25,484** | 510 | ~8.1h | ✅ ($80 cap) |
+| **DeepSeek V4.1 Flash** | $0.0031 | 6,371 | 15,928 | **31,855** | 637 | ~10.1h | ✅ ($100 cap) |
 | LongCat-2.0 | $0.0045 | 2,646 | 6,614 | 13,228 | 265 | ~4.2h | ❌ |
 | GLM-5.3-Flash | $0.0061 | 1,967 | 4,918 | 9,836 | 197 | ~3.1h | ❌ (weekly in ~5 heavy days) |
 | Hy3 | $0.0068 | 1,754 | 4,386 | 8,772 | 175 | ~2.8h | ❌ |
@@ -126,7 +127,7 @@ Cost per request uses your averages (7.8k in / 1.1k out+reasoning / 146k cache r
 - **Step 5** gives **~4–12 tasks/month** (591).
 - **M3.1 Flash** gives **~33–100 tasks/month** (4,975) — the best paid value.
 - **GLM-5.3** gives **~2–6 tasks/month** (279).
-- **DeepSeek V4.1 Flash** gives **~170–510 tasks/month** (25,484).
+- **DeepSeek V4.1 Flash** gives **~170–510 tasks/month** (31,855 requests).
 - The **free twins are effectively unlimited** (AA 42/39, zero-retention).
 
 ---

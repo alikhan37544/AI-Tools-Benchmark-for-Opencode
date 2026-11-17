@@ -12,7 +12,7 @@
 
 | # | Plan | Price | Headline model (AA) | Heavy req/mo | Plan-effective $/req | AA pts / plan $ | India | Verdict |
 |---|---|---|---|---|---|---|---|---|
-| **1** | **OpenCode Go** | **$10/mo** | **Kimi K3.1 Pro (55.1)** · Argon (53) · M3.1 Flash (43) · DeepSeek (39) | **269** K3.1 Pro · **728** Argon · **4,975** M3.1 Flash · **25,484** DeepSeek | **$0.0372** K3.1 Pro · **$0.0137** Argon · **$0.0020** M3.1 Flash | 1,482 · 3,858 · 21,393 | 🟢 **UPI** | **Best overall. Buy first.** 29 models, one key, free floor, highest quality ceiling. |
+| **1** | **OpenCode Go** | **$10/mo** | **Kimi K3.1 Pro (55.1)** · Argon (53) · M3.1 Flash (43) · DeepSeek (39) | **269** K3.1 Pro · **728** Argon · **4,975** M3.1 Flash · **31,855** DeepSeek | **$0.0372** K3.1 Pro · **$0.0137** Argon · **$0.0020** M3.1 Flash · **$0.0003** DS | 1,482 · 3,858 · 21,393 | 🟢 **UPI** | **Best overall. Buy first.** 34 models, one key, free floor, highest quality ceiling. |
 | **2** | **StepFun Step Plan Pro** | **$29/mo** (Plus $9.99, Max $99) | Step 5 (44) | **~45,000** (if credit math holds) | **$0.00064** | **68,273** | 🟢 Stripe | **Raw-value outlier.** If the console confirms it, nothing else is close on $/req — but quality is AA 44, not 55, and the math needs a test. |
 | **3** | **Z.ai GLM Coding Plan Lite** | **$18/mo** (Pro $80, Max $168) | GLM-5.3 (45) | **1,319** peak · **2,639** off-peak | **$0.0136** peak · **$0.0068** off-peak | 3,297 · 6,597 | 🟢 Card/PayPal | **Best GLM-only value.** 4.7× Go’s GLM-5.3 capacity for 1.8× the price. |
 | **4** | **Xiaomi MiMo Token Plan Lite** | **$6/mo** (Standard $16, Pro $50, Max $100) | MiMo-V2.6-Pro (46) · Flash (38) | **1,218** Pro · **3,173** Flash | **$0.0049** Pro · **$0.0019** Flash | 9,338 · 20,095 | 🟢 Overseas email + Waffo | **Cheap MiMo entry.** Wins below ~3k req/mo; Go wins above. No overseas invoice. |
@@ -21,7 +21,7 @@
 | — | **Alibaba Token Plan** | $6–$68 | Qwen3.8 Max/Flash | — | — | — | 🔴 **Blocked** | Singapore-only; India not selectable. Use Qwen via Go/OpenRouter. |
 | — | **Meta Muse Code** | $5–$200 | Muse Spark | — | — | — | 🔴 **Blocked** | US-first; no India availability. Muse Spark via Go. |
 
-**The one-line answer:** **Go is #1 because it is the only plan that combines a 55.1-AA model, 29-model breadth, UPI, and a free floor at $10.** StepFun is the math anomaly; Z.ai is the GLM specialist; Xiaomi is the cheap MiMo entry; Kimi is the K3.1 Pro subscription; MiniMax is the opaque one.
+**The one-line answer:** **Go is #1 because it is the only plan that combines a 55.1-AA model, 34-model breadth, UPI, and a free floor at $10.** StepFun is the math anomaly; Z.ai is the GLM specialist; Xiaomi is the cheap MiMo entry; Kimi is the K3.1 Pro subscription; MiniMax is the opaque one.
 
 ---
 
@@ -52,7 +52,7 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 | Kimi K3.1 Pro | **55.1** | $15 | **269** | $0.0372 | Hardest 5%: architecture, marathon debugging, long-context |
 | Gemini 4 Argon | **53** | $30 (50% off) | **728** | $0.0137 | Planning/general intelligence — now **ZDR/not trained** |
 | MiniMax M3.1 Flash | 43 | $20 | **4,975** | $0.0020 | Cheap quality workhorse; the new value anchor |
-| DeepSeek V4.1 Flash | 39 | $80 | **25,484** | $0.0004 | Daily driver at volume; 8× face value |
+| DeepSeek V4.1 Flash | 39 | $100 | **31,855** | $0.0003 | Daily driver at volume; 10× face value |
 | GLM-5.3-Flash | 42 | $60 | **9,836** | $0.0010 | Bulk edits/frontend; 6× |
 | MiMo-V2.6-Pro | 46 | $15 | 3,074 | $0.0033 | Privacy-safe reasoning |
 | Step 5 | 44 | $15 | 591 | $0.0169 | Paid AA 44 capacity |
@@ -122,7 +122,7 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 
 **The break-even:** Go gives **269** K3.1 Pro heavy requests for $10. Kimi Plus at $19 must give **more than 269** to beat Go on K3.1 Pro $/req; Pro at $39 must give **more than 1,049** to match Go’s $0.0372/req. Those are plausible but **unverified**.
 **Strengths:** the only flat plan with K3.1 Pro; official OpenCode support; good for K3.1 Pro-heavy work.
-**Weaknesses:** opaque quota; card payment not explicitly documented; no 29-model breadth; shared quota across tools means other Kimi usage eats your coding budget.
+**Weaknesses:** opaque quota; card payment not explicitly documented; no 34-model breadth; shared quota across tools means other Kimi usage eats your coding budget.
 **Best for:** K3.1 Pro-first users who will actually use >269 heavy requests/mo.
 
 ### #6 — MiniMax M Plan Go, $22/mo
@@ -147,7 +147,7 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 |---|---|---|---|---|
 | **StepFun Pro $29** | 44 | ~45,000 | **1,980,000** | **68,273** |
 | Xiaomi Max $100 (Flash) | 38 | 63,467 | 2,411,746 | 24,113 |
-| OpenCode Go — DeepSeek | 39 | 25,484 | 993,876 | 99,490* |
+| OpenCode Go — DeepSeek | 39 | 31,855 | 1,242,345 | 124,235* |
 | OpenCode Go — MiMo-Flash | 38 | 33,171 | 1,260,498 | 126,000* |
 | OpenCode Go — M3.1 Flash | 43 | 4,975 | 213,925 | 21,393 |
 | Xiaomi Lite $6 (Flash) | 38 | 3,173 | 120,574 | 20,095 |

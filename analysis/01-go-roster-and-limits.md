@@ -1,9 +1,10 @@
 # 01 — OpenCode Go: Roster, Plans & Limit Mechanics
 
-> **Snapshot: October 1, 2026; refreshed October 13, 16 and 25, 2026.** Roster, caps and prices were re-verified against the live docs on **Oct 25**. Usage telemetry remains Sep 15–Oct 1 vintage; benchmark figures were refreshed Oct 25.
+> **Snapshot: October 1, 2026; refreshed October 13, 16, 25 and November 17, 2026.** Roster, caps and prices were re-verified against the live docs on **Nov 17**. Usage telemetry remains Sep 15–Oct 1 vintage; benchmark figures were refreshed Oct 25.
 > Primary sources: [opencode.ai/docs/go](https://opencode.ai/docs/go/) · [opencode.ai/docs/zen](https://opencode.ai/docs/zen/) · [opencode.ai/data](https://opencode.ai/data)
 >
-> 🆕 **Oct 25 refresh — the new stuff:** **Kimi K3.1 Pro** (AA 55, the highest intelligence ever listed on Go) and **MiniMax M3.1 Flash** (AA 43 at $0.22/task) joined the roster. **Space Bunny** and **LongCat 2.5 Preview Free** left it. **Step 5 Preview's 4× promo ended** (back to a $15 cap). **Gemini 4 Argon** is now a plain, 50%-off SKU at **$30/mo**, and — importantly — Go's privacy table now documents it as **not used for training, 0-day retention**. The old "Argon trains on your data" warning is **withdrawn**. Go is still **29 models**.
+> 🆕 **Nov 17 refresh — the new stuff:** **Go is now 34 models.** Added: **Qwen4 Max** ($1.50/$4.50/$0.075, cache write $1.875, $15 cap, ~543 heavy req/mo; AA 43 on the new v5-era board — not comparable with this file's v4.3.2 figures), **Hy4** GA (same prices as preview, $60 cap → ~3,900 req/mo), **Iceman Contributor Free** (**trains on prompts/completions**), **LongCat 2.5 Free** (returned; ZDR, China-hosted, needs Regions=Global), **Hy4 flash Free** (ZDR). **Step 5 is listed as “Step 5 Preview”** again (same $15 cap). **DeepSeek V4.1 Flash's cap rose $80 → $100** (Go Plus $200) → **~31,855 heavy req/mo** and a **10× face-value multiplier**. A third plan, **Go Teams ($20/member/mo)**, adds $5 to each model cap per member, and **Extra Usage** (opt-in) falls back to PAYG credits instead of blocking. Zen gained **MiniMax M3.1 Flash Free** (zero-retention, no training) as a third free twin. **Gemini 4 Argon's 50% discount ends Nov 30** (then $4/$20/$0.20 at a $60 cap — same ~728 req/mo).
+> 🆕 **Oct 25 refresh — the new stuff:** **Kimi K3.1 Pro** (AA 55, the highest intelligence ever listed on Go) and **MiniMax M3.1 Flash** (AA 43 at $0.22/task) joined the roster. **Space Bunny** and **LongCat 2.5 Preview Free** left it. **Step 5 Preview's 4× promo ended** (back to a $15 cap). **Gemini 4 Argon** is now a plain, 50%-off SKU at **$30/mo**, and — importantly — Go's privacy table now documents it as **not used for training, 0-day retention**. The old "Argon trains on your data" warning is **withdrawn**. Go was 29 models then.
 
 ---
 
@@ -11,7 +12,7 @@
 
 | Plan | Price | What you get |
 |---|---|---|
-| **Go** | **$10/mo** | Access to all 29 Go models, each with its own monthly dollar allowance |
+| **Go** | **$10/mo** | Access to all 34 Go models, each with its own monthly dollar allowance |
 | **Go Plus** | **$40/mo** (launched Sep 28, 2026) | Same models, 2–8× the per-model allowance |
 | **Zen (pay-as-you-go)** | per token | Same gateway, no monthly caps, list prices; overflow for Go |
 | **Free tier** | $0 | Free/stealth models remain usable after Go limits are hit |
@@ -81,7 +82,7 @@ DeepSeek models are 2× more expensive during **peak = 01:00–04:00 and 06:00�
 
 ---
 
-## 3. The full Go roster (29 models)
+## 3. The full Go roster (34 models — table below is the Oct 25 cut; the five Nov 17 additions are itemized in the delta at the top)
 
 Verified live on Oct 25, 2026, from [opencode.ai/docs/go](https://opencode.ai/docs/go/):
 

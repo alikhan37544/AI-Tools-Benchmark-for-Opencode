@@ -18,7 +18,7 @@
 
 | Rank | Plan | India verdict | Why |
 |---|---|---|---|
-| **1** | **OpenCode Go — $10/mo** (Plus $40) | 🟢 **Available, cleanest path** | No phone verification; Stripe checkout with **UPI**, card, Link, Alipay, WeChat Pay; **29 models behind one key**; free zero-retention twins as the floor. |
+| **1** | **OpenCode Go — $10/mo** (Plus $40) | 🟢 **Available, cleanest path** | No phone verification; Stripe checkout with **UPI**, card, Link, Alipay, WeChat Pay; **34 models behind one key**; free zero-retention twins as the floor. |
 | **2** | **StepFun Step Plan — $6.99–$99** | 🟢 **Available** | Email signup, Stripe/account balance, no phone gate. The published credit conversion makes it the raw-value outlier — **verify consumption in the console before relying on it**. |
 | **3** | **Z.ai GLM Coding Plan — $18/$80/$168** | 🟢 **Available** | Bank card or PayPal, no phone gate, OpenCode officially supported. Best value if you specifically want GLM-5.3. |
 | **4** | **Xiaomi MiMo Token Plan — $6–$100** | 🟢 **Available via the overseas path** | Overseas email/Google/Facebook registration; **no Chinese phone needed**; Waffo USD checkout (Apple Pay/Google Pay/card). Roughly list-price parity with Go. |
@@ -27,7 +27,7 @@
 | — | **Alibaba Token Plan** | 🔴 **Blocked** | Singapore-only; India is not selectable as country/region; the phone country must match the selected region. Use Qwen through Go or OpenRouter instead. |
 | — | **Meta Muse Code** | 🔴 **Blocked** | US-first rollout; no India availability announced as of Oct 2026. Muse Spark is still reachable **through Go**, with the Contributor-training caveat. |
 
-**If you buy exactly one thing: OpenCode Go at $10.** It is the only plan where an Indian resident can pay by UPI, get 29 models, and keep working on free models after the caps. Everything else is a specialist add-on.
+**If you buy exactly one thing: OpenCode Go at $10.** It is the only plan where an Indian resident can pay by UPI, get 34 models, and keep working on free models after the caps. Everything else is a specialist add-on.
 
 ---
 
@@ -35,7 +35,7 @@
 
 | Plan / price | Signup from India | Phone / identity | Payment | Models & access | Verdict |
 |---|---|---|---|---|---|
-| **OpenCode Go** $10/mo · **Plus** $40/mo | 🟢 Email/GitHub; no country gate documented | 🟢 **None** | 🟢 **Card, Link, Alipay, UPI, WeChat Pay** (Stripe); top-ups add **4.6% + $0.31** | 🟢 29 Go models + Zen + free models. **DeepSeek needs Regions = Global**; Muse needs “Allow paid endpoints that train on request data”; Beam regional exclusions **do not include India** | **#1 — buy this first** |
+| **OpenCode Go** $10/mo · **Plus** $40/mo | 🟢 Email/GitHub; no country gate documented | 🟢 **None** | 🟢 **Card, Link, Alipay, UPI, WeChat Pay** (Stripe); top-ups add **4.6% + $0.31** | 🟢 34 Go models + Zen + free models. **DeepSeek needs Regions = Global**; Muse needs “Allow paid endpoints that train on request data”; Beam regional exclusions **do not include India** | **#1 — buy this first** |
 | **Z.ai GLM Coding Plan** Lite $18 · Pro $80 · Max $168 (annual −30%) | 🟢 Email; global | 🟢 None documented | 🟢 **Bank card / PayPal** ([usage policy](https://docs.z.ai/devpack/usage-policy)); UPI not documented | 🟢 GLM-5.3, GLM-5.3-Flash; OpenCode listed as supported; off-peak 50% (peak Mon–Fri 14:00–18:00 SGT) | **#3 — best GLM-only value** |
 | **StepFun Step Plan** Mini $6.99 · Plus $9.99 · Pro $29 · Max $99 | 🟢 Email; global platform | 🟢 None documented | 🟢 **Stripe or account balance** | 🟢 Step 5 / Step 3.7 Flash / Step 3.5 Flash; OpenCode-compatible; monthly credits | **#2 — value wildcard; verify credits** |
 | **Xiaomi MiMo Token Plan** Lite $6 · Standard $16 · Pro $50 · Max $100 (annual −12%) | 🟢 **Overseas email, Google or Facebook**; no Chinese phone | 🟢 Email is the security identifier; overseas real-name not required | 🟢 **Waffo USD checkout** — Apple Pay, Google Pay, credit/debit cards ([FAQ](https://mimo.mi.com/docs/en-US/quick-start/faq/payment)) | 🟢 MiMo-V2.6 Pro/Flash; OpenCode supported; overseas **Base URL + key are separate** from China | **#4 — cheap MiMo entry; no invoice overseas** |
@@ -111,7 +111,7 @@ Most AI plans let you pick India and proceed. Two do not:
 
 ### If you want one subscription
 **OpenCode Go — $10/mo.** Pay by UPI. Set DeepSeek to Regions=Global. Use:
-- `deepseek-v4.1-flash` as the daily driver (25.5k req/mo at your profile),
+- `deepseek-v4.1-flash` as the daily driver (31.9k req/mo at your profile),
 - `minimax-m3.1-flash` as the cheap quality step-up (4,975 req/mo, AA 43),
 - `kimi-k3.1-pro` for the hard 5% (269 req/mo, AA 55.1),
 - `gemini-4-argon` for planning on non-client work (728 req/mo, AA 53, now **ZDR/not trained**),

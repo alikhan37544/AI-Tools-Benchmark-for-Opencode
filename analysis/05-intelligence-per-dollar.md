@@ -1,6 +1,8 @@
 # 05 — Intelligence per Dollar: Value, Tiers & “Pay More for a Jump”
 
-> **Snapshot: October 1, 2026; refreshed October 13, 16 and 25, 2026.** Intelligence = Artificial Analysis Intelligence Index **v4.3.2**. Costs are **your calibrated per-request cost** from [04](./04-limits-and-burn-rate.md) (7.8k input / 1.1k output+reasoning / 146k cache read), not list prices per token.
+> **Snapshot: October 1, 2026; refreshed October 13, 16, 25 and November 17, 2026.** Intelligence = Artificial Analysis Intelligence Index **v4.3.2** (AA has since re-baselined to **v5.0.1** — cross-generation scores like Qwen4 Max's 43 are not comparable and are excluded from pts/$). Costs are **your calibrated per-request cost** from [04](./04-limits-and-burn-rate.md) (7.8k input / 1.1k output+reasoning / 146k cache read), not list prices per token.
+>
+> 🆕 **Nov 17 — the new stuff:** **DeepSeek's $100 cap** lifts its sustainable lane to **~31,855 req/mo** (pts/$ unchanged at 12,426/14,516; monthly intelligence throughput rises to 1.24M/1.43M) and its Go multiplier to **10×** — the biggest on the platform. A **third zero-retention free twin** landed: **MiniMax M3.1 Flash Free** (paid sibling is the AA 43 value anchor), so the free floor now spans AA 39–43 at $0/req. Qwen4 Max (~543 req/mo) and Hy4 (~3,900) join unmeasured on the v4.3.2 scale.
 >
 > 🆕 **Oct 25 — the new stuff:** **Kimi K3.1 Pro (AA 55.1)** is the new intelligence ceiling on Go — but at **988 pts/$** and **269 req/mo**, it is a ration, not a driver. **Gemini 4 Argon (AA 53, 1,286 pts/$, 728 req/mo)** is the better *top-end workhorse* and is now **ZDR/not trained**. **MiniMax M3.1 Flash (AA 43, 10,697 pts/$, 4,975 req/mo)** is the new paid value anchor. **DeepSeek V4.1 Flash’s 1017 checkpoint scores AA 45** at the same price (baseline 39) — upside, not yet the baseline. **Space Bunny and LongCat 2.5 Free are gone**; **Flint 40B Free** is new (may train).
 
@@ -27,8 +29,8 @@ A model can win on one and lose badly on another (K3.1 Pro has the highest AA bu
 | **Muse Spark 1.3 Contrib** | 48 | $0.0013 | 46,440 | **37,152** | **2.23M** | A+ (privacy caveat) |
 | **MiMo-V2.6-Flash** | 38 | $0.0018 | 33,171 | **21,111** | **1.26M** | **A (cheapest smart volume)** |
 | **Claude Haiku 5.5** | 43 (Max) | $0.0028 | 5,375 | 15,357 | 231k | **A− (Max; Med 34)** |
-| **DeepSeek V4.1 Flash** | 39 | $0.0031 | 25,484 | 12,426 | 994k | **A+ sustainable** |
-| **DeepSeek V4.1 Flash 1017** | **45** | $0.0031 | 25,484 | **14,516** | **1.15M** | **A+ upside (same ID/price)** |
+| **DeepSeek V4.1 Flash** | 39 | $0.0031 | 31,855 | 12,426 | 1.24M | **A+ sustainable** |
+| **DeepSeek V4.1 Flash 1017** | **45** | $0.0031 | 31,855 | **14,516** | **1.43M** | **A+ upside (same ID/price)** |
 | **MiniMax M3.1 Flash** | 43 | $0.0040 | 4,975 | **10,697** | 214k | **A (new paid value anchor)** |
 | **Qwen3.8 Flash** | 40 | $0.0040 | 7,457 | 10,000 | 298k | B+ (AA 40, thin cover) |
 | **MiMo-V2.6-Pro** | 46 | $0.0049 | 3,074 | 9,428 | 141k | **A (best premium)** |
@@ -58,7 +60,7 @@ A model can win on one and lose badly on another (K3.1 Pro has the highest AA bu
 
 1. **Most intelligence per limit-dollar — Muse Spark 1.3 Contributor** (37,152 pts/$; 2.23M monthly throughput) — still the mathematical winner, with the Contributor data-policy caveat (trains on your prompts).
 2. **Best free intelligence — GLM-5.3-Flash Free** (AA 42, zero-retention, $0/req) with **DeepSeek V4.1 Flash Free** (AA 39, zero-retention) as the high-capacity twin. **Beam Free** (AA 30) covers the no-training case.
-3. **Best sustainable intelligence per dollar — DeepSeek V4.1 Flash.** 25.5k requests/month, 12,426 pts/$ (14,516 if 1017 is served), 209–232 tok/s, native vision — and the free twin makes the marginal cost $0.
+3. **Best sustainable intelligence per dollar — DeepSeek V4.1 Flash.** 31.9k requests/month ($100 cap since Oct 30), 12,426 pts/$ (14,516 if 1017 is served), 209–232 tok/s, native vision — and the free twin makes the marginal cost $0.
 4. **Highest raw intelligence — Kimi K3.1 Pro (AA 55.1)**: 269 req/mo at 988 pts/$. **Gemini 4 Argon (AA 53)** is the better *top-end capacity* buy: 728 req/mo at 1,286 pts/$, **Vals #1 among Go models (69.24%)**, and **ZDR/not trained** — the old training caveat is withdrawn.
 
 ### AA “cost to run the entire Intelligence Index” (list-price basis, AA data)
@@ -144,7 +146,7 @@ Each row is a switch from **DeepSeek V4.1 Flash** (your baseline, AA 39):
 
 > **The ceiling and the floor both moved in October — in opposite directions.**
 >
-> The raw intelligence ceiling is now **Kimi K3.1 Pro (AA 55.1)**, but at **269 heavy requests/month** it is a scalpel, not a driver. The better *top-end workhorse* is **Gemini 4 Argon (AA 53, 728 req/mo)** — and its **ZDR correction removes the data-rights tax** that made the Oct 16 recommendation conditional. The paid value anchor is **MiniMax M3.1 Flash (AA 43, 4,975 req/mo, $0.0020/req plan-effective)**, which dominates GLM-5.3-Flash on both axes. The volume king is still **DeepSeek V4.1 Flash (AA 39, 25.5k req/mo, 8× face value)**, with the **1017 checkpoint’s AA 45** as free upside.
+> The raw intelligence ceiling is now **Kimi K3.1 Pro (AA 55.1)**, but at **269 heavy requests/month** it is a scalpel, not a driver. The better *top-end workhorse* is **Gemini 4 Argon (AA 53, 728 req/mo)** — and its **ZDR correction removes the data-rights tax** that made the Oct 16 recommendation conditional. The paid value anchor is **MiniMax M3.1 Flash (AA 43, 4,975 req/mo, $0.0020/req plan-effective)**, which dominates GLM-5.3-Flash on both axes. The volume king is still **DeepSeek V4.1 Flash (AA 39, 31.9k req/mo, 10× face value)**, with the **1017 checkpoint’s AA 45** as free upside.
 >
 > The winning strategy is **portfolio routing v4**: bulk on **DeepSeek V4.1 Flash + its free twin**, paid quality on **M3.1 Flash**, free quality on **GLM-5.3-Flash Free**, explore on MiMo-Flash/Haiku 5.5, planning/agentic ceiling on **Argon (ZDR, 728 req/mo)**, the absolute hard 5% on **K3.1 Pro (269 req/mo)**, visual QA on **Qwen3.8 Max**, and keep the $15 rations for the few tasks where their specific strengths matter. Escalate outside Go only for must-not-fail work.
 

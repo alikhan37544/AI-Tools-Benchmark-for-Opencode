@@ -1,6 +1,6 @@
 # 03 — Task Playbook: Best Model for Each Kind of Work
 
-> **Snapshot: October 1, 2026; refreshed October 13, 16 and 25, 2026.** Picks are for the **Go** roster (still **29 models**, but the composition changed: **+Kimi K3.1 Pro, +MiniMax M3.1 Flash; −Space Bunny, −LongCat 2.5 Preview Free**). **Step 5 Preview is paid** ($15 cap). **Gemini 4 Argon is no longer a Contributor/training SKU** — Go documents it as **not used / 0-day retention**, so the old “trains on your data” warning is withdrawn. Where the true best model is not on Go, that’s noted and the best Go alternative is given.
+> **Snapshot: October 1, 2026; refreshed October 13, 16, 25 and November 17, 2026.** Picks are for the **Go** roster (**34 models** as of Nov 17: +Qwen4 Max, Hy4, Iceman Contributor Free, LongCat 2.5 Free, Hy4 flash Free since Oct 25; +Kimi K3.1 Pro, +MiniMax M3.1 Flash; −Space Bunny). **Step 5 (Preview) is paid** ($15 cap). **Gemini 4 Argon is no longer a Contributor/training SKU** — Go documents it as **not used / 0-day retention**, so the old “trains on your data” warning is withdrawn (50%-off pricing ends Nov 30). Qwen4 Max and the new free SKUs are not yet scored on this file's v4.3.2 benchmark scale. Where the true best model is not on Go, that’s noted and the best Go alternative is given.
 > Evidence symbols: 🟢 independent · 🟡 mixed/vendor+partial · 🔴 vendor-only.
 >
 > 🆕 **Oct 25 — the new stuff:** **Kimi K3.1 Pro (AA 55.1)** is the highest-intelligence model ever listed on Go, with 1M context, vision, and a **269 req/mo** heavy-user allowance. **MiniMax M3.1 Flash (AA 43)** is the new value workhorse — **4,975 req/mo at $0.0020/request** on the $10 plan, and it dominates GLM-5.3-Flash on price/quality. **DeepSeek V4.1 Flash’s 1017 checkpoint scores AA 45** at the same price (the original checkpoint is 39; treat 39 as the conservative baseline). On the independent side, **Vals v2.2** now has **Argon 69.24% (#3 overall, #1 Go model)**, **K3.1 Pro 62.52%**, **DeepSeek 1017 61.26%**, and **M3.1 Flash 53.78%**.
@@ -102,7 +102,7 @@ Observed profile (last 60 days of local OpenCode history): TypeScript/Node + Pyt
 
 | Role | Model | Why |
 |---|---|---|
-| **Daily driver / build** | `deepseek-v4.1-flash` (max) | Proven at your volume; ~25.5k req/mo at your profile ($80 cap); 96% cache hit; native vision; 1017 checkpoint may serve AA 45 |
+| **Daily driver / build** | `deepseek-v4.1-flash` (max) | Proven at your volume; ~31.9k req/mo at your profile ($100 cap); 96% cache hit; native vision; 1017 checkpoint may serve AA 45 |
 | **Free workhorse (bulk)** | `deepseek-v4.1-flash-free` / `glm-5.3-flash-free` | Zero-retention free twins; AA 39/42; keep working after Go limits |
 | **Explore / repo Q&A / subagents** | `claude-haiku-5-5` or `mimo-v2.6-flash` | Haiku: fastest Claude, 1M ctx, Sonnet-class coding; MiMo-Flash: 33k req/mo, $0.0018/req |
 | **Free bulk coding** | `glm-5.3-flash-free` (AA 42) or `beam-free` (AA 30) | Best free intelligence with zero-retention (GLM) or no-training/30-day (Beam) |
@@ -123,7 +123,7 @@ Observed profile (last 60 days of local OpenCode history): TypeScript/Node + Pyt
 3. **Never start servers autonomously** (per your own GEMINI.md rule) — encode this in agent permissions, not in the prompt.
 4. **Azure DevOps is your CI** (no GitHub Actions in your repos) — give the agent `az`/`az devops` CLI tools explicitly and keep PAT handling in the environment.
 5. **Arabic OCR**: benchmark the top-3 vision models on your own `curenure_ocr_ar` corpus before switching; public benchmarks under-sample Arabic.
-6. **This machine runs OpenCode v2.1.4** — v1-only tooling (OmO Ultimate) needs the OmO Native path or staying pinned on v1.19.4 until the dual-host plugin ships.
+6. **This machine runs OpenCode v2.3.0** — v1-only tooling (OmO Ultimate) needs the OmO Native path or staying pinned on v1.19.5 until the dual-host plugin ships.
 
 ---
 
