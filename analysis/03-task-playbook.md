@@ -1,9 +1,13 @@
 # 03 — Task Playbook: Best Model for Each Kind of Work
 
-> **Snapshot: October 1, 2026; refreshed October 13, 16, 25 and November 17, 2026.** Picks are for the **Go** roster (**34 models** as of Nov 17: +Qwen4 Max, Hy4, Iceman Contributor Free, LongCat 2.5 Free, Hy4 flash Free since Oct 25; +Kimi K3.1 Pro, +MiniMax M3.1 Flash; −Space Bunny). **Step 5 (Preview) is paid** ($15 cap). **Gemini 4 Argon is no longer a Contributor/training SKU** — Go documents it as **not used / 0-day retention**, so the old “trains on your data” warning is withdrawn (50%-off pricing ends Nov 30). Qwen4 Max and the new free SKUs are not yet scored on this file's v4.3.2 benchmark scale. Where the true best model is not on Go, that’s noted and the best Go alternative is given.
+> **Snapshot: October 1, 2026; refreshed October 13, 16, 25 and November 17, 2026.** Picks are for the **Go** roster (**32 models** as of Nov 17 — the roster went 29 → 34 → 32: +Qwen4 Max, Hy4, Iceman Contributor Free, LongCat 2.5 Free, Hy4 flash Free since Oct 25; +Kimi K3.1 Pro, +MiniMax M3.1 Flash; −Space Bunny; MiMo-V2.5/-Pro dropped Nov 17). **Step 5 (Preview) is paid** ($15 cap). **Gemini 4 Argon is no longer a Contributor/training SKU** — Go documents it as **not used / 0-day retention**, so the old “trains on your data” warning is withdrawn (50%-off pricing ends Nov 30). Every AA score in this file is on the **v5.0.1** scale (Nov 17 re-baseline); **Qwen4 Max is scored — AA 43** — while the new free SKUs (LongCat 2.5 Free, Hy4 Flash Free, Iceman Contributor Free) remain unmeasured on v5.0.1. Where the true best model is not on Go, that’s noted and the best Go alternative is given.
 > Evidence symbols: 🟢 independent · 🟡 mixed/vendor+partial · 🔴 vendor-only.
 >
-> 🆕 **Oct 25 — the new stuff:** **Kimi K3.1 Pro (AA 55.1)** is the highest-intelligence model ever listed on Go, with 1M context, vision, and a **269 req/mo** heavy-user allowance. **MiniMax M3.1 Flash (AA 43)** is the new value workhorse — **4,975 req/mo at $0.0020/request** on the $10 plan, and it dominates GLM-5.3-Flash on price/quality. **DeepSeek V4.1 Flash’s 1017 checkpoint scores AA 45** at the same price (the original checkpoint is 39; treat 39 as the conservative baseline). On the independent side, **Vals v2.2** now has **Argon 69.24% (#3 overall, #1 Go model)**, **K3.1 Pro 62.52%**, **DeepSeek 1017 61.26%**, and **M3.1 Flash 53.78%**.
+> **Nov 17: AA v5.0.1 re-baseline applied.** Capacity figures are measured-profile first (heavy mix in parentheses). Legacy v4.3.2 numbers are labeled where kept.
+>
+> 🆕 **Nov 17 — what the re-baseline changed (current numbers):** **Gemini 4 Argon (AA 50)** is now **both the AA ceiling and the agentic leader** (Vals 69.24%) — ZDR/not trained, **961 req/mo** measured (728 heavy). **Kimi K3.1 Pro (AA 46)** is the escalation ration (**259 req/mo** measured / 269 heavy). **Qwen4 Max (AA 43)** is the new #3. The cheap tier is compressed into measurement noise: **M3.1 Flash / Step 5 / Qwen3.8 Flash 29, GLM-5.3-Flash / GPT 6 Luna 28, MiMo-V2.6-Flash 27** — pick on capacity/price/speed, not AA. **Claude Haiku 5.5 (AA 36)** is the best cheap lab model (the subagent pick). DeepSeek’s 1017 checkpoint = **AA 33** — and the catalog SKU is literally **"DeepSeek V4.1 Flash 1017"**, so the 1017 checkpoint is the served product (AA 33 = what you get); the base checkpoint is unmeasured and not served (earlier checkpoint ambiguity resolved).
+>
+> 🆕 **Oct 25 — kept as history (v4.3.2-era scores, heavy-profile capacity):** **Kimi K3.1 Pro (AA 55.1, v4.3.2)** was the highest-intelligence model ever listed on Go, with 1M context, vision, and a **269 req/mo** heavy-user allowance. **MiniMax M3.1 Flash (AA 43, v4.3.2)** was the new value workhorse — **4,975 req/mo at $0.0020/request** on the $10 plan, and it dominated GLM-5.3-Flash on price/quality. **DeepSeek V4.1 Flash’s 1017 checkpoint scored AA 45 (v4.3.2)** at the same price (the original checkpoint was 39 on that scale). On the independent side, **Vals v2.2** now has **Argon 69.24% (#3 overall, #1 Go model)**, **K3.1 Pro 62.52%**, **DeepSeek 1017 61.26%**, and **M3.1 Flash 53.78%** (Vals is a separate benchmark — unaffected by the AA re-baseline).
 
 ---
 
@@ -11,38 +15,38 @@
 
 | # | Task category | Best on Go | Runner-up | Best value pick | Best overall (not on Go) | Key evidence |
 |---|---|---|---|---|---|---|
-| 1 | **Backend/API, refactors, migrations** | **Kimi K3.1 Pro** (hard/marathon) / **DeepSeek V4.1 Flash** (daily) | Gemini 4 Argon / GLM-5.3 | **MiniMax M3.1 Flash** (AA 43, 4,975 req/mo) | Claude Opus 5.5 | K3.1 Pro AA 55.1, Vals 62.52%; DS 1017 AA 45, DeepSWE 74.2 🟡; Argon Vals 69.24% 🟢 |
+| 1 | **Backend/API, refactors, migrations** | **Gemini 4 Argon** (hard) / **DeepSeek V4.1 Flash** (daily) | Kimi K3.1 Pro / GLM-5.3 | **MiniMax M3.1 Flash** (AA 29, 5,760 req/mo measured) | Claude Opus 5.5 | Argon AA 50, Vals 69.24% 🟢; K3.1 Pro AA 46, Vals 62.52%; DS 1017 AA 33, DeepSWE 74.2 🟡 |
 | 2 | **Frontend/UI (React, Tailwind, shadcn)** | **Muse Spark 1.3** | Kimi K3.1 Pro / Kimi K3 | **GLM-5.3-Flash** | GPT-6 Astra / Fable 5.1 | Design Arena website #1 (1365), K3 #3 (1345) 🟢; K3.1 Pro unmeasured on Design Arena 🟡 |
 | 3 | **Database / SQL** | **GLM-5.3** | DeepSeek V4.1 Flash | **MiniMax M3.1 Flash** | Gemini-3-Pro + agent harness | Spider 2.0-Lite #1 agent used GLM-5.2 lineage (76.2) 🟡 |
 | 4 | **Integration (3rd-party APIs, auth, webhooks, Kafka)** | **Kimi K3.1 Pro** | Hy4 preview | **DeepSeek V4.1 Flash** | Claude Opus 5 | MCP-Atlas: K3 84.2, Hy4 83.7, Opus 5 85.7 🟡; Toolathlon Hy4 74.1 🟡 |
-| 5 | **Agentic terminal / DevOps / git / deploy** | **Gemini 4 Argon** (Vals #1 Go, 69.24%) / **Kimi K3.1 Pro** (AA 55.1) | Grok 4.7 / GLM-5.3 (TB4.0 41.9) | **MiniMax M3.1 Flash / DeepSeek V4.1 Flash** | GPT-6 Astra / Opus 5.5 | Vals v2.2: Argon 69.24% (#3 overall, #1 Go), K3.1 Pro 62.52%, DS 1017 61.26% 🟢; DS TB4.0 26.8 🟡 |
+| 5 | **Agentic terminal / DevOps / git / deploy** | **Gemini 4 Argon** (Vals #1 Go, 69.24%; AA 50) / **Kimi K3.1 Pro** (AA 46) | Grok 4.7 / GLM-5.3 (TB4.0 41.9) | **MiniMax M3.1 Flash / DeepSeek V4.1 Flash** | GPT-6 Astra / Opus 5.5 | Vals v2.2: Argon 69.24% (#3 overall, #1 Go), K3.1 Pro 62.52%, DS 1017 61.26% 🟢; DS TB4.0 26.8 🟡 |
 | 6 | **Long-horizon autonomy (multi-hour, self-directed)** | **Kimi K3.1 Pro** | Step 5 Preview (paid, TB4.0 33.3) | **DeepSeek V4.1 Flash / M3.1 Flash** | Claude Opus 4.6+ (METR ~12h) | Legacy LHTB #1 was retired DS V4 Flash 0.602; K3 0.378; K3.1 Pro inherits K3 lineage but has no published marathon figure yet 🟡 |
 | 7 | **Visual QA / browser + GUI agents (Playwright)** | **Qwen3.8 Max** | Kimi K3.1 Pro / Kimi K3 | Qwen3.8 Flash | GPT-6 Astra (grounding) | OSWorld-Verified: Qwen3.8 Max 86.1 (#1 overall), K3 84.8 🟢; K3.1 Pro not measured 🟡 |
 | 8 | **Image analysis / OCR / charts / screenshot→code** | **Qwen3.8 Max** | Kimi K3.1 Pro / MiMo-V2.6-Pro | Qwen3.8 Flash / DeepSeek V4.1 Flash | GPT-6 Astra / Gemini 3.x | MMMU-Pro 82.3 🟢; **LMArena Vision: Qwen3.8 #9** (not #2 — corrected Oct 25) 🟢; DS DocVQA 95.6 🟡 |
-| 9 | **Planning / architecture reasoning** | **Kimi K3.1 Pro (AA 55.1)** / **Gemini 4 Argon (AA 53, Vals #1 Go)** | Grok 4.7 / Muse Spark 1.3 | **MiniMax M3.1 Flash / GLM-5.3-Flash** | GPT-6 Astra | AA v4.3.2: K3.1 Pro 55.1, Argon 53; Vals v2.2: Argon 69.24, K3.1 Pro 62.52 🟢; Argon is **ZDR/not trained** now |
+| 9 | **Planning / architecture reasoning** | **Gemini 4 Argon (AA 50, Vals #1 Go)** / **Kimi K3.1 Pro (AA 46)** | Grok 4.7 / Muse Spark 1.3 | **MiniMax M3.1 Flash / GLM-5.3-Flash** | GPT-6 Astra | AA v5.0.1: Argon 50, K3.1 Pro 46; Vals v2.2: Argon 69.24, K3.1 Pro 62.52 🟢; Argon is **ZDR/not trained** now |
 | 10 | **Debugging / root-cause analysis** | **Kimi K3.1 Pro** (honesty lineage) / Grok 4.7 (edge cases) | DeepSeek V4.1 Flash | **MiniMax M3.1 Flash / GLM-5.3-Flash Free** | Claude Opus 5.5 | honesty battery: K3 0/12 false “done”; K3.1 Pro inherits the family behavior 🟡; GLM-Flash Free is $0 |
 | 11 | **Long context (huge repos, logs)** | **Kimi K3.1 Pro** (1M native) / DeepSeek V4.1 Flash (1M, cheapest cache) | Gemini 4 Argon (1M, ZDR) / Step 5 (AA-LCR 88.3) | **DeepSeek V4.1 Flash / M3.1 Flash** | GPT-6 Astra / Opus 4.6 | K3 AA-LCR 74.7 🟢; K3.1 Pro 1M ctx 🟢; retired DS V4 Pro MRCR-1M 83.5 🟢 |
-| 12 | **Fast/cheap bulk edits, boilerplate, tests** | **MiniMax M3.1 Flash** | MiMo-V2.6-Flash / DeepSeek V4.1 Flash / Claude Haiku 5.5 | **GLM-5.3-Flash Free (AA 42, $0)** | GPT-6 Luna ($0.07/task) | M3.1 Flash: AA 43, 112.8 tok/s, 1.35s TTFT, $0.22/AA task, 4,975 req/mo 🟢; MiMo-Flash 33k req/mo 🟢 |
-| 13 | **General intelligence / research / explanation** | **Kimi K3.1 Pro (55.1)** | Gemini 4 Argon (53) / Muse Spark 1.3 (48) / MiMo-V2.6-Pro / Grok 4.7 (46) | **MiniMax M3.1 Flash / GLM-5.3-Flash Free** | Claude Opus 5.5 (58) / GPT-6 Astra (53) | AA v4.3.2 🟢; Argon AA-Omniscience lowest hallucination 🟢; Vals: Argon 69.24 > K3.1 Pro 62.52 for agentic coding |
+| 12 | **Fast/cheap bulk edits, boilerplate, tests** | **MiniMax M3.1 Flash** | MiMo-V2.6-Flash / DeepSeek V4.1 Flash / Claude Haiku 5.5 | **GLM-5.3-Flash Free (AA 28, $0)** | GPT-6 Luna ($0.15/AA task) | M3.1 Flash: AA 29, 141.3 tok/s, 1.25s TTFT, $0.49/AA task, 5,760 req/mo measured 🟢; MiMo-Flash 51,433 req/mo measured 🟢 |
+| 13 | **General intelligence / research / explanation** | **Gemini 4 Argon (50)** | Kimi K3.1 Pro (46) / Qwen4 Max (43) / Muse Spark 1.3 (37) / Grok 4.7 (35) | **MiniMax M3.1 Flash / GLM-5.3-Flash Free** | Claude Opus 5.5 (59) / GPT-6 Astra (57) | AA v5.0.1 🟢; Argon AA-Omniscience lowest hallucination 🟢; Vals: Argon 69.24 > K3.1 Pro 62.52 for agentic coding |
 | 14 | **Data / analysis / ML notebooks (pandas, XGBoost, SHAP)** | **Kimi K3.1 Pro** / MiniMax M3.1 Flash | Qwen3.8 Flash | DeepSeek V4.1 Flash | Gemini-3-Pro agents | MLE-bench Lite M2.7 66.6% medal 🟡 (retired); official board Gemini-led 🟢 |
 | 15 | **Systems/hardware (overclocking, ROMs, drivers, homelab)** | **Kimi K3.1 Pro** / Grok 4.7 | MiMo-V2.6-Pro | DeepSeek V4.1 Flash | GPT-6 Sol / Opus 5.5 | Grok EEBench 64.0 🟡; MiMo Pro 23/23 hidden checks vs Opus 5 in OpenCode 🟡 |
 | 16 | **Voicebot / realtime / telephony debugging** | DeepSeek V4.1 Flash | Kimi K3.1 Pro | MiMo-V2.6-Flash | — (audio models are separate) | no dedicated bench; integration + debugging proxies |
-| 17 | **Repo Q&A / explore subagent (cheap, high volume)** | **Claude Haiku 5.5 / MiMo-V2.6-Flash** | GLM-5.3-Flash | **DeepSeek V4.1 Flash Free / GLM-5.3-Flash Free ($0)** | — | Haiku: fastest Claude, 1M ctx, $0.0028/req; MiMo-Flash 33k req/mo, $0.0018/req |
-| 18 | **Spec/plan writing before implementation** | **Kimi K3.1 Pro / Gemini 4 Argon** | Grok 4.7 / Muse Spark 1.3 | MiniMax M3.1 Flash | Opus 5.5 | planning = GPQA/ARC plus AA-Briefcase; K3.1 Pro AA 55.1 is the new ceiling |
+| 17 | **Repo Q&A / explore subagent (cheap, high volume)** | **Claude Haiku 5.5 (AA 36) / MiMo-V2.6-Flash** | GLM-5.3-Flash | **DeepSeek V4.1 Flash Free / GLM-5.3-Flash Free ($0)** | — | Haiku: fastest Claude, 1M ctx, $0.00302/req (≤100K tier), best cheap lab model; MiMo-Flash 51,433 req/mo measured, $0.00117/req |
+| 18 | **Spec/plan writing before implementation** | **Gemini 4 Argon / Kimi K3.1 Pro** | Grok 4.7 / Muse Spark 1.3 | MiniMax M3.1 Flash | Opus 5.5 | planning = GPQA/ARC plus AA-Briefcase; Argon AA 50 is the new ceiling (K3.1 Pro 46) |
 
 ---
 
 ## 1. Category notes and caveats
 
 ### Backend / API / refactors
-- **DeepSeek V4.1 Flash** is still the best daily driver: 209–232 tok/s, 1M ctx, native vision, 96% cache ratio, and a DeepSWE 74.2 vendor run. **The 1017 checkpoint now scores AA 45** (169.1 tok/s, TTFT 1.18s, $0.26/task, 210M verbosity) versus 39 for the original — same Go ID and price. Treat **39 as the conservative baseline** and 45 as upside until the router consistently serves 1017. Its honest weakness is hard long-horizon benchmarks: AA’s standardized TB4.0 gives it only 26.8. Short-to-medium agent loops: excellent. Multi-hour marathon: escalate.
-- **Kimi K3.1 Pro** is the new hard-task pick: AA 55.1, 1M ctx, vision, Vals 62.52. It replaces Kimi K3 at the top of the Go ladder for refactors and multi-file work. Caveat: harness must preserve reasoning history; high verbosity (150M) and only ~269 heavy requests/mo.
-- **Gemini 4 Argon** is the independent agentic leader among Go models (Vals 69.24%, #3 overall) and is now **ZDR/not trained** — a genuine change from the Oct 16 advice. It also has 728 req/mo, 2.7× K3.1 Pro’s capacity. For most planning/agentic work, Argon is the better *workhorse*; K3.1 Pro is the higher-AA *ceiling*.
-- **MiniMax M3.1 Flash** is the value pick: AA 43, 112.8 tok/s, 1.35s TTFT, $0.22/AA task, 4,975 req/mo. It is the best “good enough” backend model per dollar on Go.
+- **DeepSeek V4.1 Flash** is still the best daily driver: 177.3 tok/s, 1M ctx, native vision, 96% cache ratio, and a DeepSWE 74.2 vendor run. **The 1017 checkpoint scores AA 33 on v5.0.1** (177.3 tok/s, TTFT 1.26s, $0.60/AA task) — the original base checkpoint is **unmeasured on v5.0.1** (it scored 39 on the retired v4.3.2 scale), same Go ID and price. Treat the base checkpoint as unverified and 33 as the 1017 upside until the router consistently serves 1017. Its honest weakness is hard long-horizon benchmarks: AA’s standardized TB4.0 gives it only 26.8. Short-to-medium agent loops: excellent. Multi-hour marathon: escalate.
+- **Kimi K3.1 Pro** is the hard-task escalation ration: AA 46 on v5.0.1 (it was the v4.3.2 leader at 55.1 — Argon’s 50 is now the ceiling), 1M ctx, vision, Vals 62.52. It still replaces Kimi K3 at the top of the Go ladder for refactors and multi-file work. Caveat: harness must preserve reasoning history; high verbosity (150M) and only ~259 req/mo measured (269 heavy).
+- **Gemini 4 Argon** is the independent agentic leader among Go models (Vals 69.24%, #3 overall) and is now **ZDR/not trained** — a genuine change from the Oct 16 advice. It also has 961 req/mo measured (728 heavy), ~3.7× K3.1 Pro’s capacity. On v5.0.1 Argon (50) is **both** the best workhorse and the AA ceiling; K3.1 Pro (46) is the escalation ration for its specific strengths (1M ctx, Max effort).
+- **MiniMax M3.1 Flash** is the value pick: AA 29, 141.3 tok/s, 1.25s TTFT, $0.49/AA task, 5,760 req/mo measured (4,975 heavy). Note the cheap tier is now compressed — M3.1 Flash / Step 5 / Qwen3.8 Flash 29, GLM-5.3-Flash / GPT 6 Luna 28, MiMo-Flash 27 are within measurement noise — so pick on capacity/price/speed; M3.1 Flash is still the best “good enough” backend model per dollar on Go.
 
 ### Frontend / UI
 - **Muse Spark 1.3** still tops Design Arena’s website board (1365) and is #5 by lab on WebDev Arena; **Kimi K3** is #3 (1345), and **K3.1 Pro** is likely at least as strong but has no Design Arena entry yet 🟡. Treat the gap as small and the data as stale.
-- **GLM-5.3-Flash** ranks top-20 in WebDev frontend at $0.15/$0.50 with a $60 allowance — the “good enough frontend at 9.8k requests/month” pick. **M3.1 Flash** is the new alternative if you want AA 43 at 4.9k req/mo.
+- **GLM-5.3-Flash** ranks top-20 in WebDev frontend at $0.15/$0.50 with a $60 allowance — the “good enough frontend at 10.2k requests/month (measured)” pick. **M3.1 Flash** is the alternative at AA 29 and 5,760 req/mo measured.
 - GPT-6 Astra (1800 WebDev) is the true leader; Fable 5.1/Opus 5.5 (1758/1687) follow.
 
 ### Database / SQL
@@ -54,7 +58,7 @@
 - For auth/webhook debugging there is no dedicated benchmark; model quality on code + tool use is the proxy. K3.1 Pro/Hy4 first, DeepSeek/M3.1 Flash for volume.
 
 ### Agentic terminal / DevOps / git / deploy
-- The independent split: **Gemini 4 Argon** leads Vals v2.2 among Go models (69.24%, #3 overall behind Sonnet 5.5 and Opus 5.5); **Kimi K3.1 Pro** is second (62.52%) and higher on AA (55.1); **Grok 4.7** carries the verified Grok generation forward; **GLM-5.3** wins standardized TB4.0 (41.9); **DeepSeek V4.1 Flash** wins vendor TB2.1 (90.6) and throughput, but drops to 26.8 on TB4.0.
+- The independent split: **Gemini 4 Argon** leads Vals v2.2 among Go models (69.24%, #3 overall behind Sonnet 5.5 and Opus 5.5); **Kimi K3.1 Pro** is second (62.52%) and second on AA too (46 vs Argon’s 50 on v5.0.1); **Grok 4.7** carries the verified Grok generation forward; **GLM-5.3** wins standardized TB4.0 (41.9); **DeepSeek V4.1 Flash** wins vendor TB2.1 (90.6) and throughput, but drops to 26.8 on TB4.0.
 - For **Azure CLI / `az ssh` / Docker / CI pipelines**, favor models that are strong in terminal loops *and* cheap enough to iterate: DeepSeek V4.1 Flash (or its free twin) for the loop, Argon or K3.1 Pro for the planning step. Never auto-run destructive deploy commands without permission gates (see `07-recommended-config.md`).
 
 ### Long-horizon autonomy
@@ -72,8 +76,8 @@
 - For Arabic OCR/translation, no public benchmark separates models; test candidates on your own corpus (Qwen3.8 Max/Flash, MiMo, K3.1 Pro).
 
 ### Planning / architecture
-- **Kimi K3.1 Pro** is the new AA ceiling (55.1). **Gemini 4 Argon** is the independent agentic leader (Vals 69.24%) and now **ZDR/not trained**, with 728 req/mo — for most planning work, Argon’s capacity and independent evidence make it the better default; K3.1 Pro is the escalation for the hardest architecture.
-- **Grok 4.7** remains the privacy-safe reasoning alternative (it inherits the Grok 4.6 generation’s GPQA 95.0 / ARC-AGI-2 67.1 profile). Muse Spark 1.3 leads the privacy-flagged AA index at 48; MiMo-V2.6-Pro is the value pick.
+- **Gemini 4 Argon** is now **both** the AA ceiling (50 on v5.0.1) and the independent agentic leader (Vals 69.24%), and it is **ZDR/not trained** with 961 req/mo measured (728 heavy) — the default planning model. **Kimi K3.1 Pro** (AA 46, 259 req/mo measured) is the escalation for the hardest architecture (1M ctx, Max effort).
+- **Grok 4.7** remains the privacy-safe reasoning alternative (it inherits the Grok 4.6 generation’s GPQA 95.0 / ARC-AGI-2 67.1 profile). Muse Spark 1.3 leads the privacy-flagged AA index at 37; MiMo-V2.6-Pro is the value pick.
 - Use the `plan` agent with a premium model, then hand the plan to a cheap model for execution (see config).
 
 ### Debugging / RCA
@@ -85,7 +89,7 @@
 - Beware: long contexts burn cache-reads; DeepSeek’s $0.003/M cache makes it the cheapest way to feed a huge repo — and the free twin makes it $0.
 
 ### Data / ML
-- MiniMax M2.7’s MLE-bench Lite 66.6% medal rate is the best historical Go signal, but its AA index is 23 and it is retired; the official MLE-bench leaderboard is dominated by Gemini-3-Pro agent frameworks. For XGBoost/SHAP/metric pipelines, **K3.1 Pro** or **M3.1 Flash** will usually beat the old specialist end-to-end; use DeepSeek for the cheap loop.
+- MiniMax M2.7’s MLE-bench Lite 66.6% medal rate is the best historical Go signal, but its AA index was 23 (v4.3.2; unmeasured on v5.0.1) and it is retired; the official MLE-bench leaderboard is dominated by Gemini-3-Pro agent frameworks. For XGBoost/SHAP/metric pipelines, **K3.1 Pro** or **M3.1 Flash** will usually beat the old specialist end-to-end; use DeepSeek for the cheap loop.
 
 ### Systems / hardware (overclocking, ROMs, drivers, homelab)
 - **No serious benchmark exists** for PC overclocking, Android ROM/AOSP/kernel work, or homelab tuning. Best proxies: GPQA/EEBench (Grok 4.7 EEBench 64.0), general coding, and long-horizon tool use.
@@ -102,24 +106,24 @@ Observed profile (last 60 days of local OpenCode history): TypeScript/Node + Pyt
 
 | Role | Model | Why |
 |---|---|---|
-| **Daily driver / build** | `deepseek-v4.1-flash` (max) | Proven at your volume; ~31.9k req/mo at your profile ($100 cap); 96% cache hit; native vision; 1017 checkpoint may serve AA 45 |
-| **Free workhorse (bulk)** | `deepseek-v4.1-flash-free` / `glm-5.3-flash-free` | Zero-retention free twins; AA 39/42; keep working after Go limits |
-| **Explore / repo Q&A / subagents** | `claude-haiku-5-5` or `mimo-v2.6-flash` | Haiku: fastest Claude, 1M ctx, Sonnet-class coding; MiMo-Flash: 33k req/mo, $0.0018/req |
-| **Free bulk coding** | `glm-5.3-flash-free` (AA 42) or `beam-free` (AA 30) | Best free intelligence with zero-retention (GLM) or no-training/30-day (Beam) |
-| **Bulk edits / boilerplate / tests** | `minimax-m3.1-flash` / `glm-5.3-flash` | M3.1 Flash: AA 43, 4,975 req/mo, $0.0020/req plan-effective; GLM-Flash: 9.8k req/mo |
-| **Plan / architecture** | `gemini-4-argon` (728 req/mo, ZDR) or `kimi-k3.1-pro` (AA 55.1, 269 req/mo) | Argon: Vals #1 Go, independent; K3.1 Pro: AA ceiling |
-| **Hard debugging** | `kimi-k3.1-pro` | Honesty lineage + 1M context + AA 55.1 |
+| **Daily driver / build** | `deepseek-v4.1-flash` (max) | Proven at your volume; ~52,632 req/mo measured (32,258 heavy) on the $100 cap (docs basis); 96% cache hit; native vision; 1017 checkpoint scores AA 33 (base ckpt unmeasured on v5.0.1) |
+| **Free workhorse (bulk)** | `deepseek-v4.1-flash-free` / `glm-5.3-flash-free` | Zero-retention free twins; DeepSeek Free = base ckpt (not measured on v5.0.1 — 1017 ckpt = 33), GLM-5.3-Flash Free AA 28; keep working after Go limits |
+| **Explore / repo Q&A / subagents** | `claude-haiku-5-5` or `mimo-v2.6-flash` | Haiku (AA 36): fastest Claude, 1M ctx, Sonnet-class coding, best cheap lab model; MiMo-Flash: 51,433 req/mo measured, $0.00117/req |
+| **Free bulk coding** | `glm-5.3-flash-free` (AA 28) or `beam-free` (AA 18) | Best free intelligence with zero-retention (GLM) or no-training/30-day (Beam) |
+| **Bulk edits / boilerplate / tests** | `minimax-m3.1-flash` / `glm-5.3-flash` | M3.1 Flash: AA 29, 5,760 req/mo measured (4,975 heavy), $0.00347/req — cheap tier is compressed (27–29), so capacity/price decide; GLM-Flash: 10,196 req/mo measured |
+| **Plan / architecture** | `gemini-4-argon` (AA 50, 961 req/mo measured, ZDR) or `kimi-k3.1-pro` (AA 46, 259 req/mo measured) | Argon: Vals #1 Go **and** AA ceiling; K3.1 Pro: escalation ration (1M ctx, Max effort) |
+| **Hard debugging** | `kimi-k3.1-pro` | Honesty lineage + 1M context + AA 46 |
 | **Frontend / design review** | `muse-spark-1.3-contributor` (non-client) or `kimi-k3.1-pro` | Design Arena #1 / K3 #3; K3.1 Pro likely at least K3-class |
 | **Visual QA from screenshots** | `qwen3.8-max` (verification) + `qwen3.8-flash` (loop) | OSWorld #1 overall / cheap sibling |
 | **OCR / document AI** | `deepseek-v4.1-flash` or `qwen3.8-flash` | Cheap native vision; Qwen flash is the quality step-up |
-| **Marathon autonomous refactor** | `kimi-k3.1-pro`, escalate to Claude Opus 5.5 via Copilot if it must be one-shot | K3 lineage marathon strength; K3.1 Pro is the new ceiling |
-| **General research / explanation** | `kimi-k3.1-pro` / `gemini-4-argon` / `muse-spark-1.3-contributor` / `grok-4.7` | AA 55.1 / 53 / 48 / 46 |
-| **Frontier escalation (5% hardest)** | Claude Opus 5.5 / GPT-6 Astra via your GitHub Copilot access, or Zen `claude-opus-5-5` / `gpt-6-astra` | AA 58 / 53; not on Go |
+| **Marathon autonomous refactor** | `kimi-k3.1-pro`, escalate to Claude Opus 5.5 via Copilot if it must be one-shot | K3 lineage marathon strength (Argon is the AA ceiling at 50) |
+| **General research / explanation** | `gemini-4-argon` / `kimi-k3.1-pro` / `muse-spark-1.3-contributor` / `grok-4.7` | AA 50 / 46 / 37 / 35 |
+| **Frontier escalation (5% hardest)** | Claude Opus 5.5 / GPT-6 Astra via your GitHub Copilot access, or Zen `claude-opus-5-5` / `gpt-6-astra` | AA 59 / 57; not on Go |
 
 ### Hard constraints to respect
 
 1. **Client contract disallows OpenAI models** for at least one computer-vision project → keep GPT-6/5.6 Luna and GPT-6 Astra out of that pipeline; use Gemini/local YOLO/Qwen as configured there.
-2. **PHI/medical/insurance data**: avoid models whose provider trains on inputs — **Muse Spark Contributor, Big Pickle, MiMo free, NVIDIA free, Flint 40B Free**. **Gemini 4 Argon is now documented “Not used / 0 days”** and the old training warning is withdrawn — but re-verify before PHI work. Prefer GLM/MiMo paid/Kimi/Qwen/DeepSeek routes — **the free DeepSeek/GLM twins state zero-retention**. DeepSeek’s zero-retention is **renewed through October 31, 2026** ✅. Claude Haiku 5.5 has 30-day retention (frontier-API standard) — fine for non-PHI, and it is Anthropic (not OpenAI), so the CV client contract’s OpenAI ban doesn’t cover it — verify with the client anyway.
+2. **PHI/medical/insurance data**: avoid models whose provider trains on inputs — **Muse Spark Contributor, Big Pickle, MiMo free, NVIDIA free, Flint 40B Free**. **Gemini 4 Argon is now documented “Not used / 0 days”** and the old training warning is withdrawn — but re-verify before PHI work. Prefer GLM/MiMo paid/Kimi/Qwen/DeepSeek routes — **the free DeepSeek/GLM twins state zero-retention**. DeepSeek’s zero-retention is **renewed monthly, valid through November 30, 2026** ✅. Claude Haiku 5.5 has 30-day retention (frontier-API standard) — fine for non-PHI, and it is Anthropic (not OpenAI), so the CV client contract’s OpenAI ban doesn’t cover it — verify with the client anyway.
 3. **Never start servers autonomously** (per your own GEMINI.md rule) — encode this in agent permissions, not in the prompt.
 4. **Azure DevOps is your CI** (no GitHub Actions in your repos) — give the agent `az`/`az devops` CLI tools explicitly and keep PAT handling in the environment.
 5. **Arabic OCR**: benchmark the top-3 vision models on your own `curenure_ocr_ar` corpus before switching; public benchmarks under-sample Arabic.
@@ -134,11 +138,11 @@ Task arrives
  ├─ Routine edit / question / explore  → MiMo-V2.6-Flash / Claude Haiku 5.5 (or the free twins)
  ├─ Free agentic coding                 → GLM-5.3-Flash Free / DeepSeek V4.1 Flash Free (zero-retention)
  ├─ Normal feature/build work          → DeepSeek V4.1 Flash (max)
- ├─ Cheap quality step-up              → MiniMax M3.1 Flash (AA 43, 4,975 req/mo)
+ ├─ Cheap quality step-up              → MiniMax M3.1 Flash (AA 29, 5,760 req/mo measured)
  ├─ Frontend-heavy visual work         → Muse Spark 1.3 / GLM-5.3-Flash (non-client)
- ├─ Needs planning or design           → Gemini 4 Argon (ZDR, 728 req/mo) / Kimi K3.1 Pro (AA 55.1)
- ├─ Hard bug / marathon / 1M context   → Kimi K3.1 Pro (ration: ~269 req/mo)
- ├─ Visual QA / OCR verification       → Qwen3.8 Max (ration: ~256 req/mo)
+ ├─ Needs planning or design           → Gemini 4 Argon (AA 50, ZDR, 961 req/mo measured) / Kimi K3.1 Pro (AA 46)
+ ├─ Hard bug / marathon / 1M context   → Kimi K3.1 Pro (ration: ~259 req/mo measured)
+ ├─ Visual QA / OCR verification       → Qwen3.8 Max (ration: ~229 req/mo measured)
  └─ Must-not-fail / frontier-level     → Copilot Opus 5.5 / Astra (or Zen overflow)
 ```
 

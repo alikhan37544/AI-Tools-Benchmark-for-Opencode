@@ -228,7 +228,7 @@ Pricing now lives at devin.ai/pricing. Windsurf is rebranded "Devin Desktop."
 
 ### Tier 1: Cheapest real token value
 1. **OpenCode Go — $10/mo (~₹835 + GST ≈ ₹985)** 🟢
-   - 34 models including DeepSeek V4.1 Flash (~43,330 req/5h at the $100 cap), MiMo-V2.6-Flash (~30,100 req/5h), GLM-5.3-Flash (~6,320 req/5h), GPT 6 Luna, Claude Haiku 5.5, Gemini 4 Argon, Grok 4.7.
+   - 32 models including DeepSeek V4.1 Flash (~43,300 req/5h at the $100 cap — Console Go-page estimate), MiMo-V2.6-Flash (~30,100 req/5h), GLM-5.3-Flash (~6,320 req/5h), GPT 6 Luna, Claude Haiku 5.5, Gemini 4 Argon, Grok 4.7.
    - **Best $/token ratio** of any subscription. Works with any agent. Zero data retention on most models.
    - Caveat: No Claude Sonnet/Opus or GPT-5.5; use Zen/BYOK for those.
 
@@ -264,7 +264,7 @@ Pricing now lives at devin.ai/pricing. Windsurf is rebranded "Devin Desktop."
 10. **Gemini CLI free tier** (1,000 req/day) + **OpenCode free** + local models. 🟡
 
 ### Recommended stack for an India dev (best value)
-- **Minimum viable:** OpenCode (free) + OpenCode Go ($10/mo) + Ollama (free local) = ~₹985/mo. Covers 90% of coding needs with 34 models.
+- **Minimum viable:** OpenCode (free) + OpenCode Go ($10/mo) + Ollama (free local) = ~₹985/mo. Covers 90% of coding needs with 32 models.
 - **IDE-centric:** Cursor Start (₹649, if eligible and staying on free plan) OR Cursor Premium ($30) + OpenCode Go ($10) = ~₹3,800/mo with Claude/GPT/Gemini access.
 - **Google ecosystem:** Google AI Pro (₹1,950) + OpenCode Go ($10) = ~₹2,800/mo. Gives Antigravity + Gemini 4 Argon + Workspace AI.
 - **Avoid:** Tabnine (enterprise-only, expensive), Sourcegraph Cody (enterprise-only), v0/Bolt/Lovable (app builders, not IDEs — different use case, token-opaque pricing).

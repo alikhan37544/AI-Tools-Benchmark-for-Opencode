@@ -1,6 +1,8 @@
 # 13 — Best-Value Coding Plans, Ranked for India (Oct 2026)
 
-> **Snapshot: October 25, 2026.** Ranking is on **verified $ per heavy request at the frozen profile** (7.8k input / 1.1k output+reasoning / 146k cache read), then adjusted for **model quality (AA v4.3.2)**, **quota transparency**, **OpenCode compatibility**, **privacy**, and **India availability**.
+> **Snapshot: October 25, 2026; spot-updated November 17, 2026.** Ranking is on **verified $ per heavy request at the frozen profile** (7.8k input / 1.1k output+reasoning / 146k cache read), then adjusted for **model quality (AA v4.3.2)**, **quota transparency**, **OpenCode compatibility**, **privacy**, and **India availability**.
+>
+> ⚠️ **Nov 17, 2026 spot update.** AA scores in this file are **v4.3.2 — a retired scale** (AA re-baselined to **v5.0.1** on Nov 3; e.g. K3.1 Pro 55.1 → 46, Argon 53 → 50, cheap tier compressed to 27–29). The scores are kept here as labeled history; the v5.0.1 rebase lives in [02](./02-benchmarks.md)/[05](./05-intelligence-per-dollar.md). Req/mo figures are the **frozen heavy mix** (conservative); measured-profile capacities from provider-side logs are in [12](./12-opencode-vs-direct.md) — e.g. DeepSeek **52,632 measured** vs 32,258 heavy at the same 10× multiplier. **Gemini 4 Argon's 50% discount ends Nov 30, 2026** (then $4/$20 at a $60 cap).
 >
 > **Why “heavy request” and not “tokens per dollar”:** every plan advertises a different unit (dollars, credits, requests, “3× usage”). The only unit that survives contact with an agentic coding session is **requests at your real token profile**. A plan that looks cheap per token but caps you at 200 requests/month is not cheap.
 >
@@ -12,7 +14,7 @@
 
 | # | Plan | Price | Headline model (AA) | Heavy req/mo | Plan-effective $/req | AA pts / plan $ | India | Verdict |
 |---|---|---|---|---|---|---|---|---|
-| **1** | **OpenCode Go** | **$10/mo** | **Kimi K3.1 Pro (55.1)** · Argon (53) · M3.1 Flash (43) · DeepSeek (39) | **269** K3.1 Pro · **728** Argon · **4,975** M3.1 Flash · **31,855** DeepSeek | **$0.0372** K3.1 Pro · **$0.0137** Argon · **$0.0020** M3.1 Flash · **$0.0003** DS | 1,482 · 3,858 · 21,393 | 🟢 **UPI** | **Best overall. Buy first.** 34 models, one key, free floor, highest quality ceiling. |
+| **1** | **OpenCode Go** | **$10/mo** | **Kimi K3.1 Pro (55.1)** · Argon (53) · M3.1 Flash (43) · DeepSeek (39) *(AA v4.3.2, retired)* | **269** K3.1 Pro · **728** Argon · **4,975** M3.1 Flash · **32,258** DeepSeek | **$0.0372** K3.1 Pro · **$0.0137** Argon · **$0.0020** M3.1 Flash · **$0.0003** DS | 1,482 · 3,858 · 21,393 | 🟢 **UPI** | **Best overall. Buy first.** 32 models, one key, free floor, highest quality ceiling. |
 | **2** | **StepFun Step Plan Pro** | **$29/mo** (Plus $9.99, Max $99) | Step 5 (44) | **~45,000** (if credit math holds) | **$0.00064** | **68,273** | 🟢 Stripe | **Raw-value outlier.** If the console confirms it, nothing else is close on $/req — but quality is AA 44, not 55, and the math needs a test. |
 | **3** | **Z.ai GLM Coding Plan Lite** | **$18/mo** (Pro $80, Max $168) | GLM-5.3 (45) | **1,319** peak · **2,639** off-peak | **$0.0136** peak · **$0.0068** off-peak | 3,297 · 6,597 | 🟢 Card/PayPal | **Best GLM-only value.** 4.7× Go’s GLM-5.3 capacity for 1.8× the price. |
 | **4** | **Xiaomi MiMo Token Plan Lite** | **$6/mo** (Standard $16, Pro $50, Max $100) | MiMo-V2.6-Pro (46) · Flash (38) | **1,218** Pro · **3,173** Flash | **$0.0049** Pro · **$0.0019** Flash | 9,338 · 20,095 | 🟢 Overseas email + Waffo | **Cheap MiMo entry.** Wins below ~3k req/mo; Go wins above. No overseas invoice. |
@@ -21,7 +23,7 @@
 | — | **Alibaba Token Plan** | $6–$68 | Qwen3.8 Max/Flash | — | — | — | 🔴 **Blocked** | Singapore-only; India not selectable. Use Qwen via Go/OpenRouter. |
 | — | **Meta Muse Code** | $5–$200 | Muse Spark | — | — | — | 🔴 **Blocked** | US-first; no India availability. Muse Spark via Go. |
 
-**The one-line answer:** **Go is #1 because it is the only plan that combines a 55.1-AA model, 34-model breadth, UPI, and a free floor at $10.** StepFun is the math anomaly; Z.ai is the GLM specialist; Xiaomi is the cheap MiMo entry; Kimi is the K3.1 Pro subscription; MiniMax is the opaque one.
+**The one-line answer:** **Go is #1 because it is the only plan that combines a 55.1-AA model (v4.3.2, retired — Argon 50 on v5.0.1), 32-model breadth, UPI, and a free floor at $10.** StepFun is the math anomaly; Z.ai is the GLM specialist; Xiaomi is the cheap MiMo entry; Kimi is the K3.1 Pro subscription; MiniMax is the opaque one.
 
 ---
 
@@ -45,14 +47,14 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 
 ### #1 — OpenCode Go, $10/mo
 
-**Why it wins:** it is not one plan, it is **29 independent allowances**. At your profile:
+**Why it wins:** it is not one plan — it is **one shared allowance across 32 models**, normalized per model (docs, Nov 17): each limit below is **solo-usage coverage**, what the plan covers if you use only that model. At your profile:
 
-| Model | AA | Cap | Req/mo | Plan $/req | What it’s for |
+| Model | AA (v4.3.2, retired) | Cap | Req/mo | Plan $/req | What it's for |
 |---|---|---|---|---|---|
 | Kimi K3.1 Pro | **55.1** | $15 | **269** | $0.0372 | Hardest 5%: architecture, marathon debugging, long-context |
-| Gemini 4 Argon | **53** | $30 (50% off) | **728** | $0.0137 | Planning/general intelligence — now **ZDR/not trained** |
+| Gemini 4 Argon | **53** | $30 (50% off **through Nov 30**) | **728** | $0.0137 | Planning/general intelligence — now **ZDR/not trained** |
 | MiniMax M3.1 Flash | 43 | $20 | **4,975** | $0.0020 | Cheap quality workhorse; the new value anchor |
-| DeepSeek V4.1 Flash | 39 | $100 | **31,855** | $0.0003 | Daily driver at volume; 10× face value |
+| DeepSeek V4.1 Flash | 39 | $100 | **32,258** | $0.0003 | Daily driver at volume; 10× face value |
 | GLM-5.3-Flash | 42 | $60 | **9,836** | $0.0010 | Bulk edits/frontend; 6× |
 | MiMo-V2.6-Pro | 46 | $15 | 3,074 | $0.0033 | Privacy-safe reasoning |
 | Step 5 | 44 | $15 | 591 | $0.0169 | Paid AA 44 capacity |
@@ -60,13 +62,13 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 | Qwen3.8 Max | 45 | $15 | 256 | $0.0391 | Visual QA / OSWorld #1 |
 | Grok 4.7 | 46 | $15 | 158 | $0.0633 | Deep reasoning, edge cases |
 
-**Strengths:** highest quality ceiling (55.1), unmatched breadth, UPI, free zero-retention twins, Zen overflow, one bill.
-**Weaknesses:** allowances are siloed (a $15 K3.1 Pro cap is not transferable); premium caps are small; roster churns weekly; US-hosted gateway.
+**Strengths:** highest quality ceiling (55.1 on v4.3.2, retired — Argon 50 on v5.0.1), unmatched breadth, UPI, free zero-retention twins, Zen overflow, one bill.
+**Weaknesses:** the per-model limits are solo-usage figures — mixing models shares the one allowance proportionally (pools are not additive); premium caps are small; roster churns weekly; US-hosted gateway.
 **Best for:** almost everyone in India who wants one subscription. **Start here.**
 
 ### #2 — StepFun Step Plan Pro, $29/mo
 
-**The published math:** StepFun says **$1 ≈ 7M credits** and Step 5 costs **$1.00 / $2.70 / $0.10** per 1M (input / output / cache hit). At your profile that is **$0.02537 per request ≈ 177.8k credits**. Then:
+**The published math:** StepFun says **$1 ≈ 7M credits** and Step 5 costs **$1.00 / $2.70 / $0.10** per 1M (input / output / cache hit). At your profile that is **$0.02537 per request ≈ 177.6k credits**. Then:
 
 | Tier | Price | Credits | Req/mo | $/req |
 |---|---|---|---|---|
@@ -122,7 +124,7 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 
 **The break-even:** Go gives **269** K3.1 Pro heavy requests for $10. Kimi Plus at $19 must give **more than 269** to beat Go on K3.1 Pro $/req; Pro at $39 must give **more than 1,049** to match Go’s $0.0372/req. Those are plausible but **unverified**.
 **Strengths:** the only flat plan with K3.1 Pro; official OpenCode support; good for K3.1 Pro-heavy work.
-**Weaknesses:** opaque quota; card payment not explicitly documented; no 34-model breadth; shared quota across tools means other Kimi usage eats your coding budget.
+**Weaknesses:** opaque quota; card payment not explicitly documented; no 32-model breadth; shared quota across tools means other Kimi usage eats your coding budget.
 **Best for:** K3.1 Pro-first users who will actually use >269 heavy requests/mo.
 
 ### #6 — MiniMax M Plan Go, $22/mo
@@ -143,11 +145,11 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 
 “AA points per plan dollar” rewards cheap low-AA models; “AA × req/mo” rewards volume. Neither is the whole truth, so here is the combined view for the plans with verified math:
 
-| Plan | AA | Req/mo | AA × req/mo | AA pts / plan $ |
+| Plan | AA (v4.3.2, retired) | Req/mo | AA × req/mo | AA pts / plan $ |
 |---|---|---|---|---|
 | **StepFun Pro $29** | 44 | ~45,000 | **1,980,000** | **68,273** |
 | Xiaomi Max $100 (Flash) | 38 | 63,467 | 2,411,746 | 24,113 |
-| OpenCode Go — DeepSeek | 39 | 31,855 | 1,242,345 | 124,235* |
+| OpenCode Go — DeepSeek | 39 | 32,258 | 1,258,062 | 125,806* |
 | OpenCode Go — MiMo-Flash | 38 | 33,171 | 1,260,498 | 126,000* |
 | OpenCode Go — M3.1 Flash | 43 | 4,975 | 213,925 | 21,393 |
 | Xiaomi Lite $6 (Flash) | 38 | 3,173 | 120,574 | 20,095 |
@@ -157,7 +159,7 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 
 \* The “AA pts / plan $” for individual Go models assumes the whole $10 is spent on that model — true only if you use nothing else. It illustrates the multiplier, not a realistic single-model purchase.
 
-**Interpretation:** StepFun Pro is the only plan that combines **high volume and AA 44+** at a price that beats everything on throughput. Go wins on **ceiling** (55.1) and **breadth**, not on raw throughput per dollar. Xiaomi Max is a volume play at AA 38. Z.ai is the quality-per-dollar GLM play.
+**Interpretation:** StepFun Pro is the only plan that combines **high volume and AA 44+** at a price that beats everything on throughput. Go wins on **ceiling** (55.1 on v4.3.2, retired; Argon 50 on v5.0.1) and **breadth**, not on raw throughput per dollar. Xiaomi Max is a volume play at AA 38. Z.ai is the quality-per-dollar GLM play.
 
 ---
 
@@ -165,7 +167,7 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 
 | If your month looks like… | Buy | Why |
 |---|---|---|
-| Mixed coding: DeepSeek daily, some K3.1 Pro/Argon, free bulk | **Go $10** | 29 allowances + UPI + free floor. |
+| Mixed coding: DeepSeek daily, some K3.1 Pro/Argon, free bulk | **Go $10** | 32-model shared allowance + UPI + free floor. |
 | GLM-5.3 is 70%+ of your work | **Z.ai Lite $18** (+ Go if you need other models) | 4.7× Go’s GLM capacity; off-peak doubles it. |
 | You want to test the cheapest possible agentic volume | **StepFun Mini $6.99**, then Pro if credits hold | Measure actual credit burn on Mini first. |
 | MiMo only, <3k req/mo | **Xiaomi Lite $6** | Cheaper than Go at low volume. |
@@ -183,7 +185,7 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 3. **Annual prepay amplifies risk.** Z.ai annual is −30%, Xiaomi −12%, Kimi annual saves ~20%. Only prepay annually after a monthly test.
 4. **FX and tax.** All prices are USD; Indian cards add ~2–3.5% FX. Some sellers add tax at checkout. OpenCode top-ups add **4.6% + $0.31**.
 5. **Roster churn.** Go changed composition twice in October. A plan that is #1 today can lose a model tomorrow; the free floor and multi-model breadth are the hedge.
-6. **Privacy is part of value.** Muse Spark Contributor (Go) trains on data; Argon on Go is now **ZDR/not trained**; DeepSeek ZDR expires **Oct 31, 2026**. A cheap plan you cannot use for client work is not cheap.
+6. **Privacy is part of value.** Muse Spark Contributor (Go) trains on data; Argon on Go is now **ZDR/not trained**; DeepSeek ZDR is renewed monthly, valid **through Nov 30, 2026**. A cheap plan you cannot use for client work is not cheap.
 7. **Do not use foreign-number/region workarounds** for Alibaba or Meta. The account risk outweighs the savings.
 
 ---
@@ -205,7 +207,7 @@ This is deliberately harsh: it assumes every request is a heavy agentic one. Lig
 
 ## Sources
 
-- OpenCode Go: https://opencode.ai/docs/go/ · billing https://opencode.ai/v2/docs/console/billing
+- OpenCode Go: https://opencode.ai/docs/go/ · billing https://opencode.ai/v2/docs/console/billing *(pricing/estimate tables moved to Console: console/go#pricing, console/go#limits — docs defer to Console as of Nov 17; values unchanged)*
 - StepFun Step Plan: https://platform.stepfun.ai/docs/en/step-plan/overview · pricing https://platform.stepfun.ai/docs/en/guides/pricing/details
 - Z.ai Coding Plan: https://docs.z.ai/devpack/overview · usage policy https://docs.z.ai/devpack/usage-policy
 - Xiaomi Token Plan: https://mimo.mi.com/docs/en-US/price/token-plan · payment FAQ https://mimo.mi.com/docs/en-US/quick-start/faq/payment

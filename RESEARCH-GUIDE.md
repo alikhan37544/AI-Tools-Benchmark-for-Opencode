@@ -59,7 +59,7 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 ## 2. Source hierarchy
 
 1. **Vendor docs & model cards** (opencode.ai, HF cards, provider docs) — facts about pricing, context, modalities.
-2. **Artificial Analysis v4.3.2** — the cross-vendor intelligence scale; always cite the version.
+2. **Artificial Analysis (AA Intelligence Index current version — v5.0.1 as of Nov 2026; check version history before quoting scores)** — the cross-vendor intelligence scale; always cite the version.
 3. **Independent harnesses** — Vals AI, LMArena, Terminal-Bench, SWE-bench mirrors, OpenHands Index, ARC Prize, METR, Epoch AI.
 4. **Vendor benchmark tables** — useful but self-selected; label 🟡/🔴.
 5. **Community** — Reddit r/opencode + r/opencodeCLI, Hacker News, X, blogs. Good for burn rates and reliability, bad for precise scores.
@@ -71,7 +71,7 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 
 | Purpose | URL |
 |---|---|
-| Go plans/limits/roster | https://opencode.ai/docs/go/ · https://opencode.ai/v2/docs/console/go |
+| Go plans/limits/roster | https://opencode.ai/docs/go/ · https://opencode.ai/v2/docs/console/go *(pricing & request-estimate tables moved to Console: console/go#pricing, console/go#limits — docs defer to Console as of Nov 17)* |
 | Zen pricing/models + free models | https://opencode.ai/docs/zen/ · https://opencode.ai/v2/docs/console/models/ |
 | Whole-user telemetry | https://opencode.ai/data |
 | Changelog (v2) + releases (v1) | https://opencode.ai/changelog · https://github.com/anomalyco/opencode/releases |
@@ -139,10 +139,10 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 
 ## 6. Rules of thumb learned in this cycle
 
-1. **Never quote an AA score without its index version.** v4.1.1 scores are ~15–20 points higher than v4.3.2 for the same models (v4.3.2, with the Sep 19 methodology patch, is still current as of Oct 16).
+1. **Never quote an AA score without its index version.** v4.1.1 scores are ~15–20 points higher than v4.3.2 for the same models, and the v5.0.1 re-baseline (Nov 3, 2026) rescaled everything again (e.g. K3.1 Pro 55.1→46, Argon 53→50). **v5.0.1 is current as of Nov 2026 — check the version history before quoting scores**; label older figures "(retired scale)" and never mix scales in one table.
 2. **Terminal-Bench version + harness matters more than the model.** TB2.1 vendor vs Vals can differ by 20 points.
 3. **Vendor benchmarks are marketing** until an independent run exists; mark them.
-4. **The docs' estimated requests assume light traffic.** Heavy agentic users divide by 3–7×.
+4. **The estimated requests assume light traffic** (Console Go-page per-5h estimates as of Nov 17 — docs defer to Console). Heavy agentic users divide by 2–5× (measured) / 3–7× (heavy).
 5. **Cache-read pricing dominates real agent costs.** A model with 10× cheaper cache can be cheaper in practice than a model with half the output price.
 6. **Reasoning effort is the biggest cost lever** (3.6–6.5× on Kimi K3).
 7. **Free/stealth models are the highest-variance choice** — great value, unknown identity/policies; keep them off critical and sensitive work. **But check the terms per model now:** the Oct 16 free twins (DeepSeek/GLM) are zero-retention, unlike most stealths.
@@ -161,17 +161,20 @@ Then message-level `tokens`/`cost` fields are aggregated to compute the user's t
 | Oct 13, 2026 | Roster refresh: Haiku 5.5, Step 5 Free, DS cap $80, Space Bunny paid; OmO 5.1.32; v1.19.0/v2.0.28 | all |
 | Oct 16, 2026 | Argon on Go; Step 5 paid + open weights; Beam Free; Zen free twins (zero-retention); Grok 4.6/K2.6/M2.7 removed; v2.0.31 on this machine; OmO 5.1.34 (Argon chains, dual-host still in review); telemetry refresh | all + HTML + README |
 | Oct 25, 2026 | K3.1 Pro + M3.1 Flash on Go; Space Bunny + LongCat 2.5 Free removed; Argon corrected to ZDR/50%-off $30; Step 5 back to $15; 1017 checkpoint AA 45; Vals v2.2 / LMArena Vision corrections; v2.1.4 + v1.19.4; OmO 5.1.48; new India, Go-vs-direct and best-value-plan analyses; UPI as the India-first payment path | all + README + RESEARCH-GUIDE + HTML |
-| Nov 17, 2026 | Tooling + roster refresh: OpenCode v2.3.0 (background subagents, `/goal`, image gen, `run -w`, Claude Code provider; v1 1.19.5); OmO 5.1.75 (accounts + remote sessions live; dual-host PR #9391 still open); Go roster 29→34 (+Qwen4 Max AA 43 new board, Hy4 GA, Iceman Contributor Free *trains*, LongCat 2.5 Free back, Hy4 flash Free; Step 5 → Step 5 Preview); DeepSeek Go cap $80→$100 (31,855 heavy req/mo, 10× multiplier); Zen + MiniMax M3.1 Flash Free (3rd zero-retention twin); Argon 50% ends Nov 30; DeepSeek ZDR through Nov 30; AA re-baselined to v5.0.1 (repo stays on v4.3.2 figures) | HTML + README + RESEARCH-GUIDE + analysis 01/03/04/05/07/08/09/10/11 deltas |
+| Nov 17, 2026 | Tooling + roster refresh: OpenCode v2.3.0 (background subagents, `/goal`, image gen, `run -w`, Claude Code provider; v1 1.19.5); OmO 5.1.75 (accounts + remote sessions live; dual-host PR #9391 still open); Go roster 29→34 (settled at 32 — see the evening row below; +Qwen4 Max AA 43 new board, Hy4 GA, Iceman Contributor Free *trains*, LongCat 2.5 Free back, Hy4 flash Free; Step 5 → Step 5 Preview); DeepSeek Go cap $80→$100 (31,855 heavy req/mo as computed then — corrected to 32,258 heavy / 52,632 measured in the late pass, 10× multiplier); Zen + MiniMax M3.1 Flash Free (3rd zero-retention twin); Argon 50% ends Nov 30; DeepSeek ZDR through Nov 30; AA re-baselined to v5.0.1 (repo stays on v4.3.2 figures) | HTML + README + RESEARCH-GUIDE + analysis 01/03/04/05/07/08/09/10/11 deltas |
+| Nov 17, 2026 (late) | **AA v5.0.1 re-baseline done** — repo re-based (Argon **50** is the Go ceiling, K3.1 Pro **46**, Qwen4 Max **43**; cheap tier compressed to 27–29); old v4.3.2 scores kept as **labeled history**. Value/capacity math re-run on the **measured profile** from provider-side logs (both Go accounts, all machines, 24,160 req/30d: 3.5k in / 768 out / 166k cache read). **Future agents: AA numbers must be v5.0.1 or explicitly labeled**, and for cross-machine usage use the **provider-side console API** — `/console/api/go/status` · `/console/api/usage/models?range=30d` · `/console/api/activity/go?range=mtd` · `/zen/go/v1/usage`, authenticated with the Go API key from `~/.local/share/opencode/auth.json` — **all undocumented and could change without notice**. Also: Hy4 GA ($60) vs Hy4 preview ($30) are separate SKUs; Go Teams documented ($20/member, +$5/cap); console meter $60-vs-docs $100 discrepancy flagged (bug #43032); 09 archived | README + 01 + 12 rebased + 13/15 spot updates + 09 archived banner + RESEARCH-GUIDE + HTML (site rebuild) |
+| Nov 17, 2026 (evening) | **Source re-verification corrections (supersedes dated "34" above):** roster **29→34→32** — `mimo-v2.5`/`mimo-v2.5-pro` dropped from the live catalog the same day (API returns 32 ids, console says "32 models"). **Limit mechanics corrected:** docs rewritten — the paid models **share one allowance** with per-model normalization ("$1.50 on a $15-limit model = 10% of the monthly allowance; so does $6 on a $60-limit model"); the repo's "34 independent siloed allowances / multiplier not transferable" thesis was our inference from older wording and is withdrawn — per-model req/mo tables stand as **solo-usage coverage**. **DeepSeek SKU resolved:** the catalog names it "DeepSeek V4.1 Flash 1017" — the 1017 checkpoint is the served product (AA 33 = what you get). **Console request estimates replace the docs tables** (docs defer to Console as of Nov 17): Argon **566**/5h (was 440 — material), K3 98, GLM-5.3 198, GLM-5.2 792, K2.7 994; week/month = derived ×2.5/×5. **Go Teams:** $20/member/mo, **2-member minimum ($40/mo)**, second seat free for the next member. **Fable 5.1 IS scored** (50 xhigh / 49 max; bare "Fable 5" = unscored stub). Kimi cache-write 897k → **1.42M combined**. GPT-6 Sol = AA models/gpt-6-sol (not "Daybreak Blue"). | all current-claim spots in HTML + 01/02/03/04/05/08/12/13/14/15/16 + README + RESEARCH-GUIDE |
 
 ## 8. Fast prompts for a future agent (refreshed)
 
-- *"Fetch https://opencode.ai/docs/go/ and diff the model roster, monthly limits and estimated requests against analysis/01-go-roster-and-limits.md; update the file and list changes."*
+- *"Fetch https://opencode.ai/docs/go/ and diff the model roster, monthly limits and estimated requests against analysis/01-go-roster-and-limits.md (estimates are now on the Console: console/go#limits); update the file and list changes."*
 - *"Fetch https://opencode.ai/docs/zen/ and list every free model with its retention/training terms; diff against analysis/06-free-models-and-privacy.md."*
-- *"For each model in the Go roster, fetch its Artificial Analysis model page and record Intelligence Index vX.Y.Z, output speed, TTFT and $/task; update analysis/02-benchmarks.md."*
+- *"For each model in the Go roster, fetch its Artificial Analysis model page and record Intelligence Index (current version — v5.0.1 as of Nov 2026, **check version history before quoting scores**), output speed, TTFT and $/task; update analysis/02-benchmarks.md."*
 - *"Recompute my token profile from the local v2 DB (`session_message`, type='assistant') read-only and refresh analysis/04-limits-and-burn-rate.md capacity tables."*
 - *"Check https://github.com/code-yeongyu/oh-my-openagent/pulls (esp. #9391/#9415) for the v2 dual-host rollout status; update analysis/08 and analysis/09."*
 - *"Re-scrape the opencode ecosystem page + awesome-opencode for new plugins/MCPs; update analysis/10."*
 - *"Check anomalyco/opencode releases (v1 and v2) and reconstruct the version deltas since the last refresh; update analysis/09."*
 - *"Audit India availability for every plan in analysis/13: can you select India at signup, is a +91 number accepted, which payment instruments are documented, and is inference region-blocked? Update analysis/14 and the India columns in 12/13/README."*
-- *"Recompute the Go-vs-direct break-even for every Go model at the frozen profile (7.8k in / 1.1k out / 146k cache) using current list prices; update analysis/12."*
+- *"Recompute the Go-vs-direct break-even for every Go model at the measured profile (3.5k in / 768 out / 166k cache — provider-side logs) with the frozen heavy mix (7.8k in / 1.1k out / 146k cache) as the conservative secondary, using current list prices; update analysis/12."*
+- *"Pull cross-machine usage from the provider-side console API — /console/api/go/status, /console/api/usage/models?range=30d, /console/api/activity/go?range=mtd, /zen/go/v1/usage, authenticated with the Go API key from ~/.local/share/opencode/auth.json (undocumented — could change without notice) — and refresh the measured profile and capacity tables in analysis/04 and 12."*
 - *"Rank every coding plan on $/heavy-request at the frozen profile, then adjust for AA quality, quota transparency, OpenCode support, privacy and India access; update analysis/13."*
