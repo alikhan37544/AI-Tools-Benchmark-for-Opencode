@@ -2,7 +2,7 @@
 
 > **Snapshot: October 26, 2026; spot-updated November 17, 2026.** Extends `13-best-value-coding-plans.md` with every subscription, credit-bundle and pay-as-you-go "token plan" found across GitHub Copilot, Anthropic, OpenAI, Google, Cursor, Windsurf, Kiro, plus the Chinese and aggregator providers. Every figure has a source URL. Confidence: 🟢 verified · 🟡 inferred/relative · 🔴 blocked or unverified.
 >
-> ⚠️ **Nov 17, 2026 spot update.** AA scores in this file are **v4.3.2 — a retired scale** (AA re-baselined to **v5.0.1** on Nov 3: the Go ceiling is now **Argon 50**, K3.1 Pro 46, Qwen4 Max 43; the cheap tier compressed to 27–29). Req/mo figures are the **frozen heavy mix**; measured-profile capacities from provider-side logs are in [12](./12-opencode-vs-direct.md) (DeepSeek **52,632 measured** vs 32,258 heavy at the same **10×** multiplier). DeepSeek ZDR is renewed monthly, valid **through Nov 30, 2026**.
+> ⚠️ **Nov 17, 2026 spot update (plus Nov 18 GLM-5.3 correction).** AA scores in this file are **v4.3.2 — a retired scale** (AA re-baselined to **v5.0.1** on Nov 3: the Go ceiling is now **Argon 50**, K3.1 Pro 46, Qwen4 Max 43; the cheap tier compressed to 27–29). Req/mo figures are the **frozen heavy mix**; measured-profile capacities from provider-side logs are in [12](./12-opencode-vs-direct.md) (DeepSeek **47,619 measured** (Nov 18 re-pull) vs 32,258 heavy at the same **10×** multiplier; GLM-5.3 **3,331 measured** / 3,720 heavy at **20×**). DeepSeek ZDR is renewed monthly, valid **through Nov 30, 2026**. **Argon retention corrected to 55-day (Nov 18).**
 
 ## 0. TL;DR — the absolute best deals for India
 
@@ -29,7 +29,7 @@
 
 | Plan | Price | Models / access | Heavy req/mo (profile) | $/req (best model) | India payment | OpenCode? |
 |---|---|---|---|---|---|---|
-| **OpenCode Go** | $10/mo (Plus $40) | 32 Go models + Zen + free | 269 K3.1 Pro · 728 Argon · 4,975 M3.1 Flash · 32,258 DS | $0.0372 (K3.1) · $0.0003 (DS) | 🟢 UPI | 🟢 native |
+| **OpenCode Go** | $10/mo (Plus $40) | 32 Go models + Zen + free | 269 K3.1 Pro · 728 Argon · 4,975 M3.1 Flash · 3,720 GLM-5.3 · 32,258 DS | $0.0372 (K3.1) · $0.0027 (GLM-5.3) · $0.0003 (DS) | 🟢 UPI | 🟢 native |
 | **OpenCode Go Plus** | $40/mo | Same, 4× caps | 4× above | Same | 🟢 UPI | 🟢 native |
 | **GitHub Copilot Pro** | $10/mo | 25+ models (Opus 5.5, GPT-6 Astra, Gemini 4 Argon, Claude Sonnet, Kimi K3, Grok) | ~364 Sonnet 5.5 · ~2,586 GPT-5.6 Luna · ~182 Opus 5.5 | $0.0274 (Sonnet) · $0.0549 (Opus) | 🟡 card/PayPal | 🟢 native (device flow) |
 | **GitHub Copilot Pro+** | $39/mo | Same + premium models (Fable 5, GPT-6 Astra/Sol, Opus 5.5) | ~1,699 Sonnet · ~850 Opus · ~251 Fable/Astra | $0.0229 (Sonnet) · $0.0459 (Opus) | 🟡 card/PayPal | 🟢 native |
@@ -133,8 +133,8 @@
 ### Rank 1: OpenCode Go ($10/mo) — BEST OVERALL
 - **India:** 🟢 UPI, no phone gate, no country restriction
 - **Models:** 32 Go models + Zen + free floor (DS Flash Free, GLM-5.3-Flash Free)
-- **Best $/req:** DeepSeek V4.1 Flash at $0.0003/req (32,258 heavy req/mo; **52,632 at the measured fleet profile**); M3.1 Flash at $0.0020 (4,975 heavy)
-- **Ceiling:** Argon AA 50 at $0.0137/req (728 req/mo, ZDR) — the Go ceiling on v5.0.1; K3.1 Pro AA 46 at $0.0372 (269 req/mo). *(v4.3.2 had these at 53/55.1 — retired scale.)*
+- **Best $/req:** DeepSeek V4.1 Flash at $0.0003/req (32,258 heavy req/mo; **47,619 at the measured fleet profile**); GLM-5.3 at $0.0027/req (3,720 heavy; 3,331 measured, 20×); M3.1 Flash at $0.0020 (4,975 heavy)
+- **Ceiling:** Argon AA 50 at $0.0137/req (728 req/mo, **55-day retained** — corrected Nov 18) — the Go ceiling on v5.0.1; K3.1 Pro AA 46 at $0.0372 (269 req/mo, privacy-safe).
 - **Why #1:** Only plan combining a 50-AA ceiling, 32-model breadth, UPI, free floor, and OpenCode-native integration at $10
 - **Weakness:** One shared allowance (pools not additive across models); premium solo-coverage is small; weekly roster churn
 
@@ -235,7 +235,7 @@
 ### 4.1 The "subscription vs. PAYG" divide
 - **Subscriptions** (Go, Copilot, Claude, ChatGPT, Cursor, Google AI) bundle a fixed allowance of requests/tokens. They're best when you use the bundled models heavily.
 - **PAYG APIs** (DeepSeek, Alibaba, Tencent, Z.ai, MiniMax, Mistral, aggregators) charge per token. They're best when usage is variable or you want the cheapest per-token rate.
-- **The crossover:** Go's $10 bundle is worth $15–$100 of list-price usage per model (1.5×–**10×** multiplier). But PAYG providers like Alibaba ($0.03/$0.13) and DeepSeek (off-peak base $0.15/$0.60, 2× at peak) can be cheaper per token than any subscription.
+- **The crossover:** Go's $10 bundle is worth $15–$200 of list-price usage per model (1.5×–**20×** multiplier). But PAYG providers like Alibaba ($0.03/$0.13) and DeepSeek (off-peak base $0.15/$0.60, 2× at peak) can be cheaper per token than any subscription.
 
 ### 4.2 India payment landscape
 - **UPI works:** OpenCode Go/Plus, Google AI Plus/Pro/Ultra, Cursor Start (legacy)
@@ -277,6 +277,6 @@ All figures sourced from the subagent research reports. Primary sources:
 **Chinese providers:** api-docs.deepseek.com, alibabacloud.com/help, tencentcloud.com/document, docs.z.ai, platform.minimax.io, docs.mistral.ai
 **Aggregators:** openrouter.ai/pricing, docs.together.ai, docs.fireworks.ai, console.groq.com, cerebras.ai/pricing, deepinfra.com/pricing, replicate.com/pricing
 **Cloud:** aws.amazon.com/bedrock, azure.microsoft.com, cloud.google.com/vertex-ai
-**OpenCode:** opencode.ai/docs/providers, opencode.ai/docs/go *(pricing/estimate tables moved to Console: console/go#pricing, console/go#limits — docs defer to Console as of Nov 17)*, opencode.ai/docs/zen
+**OpenCode:** opencode.ai/docs/providers, opencode.ai/docs/go *(pricing/estimate tables moved to Console: console/go#pricing, console/go#limits — docs defer to Console as of Nov 17)*, opencode.ai/docs/console/models
 
 Confidence markers: 🟢 verified in official docs · 🟡 inferred/relative/undocumented · 🔴 blocked or unverified.

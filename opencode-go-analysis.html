@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OpenCode Go — Model Intelligence &amp; Value Report · Nov 17 2026 (AA v5.0.1)</title>
-<meta name="description" content="OpenCode Go benchmark report: AA Intelligence Index v5.0.1 scores, pricing, caps, measured usage, value and capacity for all 32 Go models. Snapshot Nov 17, 2026.">
+<title>OpenCode Go — Model Intelligence &amp; Value Report · Nov 18 2026 (AA v5.0.1)</title>
+<meta name="description" content="OpenCode Go benchmark report: AA Intelligence Index v5.0.1 scores, pricing, caps, measured usage, value and capacity for all 32 Go models. Snapshot Nov 18, 2026.">
 <style>
 /* ============ design tokens ============ */
 :root{
@@ -378,9 +378,87 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 .footlinks a{color:var(--txt-2);font-size:12px}
 .footlinks a:hover{color:var(--accent)}
 
+/* ============ motion + scaling pass (visual only, no data changes) ============ */
+html,body{overflow-x:clip}
+main,.hero-inner,.footer-inner,.navgroups{min-width:0}
+.tblwrap,.chartcard{max-width:100%}
+svg.chart{max-width:100%}
+/* fluid type — 30/21/15 scale at desktop, graceful shrink */
+h1{font-size:clamp(24px,4.4vw,30px)}
+h2{font-size:clamp(18px,2.6vw,21px)}
+.chartcard .chart-title{font-size:clamp(13.5px,1.8vw,15px)}
+.hero-sub{font-size:clamp(12.5px,1.6vw,13px)}
+.statchip .v{font-size:clamp(16px,2.2vw,19px)}
+/* reveal on scroll — opacity + 12px rise, GPU only */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .24s var(--ease),transform .24s var(--ease);will-change:opacity,transform}
+.reveal.in{opacity:1;transform:translateY(0)}
+/* stagger ~40ms within grids */
+.grid2>.reveal.in:nth-child(2),.grid3>.reveal.in:nth-child(2),.grid4>.reveal.in:nth-child(2){transition-delay:40ms}
+.grid2>.reveal.in:nth-child(3),.grid3>.reveal.in:nth-child(3),.grid4>.reveal.in:nth-child(3){transition-delay:80ms}
+.grid2>.reveal.in:nth-child(4),.grid3>.reveal.in:nth-child(4),.grid4>.reveal.in:nth-child(4){transition-delay:120ms}
+.grid2>.reveal.in:nth-child(n+5),.grid3>.reveal.in:nth-child(n+5),.grid4>.reveal.in:nth-child(n+5){transition-delay:160ms}
+/* chart draw-in — groups fade/slide + bars grow via transform scaleX (never width/r attrs) */
+html.js-motion svg.chart{opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease);will-change:opacity,transform}
+html.js-motion svg.chart.drawn{opacity:1;transform:translateY(0)}
+html.js-motion svg.chart .bar{transform-box:fill-box;transform-origin:left center;transition:transform .5s var(--ease),opacity .25s var(--ease);will-change:transform,opacity}
+html.js-motion svg.chart:not(.drawn) .bar{transform:scaleX(.02);opacity:.25}
+html.js-motion svg.chart.drawn .bar{transform:scaleX(1)}
+html.js-motion svg.chart text,html.js-motion svg.chart line,html.js-motion svg.chart circle:not(.hitzone){transition:opacity .3s var(--ease)}
+html.js-motion svg.chart:not(.drawn) text,html.js-motion svg.chart:not(.drawn) line,html.js-motion svg.chart:not(.drawn) circle:not(.hitzone){opacity:0}
+/* micro-interactions — GPU only */
+.card,.chartcard{transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease)}
+.card:hover,.chartcard:hover{transform:translateY(-1px)}
+.tabbtn{transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease),transform .14s var(--ease),box-shadow .18s var(--ease)}
+.tabbtn:active{transform:scale(.96)}
+.toggle-btn{transition:background .16s var(--ease),color .16s var(--ease),border-color .16s var(--ease),transform .14s var(--ease)}
+.toggle-btn:active{transform:scale(.96)}
+table.tbl tbody tr{transition:background-color .14s var(--ease)}
+table.tbl tbody tr:hover td{background-color:rgba(108,140,255,.09)}
+/* sticky nav shadow intensifies on scroll — opacity-only layer (compositable) */
+.tabs{position:sticky}
+.tabs::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:0 14px 34px rgba(0,0,0,.5);opacity:0;transition:opacity .2s var(--ease)}
+.tabs.scrolled::after{opacity:1}
+/* back to top — opacity/transform only */
+#toTop{position:fixed;right:18px;bottom:18px;z-index:50;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--txt-2);font-size:18px;line-height:1;cursor:pointer;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s var(--ease),transform .2s var(--ease),color .15s var(--ease),border-color .15s var(--ease)}
+#toTop.show{opacity:1;transform:translateY(0);pointer-events:auto}
+#toTop:hover{color:#fff;border-color:var(--accent-dim)}
+/* scaling audit */
+@media (max-width:1280px){
+  .hero-inner,.navgroups,main,.footer-inner{max-width:100%}
+}
+@media (max-width:1024px){
+  .grid3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+}
+@media (max-width:820px){
+  .navgroups{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 30px),transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 30px),transparent 100%);
+  }
+  .hero h1{max-width:none}
+}
+@media (max-width:600px){
+  .answer-row{flex-direction:column;align-items:stretch;gap:6px}
+  .answer-row .chip{align-self:flex-start}
+  .answer-row>span:last-child{flex:1 1 auto}
+  table.kv td{overflow-wrap:anywhere}
+}
+@media (max-width:375px){
+  .hero{padding:20px 12px 16px}
+  .chiprow{gap:6px}
+  .statchip{padding:9px 10px}
+  main{padding:0 10px 60px}
+  .card{padding:14px 13px}
+  .chartcard{padding:14px 12px 10px}
+  .tbltools input{flex-basis:100%}
+}
+
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   *{transition:none!important;animation:none!important}
+  .reveal{opacity:1!important;transform:none!important}
+  html.js-motion svg.chart,svg.chart{opacity:1!important;transform:none!important}
+  html.js-motion svg.chart .bar{transform:none!important}
+  #toTop{display:none!important}
 }
 /* V13: Value tab cards drop below the table instead of forming a narrow sidebar */
 @media (max-width:1100px){
@@ -436,15 +514,15 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 
 <header class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow"><span class="dot"></span> OpenCode Go · Nov 17, 2026 <span class="sep">·</span> AA v5.0.1 <span class="sep">·</span> Live snapshot</p>
+    <p class="hero-eyebrow"><span class="dot"></span> OpenCode Go · Nov 18, 2026 <span class="sep">·</span> AA v5.0.1 <span class="sep">·</span> Live snapshot</p>
     <h1>Model Intelligence &amp; Value Report</h1>
-<p class="hero-sub">Re-baselined <b>November 17, 2026</b> <span class="sep">·</span> AA Intelligence Index <b>v5.0.1</b> <span class="sep">·</span> 32 Go models / 38 priced tiers <span class="sep">·</span> capacity &amp; value from 30 days of provider-side requests <span class="sep">·</span> Vals AI v2.2 <span class="sep">·</span> running OpenCode v2.3.0</p>
+<p class="hero-sub">Re-baselined <b>November 17, 2026</b>, usage &amp; deltas through <b>November 18</b> <span class="sep">·</span> AA Intelligence Index <b>v5.0.1</b> <span class="sep">·</span> 32 Go models / 38 priced tiers <span class="sep">·</span> capacity &amp; value from 30 days of provider-side requests <span class="sep">·</span> Vals AI v2.2 <span class="sep">·</span> running OpenCode v2.3.0</p>
     <div class="chiprow" id="hero-chips">
       <div class="statchip"><span class="v">32</span><span class="l">Go models · 38 priced tiers</span></div>
       <div class="statchip accent"><span class="v">AA 50</span><span class="l">Gemini 4 Argon — the Go ceiling</span></div>
-      <div class="statchip"><span class="v">~53k</span><span class="l">DeepSeek V4.1 Flash req/mo · measured</span></div>
-      <div class="statchip danger"><span class="v">44,404 pts/$</span><span class="l">Muse Spark 1.3 value leader · trains</span></div>
-      <div class="statchip"><span class="v">24,160 req</span><span class="l">30-day measured usage · $46.44 list</span></div>
+      <div class="statchip"><span class="v">~48k</span><span class="l">DeepSeek V4.1 Flash req/mo · measured</span></div>
+      <div class="statchip danger"><span class="v">40,969 pts/$</span><span class="l">Muse Spark 1.3 value leader · trains</span></div>
+      <div class="statchip"><span class="v">35,013 req</span><span class="l">30-day measured usage · $73.41 list</span></div>
       <div class="statchip"><span class="v">v2.3.0</span><span class="l">OpenCode on this machine · OmO 5.1.75</span></div>
     </div>
   </div>
@@ -487,17 +565,17 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 <section id="overview" class="tabpanel active" aria-label="Overview">
   <h2>Which model, in one screen</h2>
   <div class="card key" id="answer-card">
-    <div class="answer-row"><span class="chip chip-new">daily driver</span><span><b>DeepSeek V4.1 Flash</b> — the session driver. <b class="stat">52,632</b> req/mo solo-usage coverage · 10× multiplier — meter says $60, see <a href="#limits" data-tab-link="limits">Capacity &amp; meter</a>.</span></div>
-    <div class="answer-row"><span class="chip chip-new">quality</span><span><b>MiniMax M3.1 Flash</b> — paid work that must be right the first time. <b class="stat">5,760</b> measured req/mo · Vals 53.78%, 141 tok/s.</span></div>
-    <div class="answer-row"><span class="chip chip-new">escalate</span><span><b>Gemini 4 Argon</b> (AA 50, ZDR) for planning and agentic execution · <b>Kimi K3.1 Pro</b> (AA 46, 1M ctx, max effort) for the hardest 5% — 961 / 259 measured req/mo.</span></div>
+    <div class="answer-row"><span class="chip chip-new">daily driver</span><span><b>DeepSeek V4.1 Flash</b> — the session driver. <b class="stat">47,619</b> req/mo solo-usage coverage · 10× multiplier — meter says $60 (docs cap $100), see <a href="#limits" data-tab-link="limits">Capacity &amp; meter</a>.</span></div>
+    <div class="answer-row"><span class="chip chip-new">quality</span><span><b>MiniMax M3.1 Flash</b> — paid work that must be right the first time. <b class="stat">5,025</b> measured req/mo · Vals 53.78%, 141 tok/s.</span></div>
+    <div class="answer-row"><span class="chip chip-new">escalate</span><span><b>Gemini 4 Argon</b> (AA 50, 55-day retained) for planning and agentic execution · <b>Kimi K3.1 Pro</b> (AA 46, 1M ctx, 0-day, max effort) for the hardest 5% and privacy-safe escalation — 862 / 191 measured req/mo.</span></div>
     <div class="answer-row"><span class="chip chip-new">explore</span><span><b>Claude Haiku 5.5 (≤100K)</b> <span class="chip chip-partial">×5 tier</span> for subagents and repo Q&amp;A — fastest Claude at 257 tok/s.</span></div>
-    <div class="answer-row"><span class="chip chip-new">free floor</span><span><b>GLM-5.3-Flash Free</b> · DeepSeek free twin · MiniMax M3.1 Flash Free — bulk and cap overflow at $0.</span></div>
+    <div class="answer-row"><span class="chip chip-new">free floor</span><span><b>GLM-5.3-Flash Free</b> · DeepSeek free twin — bulk and cap overflow at $0. (MiniMax M3.1 Flash Free was deprecated Nov 17.)</span></div>
     <div class="answer-row"><span class="chip chip-zdr">the $10 verdict</span><span><b>Worth it</b> when your usage lands on a high-multiplier lane — 10× = solo-usage DeepSeek coverage vs the $10 price. One shared allowance, normalized per model; a single-model workflow below its break-even is cheaper direct. Full routing → <a href="#tasks" data-tab-link="tasks">Tasks</a>.</span></div>
   </div>
 
   <h2>The $10 question</h2>
   <blockquote class="callout">
-    <p><b>One-sentence answer:</b> Go's per-token prices are essentially the <b>same as direct</b> for almost every model — what $10 buys is <b>one shared allowance with per-model normalization</b>: each model's monthly limit (worth $15–$100) shows how much usage your plan covers <b>if you use only that model</b> — a 1.5×–10× <b>solo-usage</b> multiplier vs the $10 price. Mixing models draws from the same allowance proportionally — the pools are <b>NOT additive</b>. Go wins when your usage concentrates on a high-multiplier lane; direct or a specialist plan wins below a single model's break-even or when you need provider features.</p>
+    <p><b>One-sentence answer:</b> Go's per-token prices are essentially the <b>same as direct</b> for almost every model — what $10 buys is <b>one shared allowance with per-model normalization</b>: each model's monthly limit (worth $15–$200) shows how much usage your plan covers <b>if you use only that model</b> — a 1.5×–20× <b>solo-usage</b> multiplier vs the $10 price. Mixing models draws from the same allowance proportionally — the pools are <b>NOT additive</b>. Go wins when your usage concentrates on a high-multiplier lane; direct or a specialist plan wins below a single model's break-even or when you need provider features.</p>
   </blockquote>
   <div class="grid2">
     <div class="card">
@@ -508,7 +586,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
     <div class="card">
       <h3 class="card-title">What Go is not</h3>
       <ul class="clean tight">
-<li><span class="bad">Not unlimited.</span> K3.1 Pro is 259 requests/month measured (269 on the heavy mix).</li> <li><span class="bad">Not a frontier pass.</span> Fable 5.2 (65), Carbon (60), Opus 5.5 (59) and Astra (57) sit outside Go.</li>
+<li><span class="bad">Not unlimited.</span> K3.1 Pro is 191 requests/month measured (269 on the heavy mix).</li> <li><span class="bad">Not a frontier pass.</span> Fable 5.2 (65), GPT-6.2 Astra (62), Carbon (60) and Opus 5.5 (59) sit outside Go.</li>
 <li><span class="bad">Not private by default for Muse.</span> <span class="chip chip-danger">trains — non-client only</span></li> <li><span class="bad">Not India-neutral.</span> Go is the only plan here with documented UPI.</li>
       </ul>
     </div>
@@ -517,7 +595,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
   <h2>Three findings that hold after the re-baseline</h2>
   <div class="card key">
     <h3 class="card-title">1 · Intelligence ceiling reversed</h3>
-    <p>Gemini 4 Argon (50) is now both the ceiling <i>and</i> the best top-end value on Go: 961 req/mo measured, 3× multiplier, zero-retention, 50%-off through Nov 30. K3.1 Pro (46) remains useful where its specific strengths matter — 1M context and a true max-effort variant.</p>
+    <p>Gemini 4 Argon (50) is now both the ceiling <i>and</i> the best top-end value on Go: 862 req/mo measured, 3× multiplier, <b>55-day retained (worst on the roster — not for client/PHI work without a contract check)</b>, 50%-off through Nov 30. Privacy-safe escalation is <b>Kimi K3.1 Pro</b> (46, 0-day, 1M ctx, max effort). K3.1 Pro remains useful where its specific strengths matter — 1M context and a true max-effort variant.</p>
   </div>
   <div class="chartcard">
     <p class="chart-title">Go vs frontier — the intelligence ladder</p>
@@ -528,7 +606,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 
   <div class="card key">
     <h3 class="card-title">2 · The value podium is stable — with one red flag</h3>
-    <p>Muse Spark 1.3 (44,404 pts/$) · MiMo-V2.6-Flash (23,145) · DeepSeek V4.1 Flash (17,368). Muse wins the math but <span class="chip chip-danger">trains — non-client only</span>; DeepSeek remains the volume king with <b>52,632</b> measured req/mo and a 10× multiplier (docs cap $100).</p>
+    <p>Muse Spark 1.3 (40,969 pts/$) · MiMo-V2.6-Flash (21,355) · DeepSeek V4.1 Flash (15,714). Muse wins the math but <span class="chip chip-danger">trains — non-client only</span>; DeepSeek remains the volume king with <b>47,619</b> measured req/mo and a 10× multiplier (docs cap $100).</p>
   </div>
   <div class="chartcard">
     <p class="chart-title">Intelligence per dollar — AA pts/$</p>
@@ -562,7 +640,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
         <tr class="change-row"><td class="name">Training SKUs flagged red</td><td>Muse Contributor and Iceman Contributor train.</td><td>Never route client, PHI or proprietary work there.</td></tr>
         <tr class="detail-row"><td colspan="3">Muse Spark 1.3/1.2 Contributor and Iceman Contributor Free train on your data. Everything else is 0-day or 30-day retention, not trained.</td></tr>
         <tr class="change-row"><td class="name">Primary basis = measured profile</td><td>Capacity math now runs on measured logs.</td><td>Heavy mix survives as a labelled secondary.</td></tr>
-        <tr class="detail-row"><td colspan="3">Value and capacity math now runs on 30-day provider-side logs (24.2k requests: 3.5k in / 768 out / 166k cache-read per request), not the old frozen heavy profile.</td></tr>
+        <tr class="detail-row"><td colspan="3">Value and capacity math now runs on 30-day provider-side logs (35.0k requests: 3,457 in / 799 out / 198,806 cache-read per request), not the old frozen heavy profile.</td></tr>
         <tr class="change-row"><td class="name">v1-vs-v2 section archived</td><td>The fleet runs OpenCode v2.3.0.</td><td>See <code>analysis/09-opencode-v1-vs-v2.md</code>.</td></tr>
         <tr class="detail-row"><td colspan="3">The comparison tab is gone from this site; the write-up is archived in the repo.</td></tr>
       </tbody>
@@ -607,9 +685,9 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
     <div class="card">
       <h3 class="card-title">Footnotes</h3>
       <ul class="clean tight" id="roster-footnotes">
-<li><b>¹ Haiku 5.5 tiers:</b> the measured 170k-token request mix always bills at the <b>&gt;100K</b> tier ($0.50/$2.50/$0.05/$0.625). The ≤100K tier ($0.10/$0.50/$0.01/$0.125) only applies to short subagent/explore contexts — it is 5× cheaper. Both rows share one AA score; the effort spread is 36/35/30/25/19 (max→low).</li> <li><b>² DeepSeek pricing:</b> shown at <b>off-peak</b> rates; peak is ×2 (01:00–04:00 &amp; 06:00–10:00 UTC, Mon–Fri). Only DeepSeek V4.1 Flash's $/req in Value carries a measured 28% peak-share blend ($0.00190/req); V4 Pro's $/req is unblended off-peak — see ⁵.</li>
+<li><b>¹ Haiku 5.5 tiers:</b> the measured 170k-token request mix always bills at the <b>&gt;100K</b> tier ($0.50/$2.50/$0.05/$0.625). The ≤100K tier ($0.10/$0.50/$0.01/$0.125) only applies to short subagent/explore contexts — it is 5× cheaper. Both rows share one AA score; the effort spread is 36/35/30/25/19 (max→low).</li> <li><b>² DeepSeek pricing:</b> shown at <b>off-peak</b> rates; peak is ×2 (01:00–04:00 &amp; 06:00–10:00 UTC, Mon–Fri). Only DeepSeek V4.1 Flash's $/req in Value carries a measured 28.7% peak-share blend ($0.00210/req, Nov 18); V4 Pro's $/req is unblended off-peak — see ⁵.</li>
 <li><b>³ Checkpoint notes:</b> DeepSeek's catalog SKU is literally <b>“DeepSeek V4.1 Flash 1017”</b> — Go serves the 1017 checkpoint as the product (AA 33 = what you get); the earlier checkpoint ambiguity is resolved. Qwen3.8 Max's 34 belongs to the 0902 snapshot; the Go SKU is the 0803 snapshot, unscored — that checkpoint lottery stands.</li> <li><b>⁴ Tiered rows:</b> rows marked <span class="chip chip-derived">tier</span> only change prices above the boundary — their capacity is not separately computed; expect roughly half (double prices) to a third (triple prices) of the base-tier row.</li>
-<li><b>⁵ DeepSeek V4 Pro basis:</b> its $/req, req/mo, pts/$ and break-even are computed at <b>off-peak, unblended</b> prices — labelled <span class="chip chip-partial">off-peak basis; peak = 2×</span> on every row. Blended at the measured 28% peak share it would be ≈$0.00956/req → 1,569 req/mo · 2,406 pts/$ · break-even 1,046. Do not mix the two bases in one column.</li> </ul> </div> <div class="card"> <h3 class="card-title">Not measured on v5.0.1</h3> <p class="small">These carry pricing and caps but <b>no intelligence score</b> — never quote an old-scale number for them:</p>
+<li><b>⁵ DeepSeek V4 Pro basis:</b> its $/req, req/mo, pts/$ and break-even are computed at <b>off-peak, unblended</b> prices — labelled <span class="chip chip-partial">off-peak basis; peak = 2×</span> on every row. Blended at the measured 28.7% peak share it would be ≈$0.01060/req → 1,415 req/mo · 2,170 pts/$ · break-even 943. Do not mix the two bases in one column.</li> </ul> </div> <div class="card"> <h3 class="card-title">Not measured on v5.0.1</h3> <p class="small">These carry pricing and caps but <b>no intelligence score</b> — never quote an old-scale number for them:</p>
 <p> <span class="chip chip-unmeas">GLM-5.2 (legacy)</span> <span class="chip chip-unmeas">Kimi K2.7 Code</span> <span class="chip chip-unmeas">LongCat-2.0</span> <span class="chip chip-unmeas">Hy3</span> <span class="chip chip-unmeas">Qwen3.7 Plus</span> <span class="chip chip-unmeas">Muse Spark 1.2</span> <span class="chip chip-unmeas">DeepSeek V4.1 Flash (base ckpt)</span> <span class="chip chip-unmeas">Qwen3.8 Max (0803 SKU)</span> <span class="chip chip-unmeas">Kimi K3 (max)</span> <span class="chip chip-unmeas">Hy4 preview</span> </p>
 <p class="small">History: <span class="chip chip-legacy">MiMo-V2.5 / MiMo-V2.5-Pro</span> were in the Nov 17 morning listing and were dropped from the live catalog the same day (roster 29→34→32).</p>
 <p class="small">Not on AA at all (Go-only SKUs): <span class="chip chip-danger">Iceman Contributor Free</span> <span class="chip">LongCat 2.5 Free</span> <span class="chip">Hy4 Flash Free</span> </p>
@@ -689,28 +767,28 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
     <p class="chart-title">Cost per task — Go roster</p>
     <p class="chart-sub">Cheapest first, log x-axis. Bar color = AA tier; dashed ticks = frontier on the same axis.</p>
     <svg id="chart-task-bars" class="chart" viewBox="0 0 1000 660" role="img" aria-label="Horizontal bar chart of AA cost per task for Go models on a log scale, cheapest first, with frontier reference markers"></svg>
-    <p class="chart-caption">Fable 5.2 at $26.54 is off-scale (clamped at right); Muse Wonder Full has no API price and is omitted. Kimi K3 is low-effort-only — read with caution. Source: AA v5.0.1, Nov 17 2026. <b>Frontier anchors on this axis:</b> $0.96 GPT-6.1 Terra · $1.27 GPT-6.1 Sol · $2.47 GPT-6 Sol (AA models/gpt-6-sol — not the unscored “Daybreak Blue” release) · $3.16 Gemini 4 Hydrogen · $5.48 Gemini 4 Carbon · $6.24 GPT-6 Astra · $10.02 Sonnet 5.5 · $10.04 Opus 5.5 · $12.99 Fable 5.1 (max) · $26.54 Fable 5.2 (off-scale).</p>
+    <p class="chart-caption">Fable 5.2 at $26.54 is off-scale (clamped at right); Muse Wonder Full has no API price and is omitted. GPT-6.2 Astra (max, 62) likewise has no published API price and is omitted. Kimi K3 is low-effort-only — read with caution. Source: AA v5.0.1, Nov 17 2026. <b>Frontier anchors on this axis:</b> $0.96 GPT-6.1 Terra · $1.27 GPT-6.1 Sol · $2.47 GPT-6 Sol (AA models/gpt-6-sol — not the unscored “Daybreak Blue” release) · $3.16 Gemini 4 Hydrogen · $5.48 Gemini 4 Carbon · $6.24 GPT-6 Astra · $10.02 Sonnet 5.5 · $10.04 Opus 5.5 · $12.99 Fable 5.1 (max) · $26.54 Fable 5.2 (off-scale).</p>
   </div>
 
   <div class="chartcard">
     <p class="chart-title">Intelligence vs speed</p>
     <p class="chart-sub">Output speed in tok/s, log x-axis (end-to-end incl. first-token wait) vs AA v5.0.1. Guides at 100 tok/s and 35.</p>
     <svg id="chart-speed-scatter" class="chart" viewBox="0 0 1000 520" role="img" aria-label="Scatter plot of AA v5.0.1 intelligence versus output speed in tokens per second on a log scale"></svg>
-    <p class="chart-caption">Source: AA Performance Benchmarking v3.0.0 (Nov 3) 5-day workload averages via AA model pages, Nov 17 2026. GPT-6.1 Sol, Gemini 4 Hydrogen, GPT-6.1 Terra and Muse Wonder Full are omitted — speeds not available. TTFT ≠ TFAAT for the Chinese vendors: add thinking time before comparing latency.</p>
+    <p class="chart-caption">Source: AA Performance Benchmarking v3.0.0 (Nov 3) 5-day workload averages via AA model pages, Nov 17 2026. GPT-6.2 Astra, GPT-6.1 Sol, Gemini 4 Hydrogen, GPT-6.1 Terra and Muse Wonder Full are omitted — speeds not available. TTFT ≠ TFAAT for the Chinese vendors: add thinking time before comparing latency.</p>
   </div>
 
   <div class="chartcard">
     <p class="chart-title">Intelligence vs monthly capacity</p>
     <p class="chart-sub">Measured req/mo at Go caps, log x-axis vs AA v5.0.1. Area = pts/$. Median guides; top-right is better.</p>
     <svg id="chart-cap-scatter" class="chart" viewBox="0 0 1000 520" role="img" aria-label="Scatter plot of AA v5.0.1 intelligence versus measured monthly request capacity on a log scale"></svg>
-    <p class="chart-caption">Source: CANON value &amp; capacity computation, Nov 17 2026 (profile basis: 3.5k in / 768 out / 166k cache-read per request). Free SKUs are excluded (∞ capacity). Haiku 5.5 appears at both price tiers.</p>
+    <p class="chart-caption">Source: CANON value &amp; capacity computation, Nov 17 2026 (profile basis: 3,457 in / 799 out / 198,806 cache-read per request). Free SKUs are excluded (∞ capacity). Haiku 5.5 appears at both price tiers.</p>
   </div>
 
   <div class="chartcard">
     <p class="chart-title">Your measured usage — daily list value</p>
-    <p class="chart-sub">Oct 24 – Nov 17, 2026, per-day list value in USD. The two spike days are highlighted.</p>
-    <svg id="chart-usage" class="chart" viewBox="0 0 1000 380" role="img" aria-label="Bar chart of daily usage cost in USD from October 24 to November 17 2026, highlighting November 9 and November 11 spikes"></svg>
-    <p class="chart-caption">Source: provider console API (<code>console/api/activity/go</code>, account acc_01KRFXCC…, Go period Oct 24–Nov 24); 30-day per-model rollups combine both Go accounts. Nov 9: 6,819 req / $10.33 / 1.16B tokens. Nov 11: 4,413 req / $8.48 / 774M tokens. Daily values are rounded to cents; the period total is $37.75 MTD list value across 20,405 requests.</p>
+    <p class="chart-sub">Oct 24 – Nov 18, 2026, per-day list value in USD. Nov 17 is the busiest day; Nov 18 is partial and peak-heavy.</p>
+    <svg id="chart-usage" class="chart" viewBox="0 0 1000 380" role="img" aria-label="Bar chart of daily usage cost in USD from October 24 to November 18 2026, highlighting the November 17 spike with November 18 marked partial"></svg>
+    <p class="chart-caption">Source: provider console API (<code>console/api/activity/go</code>, account acc_01KRFXCC…, Go period Oct 24–Nov 24); 30-day per-model rollups combine both Go accounts. Nov 17: 9,320 req / $18.70 / 2.64B tokens (new #1 day). Nov 18: 2,700 req / $10.73 (partial day, peak-heavy — do not blend into a daily rate). Daily values are rounded to cents; the period total is $65.93 MTD list value across 31,752 requests.</p>
   </div>
 
   <div class="chartcard">
@@ -738,17 +816,17 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
       </tr></thead>
       <tbody>
         <tr><td class="num">1</td><td class="name">Backend / API / refactors / migrations</td><td><b>Gemini 4 Argon</b> (hard) · DeepSeek V4.1 Flash (daily)</td><td>Kimi K3.1 Pro (1M ctx) · GLM-5.3</td><td>MiniMax M3.1 Flash</td><td><sup>¹</sup></td><td class="note">Argon AA 50 · Vals 69.24% · K3.1 Pro Vals 62.52% <span class="chip chip-indep">indep.</span></td></tr>
-        <tr><td class="num">2</td><td class="name">Frontend / UI (React, Tailwind, shadcn)</td><td><b>Muse Spark 1.3</b> <span class="chip chip-danger">trains</span></td><td>Kimi K3.1 Pro · Kimi K3</td><td>GLM-5.3-Flash</td><td>GPT-6 Astra / Fable 5.2</td><td class="note">Design Arena website #1 (earlier pass); K3 #3. Non-client only. <span class="chip chip-partial">partial</span></td></tr>
+        <tr><td class="num">2</td><td class="name">Frontend / UI (React, Tailwind, shadcn)</td><td><b>Muse Spark 1.3</b> <span class="chip chip-danger">trains</span></td><td>Kimi K3.1 Pro · Kimi K3</td><td>GLM-5.3-Flash</td><td>GPT-6.2 Astra / Fable 5.2</td><td class="note">Design Arena website #1 (earlier pass); K3 #3. Non-client only. <span class="chip chip-partial">partial</span></td></tr>
         <tr><td class="num">3</td><td class="name">Database / SQL</td><td><b>GLM-5.3</b></td><td>DeepSeek V4.1 Flash</td><td>MiniMax M3.1 Flash</td><td>Gemini-class agents</td><td class="note">Spider 2.0-Lite winning agent ran the GLM-5.2 lineage (earlier pass) <span class="chip chip-partial">partial</span></td></tr>
         <tr><td class="num">4</td><td class="name">Integrations / auth / webhooks / Kafka</td><td><b>Kimi K3.1 Pro</b></td><td>Hy4 preview</td><td>DeepSeek V4.1 Flash</td><td><sup>¹</sup></td><td class="note">MCP-Atlas: K3 84.2, Hy4 83.7; Toolathlon Hy4 74.1 (earlier pass) <span class="chip chip-partial">partial</span></td></tr>
-        <tr><td class="num">5</td><td class="name">Agentic terminal / DevOps / git / deploy</td><td><b>Gemini 4 Argon</b> · Kimi K3.1 Pro</td><td>Grok 4.7 · GLM-5.3</td><td>MiniMax M3.1 Flash · DeepSeek</td><td>GPT-6 Astra / <sup>¹</sup></td><td class="note">Vals v2.2: Argon 69.24% (#3 overall) · K3.1 Pro 62.52% <span class="chip chip-indep">indep.</span></td></tr>
+        <tr><td class="num">5</td><td class="name">Agentic terminal / DevOps / git / deploy</td><td><b>Gemini 4 Argon</b> · Kimi K3.1 Pro</td><td>Grok 4.7 · GLM-5.3</td><td>MiniMax M3.1 Flash · DeepSeek</td><td>GPT-6.2 Astra / <sup>¹</sup></td><td class="note">Vals v2.2: Argon 69.24% (first among Go models) · K3.1 Pro 62.52% <span class="chip chip-indep">indep.</span></td></tr>
         <tr><td class="num">6</td><td class="name">Long-horizon autonomy (multi-hour)</td><td><b>Kimi K3.1 Pro</b> (1M ctx, max effort)</td><td>Step 5 Preview</td><td>DeepSeek V4.1 Flash · M3.1 Flash</td><td><sup>¹</sup></td><td class="note">SWE-Marathon 42.0 (earlier pass); METR horizon stale (May 2026) <span class="chip chip-partial">partial</span></td></tr>
-        <tr><td class="num">7</td><td class="name">Visual QA / Playwright / GUI agents</td><td><b>Qwen3.8 Max</b> <span class="chip chip-danger">ckpt lottery</span></td><td>Kimi K3.1 Pro · Kimi K3</td><td>Qwen3.8 Flash</td><td>GPT-6 Astra</td><td class="note">OSWorld-Verified 86.1 #1 (earlier pass) <span class="chip chip-partial">partial</span></td></tr>
-        <tr><td class="num">8</td><td class="name">Image / OCR / charts / screenshot→code</td><td><b>Qwen3.8 Max</b> · MiMo-V2.6-Pro</td><td>DeepSeek V4.1 Flash (vision)</td><td>Qwen3.8 Flash</td><td>GPT-6 Astra / Gemini Carbon</td><td class="note">MMMU-Pro 82.3; LMArena Vision #9 (earlier pass) <span class="chip chip-partial">partial</span></td></tr>
-        <tr><td class="num">9</td><td class="name">Planning / architecture reasoning</td><td><b>Gemini 4 Argon</b> (50, ZDR) · Kimi K3.1 Pro (46)</td><td>Grok 4.7 · Qwen4 Max</td><td>MiniMax M3.1 Flash / GLM-5.3-Flash</td><td>Fable 5.2 (65) / <sup>¹</sup></td><td class="note">AA v5.0.1 + Vals v2.2 (Argon 69.24% &gt; K3.1 Pro 62.52%) <span class="chip chip-indep">indep.</span></td></tr>
+        <tr><td class="num">7</td><td class="name">Visual QA / Playwright / GUI agents</td><td><b>Qwen3.8 Max</b> <span class="chip chip-danger">ckpt lottery</span></td><td>Kimi K3.1 Pro · Kimi K3</td><td>Qwen3.8 Flash</td><td>GPT-6.2 Astra</td><td class="note">OSWorld-Verified 86.1 #1 (earlier pass) <span class="chip chip-partial">partial</span></td></tr>
+        <tr><td class="num">8</td><td class="name">Image / OCR / charts / screenshot→code</td><td><b>Qwen3.8 Max</b> · MiMo-V2.6-Pro</td><td>DeepSeek V4.1 Flash (vision)</td><td>Qwen3.8 Flash</td><td>GPT-6.2 Astra / Gemini Carbon</td><td class="note">MMMU-Pro 82.3; LMArena Vision #9 (earlier pass) <span class="chip chip-partial">partial</span></td></tr>
+        <tr><td class="num">9</td><td class="name">Planning / architecture reasoning</td><td><b>Gemini 4 Argon</b> (50, 55-day retained) · Kimi K3.1 Pro (46)</td><td>Grok 4.7 · Qwen4 Max</td><td>MiniMax M3.1 Flash / GLM-5.3-Flash</td><td>Fable 5.2 (65) / <sup>¹</sup></td><td class="note">AA v5.0.1 + Vals v2.2 (Argon 69.24% &gt; K3.1 Pro 62.52%) <span class="chip chip-indep">indep.</span></td></tr>
         <tr><td class="num">10</td><td class="name">Debugging / root-cause analysis</td><td><b>Kimi K3.1 Pro</b> · Grok 4.7 (edge cases)</td><td>DeepSeek V4.1 Flash</td><td>MiniMax M3.1 Flash / free twins</td><td><sup>¹</sup></td><td class="note">K3 honesty battery 0/12 false “done” (earlier pass); family behaviour inherited <span class="chip chip-partial">partial</span></td></tr>
-        <tr><td class="num">11</td><td class="name">Long context (huge repos / logs)</td><td><b>Kimi K3.1 Pro</b> (1M)</td><td>Gemini 4 Argon (1M, ZDR) · DeepSeek (1M, cheap cache)</td><td>DeepSeek V4.1 Flash</td><td>GPT-6 Astra / <sup>¹</sup></td><td class="note">1M native context; DeepSeek cache-read at $0.003/1M <span class="chip chip-indep">indep.</span></td></tr>
-        <tr><td class="num">12</td><td class="name">Bulk edits / boilerplate / tests</td><td><b>MiniMax M3.1 Flash</b></td><td>MiMo-V2.6-Flash · DeepSeek · Haiku 5.5 <span class="chip chip-partial">×5 tier</span> (≤100K)</td><td><b>GLM-5.3-Flash Free ($0)</b></td><td>—</td><td class="note">M3.1 Flash 5,760 measured req/mo · MiMo-Flash 51,433 <span class="chip chip-indep">indep.</span></td></tr>
+        <tr><td class="num">11</td><td class="name">Long context (huge repos / logs)</td><td><b>Kimi K3.1 Pro</b> (1M)</td><td>Gemini 4 Argon (1M, 55-day retained) · DeepSeek (1M, cheap cache)</td><td>DeepSeek V4.1 Flash</td><td>GPT-6 Astra / <sup>¹</sup></td><td class="note">1M native context; DeepSeek cache-read at $0.003/1M <span class="chip chip-indep">indep.</span></td></tr>
+        <tr><td class="num">12</td><td class="name">Bulk edits / boilerplate / tests</td><td><b>MiniMax M3.1 Flash</b></td><td>MiMo-V2.6-Flash · DeepSeek · Haiku 5.5 <span class="chip chip-partial">×5 tier</span> (≤100K)</td><td><b>GLM-5.3-Flash Free ($0)</b></td><td>—</td><td class="note">M3.1 Flash 5,025 measured req/mo · MiMo-Flash 47,455 <span class="chip chip-indep">indep.</span></td></tr>
         <tr><td class="num">13</td><td class="name">General intelligence / research</td><td><b>Gemini 4 Argon (50)</b> · Kimi K3.1 Pro (46)</td><td>Qwen4 Max (43) · Haiku 5.5 (36) <span class="chip chip-partial">×5 tier</span></td><td>MiniMax M3.1 Flash / free twins</td><td>Fable 5.2 (65) / <sup>¹</sup></td><td class="note">AA v5.0.1; Argon lowest hallucination rate on AA-Omniscience (earlier pass) <span class="chip chip-indep">indep.</span></td></tr>
         <tr><td class="num">14</td><td class="name">Data / ML notebooks</td><td><b>Kimi K3.1 Pro</b> · MiniMax M3.1 Flash</td><td>Qwen3.8 Flash</td><td>DeepSeek V4.1 Flash</td><td>Gemini-class agents</td><td class="note">MLE-bench Lite medal on the retired K2.7 line (earlier pass) <span class="chip chip-partial">partial</span></td></tr>
         <tr><td class="num">15</td><td class="name">Systems / overclock / ROM / homelab</td><td><b>Kimi K3.1 Pro</b> · Grok 4.7</td><td>MiMo-V2.6-Pro</td><td>DeepSeek V4.1 Flash</td><td>GPT-6 Sol / <sup>¹</sup></td><td class="note">Grok EEBench 64.0 (earlier pass) <span class="chip chip-partial">partial</span></td></tr>
@@ -763,8 +841,8 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
   <h3>How to route this machine's work</h3>
   <div class="grid2">
     <div class="card"><h3 class="card-title">Default day</h3><p><b>DeepSeek V4.1 Flash</b> as the session driver. <b>MiniMax M3.1 Flash</b> for paid quality work that must be right the first time. <b>GLM-5.3-Flash Free</b> or the DeepSeek free twin for bulk and whenever a cap binds. <b>Claude Haiku 5.5</b> <span class="chip chip-partial">×5 tier</span> for explore/subagent contexts <b>under 100K tokens</b>.</p></div>
-    <div class="card"><h3 class="card-title">Escalation ladder</h3><p><b>Argon</b> (AA 50, ZDR, 50%-off through Nov 30) for planning and agentic execution. <b>K3.1 Pro</b> (AA 46, 1M context) for the hardest architecture and marathon debugging. <b>Qwen3.8 Max</b> <span class="chip chip-danger">ckpt lottery</span> for final visual verification. Outside Go: Opus 5.5 / Fable 5.2 only for must-not-fail work.</p></div>
-    <div class="card"><h3 class="card-title">Client / PHI work</h3><p>Paid, no-training routes only: <b>GLM-5.3-Flash</b>, <b>MiMo-V2.6-Pro</b>, <b>Argon</b> (ZDR), <b>DeepSeek</b> (ZDR renewed monthly, valid through Nov 30 2026 — re-verify). Never a training SKU <span class="chip chip-danger">trains — non-client only</span>, never OpenAI on the CV contract that bans it.</p></div>
+    <div class="card"><h3 class="card-title">Escalation ladder</h3><p><b>Argon</b> (AA 50, 55-day retained, 50%-off through Nov 30) for planning and agentic execution. <b>K3.1 Pro</b> (AA 46, 1M context) for the hardest architecture and marathon debugging. <b>Qwen3.8 Max</b> <span class="chip chip-danger">ckpt lottery</span> for final visual verification. Outside Go: Opus 5.5 / Fable 5.2 only for must-not-fail work.</p></div>
+    <div class="card"><h3 class="card-title">Client / PHI work</h3><p>Paid, no-training routes only: <b>GLM-5.3-Flash</b>, <b>MiMo-V2.6-Pro</b>, <b>Argon</b> (55-day retained — keep client/PHI work contract-checked), <b>DeepSeek</b> (ZDR renewed monthly, valid through Nov 30 2026 — re-verify). Never a training SKU <span class="chip chip-danger">trains — non-client only</span>, never OpenAI on the CV contract that bans it.</p></div>
     <div class="card"><h3 class="card-title">Frontend and visual work</h3><p><b>Muse Spark 1.3</b> wins Design Arena — <span class="chip chip-danger">trains — non-client only</span>. On client work use <b>K3.1 Pro</b> or <b>GLM-5.3</b> for generation, and <b>Qwen3.8 Max</b> <span class="chip chip-danger">ckpt lottery</span> only for the final screenshot verification pass; run the screenshot-diff loop on Qwen3.8 Flash or DeepSeek vision.</p></div>
   </div>
 </section>
@@ -772,7 +850,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 <!-- ==================== VALUE ==================== -->
 <section id="value" class="tabpanel" aria-label="Value and money">
   <h2>Value &amp; money — the one table</h2>
-<p class="prose small">Every money question — value, capacity and go-vs-direct — in one table, rendered from <code>MODELS</code>. Intelligence = AA v5.0.1. <b>$/req and req/mo use the measured profile</b> (3.5k in / 768 out+reasoning / 166k cache-read per request, 24.2k provider-side requests). Every req/mo figure here is <b>solo-usage coverage</b> — how much the plan covers if you use only that model — which is exactly how the docs define the per-model limits (see <a href="#limits" data-tab-link="limits">Capacity &amp; meter</a>). <b>Break-even</b> = the requests $10 buys at direct prices. <b>Go multiplier</b> = the model's cap ÷ $10 (a solo-usage ratio: 10× = solo DeepSeek coverage vs the $10 price).</p>
+<p class="prose small">Every money question — value, capacity and go-vs-direct — in one table, rendered from <code>MODELS</code>. Intelligence = AA v5.0.1. <b>$/req and req/mo use the measured profile</b> (3,457 in / 799 out+reasoning / 198,806 cache-read per request, 35.0k provider-side requests). Every req/mo figure here is <b>solo-usage coverage</b> — how much the plan covers if you use only that model — which is exactly how the docs define the per-model limits (see <a href="#limits" data-tab-link="limits">Capacity &amp; meter</a>). <b>Break-even</b> = the requests $10 buys at direct prices. <b>Go multiplier</b> = the model's cap ÷ $10 (a solo-usage ratio: 10× = solo DeepSeek coverage vs the $10 price).</p>
 
   <div class="tblwrap tall">
     <div class="tbltools">
@@ -821,9 +899,9 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 
   <h3>Conclusion — how to read the money</h3>
   <div class="card key">
-    <p><b>Recap — as the Overview verdict says:</b> per-token pricing is a wash, so the $10 is really <b>one shared allowance with per-model normalization</b> — each model's $15–$100 limit is <b>solo-usage coverage</b> (a 1.5×–10× multiplier vs the $10 price), and mixing models draws from the same pool proportionally (the pools are <b>not</b> additive). The more of your usage lands on high-multiplier lanes, the better Go does, and a single-model workflow that stays under its break-even is still cheaper direct.</p>
+    <p><b>Recap — as the Overview verdict says:</b> per-token pricing is a wash, so the $10 is really <b>one shared allowance with per-model normalization</b> — each model's $15–$200 limit is <b>solo-usage coverage</b> (a 1.5×–20× multiplier vs the $10 price), and mixing models draws from the same pool proportionally (the pools are <b>not</b> additive). The more of your usage lands on high-multiplier lanes, the better Go does, and a single-model workflow that stays under its break-even is still cheaper direct.</p>
     <ul class="clean tight">
-<li><b>1.5× (the $15 rations)</b> is convenience, not a deal. <b>2×–3×</b> (M3.1 Flash, Argon, Qwen3.8 Flash, Hy4 preview) is a real discount. <b>6×–10×</b> (DeepSeek V4.1 Flash, MiMo-Flash, GLM-5.3-Flash, Hy3, Hy4 GA, LongCat-2.0, MiniMax M3, K2.7 Code, Muse Contributor) is why Go exists — and the multiplier is a <b>solo-usage ratio</b> (each model's limit = the plan's coverage at that model alone), which is why concentrating usage on those lanes matters.</li> <li><b>Direct wins</b> when one model sits below its break-even, when the model is not on Go (Opus 5.5, GPT-6 Astra, Fable 5.2), or for provider features (batch, fine-tuning, caching controls, dedicated rate limits, data residency, ZDR contracts, invoices) and specialist plans (Z.ai for GLM, Xiaomi below the crossovers).</li>
+<li><b>1.5× (the $15 rations)</b> is convenience, not a deal. <b>2×–3×</b> (M3.1 Flash, Argon, Qwen3.8 Flash, Hy4 preview) is a real discount. <b>6×–20×</b> (DeepSeek V4.1 Flash, GLM-5.3 at 20×, MiMo-Flash, GLM-5.3-Flash, Hy3, Hy4 GA, LongCat-2.0, MiniMax M3, K2.7 Code, Muse Contributor) is why Go exists — and the multiplier is a <b>solo-usage ratio</b> (each model's limit = the plan's coverage at that model alone), which is why concentrating usage on those lanes matters.</li> <li><b>Direct wins</b> when one model sits below its break-even, when the model is not on Go (Opus 5.5, GPT-6.2 Astra, Fable 5.2), or for provider features (batch, fine-tuning, caching controls, dedicated rate limits, data residency, ZDR contracts, invoices) and specialist plans (Z.ai for GLM, Xiaomi below the crossovers).</li>
 <li><b>Retry math:</b> cheap-model retries beat premium for convergent tasks (reproducible bugs, testable code). Premium pays when failure is expensive, the task is non-convergent, or cheap models loop. Argon is the non-convergent workhorse; Fable 5.2 at $26.54/task is the “wrong answers cost more than the model” option.</li> </ul> <p class="small flush">full routing → the <a href="#tasks" data-tab-link="tasks">Tasks</a> tab.</p>
   </div>
 </section>
@@ -831,19 +909,19 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 <!-- ==================== LIMITS ==================== -->
 <section id="limits" class="tabpanel" aria-label="Capacity and meter">
   <h2>Capacity &amp; meter — how long you can actually program</h2>
-<p class="prose small">Capacity is computed from your <b>measured fleet profile</b>: 30 days of provider-side logs across both Go accounts and all machines — <b>24.2k requests</b> averaging 3.5k input / 768 output+reasoning / 166k cache-read tokens per request. No session content or client data is used; only aggregates. The paid models <b>share one allowance</b> (docs, Nov 17), normalized per model: each limit below is <b>solo-usage coverage</b>. Sub-limits are structural: <b>5-hour = 20%</b> (rolling, starts on first use), <b>weekly = 50%</b> (resets Mon 00:00 UTC), <b>monthly = 100%</b> of the shared allowance. Per-model capacity lives in the <a href="#value" data-tab-link="value">money table</a> (Req/5h, Req/week, Req/mo columns).</p>
+<p class="prose small">Capacity is computed from your <b>measured fleet profile</b>: 30 days of provider-side logs across both Go accounts and all machines — <b>35.0k requests</b> averaging 3,457 input / 799 output+reasoning / 198,806 cache-read tokens per request. No session content or client data is used; only aggregates. The paid models <b>share one allowance</b> (docs, Nov 17), normalized per model: each limit below is <b>solo-usage coverage</b>. Sub-limits are structural: <b>5-hour = 20%</b> (rolling, starts on first use), <b>weekly = 50%</b> (resets Mon 00:00 UTC), <b>monthly = 100%</b> of the shared allowance. Per-model capacity lives in the <a href="#value" data-tab-link="value">money table</a> (Req/5h, Req/week, Req/mo columns).</p>
 
   <div class="grid2">
     <div class="card">
       <h3 class="card-title">Measured fleet profile — primary basis</h3>
       <table class="kv">
         <tbody>
-          <tr><td>Requests (30 days, both accounts)</td><td class="num"><b>24,160</b></td></tr>
-          <tr><td>DeepSeek V4.1 Flash share</td><td class="num">19,040 req (28% peak)</td></tr>
-          <tr><td>Average per request</td><td class="num"><b>3,477 in / 768 out / 165,979 cache-read</b></td></tr>
-          <tr><td>Cache-write (models that bill it)</td><td class="num">≈5,000/req (K3.1 Pro measured 7,604; GPT 6 Luna 3,324)</td></tr>
-          <tr><td>List value / average cost</td><td class="num"><b>$46.44 · $0.00192/req</b></td></tr>
-          <tr><td>DeepSeek blended $/req</td><td class="num">$0.00190 (off-peak + 28% peak share)</td></tr>
+          <tr><td>Requests (30 days, both accounts)</td><td class="num"><b>35,013</b></td></tr>
+          <tr><td>DeepSeek V4.1 Flash share</td><td class="num">29,973 req (28.7% peak)</td></tr>
+          <tr><td>Average per request</td><td class="num"><b>3,457 in / 799 out / 198,806 cache-read</b></td></tr>
+          <tr><td>Cache-write (models that bill it)</td><td class="num">≈5,000/req (Kimi K3.1 Pro measured 12,004; GPT-6 Luna 3,248)</td></tr>
+          <tr><td>List value / average cost</td><td class="num"><b>$73.41 · $0.00210/req</b></td></tr>
+          <tr><td>DeepSeek blended $/req</td><td class="num">$0.00210 (off-peak + 28.7% peak share)</td></tr>
         </tbody>
       </table>
     </div>
@@ -856,14 +934,14 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
           <tr><td>DeepSeek $/req on this profile</td><td class="num">$0.0031</td></tr>
           <tr><td>vs measured profile</td><td class="num">~1.6× heavier per request</td></tr>
           <tr><td>Used for</td><td class="num">the labelled “heavy mix” columns only</td></tr>
-          <tr><td>Peak-share assumption</td><td class="num">frozen at 40% (measured reality: 28%)</td></tr>
+          <tr><td>Peak-share assumption</td><td class="num">frozen at 40% (measured reality: 28.7%)</td></tr>
         </tbody>
       </table>
       <p class="small">The vendor's own estimates assume a much lighter request (see the table below) — that is why vendor request counts and this report's differ. The estimate tables now live on the Console (console/go#limits); the docs defer to Console as of Nov 17.</p>
     </div>
   </div>
 
-  <h3>30-day measured usage — provider-side (as of the Nov 17 pull)</h3>
+  <h3>30-day measured usage — provider-side (as of the Nov 18 pull)</h3>
   <div class="tblwrap">
     <table class="tbl" id="tbl-usage30">
       <thead><tr>
@@ -876,31 +954,31 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
         <th scope="col" class="num">$/req</th>
       </tr></thead>
       <tbody>
-        <tr><td class="name">deepseek-v4.1-flash</td><td class="num">19,040</td><td class="num">66.2M</td><td class="num">14.6M</td><td class="num">3.16B</td><td class="num">$36.11</td><td class="num">$0.00190</td></tr>
-        <tr><td class="name">muse-spark-1.3-contributor</td><td class="num">4,708</td><td class="num">19.2M</td><td class="num">2.5M</td><td class="num">594M</td><td class="num">$3.61</td><td class="num">$0.00077</td></tr>
+        <tr><td class="name">deepseek-v4.1-flash</td><td class="num">29,973</td><td class="num">98.9M</td><td class="num">25.2M</td><td class="num">6.33B</td><td class="num">$63.04</td><td class="num">$0.00210</td></tr>
+        <tr><td class="name">muse-spark-1.3-contributor</td><td class="num">4,625</td><td class="num">19.5M</td><td class="num">2.5M</td><td class="num">598M</td><td class="num">$3.65</td><td class="num">$0.00079</td></tr>
         <tr><td class="name">kimi-k3.1-pro</td><td class="num">118</td><td class="num">13.3k</td><td class="num">153k</td><td class="num">11.5M + 1.42M write (combined)</td><td class="num">$6.69</td><td class="num">$0.0567</td></tr>
-        <tr><td class="name">gpt-6-luna</td><td class="num">60</td><td class="num" colspan="3">tiny title-gen style calls, almost no cache</td><td class="num">$0.03</td><td class="num">—</td></tr>
+        <tr><td class="name">gpt-6-luna</td><td class="num">63</td><td class="num" colspan="3">tiny title-gen style calls, almost no cache</td><td class="num">$0.03</td><td class="num">—</td></tr>
         <tr><td class="name">beam-free</td><td class="num">233</td><td class="num" colspan="3">free SKU</td><td class="num">$0</td><td class="num">$0</td></tr>
         <tr><td class="name">iceman-contributor-free</td><td class="num">1</td><td class="num" colspan="3">free SKU <span class="chip chip-danger">trains</span></td><td class="num">$0</td><td class="num">$0</td></tr>
-        <tr class="total-row"><td class="name">Total</td><td class="num">24,160</td><td class="num" colspan="3">all machines, both Go accounts</td><td class="num">$46.44</td><td class="num">$0.00192</td></tr>
+        <tr class="total-row"><td class="name">Total</td><td class="num">35,013</td><td class="num" colspan="3">all machines, both Go accounts</td><td class="num">$73.41</td><td class="num">$0.00210</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="small">Current period (Oct 24 – Nov 24, account acc_01KRFXCC…) MTD through Nov 17: <b>20,405 requests · $37.75 list value</b> — deepseek 18,164 · muse-spark-1.3 2,128 · kimi-k3.1-pro 74. Second identity (frisky.business.now) has usage records but no active meter returned. Local <code>opencode stats</code> on this box (all providers): 232 sessions · 2,166 prompts · 5.7B tokens · est. $247.02 lifetime · 99.0% tool success · 117 active days — local cost tables never reconcile directly against provider billing.</p>
+  <p class="small">Current period (Oct 24 – Nov 24, account acc_01KRFXCC…) MTD through Nov 18: <b>31,752 requests · $65.93 list value</b> — deepseek 29,373 · muse-spark-1.3 2,256 · kimi-k3.1-pro 74. The second identity (frisky.business.now) lost access Oct 31 (cancelAtPeriodEnd, payment_failed) — single active account now; its activity/billing endpoints return 403 as before. Local <code>opencode stats</code> on this box (all providers): 232 sessions · 2,166 prompts · 5.7B tokens · est. $247.02 lifetime · 99.0% tool success · 117 active days — local cost tables never reconcile directly against provider billing.</p>
 
   <h3>Console meter vs docs — flagged discrepancy</h3>
   <div class="card danger">
     <h3 class="card-title">One shared meter — but it reads $60 while the docs say $100</h3>
-    <p>Console meter status (Nov 17): 5-hour <b>6% ($0.73/$12)</b> · weekly <b>6% ($1.82/$30)</b> · monthly <b>55% ($33.44/$60)</b>, resetting Nov 24. The single meter set now <b>explains itself</b> under the rewritten docs: “the paid models you use on Go <b>share one allowance</b>” — one pool, metered in 20/50/100 sub-limits. What still disagrees is the number: the meter's monthly limit shows <b>$60</b> while the docs list DeepSeek V4.1 Flash's cap at <b>$100</b> (history: $60 → $80 on Oct 8 → $100 in late Oct; the $60 reading ≈ the pre-Oct-8 DeepSeek cap, and used ($33.44) ≈ DeepSeek-only MTD).</p>
+    <p>Console meter status (Nov 18): 5-hour <b>53.9% ($6.47/$12)</b> · weekly <b>62.7% ($18.82/$30)</b> · monthly <b>84.0% ($50.38/$60)</b>, resetting Nov 24. The single meter set now <b>explains itself</b> under the rewritten docs: “the paid models you use on Go <b>share one allowance</b>” — one pool, metered in 20/50/100 sub-limits. What still disagrees is the number: the meter's monthly limit shows <b>$60</b> while the docs list DeepSeek V4.1 Flash's cap at <b>$100</b> (history: $60 → $80 on Oct 8 → $100 in late Oct; the $60 reading ≈ the pre-Oct-8 DeepSeek cap, and used ($50.38) ≈ DeepSeek-only MTD — meter/MTD-list ratio now 76%).</p>
     <ul class="clean tight">
 <li>Hypothesis (a): a stale per-model meter showing the pre-Oct-8 value.</li>
-<li>Hypothesis (b): an account-level pool metered at <code>opencode.allowance</code> values, which under-report vs list ($37.75 MTD list).</li> <li>Community cross-check: “the 5 hr limit is $12 but is actually $3 in Kimi usage” (r/opencode, Aug) fits the shared/normalized reading.</li> <li>Known meter-accuracy bug: <a href="https://github.com/anomalyco/opencode/issues/43032" target="_blank" rel="noopener">anomalyco/opencode#43032</a>.</li>
+<li>Hypothesis (b): an account-level pool metered at <code>opencode.allowance</code> values, which under-report vs list ($65.93 MTD list).</li> <li>Community cross-check: “the 5 hr limit is $12 but is actually $3 in Kimi usage” (r/opencode, Aug) fits the shared/normalized reading.</li> <li>Known meter-accuracy bug: <a href="https://github.com/anomalyco/opencode/issues/43032" target="_blank" rel="noopener">anomalyco/opencode#43032</a>.</li> <li>5-hour window had already expired at pull (stale-meter symptom, same bug).</li>
     </ul>
     <p class="small"><b>Resolution rule:</b> plan on docs' figures ($100), read the meter verbatim, and cite this caveat. DeepSeek cap history is documented here once — nowhere else on this site.</p>
   </div>
 
-  <h3>Why the Console's request estimates run 2–5× higher for you</h3>
-  <p class="prose small">The vendor's “estimated requests” assume a light request (hundreds of input tokens, ~55–71k cached, ~200–310 output). Your measured mix runs 3.5k input and 166k cached per request. <b>Source: Console Go page estimates (per 5h); week/month derived ×2.5/×5</b> <span class="chip chip-partial">tables moved to Console: console/go#pricing, console/go#limits — docs defer to Console as of Nov 17</span>. Compare directly:</p>
+  <h3>Why the Console's request estimates run 3–5× higher for you</h3>
+  <p class="prose small">The vendor's “estimated requests” assume a light request (hundreds of input tokens, ~55–71k cached, ~200–310 output). Your measured mix runs 3,457 input, 799 output and 198,806 cached per request. <b>Source: Console Go page estimates (per 5h); week/month derived ×2.5/×5</b> <span class="chip chip-partial">tables moved to Console: console/go#pricing, console/go#limits — docs defer to Console as of Nov 17</span>. Compare directly:</p>
   <div class="tblwrap">
     <table class="tbl" id="tbl-docs">
       <thead><tr>
@@ -913,15 +991,15 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
         <th scope="col" class="num">Console ÷ measured</th>
       </tr></thead>
       <tbody>
-        <tr><td class="name">DeepSeek V4.1 Flash 1017</td><td class="num">410 / 71,300 / 310</td><td class="num">43,300</td><td class="num">108,250</td><td class="num">216,500</td><td class="num" data-rm="deepseek-v4.1-flash"></td><td class="num">4.1×</td></tr>
-        <tr><td class="name">GLM-5.3-Flash</td><td class="num">1,000 / 55,000 / 200</td><td class="num">6,320</td><td class="num">15,800</td><td class="num">31,600</td><td class="num" data-rm="glm-5.3-flash"></td><td class="num">3.1×</td></tr>
-        <tr><td class="name">Kimi K3.1 Pro</td><td class="num">1,050 / 76,500 / 300</td><td class="num">147</td><td class="num">368</td><td class="num">735</td><td class="num" data-rm="kimi-k3.1-pro"></td><td class="num">2.8×</td></tr>
-        <tr><td class="name">Claude Haiku 5.5 <span class="chip chip-partial">×5 tier</span></td><td class="num">1,100 / 55,000 / 240</td><td class="num">3,850</td><td class="num">9,625</td><td class="num">19,250</td><td class="num" data-rm="haiku-5.5-lte100k"></td><td class="num">3.9×</td></tr>
-        <tr><td class="name">Gemini 4 Argon</td><td class="num">—</td><td class="num">566</td><td class="num">1,415</td><td class="num">2,830</td><td class="num" data-rm="gemini-4-argon"></td><td class="num">2.9×</td></tr>
-        <tr><td class="name">MiniMax M3.1 Flash</td><td class="num">—</td><td class="num">3,880</td><td class="num">9,700</td><td class="num">19,400</td><td class="num" data-rm="minimax-m3.1-flash"></td><td class="num">3.4×</td></tr>
-        <tr><td class="name">Qwen4 Max</td><td class="num">420 / 66,000 / 200</td><td class="num">463</td><td class="num">1,158</td><td class="num">2,315</td><td class="num" data-rm="qwen4-max"></td><td class="num">4.7×</td></tr>
-        <tr><td class="name">Hy4 (GA)</td><td class="num">—</td><td class="num">2,710</td><td class="num">6,775</td><td class="num">13,550</td><td class="num" data-rm="hy4-ga"></td><td class="num">2.7×</td></tr>
-        <tr><td class="name">Hy4 preview</td><td class="num">—</td><td class="num">1,350</td><td class="num">3,375</td><td class="num">6,750</td><td class="num" data-rm="hy4-preview"></td><td class="num">2.7×</td></tr>
+        <tr><td class="name">DeepSeek V4.1 Flash 1017</td><td class="num">410 / 71,300 / 310</td><td class="num">43,300</td><td class="num">108,250</td><td class="num">216,500</td><td class="num" data-rm="deepseek-v4.1-flash"></td><td class="num">4.5×</td></tr>
+        <tr><td class="name">GLM-5.3-Flash</td><td class="num">1,000 / 55,000 / 200</td><td class="num">6,320</td><td class="num">15,800</td><td class="num">31,600</td><td class="num" data-rm="glm-5.3-flash"></td><td class="num">3.6×</td></tr>
+        <tr><td class="name">Kimi K3.1 Pro</td><td class="num">1,050 / 76,500 / 300</td><td class="num">147</td><td class="num">368</td><td class="num">735</td><td class="num" data-rm="kimi-k3.1-pro"></td><td class="num">3.8×</td></tr>
+        <tr><td class="name">Claude Haiku 5.5 <span class="chip chip-partial">×5 tier</span></td><td class="num">1,100 / 55,000 / 240</td><td class="num">3,850</td><td class="num">9,625</td><td class="num">19,250</td><td class="num" data-rm="haiku-5.5-lte100k"></td><td class="num">4.3×</td></tr>
+        <tr><td class="name">Gemini 4 Argon</td><td class="num">—</td><td class="num">566</td><td class="num">1,415</td><td class="num">2,830</td><td class="num" data-rm="gemini-4-argon"></td><td class="num">3.3×</td></tr>
+        <tr><td class="name">MiniMax M3.1 Flash</td><td class="num">—</td><td class="num">3,880</td><td class="num">9,700</td><td class="num">19,400</td><td class="num" data-rm="minimax-m3.1-flash"></td><td class="num">3.9×</td></tr>
+        <tr><td class="name">Qwen4 Max</td><td class="num">420 / 66,000 / 200</td><td class="num">463</td><td class="num">1,158</td><td class="num">2,315</td><td class="num" data-rm="qwen4-max"></td><td class="num">5.1×</td></tr>
+        <tr><td class="name">Hy4 (GA)</td><td class="num">—</td><td class="num">2,710</td><td class="num">6,775</td><td class="num">13,550</td><td class="num" data-rm="hy4-ga"></td><td class="num">3.0×</td></tr>
+        <tr><td class="name">Hy4 preview</td><td class="num">—</td><td class="num">1,350</td><td class="num">3,375</td><td class="num">6,750</td><td class="num" data-rm="hy4-preview"></td><td class="num">3.0×</td></tr>
       </tbody>
     </table>
   </div>
@@ -933,11 +1011,11 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
   <div class="grid2">
     <div class="card">
       <h3 class="card-title">The off-peak cheat code (DeepSeek)</h3>
-      <p>DeepSeek peak pricing is <b>01:00–04:00 and 06:00–10:00 UTC, Mon–Fri</b> — roughly <b>06:30–09:30 and 11:30–15:30 IST</b> — at ×2. Evenings, nights and all weekend are off-peak. The measured peak share on your accounts is ≈28%; pushing more traffic out of the peak window is the single easiest capacity gain available.</p>
+      <p>DeepSeek peak pricing is <b>01:00–04:00 and 06:00–10:00 UTC, Mon–Fri</b> — roughly <b>06:30–09:30 and 11:30–15:30 IST</b> — at ×2. Evenings, nights and all weekend are off-peak. The measured peak share on your accounts is ≈28.7%; pushing more traffic out of the peak window is the single easiest capacity gain available.</p>
     </div>
     <div class="card">
       <h3 class="card-title">Go Plus ($40) and Teams ($20/member)</h3>
-      <p>Plus is not a flat 4×: it is <b>8×</b> on GLM-5.3 ($120), <b>4×</b> on the $15 rations (K3.1 Pro, Qwen, Grok, Step 5, Haiku, GPT), <b>4×</b> on the $20–$30 rations (M3.1 Flash $80, Argon $120 — Argon is a $30-cap model), <b>2×</b> on DeepSeek ($200) and MiMo-Flash ($120), <b>3×</b> on GLM-5.3-Flash ($180). Excellent if you live on GLM-5.3 or Argon; for DeepSeek drivers, <b>Go + a $30 Zen overflow</b> is more flexible for the same $40. Teams is <b>$20 per member per month with a 2-member minimum ($40/month)</b> — the second seat covers the next member who joins at no extra charge; after that, mid-period joiners pay $20. Every member gets their own (shared-across-models) allowance, every model cap gets +$5/mo per member, and Extra Usage starts on.</p>
+      <p>Plus is not a flat 4×: it is <b>4×</b> on the $15 rations (K3.1 Pro, Qwen, Grok, Step 5, Haiku, GPT) and on the $20–$30 rations (M3.1 Flash $80, Argon $120 — Argon is a $30-cap model), <b>3×</b> on GLM-5.3-Flash ($180), and <b>2×</b> on the big pools — DeepSeek ($200), MiMo-Flash ($120) and GLM-5.3 ($400, still 40× vs the ticket). Excellent if you live on GLM-5.3 or Argon; for DeepSeek drivers, <b>Go + a $30 Zen overflow</b> is more flexible for the same $40. Teams is <b>$20 per member per month with a 2-member minimum ($40/month)</b> — the second seat covers the next member who joins at no extra charge; after that, mid-period joiners pay $20. Every member gets their own (shared-across-models) allowance, every model cap gets +$5/mo per member, and Extra Usage starts on.</p>
     </div>
   </div>
 </section>
@@ -961,7 +1039,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
       <tbody>
         <tr><td class="num"><span class="rank">1</span></td><td class="name">OpenCode Go</td><td><b>Best overall. Buy first.</b> 32 models, one key, free floor, highest ceiling.</td><td>$10/mo<br><span class="small">Plus $40 · Teams $20/member (2-seat min)</span></td><td>Argon 50 · K3.1 Pro 46 · Qwen4 Max 43 · M3.1 Flash 29 · DeepSeek 33</td><td class="num"><span class="chip chip-partial">heavy mix</span><br>728 Argon · 269 K3.1<br>4,975 M3.1 · 32,258 DeepSeek</td><td><span class="chip chip-zdr">UPI</span></td></tr>
         <tr><td class="num"><span class="rank">2</span></td><td class="name">StepFun Step Plan Pro</td><td><b>Raw-value outlier.</b> Quality is 29, not 50 — test the $6.99 Mini first.</td><td>$29/mo<br><span class="small">Mini $6.99 · Plus $9.99 · Max $99</span></td><td>Step 5 Preview 29</td><td class="num">~45,000 <span class="small">(if credit math holds)</span></td><td><span class="chip chip-zdr">Stripe</span></td></tr>
-        <tr><td class="num"><span class="rank">3</span></td><td class="name">Z.ai GLM Coding Plan Lite</td><td><b>Best GLM-only value.</b> 4.7× Go's GLM-5.3 capacity for 1.8× the price.</td><td>$18/mo<br><span class="small">Pro $80 · Max $168</span></td><td>GLM-5.3 32 · GLM-5.3-Flash 28</td><td class="num">1,319 peak · 2,639 off-peak</td><td><span class="chip chip-zdr">Card/PayPal</span></td></tr>
+        <tr><td class="num"><span class="rank">3</span></td><td class="name">Z.ai GLM Coding Plan Lite</td><td><b>GLM-only lane.</b> Lite covers 1,319 peak / 2,639 off-peak; Go's $200 GLM-5.3 pool now covers ~3,720 heavy-mix req/mo — Go wins for mixed work, Lite only for a GLM-only workflow.</td><td>$18/mo<br><span class="small">Pro $80 · Max $168</span></td><td>GLM-5.3 32 · GLM-5.3-Flash 28</td><td class="num">1,319 peak · 2,639 off-peak</td><td><span class="chip chip-zdr">Card/PayPal</span></td></tr>
         <tr><td class="num"><span class="rank">4</span></td><td class="name">Xiaomi MiMo Token Plan Lite</td><td><b>Cheap MiMo entry.</b> Wins below the crossovers; Go wins above. No invoice.</td><td>$6/mo<br><span class="small">Standard $16 · Pro $50 · Max $100</span></td><td>MiMo-V2.6-Pro 30 · Flash 27</td><td class="num">1,218 Pro · 3,173 Flash</td><td><span class="chip chip-zdr">Waffo USD</span></td></tr>
         <tr><td class="num"><span class="rank">5</span></td><td class="name">Kimi Code Plus</td><td><b>The K3.1 Pro subscription.</b> Official OpenCode guide; quota unverifiable.</td><td>$19/mo<br><span class="small">$15 annual · Pro $39 · Max $99 · Ultra $199</span></td><td>K3.1 Pro 46</td><td class="num">Opaque</td><td><span class="chip chip-r30">Card</span></td></tr>
         <tr><td class="num"><span class="rank">6</span></td><td class="name">MiniMax M Plan Go</td><td><b>Opaque quota, single text model.</b> Only for a MiniMax-native workflow.</td><td>$22/mo<br><span class="small">Explore $55 (3×) · Build $132 (7.5×)</span></td><td>MiniMax M3.1 Flash 29</td><td class="num">Opaque</td><td><span class="chip chip-r30">Stripe</span></td></tr>
@@ -1003,7 +1081,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
   <div class="grid2">
     <div class="card">
       <h3 class="card-title">#1 OpenCode Go — $10</h3>
-      <p class="flush">Not one plan: <b>one shared allowance across 32 models</b>, normalized per model (each $15–$100 limit = solo-usage coverage). The multiplier is the product — DeepSeek 10× solo-usage face value (docs cap $100), MiMo-Flash / GLM-Flash 6×, Argon 3×, M3.1 Flash 2×, most $15 rations 1.5×. <b>Strengths:</b> highest ceiling, breadth, UPI, free twins, Zen overflow, one bill. <b>Weaknesses:</b> the per-model limits are solo-usage figures (mixing models shares the one allowance proportionally — pools are not additive), small premium allowances, weekly roster churn, US-hosted gateway.</p>
+      <p class="flush">Not one plan: <b>one shared allowance across 32 models</b>, normalized per model (each $15–$200 limit = solo-usage coverage). The multiplier is the product — DeepSeek 10× solo-usage face value (docs cap $100), GLM-5.3 20× ($200 cap), MiMo-Flash / GLM-Flash 6×, Argon 3×, M3.1 Flash 2×, most $15 rations 1.5×. <b>Strengths:</b> highest ceiling, breadth, UPI, free twins, Zen overflow, one bill. <b>Weaknesses:</b> the per-model limits are solo-usage figures (mixing models shares the one allowance proportionally — pools are not additive), small premium allowances, weekly roster churn, US-hosted gateway.</p>
     </div>
     <div class="card">
       <h3 class="card-title">#2 StepFun — $6.99–$99</h3>
@@ -1048,7 +1126,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
         <tr><td class="num"><span class="rank">4</span></td><td class="name">Tencent Hy3 (TokenHub)</td><td>PAYG $0.132/$0.528</td><td>Hy3 <span class="chip chip-unmeas">unmeasured</span></td><td class="num">Unlimited (PAYG)</td><td><span class="chip chip-zdr">global</span></td><td><span class="chip chip-zdr">compatible</span></td><td><b>Cheapest open-weights lane.</b> 262K context.</td></tr>
         <tr><td class="num"><span class="rank">5</span></td><td class="name">Mistral Small 4</td><td>PAYG $0.15/$0.60</td><td>Small 4 <span class="chip chip-unmeas">unmeasured</span></td><td class="num">Unlimited (PAYG)</td><td><span class="chip chip-zdr">global</span></td><td><span class="chip chip-zdr">compatible</span></td><td><b>90% cache discount.</b> Codestral dedicated code model.</td></tr>
         <tr><td class="num"><span class="rank">6</span></td><td class="name">Google AI Pro</td><td>₹1,950/mo (~$20.5)</td><td>Gemini 4 Argon 50</td><td class="num">Rate-limited (~1,500 req/day CLI)</td><td><span class="chip chip-zdr">UPI</span></td><td><span class="chip chip-r30">manual key</span></td><td><b>Best Google bundle.</b> Antigravity IDE + 5 TB + YouTube.</td></tr>
-        <tr><td class="num"><span class="rank">7</span></td><td class="name">GitHub Copilot Pro</td><td>$10/mo</td><td>Opus 5.5 59 · Astra 57</td><td class="num">~182 Opus · ~364 Sonnet (heavy mix)</td><td><span class="chip chip-r30">card/PayPal</span></td><td><span class="chip chip-zdr">native</span></td><td><b>Best frontier-model subscription.</b> 25+ models.</td></tr>
+        <tr><td class="num"><span class="rank">7</span></td><td class="name">GitHub Copilot Pro</td><td>$10/mo</td><td>Opus 5.5 59 · Astra 57 (6.2 Astra 62 is the current OpenAI ref)</td><td class="num">~182 Opus · ~364 Sonnet (heavy mix)</td><td><span class="chip chip-r30">card/PayPal</span></td><td><span class="chip chip-zdr">native</span></td><td><b>Best frontier-model subscription.</b> 25+ models.</td></tr>
         <tr><td class="num"><span class="rank">8</span></td><td class="name">Cursor Start (India legacy)</td><td>₹649/mo (~$6.8)</td><td>Grok/Composer (locked)</td><td class="num">Rate-limited</td><td><span class="chip chip-zdr">UPI</span></td><td><span class="chip chip-danger">IDE-only</span></td><td><b>Cheapest India-native agent.</b> Locked to specific models.</td></tr>
         <tr><td class="num"><span class="rank">9</span></td><td class="name">StepFun Step Plan Pro</td><td>$29/mo</td><td>Step 5 Preview 29</td><td class="num">~45,000 (unverified)</td><td><span class="chip chip-zdr">Stripe</span></td><td><span class="chip chip-zdr">compatible</span></td><td><b>Value outlier.</b> Test the $6.99 Mini first.</td></tr>
         <tr><td class="num"><span class="rank">10</span></td><td class="name">Claude Pro</td><td>$20/mo</td><td>Opus 5.5 59 · Sonnet 5.5 55</td><td class="num">~243 Opus (API-equiv)</td><td><span class="chip chip-r30">card only</span></td><td><span class="chip chip-danger">sub creds blocked</span></td><td><b>Best Claude-only.</b> Use an API key in OpenCode.</td></tr>
@@ -1069,7 +1147,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
       <tbody>
         <tr><td class="name">DeepSeek V4.1 Flash Free</td><td>not measured (1017 ckpt = 33)</td><td>Unlimited-ish, limited time</td><td><span class="chip chip-zdr">No (ZDR)</span></td><td>🟢</td></tr>
         <tr><td class="name">GLM-5.3-Flash Free</td><td>AA 28 twin</td><td>Unlimited-ish, limited time</td><td><span class="chip chip-zdr">No (ZDR)</span></td><td>🟢</td></tr>
-        <tr><td class="name">MiniMax M3.1 Flash Free</td><td>AA 29 twin</td><td>Unlimited-ish, limited time</td><td><span class="chip chip-zdr">No (ZDR)</span></td><td>🟢</td></tr>
+        <tr><td class="name">MiniMax M3.1 Flash Free <span class="chip chip-legacy">deprecated Nov 17</span></td><td>AA 29 twin</td><td>Ended Nov 17</td><td><span class="chip chip-zdr">No (ZDR)</span></td><td>🔴</td></tr>
         <tr><td class="name">Beam Free (on Go)</td><td>AA 18</td><td>Limited time/regions</td><td><span class="chip chip-r30">No (30-day)</span></td><td>🟢 (not excluded)</td></tr>
         <tr><td class="name">Z.ai GLM-4.x-Flash family</td><td>unverified</td><td>Free tier</td><td>Not verified</td><td>🟢</td></tr>
         <tr><td class="name">Groq free tier</td><td>gpt-oss models</td><td>1,000 req/day</td><td>Standard</td><td>🟢</td></tr>
@@ -1078,7 +1156,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
       </tbody>
     </table>
   </div>
-  <p class="small">The three Go/Zen free twins (DeepSeek, GLM-5.3-Flash, MiniMax M3.1 Flash) are the exception to the free-model rule — zero-retention, no training, and strong enough for real non-critical work while the windows last.</p>
+  <p class="small">The two Go/Zen free twins (DeepSeek, GLM-5.3-Flash) are the exception to the free-model rule — zero-retention, no training, and strong enough for real non-critical work while the windows last.</p>
 
   <h3>OpenCode compatibility</h3>
   <div class="grid2">
@@ -1187,7 +1265,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
     <h3 class="card-title">What is new since 5.1.48 (through Nov 17)</h3>
     <ul class="clean tight">
 <li><b>Remote sessions &amp; thread gateway:</b> every signed-in device can reach this one; <code>omo remote enable/disable/attach</code>, plus <code>thread_send</code> that wakes a session that is not running.</li> <li><b>Memory sync across devices</b>, plus sync/sign-in reliability fixes (5.1.73–5.1.75).</li>
-<li><b>Computer-use v3</b> scaffolding keeps landing (safety crate, audit trail) — nothing user-visible yet.</li> <li><b>OpenCode v2 dual-host is still not shipped.</b> PR #9391 open (parity 13 live / 13 todo); this machine runs v2.3.0, so Ultimate stays on v1.19.5 or you use Native.</li>
+<li><b>Computer-use v3</b> scaffolding keeps landing (safety crate, audit trail) — nothing user-visible yet.</li> <li><b>OpenCode v2 dual-host is still not shipped.</b> PR #9391 open (parity 13 live / 13 todo); this machine runs v2.3.0, so Ultimate stays on v1.19.6 or you use Native.</li>
     </ul>
   </div>
 
@@ -1203,9 +1281,9 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
       <tbody>
         <tr><td class="name">Sisyphus primary</td><td><b>kimi-k3.1-pro · max</b></td><td>$15 tier: <b>134/week · 269/month</b> → ~33 OmO-req/week. Planning/delegation only. Fallback: <code>kimi-k3</code>.</td></tr>
         <tr><td class="name">ultrabrain / deep-high / unspecified-low</td><td><b>mimo-v2.6-pro · max</b></td><td>$15 tier: <b>1,537/week · 3,074/month</b> → ~380 OmO-req/week shared.</td></tr>
-        <tr><td class="name">unspecified-high / artistry / deep executor</td><td><b>glm-5.3 · max</b> <span class="small">(Claude-like terminal behaviour — earlier pass)</span></td><td>$15 tier: <b>140/week · 279/month</b> → ~35 OmO-req/week. Use sparingly.</td></tr>
+        <tr><td class="name">unspecified-high / artistry / deep executor</td><td><b>glm-5.3 · max</b> <span class="small">(Claude-like terminal behaviour — earlier pass)</span></td><td>$200 tier: <b>1,860/week · 3,720/month</b> → ~465 OmO-req/week. Bulk lane now — use freely.</td></tr>
         <tr><td class="name">oracle / architect consults</td><td><b>grok-4.7 · xhigh</b> (fallback mimo-pro)</td><td><b>79/week · 158/month</b> → ~20 consults/week. Set <code>textVerbosity: low</code>.</td></tr>
-        <tr><td class="name">plan-reviewer</td><td><b>glm-5.3 · max</b> (bulk: glm-5.3-flash high) <span class="small">(review needs teeth; Flash for volume)</span></td><td>279/month (GLM-5.3) or <b>4,918/week</b> (Flash).</td></tr>
+        <tr><td class="name">plan-reviewer</td><td><b>glm-5.3 · max</b> (bulk: glm-5.3-flash high) <span class="small">(review needs teeth; Flash for volume)</span></td><td>3,720/month (GLM-5.3) or <b>4,918/week</b> (Flash).</td></tr>
         <tr><td class="name">plan-consultant (Metis)</td><td><b>kimi-k3.1-pro · max</b></td><td>Shares the primary's 134/week — keep consults tight.</td></tr>
         <tr><td class="name">explore / librarian / quick</td><td><b>deepseek-v4.1-flash</b> · <b>haiku-5-5</b> <span class="chip chip-partial">×5 tier</span> (≤100K)</td><td>DeepSeek <b>16,129/week</b> (heavy mix); Haiku 2,688/week at ≤100K — use the free twins for bulk.</td></tr>
         <tr><td class="name">writing</td><td><b>glm-5.3-flash</b> (low) / free twin</td><td><b>4,918/week</b>; the free twin costs $0.</td></tr>
@@ -1263,13 +1341,13 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 
   <h3>Guardrails</h3>
   <ul class="clean">
-<li><b>Do not use a weak orchestrator.</b> The free GLM lane is not validated as a Sisyphus primary — delegation loops, ignored plan mechanics and read-only agents attempting writes are the failure mode. Switch to K3.1 Pro for that task.</li> <li><b>Cap concurrency</b> on the $15 rations (K3.1 Pro 2, GLM-5.3 2, Grok 2, Qwen Max 2). A maxed afternoon can dent a 5-hour window.</li>
+<li><b>Do not use a weak orchestrator.</b> The free GLM lane is not validated as a Sisyphus primary — delegation loops, ignored plan mechanics and read-only agents attempting writes are the failure mode. Switch to K3.1 Pro for that task.</li> <li><b>Cap concurrency</b> on the $15 rations (K3.1 Pro 2, Grok 2, Qwen Max 2). A maxed afternoon can dent a 5-hour window.</li>
 <li><b>Never switch model or effort mid-session</b> on Kimi — it kills the cache and the quality. Keep full reasoning history.</li> <li><b>Never put a training SKU in an orchestrator or client project.</b> <span class="chip chip-danger">trains — non-client only</span></li>
   </ul>
 
   <div class="card warn">
     <h3 class="card-title">Archived — OpenCode v1 vs v2</h3>
-<p class="small flush">Archived Nov 2026: the fleet runs on OpenCode v2.3.0 and the comparison section was removed from this site. Status: v1.19.5 is bridge-maintained; OmO Ultimate still needs v1.19.x (dual-host PR #9391 open); OmO Native is the v2 path; all v1 plugins break on v2. Full write-up: <a href="analysis/09-opencode-v1-vs-v2.md">analysis/09-opencode-v1-vs-v2.md</a>.</p>
+<p class="small flush">Archived Nov 2026: the fleet runs on OpenCode v2.3.0 and the comparison section was removed from this site. Status: v1.19.6 is bridge-maintained (Nov 17); OmO Ultimate still needs v1.19.x (dual-host PR #9391 open); OmO Native is the v2 path; all v1 plugins break on v2. Full write-up: <a href="analysis/09-opencode-v1-vs-v2.md">analysis/09-opencode-v1-vs-v2.md</a>.</p>
   </div>
 </section>
 
@@ -1349,7 +1427,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 <section id="privacy" class="tabpanel" aria-label="Privacy">
   <h2>Privacy &amp; free models</h2>
   <blockquote class="callout">
-    <p><b>The standing correction:</b> Gemini 4 Argon is <b>not</b> a training Contributor SKU on Go — the privacy table documents it as “Not used / 0 days.” The only Go SKUs that train on your data are <b>Muse Spark 1.3 Contributor, Muse Spark 1.2 Contributor and Iceman Contributor Free</b>. Everything else is 0-day or 30-day retention, not trained.</p>
+    <p><b>The standing correction:</b> Gemini 4 Argon is <b>not</b> a training Contributor SKU on Go — but it is <b>not zero-retention either</b>: the privacy table documents it as “Not used / <b>55 days</b>” (retained up to 55 days for abuse monitoring per Google's Gemini API terms — the worst retention on the Go roster). The only Go SKUs that train on your data are <b>Muse Spark 1.3 Contributor, Muse Spark 1.2 Contributor and Iceman Contributor Free</b>. Everything else is 0-day or 30-day retention, not trained. For privacy-sensitive planning work, escalate to <b>Kimi K3.1 Pro</b> (0-day, not trained) instead of Argon.</p>
   </blockquote>
 
   <div class="tblwrap">
@@ -1361,7 +1439,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
         <th scope="col">Notes</th>
       </tr></thead>
       <tbody>
-        <tr><td class="name">Gemini 4 Argon</td><td><span class="chip chip-zdr">No</span></td><td><b>0 days</b></td><td>The SKU is <code>gemini-4-argon</code>, not Contributor.</td></tr>
+        <tr><td class="name">Gemini 4 Argon</td><td><span class="chip chip-zdr">No</span></td><td><b>55 days</b></td><td>The SKU is <code>gemini-4-argon</code>, not Contributor — but retained up to 55 days for abuse monitoring (worst on roster).</td></tr>
         <tr><td class="name">Kimi K3.1 Pro · K3 · K2.7 Code</td><td><span class="chip chip-zdr">No</span></td><td>0 days</td><td>—</td></tr>
         <tr><td class="name">GLM-5.3 · GLM-5.3-Flash · GLM-5.2</td><td><span class="chip chip-zdr">No</span></td><td>0 days</td><td>Flash also has the best free twin.</td></tr>
         <tr><td class="name">Qwen3.8 Max / Flash · Qwen3.7 Plus · Qwen4 Max</td><td><span class="chip chip-zdr">No</span></td><td>0 days</td><td>Alibaba's API is global; the Token Plan is not sold in India.</td></tr>
@@ -1390,7 +1468,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
       <tbody>
         <tr><td class="name">DeepSeek V4.1 Flash Free</td><td><span class="chip chip-zdr">Yes</span></td><td><span class="chip chip-zdr">No</span></td><td>Free twin of the daily driver (not measured — 1017 ckpt = 33; 1M ctx, vision). Best zero-retention free workhorse.</td></tr>
         <tr><td class="name">GLM-5.3-Flash Free</td><td><span class="chip chip-zdr">Yes</span></td><td><span class="chip chip-zdr">No</span></td><td>AA 28, multimodal-in. The best free model on the platform.</td></tr>
-        <tr><td class="name">MiniMax M3.1 Flash Free</td><td><span class="chip chip-zdr">Yes</span></td><td><span class="chip chip-zdr">No</span></td><td>Free twin of the paid value anchor (AA 29). The third zero-retention free lane.</td></tr>
+        <tr><td class="name">MiniMax M3.1 Flash Free</td><td><span class="chip chip-zdr">Yes</span></td><td><span class="chip chip-zdr">No</span></td><td>Free twin of the paid value anchor (AA 29) — deprecated Nov 17; no longer a live lane.</td></tr>
         <tr><td class="name">LongCat 2.5 Free</td><td><span class="chip chip-zdr">Yes</span></td><td><span class="chip chip-zdr">No</span></td><td>China-hosted (Go needs <b>Regions = Global</b>); 100 req/day on Zen. Limited time.</td></tr>
         <tr><td class="name">Hy4 Flash Free</td><td><span class="chip chip-zdr">Yes</span></td><td><span class="chip chip-zdr">No</span></td><td>The free Hy4 lane; unmeasured. Limited time.</td></tr>
         <tr><td class="name">Beam Free</td><td><span class="chip chip-r30">30-day</span></td><td><span class="chip chip-zdr">No</span></td><td>501B/23B MoE, AA 18, Apache-2.0, text-only. Limited time/regions.</td></tr>
@@ -1404,7 +1482,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
       </tbody>
     </table>
   </div>
-<p class="small"><b>Changed this cycle:</b> + MiniMax M3.1 Flash Free, + LongCat 2.5 Free (returned), + Hy4 Flash Free, + Iceman Contributor Free, + Inkling 2 Small Free. Crouton Alpha Free and Pulse Alpha Free deprecated; Space Bunny Free, LL Alpha Free and Exo Free removed earlier. <b>The rule:</b> free + “improve the model” = never for client work, PHI, credentials or proprietary code. The three zero-retention twins are the exception.</p>
+<p class="small"><b>Changed this cycle:</b> + LongCat 2.5 Free (returned), + Hy4 Flash Free, + Iceman Contributor Free, + Inkling 2 Small Free. MiniMax M3.1 Flash Free, Crouton Alpha Free and Pulse Alpha Free deprecated (M3.1 Flash Free Nov 17); Space Bunny Free, LL Alpha Free and Exo Free removed earlier. <b>The rule:</b> free + “improve the model” = never for client work, PHI, credentials or proprietary code. The two zero-retention twins (DeepSeek, GLM-5.3-Flash) are the exception.</p>
 
   <div class="card danger">
     <h3 class="card-title">Muse Spark Contributor is a contractual data trade</h3>
@@ -1429,7 +1507,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
   "small_model": "opencode-go/mimo-v2.6-flash",
 
   "agent": {
-    // Argon: AA 50, Vals #1 on Go, ZDR. Swap to kimi-k3.1-pro for 1M ctx + max effort.
+    // Argon: AA 50, Vals #1 on Go, 55-day retention (not ZDR — Kimi for privacy-sensitive work). Swap to kimi-k3.1-pro for 1M ctx + max effort.
     "plan":    { "model": "opencode-go/gemini-4-argon" },
 
     // Fastest Claude — keep prompts ≤100K (tier footnote ¹). Free alt: opencode/glm-5.3-flash-free
@@ -1469,7 +1547,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
     }
   }
 }</code></pre>
-<p class="prose small"><b>Client rules:</b> no Contributor/training SKU, no free model that trains, no OpenAI on the contract that bans it, no autonomous servers. Argon is not disqualified on data-policy grounds (ZDR), but confirm with the client and keep it out of <code>small_model</code>; the safest defaults remain GLM-5.3-Flash / MiMo-V2.6-Pro.</p>
+<p class="prose small"><b>Client rules:</b> no Contributor/training SKU, no free model that trains, no OpenAI on the contract that bans it, no autonomous servers. Argon is 55-day retained (worst on the roster) — confirm with the client and check the contract, and keep it out of <code>small_model</code>; the safest defaults remain GLM-5.3-Flash / MiMo-V2.6-Pro.</p>
 
   <h3>India settings</h3>
   <div class="grid2">
@@ -1493,7 +1571,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
   <h3>Primary data</h3>
   <ul class="clean">
 <li><a href="https://artificialanalysis.ai/leaderboards/models" target="_blank" rel="noopener">AA model leaderboard</a> · <a href="https://artificialanalysis.ai/changelog" target="_blank" rel="noopener">AA changelog</a> · <a href="https://artificialanalysis.ai/methodology/intelligence-benchmarking" target="_blank" rel="noopener">AA methodology</a> · <a href="https://artificialanalysis.ai/articles/artificial-analysis-intelligence-index-v5" target="_blank" rel="noopener">Intelligence Index v5 article</a> — scores, speed, TTFT/TFAAT, cost per task. <span class="src">artificialanalysis.ai · first-hand, Nov 17 2026</span></li> <li><a href="https://opencode.ai/docs/go/" target="_blank" rel="noopener">OpenCode Go docs</a> — roster, prices, caps, privacy table, restricted-model settings. <span class="src">verified live Nov 17, 2026</span> <span class="src">(tables moved to Console: console/go#pricing, console/go#limits — docs defer to Console as of Nov 17; request estimates now Console-published)</span></li>
-<li><a href="https://opencode.ai/docs/zen/" target="_blank" rel="noopener">OpenCode Zen docs</a> — free models, PAYG prices. <span class="src">opencode.ai</span></li> <li>Console API (undocumented, verified working with a Go API key): <code>/console/api/go/status</code> · <code>/console/api/usage/models?range=30d</code> · <code>/console/api/activity/go?range=mtd</code> · <code>/console/api/billing/status</code> · <code>/zen/go/v1/usage</code> — the measured-usage basis for this report.</li>
+<li><a href="https://opencode.ai/docs/console/models/" target="_blank" rel="noopener">OpenCode console models docs</a> — free models, PAYG prices (docs/zen/ now redirects to docs/console/models/). <span class="src">opencode.ai</span></li> <li>Console API (undocumented, verified working with a Go API key): <code>/console/api/go/status</code> · <code>/console/api/usage/models?range=30d</code> · <code>/console/api/activity/go?range=mtd</code> · <code>/console/api/billing/status</code> · <code>/zen/go/v1/usage</code> — the measured-usage basis for this report.</li>
 <li><a href="https://vals.ai/" target="_blank" rel="noopener">Vals AI v2.2</a> — independent agentic coding ranking: Sonnet 5.5 70.85% · Opus 5.5 70.18% · Argon 69.24% · K3.1 Pro 62.52%. <span class="src">vals.ai</span></li> <li><a href="https://opencode.ai/data" target="_blank" rel="noopener">OpenCode telemetry</a> — weekly token share by model. <span class="src">opencode.ai</span></li>
   </ul>
 
@@ -1503,13 +1581,13 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 <li><a href="https://www.kimi.ai/membership/pricing" target="_blank" rel="noopener">Kimi Code pricing</a> · <a href="https://www.kimi.com/code/docs/en/kimi-code/opencode.html" target="_blank" rel="noopener">OpenCode guide</a>. <span class="src">kimi.ai / kimi.com</span></li> <li><a href="https://www.minimax.io/m-plan" target="_blank" rel="noopener">MiniMax M Plan</a> · <a href="https://platform.minimax.io/docs/m-plan/intro" target="_blank" rel="noopener">docs</a>. <span class="src">minimax.io</span></li>
 <li><a href="https://platform.stepfun.ai/docs/en/step-plan/overview" target="_blank" rel="noopener">StepFun Step Plan</a> · <a href="https://platform.stepfun.ai/docs/en/guides/pricing/details" target="_blank" rel="noopener">pricing</a>. <span class="src">platform.stepfun.ai</span></li> <li><a href="https://www.alibabacloud.com/help/en/model-studio/token-plan-personal-overview" target="_blank" rel="noopener">Alibaba Token Plan</a> — Singapore-only. <span class="src">alibabacloud.com · Oct 21</span></li>
 <li><a href="https://dev.meta.ai/products/muse-code" target="_blank" rel="noopener">Meta Muse Code</a> · <a href="https://dev.meta.ai/help/policies-and-privacy/contributor-tier" target="_blank" rel="noopener">Contributor policy</a>. <span class="src">dev.meta.ai</span></li> <li><a href="https://api-docs.deepseek.com/quick_start/pricing" target="_blank" rel="noopener">DeepSeek pricing</a> — peak/off-peak windows and cache rates. <span class="src">api-docs.deepseek.com</span></li>
-<li><a href="https://ai.google.dev/gemini-api/docs/available-regions" target="_blank" rel="noopener">Gemini API available regions</a> (India listed) · <a href="https://docs.x.ai/docs/advanced-api-usage/regions" target="_blank" rel="noopener">xAI regions</a>. <span class="src">ai.google.dev · docs.x.ai</span></li> </ul>  <h3>Tooling</h3> <ul class="clean"> <li><a href="https://opencode.ai/changelog" target="_blank" rel="noopener">OpenCode changelog</a> — v2.3.0 (Nov 13) · v1.19.5 bridge. <span class="src">opencode.ai</span></li>
+<li><a href="https://ai.google.dev/gemini-api/docs/available-regions" target="_blank" rel="noopener">Gemini API available regions</a> (India listed) · <a href="https://docs.x.ai/docs/advanced-api-usage/regions" target="_blank" rel="noopener">xAI regions</a>. <span class="src">ai.google.dev · docs.x.ai</span></li> </ul>  <h3>Tooling</h3> <ul class="clean"> <li><a href="https://opencode.ai/changelog" target="_blank" rel="noopener">OpenCode changelog</a> — v2.3.2 (Nov 18: GPT-6.2 caching, webfetch fix) · v2.3.1 (Nov 18: bg shells, ChatGPT picker) · v1.19.6 (Nov 17: v1→v2 upgrade offer) bridge. <span class="src">opencode.ai</span></li>
 <li><a href="https://github.com/code-yeongyu/oh-my-openagent/releases" target="_blank" rel="noopener">OmO releases</a> — 5.1.75 (Nov 16) · <a href="https://github.com/code-yeongyu/oh-my-openagent/pull/9391" target="_blank" rel="noopener">PR #9391</a> (v2 dual-host, still open). <span class="src">github.com</span></li> <li><a href="https://opencode.ai/docs/ecosystem/" target="_blank" rel="noopener">OpenCode ecosystem</a> — plugins and MCPs. <span class="src">opencode.ai</span></li>
   </ul>
 
   <h3>Method and caveats</h3>
   <ul class="clean">
-<li><b>AA figures are v5.0.1 only</b> (re-baselined from v4.3.2 after the Oct 25 research pass). The one history chart is labeled; cross-version comparison is forbidden — AA itself redirects those questions to its Progress Index.</li> <li><b>Value/capacity basis:</b> 30-day provider-side measured profile (both Go accounts, 24.2k requests) as primary; the frozen heavy mix is a labelled conservative secondary. Local calibration uses aggregate OpenCode stats only — no session content, no client data, no PHI.</li>
+<li><b>AA figures are v5.0.1 only</b> (re-baselined from v4.3.2 after the Oct 25 research pass). The one history chart is labeled; cross-version comparison is forbidden — AA itself redirects those questions to its Progress Index.</li> <li><b>Value/capacity basis:</b> 30-day provider-side measured profile (both Go accounts, 35.0k requests) as primary; the frozen heavy mix is a labelled conservative secondary. Local calibration uses aggregate OpenCode stats only — no session content, no client data, no PHI.</li>
 <li><b>Confidence marking:</b> <span class="chip chip-indep">indep.</span> multi-source independent · <span class="chip chip-partial">partial</span> vendor + partial independent · <span class="chip chip-vendor">vendor-only</span>. Third-party benchmark figures named in the Tasks and Benchmarks tabs come from the earlier research pass and are marked as such.</li> <li><b>Snapshot, not law:</b> rosters and caps changed weekly in Sep–Nov 2026 (DeepSeek's Go cap moved twice — documented once, in the Capacity &amp; meter callout). Re-verify before sending client data or committing a monthly budget.</li>
   </ul>
 
@@ -1517,7 +1595,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
   <ul class="clean">
 <li><b>Console meter $60 vs docs $100</b> DeepSeek cap — see the Capacity &amp; meter callout (the single shared meter is what the rewritten docs predict; the $60 value is the open question). Known meter bug #43032.</li> <li><b>Checkpoint &amp; effort lotteries</b> (Qwen3.8 Max 0803/0902, Kimi K3 low-only): see Models footnote ³ and the <span class="chip chip-danger">ckpt lottery</span> chips. DeepSeek's catalog SKU is “DeepSeek V4.1 Flash 1017” — the 1017 checkpoint is the served product (AA 33 = what you get); earlier checkpoint ambiguity is resolved. The retired-scale 44 must never be compared.</li>
 <li><b>Qwen3.8 Flash ↔ AA “Qwen3.8-Flash-Next”</b> mapping is inferred (release date + price), not confirmed.</li> <li><b>Effort setting Go serves per model</b> is undocumented — AA effort rows are separate, so treat the served effort as an open question.</li>
-<li><b>Second account (frisky.business.now):</b> usage records exist but no active Go meter/period was returned.</li> <li><b>AA name quirks:</b> Grok 4.7 creator listed as “SpaceXAI”; Beam is “Beam 1.0”; Anthropic variants carry “(Default Fallback)” labels; Muse Spark's AA price basis is Meta's endpoint, not the Go Contributor SKU.</li>
+<li><b>Second account (frisky.business.now):</b> access ended Oct 31 (cancelAtPeriodEnd, payment_failed) — single active account now; its activity/billing endpoints return 403.</li> <li><b>AA name quirks:</b> Grok 4.7 creator listed as “SpaceXAI”; Beam is “Beam 1.0”; Anthropic variants carry “(Default Fallback)” labels; Muse Spark's AA price basis is Meta's endpoint, not the Go Contributor SKU.</li>
 <li><b>Stale boards:</b> METR time-horizon (May 2026, no Go model), Aider Polyglot (frozen), LiveCodeBench (broken), Terminal-Bench 4.0 table (empty). Use Vals AI / AA / SWE-bench / Design Arena as healthy sources.</li> <li><b>Unverified plan numbers:</b> StepFun credit math needs a first-month console test; MiniMax publishes only relative quotas; Kimi's payment methods are not spelled out in English; Meta India availability is third-party evidence.</li>
   </ul>
 
@@ -1529,7 +1607,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
 
 <footer>
   <div class="footer-inner">
-    <div><b>AI Tools Benchmark for OpenCode</b> · snapshot <b>November 17, 2026</b> · AA Intelligence Index v5.0.1 · 32 Go models · generated from <code>analysis/</code> + CANON data · running OpenCode v2.3.0 / OmO 5.1.75</div>
+    <div><b>AI Tools Benchmark for OpenCode</b> · snapshot <b>November 18, 2026</b> (AA pulls Nov 17; usage/tooling Nov 18) · AA Intelligence Index v5.0.1 · 32 Go models · generated from <code>analysis/</code> + CANON data · running OpenCode v2.3.0 (v2.3.2 latest — upgrade pending) / OmO 5.1.75</div>
     <div class="footlinks">
       <a href="analysis/01-go-roster-and-limits.md">Roster &amp; limits</a>
       <a href="analysis/02-benchmarks.md">Benchmarks</a>
@@ -1546,6 +1624,7 @@ footer{border-top:1px solid var(--line);padding:28px 26px 40px;color:var(--dim);
   </div>
 </footer>
 
+<button id="toTop" type="button" aria-label="Back to top">↑</button>
 <div id="tip" role="status" aria-live="polite"><div class="tip-title"></div><div class="tip-sub"></div></div>
 
 <script>
@@ -1562,53 +1641,53 @@ const MODELS = [
   /* --- scored, in AA v5.0.1 order (top) --- */
   {id:'gemini-4-argon',name:'Gemini 4 Argon',prov:'Google',aa:50,aad:'50 (high)',ex:50.41,sp:66.3,ttft:43.9,tfaat:43.9,task:4.97,
    price:{i:'2.00',o:'10.00',cr:'0.10',cw:null},cap:{go:30,plus:120,teams:35},
-   val:{per:'0.03123',rm:961,rh:728,pts:1601,be:320,mult:'3.0×'},priv:'zdr',
-   note:'50%-off through Nov 30, 2026 (list 4/20/0.20). AA has High/Medium only — no max effort. Vals v2.2 69.24%, #1 among Go models.',
+   val:{per:'0.03478',rm:862,rh:728,pts:1437,be:287,mult:'3.0×'},priv:'r55',
+   note:'Retained up to 55 days for abuse monitoring (Google Gemini API terms) — the worst retention on the Go roster. 50%-off through Nov 30, 2026 (list 4/20/0.20). AA has High/Medium only — no max effort. Vals v2.2 69.24%, #1 among Go models.',
    verdict:'Ceiling + best top-end value'},
   {id:'kimi-k3.1-pro',name:'Kimi K3.1 Pro',prov:'Moonshot',aa:46,aad:'46 (max)',ex:46.45,sp:31.0,ttft:3.92,tfaat:151.0,task:3.68,
    price:{i:'2.00',o:'10.00',cr:'0.20',cw:'2.00'},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.05783',rm:259,rh:269,pts:795,be:173,mult:'1.5×'},priv:'zdr',
-   note:'1M context; single AA variant at max effort. Vals v2.2 62.52%. Measured cache-write 7,604/req.',
+   val:{per:'0.07867',rm:191,rh:269,pts:585,be:127,mult:'1.5×'},priv:'zdr',
+   note:'1M context; single AA variant at max effort. Vals v2.2 62.52% (confirmed Nov 18). Measured cache-write 12,004/req.',
    verdict:'Hardest 5% — 1M ctx, max effort'},
   {id:'qwen4-max',name:'Qwen4 Max',prov:'Alibaba',aa:43,aad:'43',ex:42.89,sp:54.4,ttft:5.28,tfaat:147.6,task:3.27,
    price:{i:'1.50',o:'4.50',cr:'0.075',cw:'1.875'},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.03049',rm:492,rh:543,pts:1410,be:328,mult:'1.5×'},priv:'zdr',
-   note:'984k context; released Nov 16 — first fresh model already scored on v5.0.1 (AA changelog Nov 15).',
+   val:{per:'0.03307',rm:454,rh:543,pts:1300,be:302,mult:'1.5×'},priv:'zdr',
+   note:'984k context; released Nov 16 — first fresh model already scored on v5.0.1 (AA changelog Nov 15). Vals v2.2 63.20% (Nov 18).',
    verdict:'New #3 — watch it'},
   {id:'muse-spark-1.3',name:'Muse Spark 1.3 Contributor',prov:'Meta',aa:37,aad:'37 (max)',ex:36.62,sp:109.3,ttft:31.6,tfaat:31.6,task:2.39,
    price:{i:'0.10',o:'0.20',cr:'0.002',cw:null},cap:{go:60,plus:120,teams:65},
-   val:{per:'0.00083',rm:72007,rh:46440,pts:44404,be:12001,mult:'6.0×'},priv:'train',
+   val:{per:'0.00090',rm:66437,rh:46440,pts:40969,be:11073,mult:'6.0×'},priv:'train',
    note:'⚠ Trains on prompts, files and tool output — non-client only. AA prices Meta\u2019s Standard endpoint ($1.25/$4.25), not the Go Contributor SKU. Limited regions (Meta Geographic Use Policy).',
    verdict:'Value math winner — but trains'},
   {id:'muse-spark-1.2',name:'Muse Spark 1.2 Contributor',prov:'Meta',aa:null,aad:null,ex:null,sp:null,ttft:null,tfaat:null,task:null,
    price:{i:'0.10',o:'0.20',cr:'0.002',cw:null},cap:{go:60,plus:120,teams:65},
-   val:{per:'0.00083',rm:72007,rh:46440,pts:null,be:12001,mult:'6.0×'},priv:'train',tags:['legacy'],
+   val:{per:'0.00090',rm:66437,rh:46440,pts:null,be:11073,mult:'6.0×'},priv:'train',tags:['legacy'],
    note:'Previous-generation Contributor SKU — same price, cap and training terms. Not measured (v5.0.1).',
    verdict:'Superseded — and trains'},
   {id:'haiku-5.5-gt100k',name:'Claude Haiku 5.5 (>100K)',prov:'Anthropic',aa:36,aad:'36 (max)',ex:36.48,sp:257.0,ttft:182.3,tfaat:182.3,task:0.41,
    price:{i:'0.50',o:'2.50',cr:'0.05',cw:'0.625'},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.01508',rm:995,rh:1075,pts:2387,be:663,mult:'1.5×'},priv:'r30',
+   val:{per:'0.01679',rm:893,rh:1075,pts:2144,be:596,mult:'1.5×'},priv:'r30',
    note:'Primary tier — the measured 170k-token mix always bills >100K. Effort spread 36/35/30/25/19 (max→low). ¹',
    verdict:'The tier the real mix bills'},
   {id:'haiku-5.5-lte100k',name:'Claude Haiku 5.5 (≤100K)',prov:'Anthropic',aa:36,aad:'36 (max)',ex:36.48,sp:257.0,ttft:182.3,tfaat:182.3,task:0.41,
    price:{i:'0.10',o:'0.50',cr:'0.01',cw:'0.125'},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.00302',rm:4973,rh:5376,pts:11934,be:3315,mult:'1.5×'},priv:'r30',
+   val:{per:'0.00336',rm:4467,rh:5376,pts:10720,be:2978,mult:'1.5×'},priv:'r30',
    note:'Subagent-context option — prompts ≤100K only. ¹',
    verdict:'Best subagent model ≤100K'},
   {id:'hy4-ga',name:'Hy4 (GA)',prov:'Tencent',aa:35,aad:'35',ex:34.56,sp:95.6,ttft:2.89,tfaat:112.8,task:1.03,
    price:{i:'0.834',o:'2.501',cr:'0.042',cw:null},cap:{go:60,plus:240,teams:65},
-   val:{per:'0.01179',rm:5088,rh:3899,pts:2968,be:848,mult:'6.0×'},priv:'zdr',
-   note:'AA name “Tencent Hy4” (rel Nov 3, results Nov 4). AA has no separate Hy4-preview entry.',
+   val:{per:'0.01323',rm:4535,rh:3899,pts:2645,be:756,mult:'6.0×'},priv:'zdr',
+   note:'AA name “Tencent Hy4” (rel Nov 3, results Nov 4). AA has no separate Hy4-preview entry. Vals v2.2 59.35% (Nov 18).',
    verdict:'6× multiplier at AA 35'},
   {id:'hy4-preview',name:'Hy4 preview',prov:'Tencent',aa:null,aad:null,ex:null,sp:null,ttft:null,tfaat:null,task:null,
    price:{i:'0.834',o:'2.501',cr:'0.042',cw:null},cap:{go:30,plus:120,teams:35},
-   val:{per:'0.01179',rm:'derived',rh:null,pts:null,be:'derived',mult:'derived',derived:true},priv:'zdr',tags:['derived'],
+   val:{per:'0.01323',rm:'derived',rh:null,pts:null,be:'derived',mult:'derived',derived:true},priv:'zdr',tags:['derived'],
    note:'⚠ Separate SKU from Hy4 GA — half the caps ($30/$120/$35). Not measured (v5.0.1); capacity derived from GA-parity pricing. Vals v2.2 53.21% (earlier pass).',
    verdict:'Half the GA allowance'},
   {id:'grok-4.7-lte200k',name:'Grok 4.7 (≤200K)',prov:'xAI',aa:35,aad:'35 (xhigh)',ex:35.49,sp:70.7,ttft:49.2,tfaat:49.2,task:7.77,
    price:{i:'2.00',o:'6.00',cr:'0.50',cw:null},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.09455',rm:159,rh:158,pts:370,be:106,mult:'1.5×'},priv:'r30',
-   note:'Effort spread xhigh 35.49 / high 35.21 / low 31.13. ZDR disables stateful Responses API, Files/Collections, Batch API. AA lists creator as “SpaceXAI”.',
+   val:{per:'0.11111',rm:135,rh:158,pts:315,be:90,mult:'1.5×'},priv:'r30',
+   note:'Effort spread xhigh 35.49 / high 35.21 / low 31.13. Vals v2.2 58.62% (Nov 18). ZDR disables stateful Responses API, Files/Collections, Batch API. AA lists creator as “SpaceXAI”.',
    verdict:'Consult ration — expensive per call'},
   {id:'grok-4.7-gt200k',name:'Grok 4.7 (>200K)',prov:'xAI',aa:35,aad:'35 (xhigh)',ex:35.49,sp:70.7,ttft:49.2,tfaat:49.2,task:7.77,
    price:{i:'4.00',o:'12.00',cr:'1.00',cw:null},cap:{go:15,plus:60,teams:20},
@@ -1617,48 +1696,48 @@ const MODELS = [
    verdict:'Double price above 200K'},
   {id:'qwen3.8-max',name:'Qwen3.8 Max',prov:'Alibaba',aa:34,aad:'34 (0902)',ex:33.65,sp:60.6,ttft:3.69,tfaat:102.7,task:10.02,
    price:{i:'2.00',o:'6.00',cr:'0.25',cw:'2.50'},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.06556',rm:229,rh:256,pts:519,be:153,mult:'1.5×'},priv:'zdr',
+   val:{per:'0.07391',rm:203,rh:256,pts:460,be:135,mult:'1.5×'},priv:'zdr',
    note:'⚠ Go serves the 0803 snapshot = not measured (v5.0.1); the 34 belongs to the 0902 snapshot — checkpoint lottery. ³ OSWorld-Verified 86.1 (earlier pass).',
    verdict:'Visual ration — checkpoint lottery'},
   {id:'deepseek-v4.1-flash',name:'DeepSeek V4.1 Flash',prov:'DeepSeek',aa:33,aad:'33 (max, 1017 ckpt)',ex:32.59,sp:177.3,ttft:1.26,tfaat:40.0,task:0.60,
    price:{i:'0.15',o:'0.60',cr:'0.003',cw:null},cap:{go:100,plus:200,teams:105},
-   val:{per:'0.00190',rm:52632,rh:32258,pts:17368,be:5263,mult:'10.0×'},priv:'zdr',
-   note:'The catalog SKU is “DeepSeek V4.1 Flash 1017” — Go serves the 1017 checkpoint as the product (AA 33 = what you get); the base (Sep-10) checkpoint is not measured (v5.0.1). ³ Prices off-peak; peak ×2; $/req blends the measured 28% peak share. ²',
+   val:{per:'0.00210',rm:47619,rh:32258,pts:15714,be:4762,mult:'10.0×'},priv:'zdr',
+   note:'The catalog SKU is “DeepSeek V4.1 Flash 1017” — Go serves the 1017 checkpoint as the product (AA 33 = what you get); the base (Sep-10) checkpoint is not measured (v5.0.1). ³ Prices off-peak; peak ×2; $/req blends the measured 28.7% peak share (Nov 18). ²',
    verdict:'Volume king — 10× multiplier (docs cap $100)'},
   {id:'glm-5.3',name:'GLM-5.3',prov:'Z.ai',aa:32,aad:'32 (max)',ex:31.65,sp:89.4,ttft:2.53,tfaat:59.5,task:5.01,
-   price:{i:'1.40',o:'4.40',cr:'0.26',cw:null},cap:{go:15,plus:120,teams:20},
-   val:{per:'0.05140',rm:292,rh:279,pts:623,be:195,mult:'1.5×'},priv:'zdr',
-   note:'(Low) effort variant scores 23. Claude-like terminal behaviour (earlier pass).',
-   verdict:'Terminal/SQL specialist'},
+   price:{i:'1.40',o:'4.40',cr:'0.26',cw:null},cap:{go:200,plus:400,teams:205},
+   val:{per:'0.06004',rm:3331,rh:3720,pts:533,be:167,mult:'20×'},priv:'zdr',
+   note:'Caps raised ~13× Nov 18 ($200/$400/$205) — now a bulk-capable AA-32 lane (Plus 6,662/mo, Teams 3,414/mo). (Low) effort variant scores 23. Vals v2.2 59.85% (Nov 18). Claude-like terminal behaviour (earlier pass).',
+   verdict:'Bulk-capable AA-32 lane'},
   {id:'mimo-v2.6-pro',name:'MiMo-V2.6-Pro',prov:'Xiaomi',aa:30,aad:'30',ex:29.89,sp:54.4,ttft:4.06,tfaat:25.8,task:0.26,
    price:{i:'0.435',o:'0.87',cr:'0.003625',cw:null},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.00278',rm:5391,rh:3074,pts:10782,be:3594,mult:'1.5×'},priv:'zdr',
-   note:'Best premium value on the measured profile.',
+   val:{per:'0.00292',rm:5138,rh:3074,pts:10275,be:3425,mult:'1.5×'},priv:'zdr',
+   note:'Best premium value on the measured profile. Vals v2.2 57.81% (Nov 18).',
    verdict:'Premium value lane'},
   {id:'step-5-preview',name:'Step 5 Preview',prov:'StepFun',aa:29,aad:'29',ex:28.53,sp:133.2,ttft:0.87,tfaat:22.1,task:2.35,
    price:{i:'1.00',o:'2.70',cr:'0.10',cw:null},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.02215',rm:677,rh:591,pts:1309,be:451,mult:'1.5×'},priv:'zdr',
-   note:'Preview SKU; open weights (BF16 + FP8).',
+   val:{per:'0.02549',rm:588,rh:591,pts:1137,be:392,mult:'1.5×'},priv:'zdr',
+   note:'Preview SKU; open weights (BF16 + FP8). Vals v2.2 54.76% (Nov 18).',
    verdict:'Open-weights optionality'},
   {id:'minimax-m3.1-flash',name:'MiniMax M3.1 Flash',prov:'MiniMax',aa:29,aad:'29',ex:29.06,sp:141.3,ttft:1.25,tfaat:46.3,task:0.49,
    price:{i:'0.15',o:'0.60',cr:'0.015',cw:null},cap:{go:20,plus:80,teams:25},
-   val:{per:'0.00347',rm:5760,rh:4975,pts:8352,be:2880,mult:'2.0×'},priv:'zdr',
-   note:'The paid quality anchor in the compressed cheap tier.',
+   val:{per:'0.00398',rm:5025,rh:4975,pts:7286,be:2513,mult:'2.0×'},priv:'zdr',
+   note:'The paid quality anchor in the compressed cheap tier. Vals v2.2 53.78% (Nov 18).',
    verdict:'Paid quality anchor'},
   {id:'qwen3.8-flash',name:'Qwen3.8 Flash',prov:'Alibaba',aa:29,aad:'29',ex:28.58,sp:84.0,ttft:2.43,tfaat:59.9,task:0.57,
    price:{i:'0.15',o:'0.47',cr:'0.016',cw:'0.20'},cap:{go:30,plus:90,teams:35},
-   val:{per:'0.00454',rm:6611,rh:7457,pts:6390,be:2204,mult:'3.0×'},priv:'zdr',
+   val:{per:'0.00507',rm:5911,rh:7457,pts:5714,be:1970,mult:'3.0×'},priv:'zdr',
    note:'AA lists it as “Qwen3.8-Flash-Next”; mapping inferred from release date + price, not confirmed.',
    verdict:'Bulk vision lane'},
   {id:'glm-5.3-flash',name:'GLM-5.3-Flash',prov:'Z.ai',aa:28,aad:'28',ex:27.8,sp:57.1,ttft:3.09,tfaat:78.6,task:0.58,
    price:{i:'0.15',o:'0.50',cr:'0.03',cw:null},cap:{go:60,plus:180,teams:65},
-   val:{per:'0.00588',rm:10196,rh:9836,pts:4758,be:1699,mult:'6.0×'},priv:'zdr',
+   val:{per:'0.00688',rm:8718,rh:9836,pts:4068,be:1453,mult:'6.0×'},priv:'zdr',
    note:'Zero-retention free twin exists on Zen.',
    verdict:'Bulk / frontend at 6×'},
   {id:'gpt-6-luna-lte272k',name:'GPT 6 Luna (≤272K)',prov:'OpenAI',aa:28,aad:'28 (max)',ex:27.86,sp:102.6,ttft:68.3,tfaat:68.3,task:0.15,
    price:{i:'0.10',o:'0.50',cr:'0.01',cw:'0.125'},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.00302',rm:4973,rh:5376,pts:9282,be:3315,mult:'1.5×'},priv:'r30',
-   note:'Effort spread 28/23/21/18/10/9 (max→low→non-reasoning). Measured cache-write 3,324/req. 30-day retention; the CV client contract bans OpenAI models for that project.',
+   val:{per:'0.00314',rm:4778,rh:5376,pts:8919,be:3185,mult:'1.5×'},priv:'r30',
+   note:'Effort spread 28/23/21/18/10/9 (max→low→non-reasoning). Measured cache-write 3,248/req. 30-day retention; the CV client contract bans OpenAI models for that project.',
    verdict:'Cheapest frontier-lab task cost'},
   {id:'gpt-6-luna-gt272k',name:'GPT 6 Luna (>272K)',prov:'OpenAI',aa:28,aad:'28 (max)',ex:27.86,sp:102.6,ttft:68.3,tfaat:68.3,task:0.15,
    price:{i:'0.20',o:'0.75',cr:'0.02',cw:'0.25'},cap:{go:15,plus:60,teams:20},
@@ -1667,12 +1746,12 @@ const MODELS = [
    verdict:'Double price above 272K'},
   {id:'mimo-v2.6-flash',name:'MiMo-V2.6-Flash',prov:'Xiaomi',aa:27,aad:'27',ex:26.73,sp:42.9,ttft:5.20,tfaat:26.0,task:0.13,
    price:{i:'0.14',o:'0.28',cr:'0.0028',cw:null},cap:{go:60,plus:120,teams:65},
-   val:{per:'0.00117',rm:51433,rh:33171,pts:23145,be:8572,mult:'6.0×'},priv:'zdr',
+   val:{per:'0.00126',rm:47455,rh:33171,pts:21355,be:7909,mult:'6.0×'},priv:'zdr',
    note:'Cheapest AA task cost on the entire board ($0.13).',
    verdict:'Small-model default'},
   {id:'gpt-5.6-luna-lte272k',name:'GPT 5.6 Luna (≤272K)',prov:'OpenAI',aa:24,aad:'24 (max)',ex:23.79,sp:105.0,ttft:49.5,tfaat:49.5,task:0.33,
    price:{i:'0.20',o:'1.20',cr:'0.02',cw:'0.25'},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.00619',rm:2425,rh:2586,pts:3879,be:1616,mult:'1.5×'},priv:'r30',
+   val:{per:'0.00688',rm:2181,rh:2586,pts:3490,be:1454,mult:'1.5×'},priv:'r30',
    note:'Other effort variants unscored on v5.0.1. 30-day retention.',
    verdict:'Retained for compatibility'},
   {id:'gpt-5.6-luna-gt272k',name:'GPT 5.6 Luna (>272K)',prov:'OpenAI',aa:24,aad:'24 (max)',ex:23.79,sp:105.0,ttft:49.5,tfaat:49.5,task:0.33,
@@ -1682,12 +1761,12 @@ const MODELS = [
    verdict:'Double price above 272K'},
   {id:'deepseek-v4-pro',name:'DeepSeek V4 Pro (0813)',prov:'DeepSeek',aa:23,aad:'23 (max)',ex:23.06,sp:94.9,ttft:2.69,tfaat:49.8,task:1.77,
    price:{i:'0.66',o:'1.98',cr:'0.022',cw:null},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.00747',rm:2009,rh:1423,pts:3080,be:1339,mult:'1.5×'},priv:'zdr',tags:['legacy','offpeak'],
-   note:'(high) 21 · (non-reasoning) 13. Prices off-peak, unblended — blended at the measured 28% peak share ≈$0.00956/req → 1,569 req/mo · 2,406 pts/$ · be 1,046. ⁵ Retired from DeepSeek\u2019s own API but still listed on Go — verify what is served.',
+   val:{per:'0.00824',rm:1821,rh:1423,pts:2792,be:1214,mult:'1.5×'},priv:'zdr',tags:['legacy','offpeak'],
+   note:'(high) 21 · (non-reasoning) 13. Prices off-peak, unblended — blended at the measured 28.7% peak share ≈$0.01060/req → 1,415 req/mo · 2,170 pts/$ · be 943. ⁵ Retired from DeepSeek\u2019s own API but still listed on Go — verify what is served.',
    verdict:'Legacy — retired upstream'},
   {id:'minimax-m3-lte512k',name:'MiniMax M3 (≤512K)',prov:'MiniMax',aa:19,aad:'19',ex:18.88,sp:112.5,ttft:1.48,tfaat:65.2,task:1.29,
    price:{i:'0.30',o:'1.20',cr:'0.06',cw:null},cap:{go:60,plus:180,teams:65},
-   val:{per:'0.01192',rm:5032,rh:4831,pts:1593,be:839,mult:'6.0×'},priv:'zdr',tags:['legacy'],
+   val:{per:'0.01392',rm:4309,rh:4831,pts:1365,be:718,mult:'6.0×'},priv:'zdr',tags:['legacy'],
    note:'Previous generation — M3.1 Flash is cheaper and 10 AA points higher.',
    verdict:'Superseded by M3.1 Flash'},
   {id:'minimax-m3-gt512k',name:'MiniMax M3 (>512K)',prov:'MiniMax',aa:19,aad:'19',ex:18.88,sp:112.5,ttft:1.48,tfaat:65.2,task:1.29,
@@ -1702,24 +1781,24 @@ const MODELS = [
    verdict:'Free floor — 30-day retention'},
   {id:'kimi-k3',name:'Kimi K3',prov:'Moonshot',aa:17,aad:'17 (low only)',ex:17.42,sp:46.6,ttft:5.22,tfaat:54.8,task:2.37,
    price:{i:'3.00',o:'15.00',cr:'0.30',cw:'3.00'},cap:{go:15,plus:60,teams:20},
-   val:{per:'0.08674',rm:173,rh:179,pts:196,be:115,mult:'1.5×'},priv:'zdr',
+   val:{per:'0.09700',rm:155,rh:179,pts:175,be:103,mult:'1.5×'},priv:'zdr',
    note:'⚠ AA has only a (Low) score; (Max) is not measured (v5.0.1). Measurement-artifact risk — do not over-read. The retired-scale 44 must not be compared.',
    verdict:'Low-only score — do not over-read'},
 
   /* --- not measured on v5.0.1 — pricing-derived values only --- */
   {id:'longcat-2.0',name:'LongCat-2.0',prov:'Meituan',aa:null,aad:null,ex:null,sp:null,ttft:null,tfaat:null,task:null,
    price:{i:'0.30',o:'1.20',cr:'0.006',cw:null},cap:{go:60,plus:240,teams:65},
-   val:{per:'0.00296',rm:20266,rh:13228,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',
+   val:{per:'0.00319',rm:18816,rh:13228,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',
    note:'Not measured (v5.0.1). Vendor SWE-bench Pro 59.5 (earlier pass). Cheap tokens, weak reasoning.',
    verdict:'Cheap bulk — unmeasured'},
   {id:'hy3',name:'Hy3',prov:'Tencent',aa:null,aad:null,ex:null,sp:null,ttft:null,tfaat:null,task:null,
    price:{i:'0.14',o:'0.58',cr:'0.035',cw:null},cap:{go:60,plus:240,teams:65},
-   val:{per:'0.00674',rm:8900,rh:null,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',
+   val:{per:'0.00791',rm:7590,rh:null,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',
    note:'Not measured (v5.0.1). Earlier-pass score corrected downward — treat quality as unverified.',
    verdict:'Unmeasured volume lane'},
   {id:'qwen3.7-plus-lte256k',name:'Qwen3.7 Plus (≤256K)',prov:'Alibaba',aa:null,aad:null,ex:null,sp:null,ttft:null,tfaat:null,task:null,
    price:{i:'0.40',o:'1.60',cr:'0.04',cw:'0.50'},cap:{go:60,plus:180,teams:65},
-   val:{per:'0.01176',rm:5103,rh:null,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',tags:['legacy'],
+   val:{per:'0.01311',rm:4575,rh:null,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',tags:['legacy'],
    note:'Not measured (v5.0.1). Legacy tier — Qwen3.8 Flash is better on quality and price.',
    verdict:'Superseded by Qwen3.8 Flash'},
   {id:'qwen3.7-plus-gt256k',name:'Qwen3.7 Plus (>256K)',prov:'Alibaba',aa:null,aad:null,ex:null,sp:null,ttft:null,tfaat:null,task:null,
@@ -1729,12 +1808,12 @@ const MODELS = [
    verdict:'Triple price above 256K'},
   {id:'glm-5.2',name:'GLM-5.2 (legacy)',prov:'Z.ai',aa:null,aad:null,ex:null,sp:null,ttft:null,tfaat:null,task:null,
    price:{i:'1.40',o:'4.40',cr:'0.26',cw:null},cap:{go:60,plus:180,teams:65},
-   val:{per:'0.05140',rm:1167,rh:null,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',tags:['legacy'],
-   note:'Not measured (v5.0.1). GLM-5.3 is better at the same list price with a smaller cap.',
+   val:{per:'0.06004',rm:999,rh:null,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',tags:['legacy'],
+   note:'Not measured (v5.0.1). GLM-5.3 is better at the same list price with a far larger cap.',
    verdict:'Legacy — skip'},
   {id:'kimi-k2.7-code',name:'Kimi K2.7 Code',prov:'Moonshot',aa:null,aad:null,ex:null,sp:null,ttft:null,tfaat:null,task:null,
    price:{i:'0.95',o:'4.00',cr:'0.19',cw:null},cap:{go:60,plus:180,teams:65},
-   val:{per:'0.03791',rm:1583,rh:null,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',tags:['legacy'],
+   val:{per:'0.04425',rm:1356,rh:null,pts:null,be:'derived',mult:'6.0×'},priv:'zdr',tags:['legacy'],
    note:'Not measured (v5.0.1). All headline benchmarks were first-party (earlier pass).',
    verdict:'Vendor-only claims'},
 
@@ -1757,10 +1836,11 @@ const MODELS = [
 ];
 
 const FRONTIER = [
-  {name:'Claude Fable 5.2 (max)',aa:65,task:26.54,speed:111.8,exact:64.56,note:'Board leader. $26.54/AA task. Nov 9 release — newer than most of the Go roster.'},
+  {name:'Claude Fable 5.2 (max)',aa:65,task:26.54,speed:111.8,exact:64.56,note:'Board leader. Vals v2.2 71.31% #1 (Nov 18). $26.54/AA task. Nov 9 release — newer than most of the Go roster.'},
+  {name:'GPT-6.2 Astra (max)',aa:62,task:null,speed:null,exact:null,note:'New #2 / OpenAI frontier ref (Nov 17). Vals v2.2 67.66% #7. No published API price or speed — omitted from both charts.'},
   {name:'Gemini 4 Carbon (high)',aa:60,task:5.48,speed:65.8,exact:60.03,note:'Not on Go.'},
   {name:'Claude Opus 5.5 (max)',aa:59,task:10.04,speed:117.3,exact:59.11,note:'Not on Go. The “must-not-fail” option.'},
-  {name:'GPT-6 Astra (max)',aa:57,task:6.24,speed:42.4,exact:56.85,note:'Not on Go.'},
+  {name:'GPT-6 Astra (max)',aa:57,task:6.24,speed:42.4,exact:56.85,note:'Not on Go. Superseded as the OpenAI frontier ref by GPT-6.2 Astra (62).'},
   {name:'Claude Sonnet 5.5 (max)',aa:55,task:10.02,speed:146.7,exact:54.54,note:'Not on Go. Vals v2.2 leader at 70.85%.'},
   {name:'GPT-6.1 Sol (max)',aa:55,task:1.27,speed:null,exact:null,note:'Speed not available — omitted from the speed chart.'},
   {name:'Gemini 4 Hydrogen (xhigh)',aa:54,task:3.16,speed:null,exact:null,note:'Speed not available — omitted from the speed chart.'},
@@ -1775,7 +1855,8 @@ const USAGE_DAILY = [
   ['10-29',301,0.31],['10-30',576,0.40],['10-31',0,0],['11-01',195,0.16],['11-02',615,0.64],
   ['11-03',1494,1.75],['11-04',0,0],['11-05',592,1.66],['11-06',558,1.28],['11-07',0,0],
   ['11-08',0,0],['11-09',6819,10.33],['11-10',650,1.41],['11-11',4413,8.48],['11-12',512,1.11],
-  ['11-13',0,0],['11-14',0,0],['11-15',755,1.13],['11-16',853,1.81],['11-17',673,1.25]
+  ['11-13',0,0],['11-14',0,0],['11-15',755,1.13],['11-16',853,1.81],['11-17',9320,18.70],
+  ['11-18',2700,10.73,'partial']
 ];
 
 const DELTAS = [ /* v4.3.2 (retired) → v5.0.1, CANON §2 */
@@ -1787,19 +1868,19 @@ const DELTAS = [ /* v4.3.2 (retired) → v5.0.1, CANON §2 */
 const BENCH = [
   {id:'gemini-4-argon',vals:'69.24%',ev:'AA 50 · Vals 69.24% — #1 on Go · lowest AA-Omniscience hallucination (earlier pass)',evFull:'AA 50 (v5.0.1) + Vals #1 among Go models; lowest hallucination rate on AA-Omniscience (earlier pass)',cav:'DeepSWE 77.9 SOTA is a vendor claim (Oct 13)',cavFull:'DeepSWE 77.9 SOTA claim (Oct 13, vendor)',conf:'indep'},
   {id:'kimi-k3.1-pro',vals:'62.52%',ev:'AA 46 · 1M ctx · one max-effort variant · TTFT 3.92s / TFAAT 151s',evFull:'AA 46; 1M ctx; single max-effort variant; 3.92s TTFT / 151s TFAAT',cav:'Not independently replicated; no Design Arena/OSWorld entry',cavFull:'Agentic claims not independently replicated; no Design Arena/OSWorld entry',conf:'partial'},
-  {id:'qwen4-max',vals:'—',ev:'AA 43 on v5.0.1 — first fresh model scored · 984k ctx',evFull:'AA 43 on v5.0.1 — first fresh model landed already scored; 984k ctx',cav:'Rel Nov 16; little independent evidence yet',cavFull:'Rel Nov 16; little independent evidence yet',conf:'partial'},
+  {id:'qwen4-max',vals:'63.20%',ev:'AA 43 on v5.0.1 — first fresh model scored · 984k ctx · Vals 63.20% (Nov 18)',evFull:'AA 43 on v5.0.1 — first fresh model landed already scored; 984k ctx',cav:'Rel Nov 16; little independent evidence yet',cavFull:'Rel Nov 16; little independent evidence yet',conf:'partial'},
   {id:'muse-spark-1.3',vals:'—',ev:'Design Arena website #1 (earlier pass) · AA 37 (max)',evFull:'Design Arena website #1 (earlier pass); AA 37 (max)',cav:'Trains · AA prices Meta\u2019s endpoint, not the Go SKU',cavFull:'⚠ Trains on data. AA prices Meta\u2019s endpoint, not the Go SKU',conf:'partial'},
-  {id:'haiku-5.5-lte100k',vals:'—',ev:'AA 36 max (spread 36→19) · 257 tok/s — fastest smart small model',evFull:'AA 36 at max effort (spread 36/35/30/25/19); 257 tok/s — fastest smart small model',cav:'Default effort is not max; 30-day retention',cavFull:'Default effort is not max; 30-day retention',conf:'indep'},
-  {id:'grok-4.7-lte200k',vals:'58.56%',ev:'AA 35 xhigh (35.21/31.13) · CursorBench 4.0 46.3 (earlier pass)',evFull:'AA 35 at xhigh (high 35.21 / low 31.13); CursorBench 4.0 46.3 (earlier pass)',cav:'Very slow TTFT at xhigh; verbose outputs',cavFull:'Very slow TTFT at xhigh; verbose outputs',conf:'indep'},
+  {id:'haiku-5.5-lte100k',vals:'54.31%',ev:'AA 36 max (spread 36→19) · 257 tok/s — fastest smart small model · Vals 54.31% (Nov 18)',evFull:'AA 36 at max effort (spread 36/35/30/25/19); 257 tok/s — fastest smart small model; Vals 54.31% (Nov 18)',cav:'Default effort is not max; 30-day retention',cavFull:'Default effort is not max; 30-day retention',conf:'indep'},
+  {id:'grok-4.7-lte200k',vals:'58.62%',ev:'AA 35 xhigh (35.21/31.13) · CursorBench 4.0 46.3 (earlier pass) · Vals 58.62% (Nov 18)',evFull:'AA 35 at xhigh (high 35.21 / low 31.13); CursorBench 4.0 46.3 (earlier pass); Vals 58.62% (Nov 18)',cav:'Very slow TTFT at xhigh; verbose outputs',cavFull:'Very slow TTFT at xhigh; verbose outputs',conf:'indep'},
   {id:'qwen3.8-max',vals:'59.05% (earlier pass)',ev:'OSWorld-Verified 86.1 #1 (earlier pass) · SWE-bench Pro 67.7',evFull:'OSWorld-Verified 86.1 #1 worldwide (earlier pass); SWE-bench Pro 67.7',cav:'Go serves the unscored 0803 snapshot; the 34 is 0902',cavFull:'⚠ Go serves the 0803 snapshot = unscored; the 34 is 0902',conf:'partial'},
   {id:'deepseek-v4.1-flash',vals:'61.26%',ev:'AA 33 (1017 ckpt) · 177 tok/s · TTFT 1.26s · $0.60/AA task',evFull:'AA 33 (1017 ckpt); 177 tok/s, TTFT 1.26s, $0.60/AA task',cav:'Catalog SKU is “DeepSeek V4.1 Flash 1017” — the served product',cavFull:'The catalog SKU is “DeepSeek V4.1 Flash 1017” — the 1017 checkpoint is the served product (AA 33 = what you get); earlier checkpoint ambiguity resolved',conf:'partial'},
-  {id:'glm-5.3',vals:'59.73%',ev:'AA 32 (max) · TB4.0 best-on-Go (earlier pass)',evFull:'AA 32 (max); standardized TB4.0 best-on-Go in the earlier pass',cav:'(Low) effort = 23; text-only',cavFull:'(Low) effort = 23; text-only',conf:'indep'},
-  {id:'step-5-preview',vals:'—',ev:'AA 29 · 133 tok/s · open weights (BF16 + FP8)',evFull:'AA 29; 133 tok/s; open weights (BF16 + FP8)',cav:'Preview SKU; agentic evidence thin',cavFull:'Preview SKU; agentic evidence thin',conf:'partial'},
+  {id:'glm-5.3',vals:'59.85%',ev:'AA 32 (max) · TB4.0 best-on-Go (earlier pass) · Vals 59.85% (Nov 18)',evFull:'AA 32 (max); standardized TB4.0 best-on-Go in the earlier pass; Vals 59.85% (Nov 18)',cav:'(Low) effort = 23; text-only',cavFull:'(Low) effort = 23; text-only',conf:'indep'},
+  {id:'step-5-preview',vals:'54.76%',ev:'AA 29 · 133 tok/s · open weights (BF16 + FP8) · Vals 54.76% (Nov 18)',evFull:'AA 29; 133 tok/s; open weights (BF16 + FP8); Vals 54.76% (Nov 18)',cav:'Preview SKU; agentic evidence thin',cavFull:'Preview SKU; agentic evidence thin',conf:'partial'},
   {id:'minimax-m3.1-flash',vals:'53.78%',ev:'AA 29 · 141 tok/s · TTFT 1.25s · $0.49/AA task — cheap-agent anchor',evFull:'AA 29; 141 tok/s, 1.25s TTFT, $0.49/AA task — the cheap-agent anchor',cav:'Long-horizon data still thin',cavFull:'Long-horizon data still thin',conf:'indep'},
   {id:'glm-5.3-flash',vals:'—',ev:'AA 28 · bulk/frontend lane · zero-retention free twin',evFull:'AA 28; cheap bulk/frontend lane with a zero-retention free twin',cav:'Vendor/harness gaps large (earlier pass)',cavFull:'Vendor/ harness gaps large in the earlier pass',conf:'partial'},
   {id:'gpt-6-luna-lte272k',vals:'—',ev:'AA 28 (max) · $0.15/AA task — cheapest frontier-lab task cost',evFull:'AA 28 (max); $0.15/AA task — cheapest frontier-lab task cost (MiMo-V2.6-Flash is $0.13 overall)',cav:'Very slow reasoning TTFT (68.3s); 30-day retention',cavFull:'Very slow reasoning TTFT (68.3s); 30-day retention',conf:'partial'},
-  {id:'mimo-v2.6-pro',vals:'57.81% (earlier pass)',ev:'AA 30 · $0.26/AA task · native text+image+video+speech',evFull:'AA 30; $0.26/AA task; native text+image+video+speech',cav:'All supporting tables vendor-supplied (earlier pass)',cavFull:'All supporting tables vendor-supplied (earlier pass)',conf:'partial'},
-  {id:'beam-free',vals:'43.42% (earlier pass)',ev:'AA 18 · 281 tok/s — fastest on the board · Apache-2.0',evFull:'AA 18; 281 tok/s — fastest on the board; Apache-2.0 open weights',cav:'Text-only; SWE-bench claims vendor-only',cavFull:'Text-only; SWE-bench claims vendor-only',conf:'partial'},
+  {id:'mimo-v2.6-pro',vals:'57.81%',ev:'AA 30 · $0.26/AA task · native text+image+video+speech · Vals 57.81% (Nov 18)',evFull:'AA 30; $0.26/AA task; native text+image+video+speech',cav:'All supporting tables vendor-supplied (earlier pass)',cavFull:'All supporting tables vendor-supplied (earlier pass)',conf:'partial'},
+  {id:'beam-free',vals:'43.42%',ev:'AA 18 · 281 tok/s — fastest on the board · Apache-2.0 · Vals 43.42% (Nov 18)',evFull:'AA 18; 281 tok/s — fastest on the board; Apache-2.0 open weights',cav:'Text-only; SWE-bench claims vendor-only',cavFull:'Text-only; SWE-bench claims vendor-only',conf:'partial'},
   {id:'hy4-preview',vals:'53.21%',ev:'Vals 53.21% · Toolathlon-Verified 74.1 (earlier pass)',evFull:'Vals 53.21%; Toolathlon-Verified 74.1 (earlier pass)',cav:'Not measured on v5.0.1 · half the GA caps',cavFull:'⚠ Not measured on v5.0.1; half the GA caps',conf:'partial'},
   {id:'longcat-2.0',vals:'—',ev:'Not measured (v5.0.1)',evFull:'Not measured (v5.0.1)',cav:'Vendor SWE-bench Pro 59.5 only',cavFull:'Vendor SWE-bench Pro 59.5 only',conf:'vendor'}
 ];
@@ -1809,7 +1890,7 @@ const DIRECT_NOTES = {
   'kimi-k3':{direct:'~same as Go',best:'Kimi Code Plus/Pro',verdict:'Superseded by K3.1 Pro on Go.'},
   'gemini-4-argon':{direct:'50%-off list now; $4/$20 after Nov 30',best:'Gemini API (India listed)',verdict:'Best hard-task capacity on Go; direct is the no-cap fallback.'},
   'step-5-preview':{direct:'~same as Go',best:'StepFun Pro $29 (~45k if credits hold)',verdict:'Go is safe; StepFun is the value outlier to verify.'},
-  'glm-5.3':{direct:'~same as Go',best:'Z.ai Lite $18 (~1,319 peak)',verdict:'Z.ai wins for GLM-only — 4.7× capacity for 1.8× price.'},
+  'glm-5.3':{direct:'~same as Go',best:'Z.ai Lite $18 (~1,319 peak)',verdict:'Go wins for GLM now — the $200 cap covers ~3,331 req/mo vs Lite\u2019s 1,319 peak / 2,639 off-peak.'},
   'qwen3.8-max':{direct:'~same as Go',best:'Alibaba blocked; OpenRouter',verdict:'Go is the practical India route.'},
   'grok-4.7-lte200k':{direct:'~same as Go',best:'xAI direct (global, card)',verdict:'Go wins up to the break-even; direct above that or for features.'},
   'deepseek-v4.1-flash':{direct:'same off-peak prices; peak ×2',best:'DeepSeek direct (card)',verdict:'Go is the best DeepSeek deal anywhere.'},
@@ -1846,6 +1927,7 @@ const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 
 function privChip(p){
   if(p==='zdr') return '<span class="chip chip-zdr">ZDR · not trained</span>';
+  if(p==='r55') return '<span class="chip chip-r30">55-day · not trained</span>';
   if(p==='r30') return '<span class="chip chip-r30">30-day · not trained</span>';
   return '<span class="chip chip-danger">trains on data</span>';
 }
@@ -1875,13 +1957,18 @@ function noteCell(m){
   const body=esc(m.note).replace(/([¹²³⁴⁵])/g,'<sup>$1</sup>');
   return '<span class="clamp2" title="'+esc(m.note).replace(/"/g,'&quot;')+'">'+flags+body+'</span>';
 }
-/* Full-precision $/req on the measured profile (3,477 / 768 / 165,979 + 5,000 cw where
-   billed) — mirrors the frozen calc so derived req figures match CANON §6 exactly. */
+/* Full-precision $/req on the measured profile (3,457 in / 799 out / 198,806 cache-read
+   + cache-write where billed: Kimi K3.1 Pro measured 12,004/req, GPT-6 Luna measured
+   3,248/req, else 5,000/req) — mirrors the frozen calc so derived req figures match
+   CANON §11 exactly. DeepSeek V4.1 Flash and GLM-5.3 use pinned measured $/req. */
 function perExact(m){
-  if(m.id==='deepseek-v4.1-flash') return 0.00190; /* measured 28%-peak blend */
+  if(m.id==='deepseek-v4.1-flash') return 0.00210; /* measured 28.7%-peak blend, Nov 18 */
   if(!m.price) return null;
-  let c=3477*parseFloat(m.price.i)+768*parseFloat(m.price.o)+165979*parseFloat(m.price.cr);
-  if(m.price.cw!=null) c+=5000*parseFloat(m.price.cw);
+  let cwAmt=5000;
+  if(m.id==='kimi-k3.1-pro') cwAmt=12004;
+  else if(m.id==='gpt-6-luna-lte272k') cwAmt=3248;
+  let c=3457*parseFloat(m.price.i)+799*parseFloat(m.price.o)+198806*parseFloat(m.price.cr);
+  if(m.price.cw!=null) c+=cwAmt*parseFloat(m.price.cw);
   return c/1e6;
 }
 function valOf(m){
@@ -1983,10 +2070,10 @@ function renderLadder(){
     'grok-4.7-lte200k':'Edge-case debugging consults.',
     'qwen3.8-max':'Visual QA and screenshot verification.',
     'kimi-k3.1-pro':'The hardest architecture and marathon work (1M ctx).',
-    'gemini-4-argon':'Hard, non-convergent tasks; ZDR; best top-end value.'
+    'gemini-4-argon':'Hard, non-convergent tasks (55-day retained — not for client/PHI without a contract check); best top-end value.'
   };
   const rows=[
-    '<tr><td class="name"><span class="chip chip-free">T0</span></td><td class="name">Free floor — GLM-5.3-Flash Free · DeepSeek Free · M3.1 Flash Free (+ Beam, LongCat 2.5, Hy4 Flash)</td><td class="note">Bulk and whenever a cap binds — the three zero-retention twins only.</td><td class="num">—</td><td class="num">$0</td><td class="num">∞</td></tr>'
+    '<tr><td class="name"><span class="chip chip-free">T0</span></td><td class="name">Free floor — GLM-5.3-Flash Free · DeepSeek Free (+ Beam, LongCat 2.5, Hy4 Flash)</td><td class="note">Bulk and whenever a cap binds — the two zero-retention twins only.</td><td class="num">—</td><td class="num">$0</td><td class="num">∞</td></tr>'
   ];
   const order=['deepseek-v4.1-flash','muse-spark-1.3','minimax-m3.1-flash','haiku-5.5-gt100k','haiku-5.5-lte100k',
     'mimo-v2.6-flash','step-5-preview','mimo-v2.6-pro','gemini-4-argon','grok-4.7-lte200k','qwen3.8-max','kimi-k3.1-pro'];
@@ -2004,7 +2091,7 @@ function renderLadder(){
       '<td class="num" data-sort="'+(typeof v.rm==='number'?v.rm:0)+'">'+fmt(v.rm)+'</td>'+
     '</tr>');
   });
-  rows.push('<tr><td class="name"><span class="chip chip-legacy">T4</span></td><td class="name">Beyond Go — Claude Fable 5.2 (65) · Gemini 4 Carbon (60) · Claude Opus 5.5 (59) · GPT-6 Astra (57) · Claude Sonnet 5.5 (55)</td><td class="note">Must-not-fail work only — Copilot, Claude Code or Zen PAYG.</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>');
+  rows.push('<tr><td class="name"><span class="chip chip-legacy">T4</span></td><td class="name">Beyond Go — Claude Fable 5.2 (65) · GPT-6.2 Astra (62) · Gemini 4 Carbon (60) · Claude Opus 5.5 (59) · Claude Sonnet 5.5 (55)</td><td class="note">Must-not-fail work only — Copilot, Claude Code or Zen PAYG.</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>');
   document.getElementById('ladder-body').innerHTML=rows.join('');
 }
 
@@ -2418,7 +2505,7 @@ function drawCapScatter(){
   svgEl('line',{x1:xs(medX),y1:T,x2:xs(medX),y2:B,class:'guide'},svg);
   const ann=axisText(svg,R-8,T+22,'better ↗','end','annot');
   ann.setAttribute('fill',CLR.axis);
-  const maxPts=44404;
+  const maxPts=40969;
   const placed=[];
   const notable=['gemini-4-argon','deepseek-v4.1-flash','muse-spark-1.3','mimo-v2.6-flash','kimi-k3.1-pro','minimax-m3.1-flash','haiku-5.5-lte100k'];
   /* V7: reserve every point's box so labels never sit on a mark */
@@ -2473,31 +2560,37 @@ function drawUsage(){
   const W=1000,H=380,L=56,R=972,T=26,B=312;
   const n=USAGE_DAILY.length;
   const band=(R-L)/n;
-  const max=11;
+  const max=20;
   const ys=v=>B-v/max*(B-T);
-  [0,2,4,6,8,10].forEach(v=>{
+  [0,5,10,15,20].forEach(v=>{
     svgEl('line',{x1:L,y1:ys(v),x2:R,y2:ys(v),class:'gridline'},svg);
     axisText(svg,L-8,ys(v)+4,'$'+v,'end');
   });
   const yT=axisText(svg,0,0,'List value per day, USD','middle','axis-title');
   yT.setAttribute('transform','translate(14,'+((T+B)/2)+') rotate(-90)');
   USAGE_DAILY.forEach((d,i)=>{
-    const [day,req,cost]=d;
+    const [day,req,cost,flag]=d;
     const x=L+i*band+band*0.15, w=band*0.7;
-    const spike=(day==='11-09'||day==='11-11');
+    const spike=(day==='11-09'||day==='11-17');
+    const partial=flag==='partial';
     const h=Math.max((B-ys(cost)),cost>0?2:0);
     const bar=svgEl('rect',{x:x,y:cost>0?ys(cost):B-2,width:w,height:cost>0?h:2,rx:2,
-      fill:spike?cssVar('--amber'):CLR.accent,class:'bar',opacity:spike?.95:.75},svg);
-    hot(svg,bar,'Nov '+day.slice(3)+' (2026-10/11 window)',fmt(req)+' requests · $'+cost.toFixed(2)+' list value');
-    if(i%2===0||spike){
-      const t=axisText(svg,x+w/2,B+20,day);
-      if(spike) t.setAttribute('fill',cssVar('--amber'));
+      fill:spike?cssVar('--amber'):CLR.accent,class:'bar',opacity:spike?.95:partial?.55:.75,
+      'stroke-dasharray':partial?'4 2':null,stroke:partial?cssVar('--amber'):null},svg);
+    hot(svg,bar,'Nov '+day.slice(3)+' (2026-10/11 window)'+(partial?' — partial day, peak-heavy':''),fmt(req)+' requests · $'+cost.toFixed(2)+' list value'+(partial?' (partial — do not blend into a daily rate)':''));
+    if(i%2===0||spike||partial){
+      const t=axisText(svg,x+w/2,B+20,day+(partial?' *':''));
+      if(spike||partial) t.setAttribute('fill',cssVar('--amber'));
     }
     if(spike){
       const s=axisText(svg,x+w/2,ys(cost)-8,'$'+cost.toFixed(2),'middle','lbl-strong');
     }
+    if(partial){
+      const p=axisText(svg,x+w/2,ys(cost)-8,'$'+cost.toFixed(2)+' *','middle','lbl-strong');
+      p.setAttribute('fill',cssVar('--amber'));
+    }
   });
-  axisText(svg,(L+R)/2,B+44,'Day (Oct 24 – Nov 17, 2026)','middle','axis-title');
+  axisText(svg,(L+R)/2,B+44,'Day (Oct 24 – Nov 18, 2026; * = partial day)','middle','axis-title');
 }
 
 /* Chart 8: v4.3.2 → v5.0.1 dumbbell */
@@ -2653,6 +2746,132 @@ function redrawCharts(){
   drawCapScatter(); drawValueBars(); drawUsage(); drawSlope();
 }
 
+/* ============ motion pass (visual only) — reveal, chart draw-in, count-up, nav shadow, to-top ============ */
+function motionReduced(){
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+function motionInit(){
+  document.documentElement.classList.add('js-motion');
+}
+function initReveal(){
+  const els=document.querySelectorAll('.card,.chartcard,.answer-row,.tblwrap,blockquote.callout');
+  if(!els.length) return;
+  if(motionReduced()){
+    els.forEach(el=>el.classList.add('in'));
+    return;
+  }
+  els.forEach(el=>el.classList.add('reveal'));
+  if(!('IntersectionObserver' in window)){
+    els.forEach(el=>el.classList.add('in'));
+    return;
+  }
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  },{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+  els.forEach(el=>io.observe(el));
+}
+function initChartDraw(){
+  const charts=document.querySelectorAll('svg.chart');
+  if(!charts.length) return;
+  if(motionReduced()){
+    charts.forEach(s=>s.classList.add('drawn'));
+    return;
+  }
+  if(!('IntersectionObserver' in window)){
+    requestAnimationFrame(()=>charts.forEach(s=>s.classList.add('drawn')));
+    return;
+  }
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        /* next frame so the scaleX/opacity transition runs exactly once;
+           setTimeout fallback covers headless/virtual-time where rAF stalls */
+        io.unobserve(en.target);
+        const show=()=>en.target.classList.add('drawn');
+        requestAnimationFrame(()=>requestAnimationFrame(show));
+        setTimeout(show,150);
+      }
+    });
+  },{threshold:.12});
+  charts.forEach(s=>io.observe(s));
+}
+function initHeroCount(){
+  const chips=document.querySelectorAll('#hero-chips .statchip .v');
+  if(!chips.length) return;
+  const items=Array.from(chips).map(el=>{
+    const original=el.textContent;
+    const m=/^([^0-9]*)([0-9][0-9,]*(?:\.[0-9]+)?)(.*)$/.exec(original);
+    if(!m) return null;
+    const prefix=m[1], core=m[2], suffix=m[3];
+    if(/[0-9]/.test(suffix)) return null; /* versions like v2.3.0 — leave static */
+    const target=parseFloat(core.replace(/,/g,''));
+    if(!isFinite(target)) return null;
+    const dec=(core.split('.')[1]||'').length;
+    const grouped=core.indexOf(',')>=0;
+    return {el,original,prefix,suffix,target,dec,grouped};
+  });
+  if(motionReduced()) return; /* values render instantly */
+  const run=items=>{
+    const t0=performance.now(), dur=900;
+    let done=false;
+    const finalize=()=>{
+      if(done) return;
+      done=true;
+      items.forEach(it=>{ if(it) it.el.textContent=it.original; });
+    };
+    const fmtN=(n,dec,grouped)=>{
+      const s=dec>0?n.toFixed(dec):String(Math.round(n));
+      if(!grouped) return dec>0?s:String(Number(s));
+      const parts=s.split('.');
+      parts[0]=Number(parts[0]).toLocaleString('en-US');
+      return parts.join('.');
+    };
+    const step=t=>{
+      if(done) return;
+      const p=Math.min((t-t0)/dur,1);
+      const e=1-Math.pow(1-p,3);
+      items.forEach(it=>{
+        if(!it) return;
+        if(p>=1){ it.el.textContent=it.original; return; }
+        it.el.textContent=it.prefix+fmtN(it.target*e,it.dec,it.grouped)+it.suffix;
+      });
+      if(p<1) requestAnimationFrame(step); else done=true;
+    };
+    requestAnimationFrame(step);
+    /* watchdog: setTimeout is virtualized under virtual-time budgets where rAF stalls */
+    setTimeout(finalize,dur+250);
+  };
+  const host=document.getElementById('hero-chips');
+  if(!('IntersectionObserver' in window)){ run(items); return; }
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){ run(items); io.disconnect(); }
+    });
+  },{threshold:.3});
+  if(host) io.observe(host); else run(items);
+}
+function initNavShadow(){
+  const nav=document.querySelector('.tabs');
+  const top=document.getElementById('toTop');
+  if(!nav && !top) return;
+  const upd=()=>{
+    const y=window.scrollY||document.documentElement.scrollTop||0;
+    if(nav) nav.classList.toggle('scrolled',y>8);
+    if(top) top.classList.toggle('show',y>600);
+  };
+  window.addEventListener('scroll',upd,{passive:true});
+  upd();
+  if(top) top.addEventListener('click',()=>{
+    const reduce=motionReduced();
+    window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  });
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   loadColors();
   renderRoster();
@@ -2721,6 +2940,13 @@ document.addEventListener('DOMContentLoaded',()=>{
   /* V1: scroll affordance */
   markScrollable();
   window.addEventListener('resize',markScrollable);
+
+  /* motion pass — reveal, chart draw-in (first view, once), hero count-up, nav shadow, to-top */
+  motionInit();
+  initReveal();
+  initChartDraw();
+  initHeroCount();
+  initNavShadow();
 });
 </script>
 </body>

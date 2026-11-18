@@ -1,8 +1,13 @@
 # 06 — Free Models, Privacy & Local Options
 
-> **Snapshot: October 1, 2026; refreshed October 13, 16, 25 and November 17, 2026.** Data policies change without notice — re-verify before sending client/PHI data. **Nov 17: AA v5.0.1 re-baseline applied** — scores below are v5.0.1 unless labeled (v4.3.2); compare within v5.0.1 only.
+> **Snapshot: October 1, 2026; refreshed October 13, 16, 25, November 17 and 18, 2026.** Data policies change without notice — re-verify before sending client/PHI data. **Nov 17: AA v5.0.1 re-baseline applied** — scores below are v5.0.1 unless labeled (v4.3.2); compare within v5.0.1 only. **Nov 18: Argon 55-day retention correction; M3.1 Flash Free deprecated.**
 >
-> 🆕 **Nov 17 — the important updates:**
+> 🆕 **Nov 18 — the important corrections:**
+> - **Gemini 4 Argon retention is 55 days, not 0-day.** Go's privacy table now documents 55-day retention with the footnote "Requests are retained for up to 55 days for abuse monitoring in accordance with Google's Gemini API Terms" (PAYG section corroborates "Google APIs: retained up to 55 days"). Not trained, but **55 days is the worst retention on the Go roster** — every "Argon ZDR / 0-day" claim below is updated. Argon is fine for non-client work; for client/PHI the privacy-safe escalation is **Kimi K3.1 Pro (0-day, not trained, AA 46)**.
+> - **MiniMax M3.1 Flash Free was deprecated Nov 17, 2026** (PAYG deprecated-models table; absent from the live free list). Past-tense below. Free twins that state zero-retention: **DeepSeek V4.1 Flash Free + GLM-5.3-Flash Free** only.
+> - **DeepSeek ZDR is renewed monthly — currently valid through November 30, 2026.**
+>
+> 🆕 **Nov 17 — the important updates (history — Argon/M3.1-Free lines corrected Nov 18 above):**
 > - **Free-list additions:** **LongCat 2.5 Free** (0-day retention / ZDR — but **China-hosted, needs Regions = Global** opt-in), **Hy4 Flash Free** (0-day retention / ZDR), and **Iceman Contributor Free** — which **TRAINS ON DATA** 🚩 (treat it like a Contributor SKU: never for client/PHI/credentials/proprietary code). All three are Go-only SKUs, unmeasured on AA v5.0.1.
 > - **Free scores on v5.0.1:** GLM-5.3-Flash Free **28** (was 42), Beam Free **18** (was 30), DeepSeek Free **not measured on v5.0.1** (the base checkpoint is unmeasured; the 1017 checkpoint scores 33). GLM-5.3-Flash Free at **28** is still the best free zero-retention pick.
 > - **The “strong enough (AA 39–42)” framing is retired** (those were v4.3.2 numbers) — the measured floor is lower on the new scale; compare free models within v5.0.1 only.
@@ -123,7 +128,7 @@ The economics: the discount (~$1.15 per 1M input tokens) is what Meta effectivel
 | GPT 6/5.6 Luna | OpenAI API, **30-day retention** per OpenAI policy | ⚠️ for non-PHI; note your CV client contract bans OpenAI models entirely |
 | Claude Haiku 5.5 | Anthropic API, **30-day retention** per Anthropic policy | ⚠️ for non-PHI (Anthropic, not OpenAI — CV contract’s OpenAI ban doesn’t cover it; verify anyway) |
 | Claude (Zen only, not Go) | Anthropic 30-day retention | ⚠️ same |
-| **Gemini 4 Argon (Go)** | **“Not used / 0 days”** per Go’s privacy table — **no training** | ✅ for client/PHI after your own verification — **the Oct 16 training warning is withdrawn** |
+| **Gemini 4 Argon (Go)** | **Not trained BUT retained 55 days** per Go’s privacy table (corrected Nov 18 — was "Not used / 0 days") — worst retention on the roster | ⚠️ non-client work without a contract check; **for client/PHI use K3.1 Pro (0-day, not trained) instead** — the Oct 16 training warning stays withdrawn |
 | **Muse Spark Contributor (paid)** | **Trains on prompts/completions; terms ban sensitive/confidential/personal data** (Standard SKU does neither) | ❌ never for client/PHI — see §1b |
 | **Beam Free** | 30-day retention (safety), **no training** | ⚠️ non-critical only |
 | **Flint 40B Free** | **30-day retention; data may be used to improve the model** | ❌ not for sensitive/private work |

@@ -57,9 +57,9 @@ All Go-roster models with a v5.0.1 AA run are listed; unmeasured ones get explic
 
 **Not on AA at all (Go-only SKUs):** Iceman Contributor Free (⚠ trains on data) · LongCat 2.5 Free (China-hosted — needs Regions=Global) · Hy4 Flash Free.
 
-**Frontier anchors (not on Go — scale context, v5.0.1):** Claude Fable 5.2 (max) **65** (64.56; effort spread 65/62/62/56/54; $26.54/task) — board leader · Gemini 4 Carbon (high) 60 (60.03) · Claude Opus 5.5 (max) 59 (59.11) · GPT-6 Astra (max) 57 (56.85) · Claude Sonnet 5.5 (max) 55 (54.54) · GPT-6.1 Sol (max) 55 · Gemini 4 Hydrogen (xhigh) 54 · GPT-6.1 Terra (max) 51 · Muse Wonder Full (max) 50 · **Claude Fable 5.1 (xhigh) 50** (49 max / 47 high / 43 med / 39 low — deprecated but benchmarked every 18h; $12.99/task at max) · GPT-6 Sol (max) 44 (44.16). ⚠ Bare **"Claude Fable 5"** (Jun 2026) is an **unscored stub** — but **Fable 5.1 is scored** (50 xhigh / 49 max — same tier as Argon 50.4) and Fable 5.2 leads at 65. "Gemini 4 Argon Pro" does not exist on AA.
+**Frontier anchors (not on Go — scale context, v5.0.1):** Claude Fable 5.2 (max) **65** (64.56; Vals 71.31% #1 — new Vals leader; effort spread 65/62/62/56/54; $26.54/task) — board leader · **GPT-6.2 Astra (max/xhigh) 62 (new #2; high 60, med 57, low 46; Vals 67.66% #7)** · Gemini 4 Carbon (high) 60 (60.03; Vals 70.45%) · Claude Opus 5.5 (max) 59 (59.11) · GPT-6 Astra (max) 57 (56.85 — earlier anchor, superseded by 6.2) · GPT-6.2 Sol (max) 57 (Vals 66.06% #9) · Claude Sonnet 5.5 (max) 55 (54.54) · GPT-6.1 Sol (max) 55 · Gemini 4 Hydrogen (xhigh) 54 · GPT-6.1 Terra (max) 51 · Muse Wonder Full (max) 50 (Vals 66.79%) · **Claude Fable 5.1 (xhigh) 50** (49 max / 47 high / 43 med / 39 low — deprecated but benchmarked every 18h; $12.99/task at max) · GPT-6 Sol (max) 44 (44.16). ⚠ Bare **"Claude Fable 5"** (Jun 2026) is an **unscored stub** — but **Fable 5.1 is scored** (50 xhigh / 49 max — same tier as Argon 50.4) and Fable 5.2 leads at 65. "Gemini 4 Argon Pro" does not exist on AA.
 
-**What this means (v5.0.1):** **Argon (50)** is now both the intelligence ceiling on Go and (per [05](./05-intelligence-per-dollar.md)) the best top-end value — ZDR, 961 req/mo on the measured profile, 50%-off through Nov 30. **K3.1 Pro (46)** drops to #2 and becomes a specialist ration (1M ctx, Max effort). **Qwen4 Max (43)** is the new #3 and the first fresh model to land already scored on v5.0.1. **Haiku 5.5 (36)** is the strongest cheap-lab model. The cheap tier is compressed: Step 5 / M3.1 Flash / Qwen3.8 Flash = 29, GLM-5.3-Flash / GPT 6 Luna = 28, MiMo-V2.6-Flash = 27 — within ±3 points that is measurement noise, so pick on capacity/price/speed/privacy. And the DeepSeek checkpoint question is resolved: the console catalog names the SKU **"DeepSeek V4.1 Flash 1017"** — Go serves the 1017 checkpoint as the product (AA 33 = what you get), so the earlier checkpoint ambiguity is over (light hedge: router behavior can still change).
+**What this means (v5.0.1):** **Argon (50)** is the highest-AA model on Go and (per [05](./05-intelligence-per-dollar.md)) the best top-end value on raw pts/$ — **but 55-day retention (corrected Nov 18)**, so the old "privacy-clean (ZDR)" claim is withdrawn: default it for non-client planning, contract-check for client/PHI, escalate privacy-safe to K3.1 Pro. **K3.1 Pro (46)** is #2 and the 1M-ctx/Max-effort specialist. **Qwen4 Max (43)** is the new #3 and the first fresh model to land already scored on v5.0.1 (Vals 63.20% #11, top Chinese). **Haiku 5.5 (36)** is the strongest cheap-lab model. The cheap tier is compressed: Step 5 / M3.1 Flash / Qwen3.8 Flash = 29, GLM-5.3-Flash / GPT 6 Luna = 28, MiMo-V2.6-Flash = 27 — within ±3 points that is measurement noise, so pick on capacity/price/speed/privacy. And the DeepSeek checkpoint question is resolved: the console catalog names the SKU **"DeepSeek V4.1 Flash 1017"** — Go serves the 1017 checkpoint as the product (AA 33 = what you get), so the earlier checkpoint ambiguity is over (light hedge: router behavior can still change).
 
 ---
 
@@ -113,24 +113,24 @@ Triangulated across Vals AI, AA, LMArena, Terminal-Bench/vendor harnesses, SWE-b
 
 | Rank | Model | AA v5.0.1 | Best independent evidence | Notable vendor numbers / flags |
 |---|---|---|---|---|
-| 🥇 | **Gemini 4 Argon** | **50** (high) | **Vals Index v2.2 69.24% (#3 of 41)**, AutomationBench #1 51.3%, lowest hallucination (AA-Omniscience: 15% wrong guesses vs 29% next best) | DeepSWE 77.9 SOTA claim (Oct 13); no max effort on AA; ZDR |
-| 🥈 | **Kimi K3.1 Pro** | **46** (max) | **Vals v2.2 62.52% (#4 of 41)** | single AA variant @max; agentic claims not independently replicated yet |
-| 🥉 | **Qwen4 Max** | **43** | AA 43 (the only independent run so far; rel Nov 16, scored on v5.0.1 immediately) | 984K ctx; agentic evidence **not measured yet** |
+| 🥇 | **Gemini 4 Argon** | **50** (high) | **Vals Index v2.2 launch 69.24% (#3 of 41 at launch)**, AutomationBench #1 51.3%, lowest hallucination (AA-Omniscience: 15% wrong guesses vs 29% next best) | DeepSWE 77.9 SOTA claim (Oct 13); no max effort on AA; **55-day retention (corrected Nov 18 — worst on roster)** |
+| 🥈 | **Kimi K3.1 Pro** | **46** (max) | **Vals v2.2 62.52% (#4 of 41, confirmed)** | single AA variant @max; agentic claims not independently replicated yet |
+| 🥉 | **Qwen4 Max** | **43** | **Vals 63.20% (#11, top Chinese)**; AA 43 (rel Nov 16, scored on v5.0.1 immediately) | 984K ctx; other agentic evidence **not measured yet** |
 | 4 | **Kimi K3** | 17 (low ⚠) | **Terminal-Bench 2.1 88.3** (verified), DeepSWE 67.5 (verified), SWE-bench 93.4, SWE-Marathon 42, OSWorld 84.8 | FrontierSWE 81.2, BrowseComp 91.2, MCP-Atlas 84.2; ⚠ AA's 17 is @Low only — do not over-read |
-| 5 | **GLM-5.3 (max)** | 32 | TB2.1 88.2, **standardized TB4.0 41.9 (best Go)**, DeepSWE 66.9 | CyberGym 84.5, Z.ai Code Bench 34.5 |
-| 6 | **Grok 4.7** | 35 (xhigh) | Vals 58.56%; consults/reasoning (xhigh) | CursorBench 4.0 46.3, DeepSWE 71.0, TB4.0 37.6 |
-| 7 | **DeepSeek V4.1 Flash** | 33 (1017 — the served SKU) | Vendor DeepSWE 74.2 / TB2.1 90.6; **AA TB4.0 only 26.8** | AutomationBench 54.8, CyberGym 88.1; catalog SKU = "DeepSeek V4.1 Flash 1017" (base ckpt unscored, not served) |
+| 5 | **GLM-5.3 (max)** | 32 | Vals 59.85%; TB2.1 88.2, **standardized TB4.0 41.9 (best Go)**, DeepSWE 66.9 | CyberGym 84.5, Z.ai Code Bench 34.5 |
+| 6 | **Grok 4.7** | 35 (xhigh) | Vals 58.62%; consults/reasoning (xhigh) | CursorBench 4.0 46.3, DeepSWE 71.0, TB4.0 37.6 |
+| 7 | **DeepSeek V4.1 Flash** | 33 (1017 — the served SKU) | Vals 61.26%; vendor DeepSWE 74.2 / TB2.1 90.6; **AA TB4.0 only 26.8** | AutomationBench 54.8, CyberGym 88.1; catalog SKU = "DeepSeek V4.1 Flash 1017" (base ckpt unscored, not served) |
 | 8 | **GPT 5.6 Luna** | 24 (max) | Vals SWE-bench 93.0, TB2.1 84.7, AA Coding Agent Index 71.5, DeepSWE 67.2 | cheap; weak on TB4.0 |
 | 9 | **MiniMax M3.1 Flash** | 29 | **$0.49/AA task**, Vals 53.78%, 141.3 tok/s, 1.25s TTFT | cheap-agent value lane; long-horizon data still thin |
-| 10 | **MiMo-V2.6-Pro** | 30 | Table stakes all vendor: TB2.1 89.9, DeepSWE 71.9, AutomationBench 53.1 | AA AutomationBench high; tool-call repetition bug (fixed Sep 25) |
+| 10 | **MiMo-V2.6-Pro** | 30 | Vals 57.81%; table stakes all vendor: TB2.1 89.9, DeepSWE 71.9, AutomationBench 53.1 | AA AutomationBench high; tool-call repetition bug (fixed Sep 25) |
 | 11 | **GLM-5.3-Flash** | 28 | AA AutomationBench 60.4% (highest Go) | TB2.1 84.3 vendor vs 62.9 Vals — harsh harness gap |
 | 12 | **Qwen3.8 Max** | 34 (0902 ⚠) | SWE-bench Pro **67.7** (best Go, verified), OSWorld 86.1 (#1 overall) | Terminal-Bench 2.1 86.6; ⚠ Go serves the unscored 0803 snapshot |
-| 13 | **Step 5 Preview** | 29 | Vendor DeepSWE 67.7 (= Kimi K3), TB2.1 85.0; TB4.0 33.3 | StepCodeBench 49.0, ProgramBench 80.5 — open weights |
-| 14 | **Claude Haiku 5.5** | 36 (max) | Vals 54.31%, Vibe Code Bench 90.44%, TB4.0 35.35% | best cheap lab model / best subagent; matched Sonnet 5 on many coding tasks (Copilot testing) |
-| 15 | **Hy4 (GA)** | 35 | Vals 53.21% (preview); vendor SWE-bench Pro **65.7**, Toolathlon 74.1 | AA "Tencent Hy4" (GA); ⚠ preview is a separate Go SKU and is unscored |
+| 13 | **Step 5 Preview** | 29 | Vals 54.76%; vendor DeepSWE 67.7 (= Kimi K3), TB2.1 85.0; TB4.0 33.3 | StepCodeBench 49.0, ProgramBench 80.5 — open weights |
+| 14 | **Claude Haiku 5.5** | 36 (max) | Vals 54.31% (#16, $2.99/test), Vibe Code Bench 90.44%, TB4.0 35.35% | best cheap lab model / best subagent; matched Sonnet 5 on many coding tasks (Copilot testing) |
+| 15 | **Hy4 (GA)** | 35 | Vals 59.35%; vendor SWE-bench Pro **65.7**, Toolathlon 74.1 | AA "Tencent Hy4" (GA); ⚠ preview is a separate Go SKU and is unscored |
 | 16 | **LongCat-2.0** | not measured | Vendor SWE-bench Pro 59.5, SWE Multilingual 77.3 | absent from Western independent boards |
 | — | **Grok 4.6** (removed) | (v4.3.2, retired scale: 44) | Vals 71.8, SWE-bench Verified 95.6%, TB2.1 78.3 Vals / 88.4 AA | best *verified* Grok generation; Zen only |
-| — | **Beam Free** | 18 | — | AA "Beam 1.0"; SWE-bench Verified 80.9 vendor; token-efficient |
+| — | **Beam Free** | 18 | Vals 43.42% | AA "Beam 1.0"; SWE-bench Verified 80.9 vendor; token-efficient |
 | — | **Kimi K2.7 Code** | not measured | **All six headline benchmarks are first-party**; KernelBench regression vs K2.6 | treat with suspicion until third-party runs |
 
 **Flags & caveats on the AA numbers (all open, not resolved):**
@@ -141,7 +141,7 @@ Triangulated across Vals AI, AA, LMArena, Terminal-Bench/vendor harnesses, SWE-b
 - **Muse Spark's AA score prices Meta's endpoint ($1.25/$4.25)**, not the Go Contributor SKU.
 - The effort setting Go actually serves per model is **undocumented — open question**. AA name quirks: Grok 4.7's creator is "SpaceXAI"; Beam = "Beam 1.0".
 
-**The one-line summary:** the consensus reversal is real — **Argon (AA 50, Vals 69.24%) now leads on both boards**, and AA and Vals agree **Argon ≥ K3.1 Pro (46, Vals 62.52%)**, with **Qwen4 Max (43)** the fresh #3. **Argon is privacy-clean on Go (ZDR)**, which removes the biggest old caveat. **Haiku 5.5 (36)** is the best cheap lab model and the best subagent pick; the cheap tier (27–29) is compressed into noise. **DeepSeek V4.1 Flash** remains the volume/value driver (52,632 req/mo measured — see [05](./05-intelligence-per-dollar.md)). Muse Spark Contributor remains the only *paid* training-on-data route on Go (Iceman Free also trains).
+**The one-line summary:** the consensus reversal is real — **Argon (AA 50, Vals launch 69.24%) still leads the Go pair on both boards**, and AA and Vals agree **Argon ≥ K3.1 Pro (46, Vals 62.52%)**, with **Qwen4 Max (43, Vals 63.20%)** the fresh #3. **Argon is now the worst retention on Go (55-day, corrected Nov 18)** — the old privacy-clean claim is withdrawn; K3.1 Pro is the privacy-safe escalation. **Haiku 5.5 (36)** is the best cheap lab model and the best subagent pick; the cheap tier (27–29) is compressed into noise. **DeepSeek V4.1 Flash** remains the volume/value driver (47,619 req/mo measured — see [05](./05-intelligence-per-dollar.md)). Muse Spark Contributor remains the only *paid* training-on-data route on Go (Iceman Free also trains).
 
 ---
 
@@ -170,11 +170,11 @@ Triangulated across Vals AI, AA, LMArena, Terminal-Bench/vendor harnesses, SWE-b
 
 **MiMo-V2.6-Pro** (Sep 21) — 1.02T/42B sparse MoE, 70 layers, 1M ctx, **native text+image+video+speech**, MIT. AA **30 (29.89)** on v5.0.1 ((v4.3.2, retired scale: 46 — then #1 of all open-weight models in its class)); $0.26/AA task, 54.4 tok/s, 4.06s TTFT (25.8s TFAAT).
 
-Vendor table: DeepSWE 71.9, **TB2.1 89.9**, TB4.0 34.9, ProgramBench 26.5, AutomationBench 53.1, OSWorld 82.0, GDPval-AA 2.1 1673, CyberGym 94.0.
+Vendor table: DeepSWE 71.9, **TB2.1 89.9**, TB4.0 34.9, ProgramBench 26.5, AutomationBench 53.1, OSWorld 82.0, GDPval-AA 2.1 1673, CyberGym 94.0. Vals Index **57.81%**.
 
 ⚠️ **Known issue:** Xiaomi's Sept 27 post documents **tool-call repetition** (OpenCode: Flash 1.02%, Pro 0.54% of turns; up to 41.7% of replayed MiMo-Code samples). Fixed via MOPD distillation, API updated Sept 25. Also poor p95 TTFT (9.1s). [Post](https://mimo.xiaomi.com/blog/mimo-v2-6-tool-call-repetition)
 
-**MiMo-V2.6-Flash** — smaller RL sibling; 67.9 DeepSWE, 87.6 TB2.1 (vendor). **AA 27 (26.73)** on v5.0.1 at **$0.13/AA-task** ((v4.3.2, retired scale: 38)) — still the cheapest smart volume on Go: **51,433 req/mo measured (33,171 heavy), 23,145 AA pts/$** — #2 on the value podium.
+**MiMo-V2.6-Flash** — smaller RL sibling; 67.9 DeepSWE, 87.6 TB2.1 (vendor). **AA 27 (26.73)** on v5.0.1 at **$0.13/AA-task** ((v4.3.2, retired scale: 38)) — still the cheapest smart volume on Go: **47,455 req/mo measured (33,171 heavy), 21,355 AA pts/$** — #2 on the value podium.
 
 **MiMo-V2.5 / Pro** (legacy — retired upstream Oct 21, dropped from the Go catalog Nov 17) — **not measured (v5.0.1)** ((v4.3.2, retired scale: 25/26)). Only useful as volume filler where still reachable; prefer V2.6.
 
@@ -192,12 +192,13 @@ Vendor table: DeepSWE 71.9, **TB2.1 89.9**, TB4.0 34.9, ProgramBench 26.5, Autom
 | SWE-bench Pro | — | 62.1 |
 | CyberGym | 84.5 | 77.2 |
 | Agents' Last Exam | 28.5 | 23.8 |
+| Vals Index | 59.85% (5.3) | — |
 | Z.ai Code Bench | 34.5 @75K tok | 23.4 @96K |
 | LMArena text | 1479 (#26) | 1475 (#32) |
 
 ⚠️ NIST/CAISI named GLM-5.3 "the most cyber-capable open-weight model released to date," ~4 months behind the US frontier. Strengths: terminal/agentic + cyber. Weaknesses: no vision, always-reasoning (expensive), verbose, 7%+ hallucination per HN users.
 
-**GLM-5.3-Flash** (Aug 26) — 320B/18B MoE, **MIT**, native multimodal, sparse+linear attention. AA **28 (27.8)** on v5.0.1 at $0.58/task ((v4.3.2, retired scale: 42 at ~$0.25/task)), **AA AutomationBench 60.4%** (highest Go), vendor TB2.1 84.3 but Vals only 62.9 — provider quantization/harness variance is the caveat. Fast (up to 200 tok/s on FlashX; AA measures 57.1). Best cheap automation generalist on the roster; on v5.0.1 **M3.1 Flash is one AA point ahead (29 vs 28 — noise)** and wins on pts/$ (8,352 vs 4,758).
+**GLM-5.3-Flash** (Aug 26) — 320B/18B MoE, **MIT**, native multimodal, sparse+linear attention. AA **28 (27.8)** on v5.0.1 at $0.58/task ((v4.3.2, retired scale: 42 at ~$0.25/task)), **AA AutomationBench 60.4%** (highest Go), vendor TB2.1 84.3 but Vals only 62.9 — provider quantization/harness variance is the caveat. Fast (up to 200 tok/s on FlashX; AA measures 57.1). Best cheap automation generalist on the roster; on v5.0.1 **M3.1 Flash is one AA point ahead (29 vs 28 — noise)** and wins on pts/$ (7,286 vs 4,068).
 
 **GLM-5.2** (legacy — superseded by 5.3) — **not measured (v5.0.1)** ((v4.3.2, retired scale: 34)). Documented TB/SWE-Pro numbers only.
 
@@ -213,7 +214,7 @@ Vendor table: DeepSWE 71.9, **TB2.1 89.9**, TB4.0 34.9, ProgramBench 26.5, Autom
 
 ### 3.5 Moonshot Kimi
 
-**Kimi K3.1 Pro** ✨ (Oct 2026; on Go Oct 25) — Moonshot's refreshed flagship; **AA 46 (max; 46.45)** on v5.0.1 — **#2 on Go, behind Argon (50)** ((v4.3.2, retired scale: 55.1, then the Go ceiling)). AA-measured: 31.0 tok/s, 3.92s TTFT (151.0s TFAAT), **$3.68/AA task**, 1M ctx, vision. Go price **$2/$10/$0.20, cache write $2, $15 cap** → **259 req/mo measured (269 heavy)**. Vals Index v2.2 **62.52%** (#4). On v5.0.1 it is no longer the ceiling: Argon is 4 AA points ahead, gives ~3.7× the capacity (961 vs 259) and costs less per Go request ($0.031 vs $0.058 measured). K3.1 Pro keeps its niches: 1M ctx, Max effort, and OmO 5.1.47's K3.1 Pro-specific Sisyphus/Atlas prompts. Independent long-horizon/agentic numbers are still thin — treat the AA score as solid and the vendor agentic claims as 🟡.
+**Kimi K3.1 Pro** ✨ (Oct 2026; on Go Oct 25) — Moonshot's refreshed flagship; **AA 46 (max; 46.45)** on v5.0.1 — **#2 on Go, behind Argon (50)** ((v4.3.2, retired scale: 55.1, then the Go ceiling)). AA-measured: 31.0 tok/s, 3.92s TTFT (151.0s TFAAT), **$3.68/AA task**, 1M ctx, vision. Go price **$2/$10/$0.20, cache write $2, $15 cap** → **191 req/mo measured (269 heavy)**. Vals Index v2.2 **62.52%** (#4). On v5.0.1 it is no longer the ceiling: Argon is 4 AA points ahead, gives ~4.5× the capacity (862 vs 191) and costs less per Go request ($0.035 vs $0.079 measured). K3.1 Pro keeps its niches: 1M ctx, Max effort, and OmO 5.1.47's K3.1 Pro-specific Sisyphus/Atlas prompts. Independent long-horizon/agentic numbers are still thin — treat the AA score as solid and the vendor agentic claims as 🟡.
 
 **Kimi K3** (Jul 16) — **2.8T total / 104B active**, 93 layers (KDA + Gated MLA), MoonViT-V2 vision, 1M ctx, MXFP4 QAT, always-thinking, open weights under the Kimi K3 license. [HF card](https://huggingface.co/moonshotai/Kimi-K3)
 
@@ -227,7 +228,7 @@ Highlights (max): GPQA 93.5, HLE 43.5/56.0 tools, DeepSWE 67.5, TB2.1 88.3, **SW
 
 ### 3.6 Alibaba Qwen
 
-**Qwen4 Max** ✨ (Nov 16, 2026) — Alibaba's fresh flagship; **984K ctx**. **AA 43 (42.89) on v5.0.1** — the first fresh model to land already scored on the new scale (AA changelog Nov 15 "43"). AA-measured: 54.4 tok/s, 5.28s TTFT (147.6s TFAAT), **$3.27/task**. Go price **$1.50/$4.50/$0.075 (cache write $1.875), $15 cap** → **492 req/mo measured (543 heavy)**. New #3 on Go behind Argon and K3.1 Pro. Independent agentic runs are **not measured yet** — AA is the anchor for now.
+**Qwen4 Max** ✨ (Nov 16, 2026) — Alibaba's fresh flagship; **984K ctx**. **AA 43 (42.89) on v5.0.1** — the first fresh model to land already scored on the new scale (AA changelog Nov 15 "43"). Vals **63.20% (#11, top Chinese)**. AA-measured: 54.4 tok/s, 5.28s TTFT (147.6s TFAAT), **$3.27/task**. Go price **$1.50/$4.50/$0.075 (cache write $1.875), $15 cap** → **454 req/mo measured (543 heavy)**. New #3 on Go behind Argon and K3.1 Pro. Independent agentic runs are **not measured yet** — AA is the anchor for now.
 
 **Qwen3.8 Max** (Aug 3; 0902 snapshot) — 2.4T/95B, 1M ctx, text+image(+video), reasoning xhigh/medium/low. Prices $2/$6. AA **34 (0902 snapshot)** on v5.0.1 — ⚠ **Go serves the 0803 snapshot, which is unscored** ((v4.3.2, retired scale: 45)); 60.6 tok/s and $10.02/task — still **the most expensive Go model per unit of work**. Verified: **SWE-bench Pro 67.7 (best Go)**, TB2.1 86.6, **OSWorld 86.1 (#1 overall)**, MMMU-Pro 82.3, IFBench 82.8, LMArena WebDev **1688 (#2)**, LMArena Vision **#9** (not #2 — correction), ScreenSpot-Pro 84.5.
 
@@ -243,7 +244,7 @@ Highlights (max): GPQA 93.5, HLE 43.5/56.0 tools, DeepSWE 67.5, TB2.1 88.3, **SW
 
 **GPT 5.6 Luna** (Jul 9) — AA **24 (max; 23.79)** on v5.0.1 (other efforts unscored; (v4.3.2, retired scale: ~36)), Vals SWE-bench **93.0**, TB2.1 84.7, AA Coding Agent Index 71.5, DeepSWE 67.2. Good cheap second opinion, not a marathon agent.
 
-**Context (not on Go):** v5.0.1 anchors — GPT-6 Astra (57), GPT-6.1 Sol (55), GPT-6.1 Terra (51), GPT-6 Sol (44); see the frontier anchors in §1. ((v4.3.2, retired scale: Astra 53, Sol 47–48, GPT-6.1 Sol 52.)) Pay-for-the-jump targets via Zen.
+**Context (not on Go):** v5.0.1 anchors — GPT-6.2 Astra (62, new #2), GPT-6.2 Sol (57) / GPT-6 Astra (57, earlier anchor), GPT-6.1 Sol (55), GPT-6.1 Terra (51), GPT-6 Sol (44); see the frontier anchors in §1. ((v4.3.2, retired scale: Astra 53, Sol 47–48, GPT-6.1 Sol 52.)) Pay-for-the-jump targets via Zen.
 
 ---
 
@@ -275,7 +276,7 @@ Highlights (max): GPQA 93.5, HLE 43.5/56.0 tools, DeepSWE 67.5, TB2.1 88.3, **SW
 
 ### 3.11 MiniMax
 
-**MiniMax M3.1 Flash** ✨ (Oct 2026; on Go Oct 25) — MiniMax's refreshed agentic Flash model: **AA 29 (29.06)** on v5.0.1 ((v4.3.2, retired scale: 43)), **141.3 tok/s**, **1.25s TTFT (46.3s TFAAT)**, **$0.49/AA task**, 1M ctx, vision. Vals Index v2.2 **53.78%**. Go price **$0.15/$0.60/$0.015, $20 cap** → **5,760 req/mo measured (4,975 heavy), 8,352 AA pts/$**. On v5.0.1 it sits in the compressed cheap tier (29 vs GLM-5.3-Flash's 28 — noise), but still wins the value comparison on pts/$ (8,352 vs 4,758) and speed (141.3 vs 57.1 tok/s). Telemetry: #2 by tokens (+92% in a week). Community reports it is the early "Space Bunny" model. This is still the paid quality/value workhorse.
+**MiniMax M3.1 Flash** ✨ (Oct 2026; on Go Oct 25) — MiniMax's refreshed agentic Flash model: **AA 29 (29.06)** on v5.0.1 ((v4.3.2, retired scale: 43)), **141.3 tok/s**, **1.25s TTFT (46.3s TFAAT)**, **$0.49/AA task**, 1M ctx, vision. Vals Index v2.2 **53.78%**. Go price **$0.15/$0.60/$0.015, $20 cap** → **5,025 req/mo measured (4,975 heavy), 7,286 AA pts/$**. On v5.0.1 it sits in the compressed cheap tier (29 vs GLM-5.3-Flash's 28 — noise), but still wins the value comparison on pts/$ (7,286 vs 4,068) and speed (141.3 vs 57.1 tok/s). Telemetry: #2 by tokens (+92% in a week). Community reports it is the early "Space Bunny" model. This is still the paid quality/value workhorse.
 
 **MiniMax M3** (Jun 1) — 428B/23B, 1M ctx, open weights, multimodal. Vendor: SWE-bench Pro 59.0, TB2.1 66.0, OSWorld 70.06. **AA 19 (18.88)** on v5.0.1 ((v4.3.2, retired scale: 29)) — vendor claims far outrun independent measurement. ⚠ Tiered pricing: **>512K prompts double** ($0.60/$2.40/$0.12).
 
@@ -285,7 +286,7 @@ Highlights (max): GPQA 93.5, HLE 43.5/56.0 tools, DeepSWE 67.5, TB2.1 88.3, **SW
 
 ### 3.12 StepFun Step 5 Preview (paid, promo ended)
 
-**Step 5 Preview** (API Sep 20; Go free Oct 8–15; now **$1.00/$2.70/$0.10 with a $15/mo cap**) — 600B total / **27B active** sparse MoE, 1M ctx, native vision, built for long-horizon reasoning and autonomous execution. **AA 29 (28.53) on v5.0.1** ((v4.3.2, retired scale: 44, independently confirmed)); Vals TB4.0 31.8% matches vendor 33.3%. **Open weights released Oct 15** (BF16 + FP8, HuggingFace + ModelScope) — self-hostable. [StepFun announcement](https://www.stepfun.com/step-5-preview) · [Vals page](https://www.vals.ai/models/stepfun_step-5-preview)
+**Step 5 Preview** (API Sep 20; Go free Oct 8–15; now **$1.00/$2.70/$0.10 with a $15/mo cap**) — 600B total / **27B active** sparse MoE, 1M ctx, native vision, built for long-horizon reasoning and autonomous execution. **AA 29 (28.53) on v5.0.1** ((v4.3.2, retired scale: 44, independently confirmed)); Vals Index **54.76%**; Vals TB4.0 31.8% matches vendor 33.3%. **Open weights released Oct 15** (BF16 + FP8, HuggingFace + ModelScope) — self-hostable. [StepFun announcement](https://www.stepfun.com/step-5-preview) · [Vals page](https://www.vals.ai/models/stepfun_step-5-preview)
 
 | Benchmark | Step 5 (High) | Kimi K3 (Max) | GLM-5.3 (Max) |
 |---|---|---|---|
@@ -303,17 +304,17 @@ Highlights (max): GPQA 93.5, HLE 43.5/56.0 tools, DeepSWE 67.5, TB2.1 88.3, **SW
 
 ### 3.13 NEW — Kimi K3.1 Pro (on Go Oct 25)
 
-**Kimi K3.1 Pro** — Moonshot's mid-October flagship refresh, listed on Go on Oct 25 at **$2.00/$10.00/$0.20 (cache write $2.00), $15/mo**. **AA 46 (max; 46.45) on v5.0.1** — **#2 on Go** behind Argon (50); on the retired scale it scored (v4.3.2, retired scale: 55.1, then the Go ceiling). AA-measured: **31.0 tok/s, 3.92s TTFT (151.0s TFAAT), $3.68/AA task**, 1M ctx, vision. Vals Index v2.2: **62.52%** (#4 of 41, behind Sonnet 5.5, Opus 5.5 and Argon). At the measured fleet profile it costs **$0.05783/request** → **259 req/mo measured** (269 heavy; 5h ~52, week ~130).
+**Kimi K3.1 Pro** — Moonshot's mid-October flagship refresh, listed on Go on Oct 25 at **$2.00/$10.00/$0.20 (cache write $2.00), $15/mo**. **AA 46 (max; 46.45) on v5.0.1** — **#2 on Go** behind Argon (50); on the retired scale it scored (v4.3.2, retired scale: 55.1, then the Go ceiling). AA-measured: **31.0 tok/s, 3.92s TTFT (151.0s TFAAT), $3.68/AA task**, 1M ctx, vision. Vals Index v2.2: **62.52%** (#4 of 41, behind Sonnet 5.5, Opus 5.5 and Argon). At the measured fleet profile it costs **$0.07867/request** → **191 req/mo measured** (269 heavy; 5h ~38, week ~96).
 
-**Verdict:** no longer the Go ceiling — a specialist ration. Argon beats it on AA (50 vs 46), on Vals (69.24 vs 62.52), on cost per Go request ($0.031 vs $0.058) and on capacity (961 vs 259 req/mo). Keep K3.1 Pro for what its specific strengths buy you: **1M context, Max effort, and its OmO prompt tooling** — hardest plan/debug/review calls where those matter.
+**Verdict:** no longer the Go ceiling — a specialist ration. Argon beats it on AA (50 vs 46), on Vals (69.24 vs 62.52), on cost per Go request ($0.035 vs $0.079) and on capacity (862 vs 191 req/mo). Keep K3.1 Pro for what its specific strengths buy you: **1M context, Max effort, and its OmO prompt tooling** — hardest plan/debug/review calls where those matter.
 
 ---
 
 ### 3.14 NEW — MiniMax M3.1 Flash (on Go Oct 25)
 
-**MiniMax M3.1 Flash** — MiniMax's refreshed Flash model, listed on Go Oct 25 at **$0.15/$0.60/$0.015, $20/mo**. **AA 29 (29.06) on v5.0.1** ((v4.3.2, retired scale: 43)), **141.3 tok/s**, **1.25s TTFT (46.3s TFAAT)**, **$0.49/AA task**, 1M ctx, vision. Vals v2.2 53.78%. At the measured fleet profile: **$0.00347/request** → **5,760 req/mo measured (4,975 heavy)**, **8,352 AA pts/$**. Telemetry: **37T tokens/week, #2 overall, +92%** — the fastest adoption of any new Go model this cycle.
+**MiniMax M3.1 Flash** — MiniMax's refreshed Flash model, listed on Go Oct 25 at **$0.15/$0.60/$0.015, $20/mo**. **AA 29 (29.06) on v5.0.1** ((v4.3.2, retired scale: 43)), **141.3 tok/s**, **1.25s TTFT (46.3s TFAAT)**, **$0.49/AA task**, 1M ctx, vision. Vals v2.2 53.78%. At the measured fleet profile: **$0.00398/request** → **5,025 req/mo measured (4,975 heavy)**, **7,286 AA pts/$**. Telemetry: **37T tokens/week, #2 overall, +92%** — the fastest adoption of any new Go model this cycle.
 
-**Verdict:** still the paid quality/value workhorse, but on v5.0.1 it is inside the compressed cheap tier (29 vs GLM-5.3-Flash 28, Qwen3.8 Flash 29 — noise). It keeps the edge on pts/$ (8,352 vs 4,758 for GLM-5.3-Flash) and speed. For high-volume days: DeepSeek V4.1 Flash / MiMo-V2.6-Flash are the volume lanes, M3.1 Flash the quality lane.
+**Verdict:** still the paid quality/value workhorse, but on v5.0.1 it is inside the compressed cheap tier (29 vs GLM-5.3-Flash 28, Qwen3.8 Flash 29 — noise). It keeps the edge on pts/$ (7,286 vs 4,068 for GLM-5.3-Flash) and speed. For high-volume days: DeepSeek V4.1 Flash / MiMo-V2.6-Flash are the volume lanes, M3.1 Flash the quality lane.
 
 ---
 
@@ -325,11 +326,11 @@ Highlights (max): GPQA 93.5, HLE 43.5/56.0 tools, DeepSWE 67.5, TB2.1 88.3, **SW
 |---|---|
 | Go price | **$2.00 / $10.00 / $0.10** (50% off; list returns after Nov 30) |
 | Go monthly cap | **$30** — Plus **$120** — Teams **$35** |
-| Your cost/request | ≈ **$0.0312** (measured mix) → **961 req/mo measured** (728 heavy) |
-| Privacy | ✅ **Not used for training; 0-day retention** per Go docs — **corrected Oct 25** |
+| Your cost/request | ≈ **$0.0348** (measured mix) → **862 req/mo measured** (728 heavy) |
+| Privacy | ⚠️ **Not trained BUT 55-day retention** — corrected Nov 18 (the "0-day / ZDR" claim is withdrawn); worst retention on the Go roster. Footnote: "Requests are retained for up to 55 days for abuse monitoring in accordance with Google's Gemini API Terms" |
 | Capacity | 5h ~192 req; week ~480 (measured mix; heavy: 146 / 364) |
 
-**Verdict:** the Go **ceiling (AA 50) and the best hard-task capacity** in one SKU: 961 req/mo measured — 3.7× K3.1 Pro's capacity at ~46% lower cost per request, and 4 AA points *ahead*. ZDR, so it is the default hard-task model for client work too, subject to normal provider-contract verification. The old "trains on your data" warning in this repo was **wrong** and is withdrawn.
+**Verdict:** the Go **ceiling (AA 50) and the best hard-task capacity** in one SKU: 862 req/mo measured — 4.5× K3.1 Pro's capacity at ~56% lower cost per request, and 4 AA points *ahead*. But it is **no longer the privacy-safe default**: 55-day retention rules it out for client/PHI work without a contract check — **K3.1 Pro (0-day, not trained, AA 46) is the privacy-safe escalation**. The old "ZDR / trains-on-your-data withdrawn" framing in this repo was **half-right and is now corrected**: training was never the issue; retention is. Still confirm with the client and re-verify the table before PHI work.
 
 ---
 
@@ -356,7 +357,7 @@ Highlights (max): GPQA 93.5, HLE 43.5/56.0 tools, DeepSWE 67.5, TB2.1 88.3, **SW
 | Source | Status | Notes |
 |---|---|---|
 | Artificial Analysis | 🟢 healthy | **v5.0.1 current** (v5.0 Oct 27 → v5.0.1 Nov 3 regrade; whole Go roster re-scored); Qwen4 Max added at 43; Performance Benchmarking v3.0.0 (TTFT/TFAAT); retired v4.3.2 scores kept in §1 for history only |
-| Vals AI | 🟢 healthy | Index v2.2: Sonnet 5.5 70.85%, Opus 5.5 70.18%, Argon 69.24%, K3.1 Pro 62.52% |
+| Vals AI | 🟢 healthy | Index v2.2 — launch values Sonnet 5.5 70.85%, Opus 5.5 70.18%, Argon 69.24% (live board now shows per-lab best only). Verifiable Nov 18: Fable 5.2 **71.31% #1** (new leader) · Carbon 70.45% · GPT-6.2 Astra 67.66% #7 · Wonder Full 66.79% · GPT-6.2 Sol 66.06% #9 · Qwen4 Max 63.20% #11 (top Chinese) · K3.1 Pro 62.52% (confirmed) · DS 1017 61.26% · GLM-5.3 59.85% · Hy4 59.35% · Grok 58.62% · MiMo-Pro 57.81% · Step 5 54.76% · Haiku 54.31% #16 ($2.99/test; #3 Vibe Code Bench 90.44%) · M3.1 Flash 53.78% · Beam 43.42% |
 | LMArena | 🟡 unverifiable | JS-only leaderboard; this cycle's numbers come from mirrors/snippets. Qwen3.8 Max is **Vision #9**, not #2. |
 | SWE-bench official | 🟡 partial | JS board only renders headers for many rows; numbers circulate via mirrors |
 | Terminal-Bench official | 🟡 partial | TB2.1 renders; **TB4.0 table empty** |
@@ -377,13 +378,13 @@ Highlights (max): GPQA 93.5, HLE 43.5/56.0 tools, DeepSWE 67.5, TB2.1 88.3, **SW
 1. **Gemini 4 Argon (50, high)** · 2. **Kimi K3.1 Pro (46, max)** · 3. **Qwen4 Max (43)** · 4. Muse Spark 1.3 (37, max) ⚠️ trains · 5. Claude Haiku 5.5 (36, max; spread 35/30/25/19) · 6. Hy4 GA / Grok 4.7 (35) · 8. Qwen3.8 Max (34, 0902 snapshot ⚠️) · 9. DeepSeek V4.1 Flash 1017 (33, max — the served SKU) · 10. GLM-5.3 (32, max; low 23) · 11. MiMo-V2.6-Pro (30) · 12. Step 5 Preview / MiniMax M3.1 Flash / Qwen3.8 Flash (29) · 15. GLM-5.3-Flash / GPT 6 Luna (28) · 17. MiMo-V2.6-Flash (27) · 18. GPT 5.6 Luna (24) · 19. DeepSeek V4 Pro (23, legacy) · 20. MiniMax M3 (19) · 21. Beam Free (18) · 22. Kimi K3 (17, low only ⚠️). **Not measured (v5.0.1):** GLM-5.2 · Kimi K2.7 Code · LongCat-2.0 · Hy3 · Qwen3.7 Plus · Muse Spark 1.2 · DeepSeek base checkpoint (not the served SKU) · Qwen3.8 Max 0803 (the Go SKU) · Kimi K3 (max) · Hy4 preview. *(MiMo-V2.5/-Pro dropped from Go Nov 17 — roster 29→34→32.)* **Not on AA:** Iceman Contributor Free · LongCat 2.5 Free · Hy4 Flash Free.
 
 **Agentic coding (Go only, independent-evidence weighted):**
-1. **Gemini 4 Argon** (AA 50, Vals 69.24, ZDR) · 2. **Kimi K3.1 Pro** (AA 46, Vals 62.52) · 3. **Qwen4 Max** (AA 43; agentic evidence thin) · 4. Kimi K3 (TB2.1 88.3 / DeepSWE 67.5 verified; AA 17 @low — do not over-read) · 5. GLM-5.3 · 6. Grok 4.7 · 7. DeepSeek V4.1 Flash (value king) · 8. GPT 5.6 Luna · 9. **MiniMax M3.1 Flash** (value lane) · 10. MiMo-V2.6-Pro · 11. GLM-5.3-Flash · 12. Qwen3.8 Max · 13. Step 5 · 14. Claude Haiku 5.5 (best cheap lab / best subagent) · 15. Hy4 GA · 16. LongCat-2.0. Free tier: DeepSeek V4.1 Flash Free / GLM-5.3-Flash Free (zero-retention) > Beam Free (18, no training) > LongCat 2.5 Free / Hy4 Flash Free (unmeasured).
+1. **Gemini 4 Argon** (AA 50, Vals launch 69.24, 55-day retained) · 2. **Kimi K3.1 Pro** (AA 46, Vals 62.52, privacy-safe) · 3. **Qwen4 Max** (AA 43; Vals 63.20%; agentic evidence thin) · 4. Kimi K3 (TB2.1 88.3 / DeepSWE 67.5 verified; AA 17 @low — do not over-read) · 5. GLM-5.3 (Vals 59.85%) · 6. Grok 4.7 (Vals 58.62%) · 7. DeepSeek V4.1 Flash (value king; Vals 61.26%) · 8. GPT 5.6 Luna · 9. **MiniMax M3.1 Flash** (value lane; Vals 53.78%) · 10. MiMo-V2.6-Pro (Vals 57.81%) · 11. GLM-5.3-Flash · 12. Qwen3.8 Max · 13. Step 5 (Vals 54.76%) · 14. Claude Haiku 5.5 (best cheap lab / best subagent; Vals 54.31%) · 15. Hy4 GA (Vals 59.35%) · 16. LongCat-2.0. Free tier: DeepSeek V4.1 Flash Free / GLM-5.3-Flash Free (zero-retention) > Beam Free (18, no training; Vals 43.42%) > LongCat 2.5 Free / Hy4 Flash Free (unmeasured).
 
 **Design/frontend:** Muse Spark 1.3 > Kimi K3.1 Pro / K3 > GLM-5.3 > MiMo-Pro > Qwen3.8 Max. **Value:** MiMo-V2.6-Flash / DeepSeek V4.1 Flash / M3.1 Flash.
 
 **Vision/visual QA:** Qwen3.8 Max (OSWorld #1) > Kimi K3 > Muse Spark 1.3 > MiMo-Pro > Qwen3.8 Flash. For OCR: Qwen3.8 Max/Flash, DeepSeek V4.1 Flash (DocVQA 95.6).
 
-**The one-line summary:** the ceiling and the value story both changed — **Argon is now the ceiling AND the best top-end value** (AA 50, ZDR, 961 req/mo measured, 50%-off through Nov 30); the **cheap tier (27–29) is compressed into noise** — pick it on capacity/price/speed/privacy; **Haiku 5.5 (36) is the best cheap lab model**. **K3.1 Pro (46)** is the specialist ration (1M ctx, Max effort), **Qwen4 Max (43)** the fresh #3, and **DeepSeek V4.1 Flash** stays the volume king (52,632 req/mo measured, 10× multiplier).
+**The one-line summary:** the ceiling and the value story both changed — **Argon is the ceiling (AA 50, 862 req/mo measured, 50%-off through Nov 30) but 55-day retained** — pick it for non-client planning, escalate privacy-safe to K3.1 Pro; the **cheap tier (27–29) is compressed into noise** — pick it on capacity/price/speed/privacy; **Haiku 5.5 (36) is the best cheap lab model**. **K3.1 Pro (46)** is the specialist ration (1M ctx, Max effort), **Qwen4 Max (43)** the fresh #3, and **DeepSeek V4.1 Flash** stays the volume king (47,619 req/mo measured, 10× multiplier).
 
 ---
 

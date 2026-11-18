@@ -111,20 +111,20 @@ Most AI plans let you pick India and proceed. Two do not:
 
 ### If you want one subscription
 **OpenCode Go — $10/mo.** Pay by UPI. Set DeepSeek to Regions=Global. Use:
-- `deepseek-v4.1-flash` as the daily driver (52,632 req/mo measured / 32,258 heavy),
-- `minimax-m3.1-flash` as the cheap quality step-up (5,760 req/mo measured / 4,975 heavy, AA 29),
-- `kimi-k3.1-pro` for the hard 5% (259 req/mo measured / 269 heavy, AA 46),
-- `gemini-4-argon` for planning on non-client work (961 req/mo measured / 728 heavy, AA 50 — the AA ceiling — now **ZDR/not trained**),
+- `deepseek-v4.1-flash` as the daily driver (47,619 req/mo measured / 32,258 heavy),
+- `minimax-m3.1-flash` as the cheap quality step-up (5,025 req/mo measured / 4,975 heavy, AA 29),
+- `kimi-k3.1-pro` for the hard 5% (191 req/mo measured / 269 heavy, AA 46),
+- `gemini-4-argon` for planning on non-client work (862 req/mo measured / 728 heavy, AA 50 — the AA ceiling — now **55-day retained, worst on the roster**),
 - the free twins `deepseek-v4.1-flash-free` / `glm-5.3-flash-free` when a cap binds.
 
 ### If you are GLM-first
-**Z.ai GLM Coding Plan Lite — $18/mo.** At the frozen profile that is ~1,319 GLM-5.3 requests/mo at peak (2,639 off-peak) vs Go’s 279 (heavy mix; 292 measured) — roughly **4.7× the capacity** for 1.8× the price. Card/PayPal. Keep Go for the non-GLM models.
+**Z.ai GLM Coding Plan Lite — $18/mo.** At the frozen profile that is ~1,319 GLM-5.3 requests/mo at peak (2,639 off-peak) vs Go's 3,720 (heavy mix; 3,331 measured) — **Go now leads at 0.56× the price**, so Lite is only a second pool or off-peak doubler. Card/PayPal. Keep Go for the non-GLM models.
 
 ### If you are MiMo-first and low-volume
 **Xiaomi Token Plan Lite — $6/mo.** ~3,173 MiMo-Flash requests/mo or ~1,218 MiMo-Pro requests/mo at the frozen profile. Overseas email + Waffo checkout. At <3k req/mo this is cheaper than Go; above that, Go’s much larger allowance wins. No overseas invoice.
 
 ### If you are K3.1 Pro-first
-**Kimi Code Plus — $19/mo.** The only flat plan that includes K3.1 Pro, and it officially supports OpenCode. Go’s K3.1 Pro silo is only ~259 measured requests/mo (269 heavy); Kimi’s quota is opaque but a Plus plan is likely to beat that for K3.1 Pro-heavy work. Keep Go for everything else.
+**Kimi Code Plus — $19/mo.** The only flat plan that includes K3.1 Pro, and it officially supports OpenCode. Go’s K3.1 Pro silo is only ~191 measured requests/mo (269 heavy); Kimi’s quota is opaque but a Plus plan is likely to beat that for K3.1 Pro-heavy work. Keep Go for everything else.
 
 ### If you want the raw-value experiment
 **StepFun Step Plan Pro — $29/mo.** The published conversion ($1 ≈ 7M credits) implies ~45,000 Step 5 requests/mo at your profile — an order of magnitude beyond anything else. **Verify actual credit consumption in the console on the smallest plan first.** If it holds, it is the best $/heavy-request in this repo; if it does not, it is a footnote.
@@ -145,7 +145,7 @@ Most AI plans let you pick India and proceed. Two do not:
 5. **Quota:** is it an absolute number (requests, credits, dollars) or a relative multiplier (“3×”)? Relative quotas cannot be compared without a test.
 6. **Model list:** does the plan include the model you actually want, at the context/effort level you need? (Example: MiniMax M Plan’s Go tier is M3.1 Flash text only.)
 7. **Refunds:** Xiaomi Token Plan packages are **non-refundable** once paid; OpenCode credits and subscriptions have their own terms. Read before paying annually.
-8. **Data policy:** does the plan train on your data? Contributor SKUs (Muse Spark, and previously Argon) trade data rights for price. Argon on Go is now documented **not used / 0 days** — but re-verify before client/PHI work.
+8. **Data policy:** does the plan train on your data? Contributor SKUs (Muse Spark, and previously Argon) trade data rights for price. Argon on Go is now documented **not used for training, retained up to 55 days** — fine on training, worst-on-roster on retention — re-verify before client/PHI work.
 9. **Tax/FX:** add your card’s FX markup and any GST/OIDAR the seller charges before comparing to the USD headline.
 
 ---
@@ -159,7 +159,7 @@ Most AI plans let you pick India and proceed. Two do not:
 | Xiaomi signup | “Needs a Chinese phone” (assumption) | **Wrong** — overseas email/Google/Facebook; Waffo USD checkout |
 | Xiaomi vs Go value | “Go is 5–6× better” | **Roughly list-price parity**; Go wins only at high volume because of its $60 allowance for $10 |
 | OpenCode payment | “Card” | **UPI explicitly supported** — the decisive India advantage |
-| Gemini 4 Argon privacy | “Trains on your data” | **Withdrawn** — Go documents **Not used / 0 days** |
+| Gemini 4 Argon privacy | “Trains on your data” | **Corrected twice: training withdrawn Oct 25, then retention corrected Nov 18 — Go documents Not used / 55 days (worst on roster)** |
 | Kimi Code | “Global USD” | **Confirmed**: Plus $19/$15 annual, Pro $39/$31, Max $99/$79, Ultra $199/$159; official OpenCode guide |
 
 ---

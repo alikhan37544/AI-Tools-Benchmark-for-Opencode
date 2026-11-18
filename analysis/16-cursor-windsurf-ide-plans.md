@@ -175,7 +175,7 @@ Pricing now lives at devin.ai/pricing. Windsurf is rebranded "Devin Desktop."
 - **OpenCode compatibility:** Antigravity is an IDE; OpenCode complementary. 🟡
 
 ### 3.12 Bonus: OpenCode itself
-- **Price:** Free (MIT, open source). Optional: OpenCode Go $10/mo (29 curated models, generous limits) or Go Plus $40/mo (higher limits). Zen = pay-as-you-go at API rates. Enterprise = custom (SSO, internal gateway). 🟢 Source: opencode.ai/go.
+- **Price:** Free (MIT, open source). Optional: OpenCode Go $10/mo (32 curated models, generous limits) or Go Plus $40/mo (higher limits). Zen = pay-as-you-go at API rates. Enterprise = custom (SSO, internal gateway). 🟢 Source: opencode.ai/go.
 - **Model access (Go):** Kimi K3.1 Pro, MiniMax M3/M3.1 Flash, GPT 6/5.6 Luna, Claude Haiku 5.5, Gemini 4 Argon, GLM-5.3, DeepSeek V4.1 Flash/Pro, Qwen 3.8, Grok 4.7, Muse Spark, and more. No Claude Sonnet/Opus or GPT-5.5 in Go (use Zen/BYOK for those). 🟢
 - **India:** OpenCode is a CLI tool, works globally. Payment for Go via card (Stripe). No UPI mentioned but card works. 🟡
 - **Compatibility:** OpenCode runs in terminal alongside any IDE (Cursor, Windsurf, VS Code). It cannot consume Cursor/Windsurf subscriptions — BYOK or Go/Zen only. Anthropic blocked Claude subscription credentials for third-party tools (Jan 2026), so Claude Pro/Max cannot be used with OpenCode; use API keys. 🟢
@@ -228,8 +228,8 @@ Pricing now lives at devin.ai/pricing. Windsurf is rebranded "Devin Desktop."
 
 ### Tier 1: Cheapest real token value
 1. **OpenCode Go — $10/mo (~₹835 + GST ≈ ₹985)** 🟢
-   - 32 models including DeepSeek V4.1 Flash (~43,300 req/5h at the $100 cap — Console Go-page estimate), MiMo-V2.6-Flash (~30,100 req/5h), GLM-5.3-Flash (~6,320 req/5h), GPT 6 Luna, Claude Haiku 5.5, Gemini 4 Argon, Grok 4.7.
-   - **Best $/token ratio** of any subscription. Works with any agent. Zero data retention on most models.
+   - 32 models including DeepSeek V4.1 Flash (~43,300 req/5h at the $100 cap — Console Go-page estimate), MiMo-V2.6-Flash (~30,100 req/5h), GLM-5.3 (~2,640 req/5h — cap raised to $200 Nov 18), GLM-5.3-Flash (~6,320 req/5h), GPT 6 Luna, Claude Haiku 5.5, Gemini 4 Argon, Grok 4.7.
+   - **Best $/token ratio** of any subscription. Works with any agent. Zero data retention on most models (exception Nov 18: Argon is 55-day retained).
    - Caveat: No Claude Sonnet/Opus or GPT-5.5; use Zen/BYOK for those.
 
 2. **Cursor Start — ₹649/mo (legacy, India-only)** 🟢
